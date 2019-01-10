@@ -3,17 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://coderzh.github.io/categories/</loc>
+    <loc>http://dyrone.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://coderzh.github.io/</loc>
+    <loc>http://dyrone.github.io/topics/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://coderzh.github.io/tags/</loc>
+    <loc>http://dyrone.github.io/</loc>
     <priority>0</priority>
   </url>
   
