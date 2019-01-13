@@ -3,8 +3,14 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://dyrone.github.io/2019/01/13/__attribute__/</loc>
+    <loc>http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/</loc>
     <lastmod>2019-01-13T13:54:02+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyrone.github.io/tags/clang/</loc>
+    <lastmod>2019-01-13T13:54:02+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -15,6 +21,7 @@
   
   <url>
     <loc>http://dyrone.github.io/tags/</loc>
+    <lastmod>2019-01-13T13:54:02+08:00</lastmod>
     <priority>0</priority>
   </url>
   

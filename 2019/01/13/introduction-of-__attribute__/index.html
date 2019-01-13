@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Introduction of __attribute__   &middot; dyrone</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="clang, ">
+
+
+<meta property="og:title" content="Introduction of __attribute__   &middot; dyrone ">
+<meta property="og:site_name" content="dyrone"/>
+<meta property="og:url" content="http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2019-01-13T13:54:02&#43;08:00" />
+<meta property="og:article:modified_time" content="2019-01-13T13:54:02&#43;08:00" />
+
+  
+    
+<meta property="og:article:tag" content="clang">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@dyroneteng" />
+<meta name="twitter:creator" content="@dyroneteng" />
+<meta name="twitter:title" content="Introduction of __attribute__ " />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/" />
+<meta name="twitter:domain" content="http://dyrone.github.io">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Introduction of __attribute__ ",
+    "author": {
+      "@type": "Person",
+      "name": "http://profiles.google.com/+?rel=author"
+    },
+    "datePublished": "2019-01-13",
+    "description": "",
+    "wordCount": 473
+  }
+</script>
+
+
+
+<link rel="canonical" href="http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://dyrone.github.io/touch-icon-144-precomposed.png">
+<link href="http://dyrone.github.io/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.53" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'Your Google Analytics tracking code', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="http://dyrone.github.io">
+  dyrone
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Sometimes it is the people who no one imagines anything of , that do the things that no one can imagine.
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="http://dyrone.github.io">home</a>
+
+
+  
+<a href="http://dyrone.github.io/about">About</a>
+
+<a href="http://dyrone.github.io/post" title="Show list of posts">Posts</a>
+
+<a href="http://dyrone.github.io/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" aria-label="Email" href="mailto:dyroneteng@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" aria-label="Github" href="https://github.com/dyrone">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" aria-label="Twitter" href="https://twitter.com/dyroneteng">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Introduction of __attribute__ 
+</h1>
+
+  <div class="metas">
+<time datetime="2019-01-13">13 Jan, 2019</time>
+
+
+  
+  &middot; Read in about 3 min
+  &middot; (473 Words)
+  <br>
+  
+<a class="label" href="http://dyrone.github.io/tags/clang">clang</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+<h1 id="the-attribute-mechanism-preview">The <code>__attribute__</code> Mechanism Preview</h1>
+
+<blockquote>
+<p>One of the best (but little known) features of GNU C is the <code>__attribute__</code> mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&rsquo;ve been using this for years in highly portable code with very good results.</p>
+
+<p>contents from: <a href="http://www.unixwiz.net/techtips/gnu-c-attributes.html">http://www.unixwiz.net/techtips/gnu-c-attributes.html</a></p>
+</blockquote>
+
+<p>Basic informations:</p>
+
+<ol>
+<li><code>__attribute__</code> is a feature or mechanism from <strong>GNU C</strong> .</li>
+<li>we can attach <strong>characteristics</strong> to <strong>function</strong> declarations.</li>
+<li>active scope is at <strong>compile phases</strong>.</li>
+</ol>
+
+<p>Benefits:</p>
+
+<ol>
+<li>Designed <code>compatible</code> with non-GNU implementations.</li>
+<li>Highly <code>portable</code> code with very good results.</li>
+</ol>
+
+<p>When I was reading source code in git ,I found some codes like this:</p>
+
+<pre><code class="language-c">__attribute__((format (printf, 1, 2)))
+static void logerror(const char *err, ...)
+{
+	va_list params;
+	va_start(params, err);
+	logreport(LOG_ERR, err, params);
+	va_end(params);
+}
+</code></pre>
+
+<p>The function <strong>logerror</strong> is used to syslog, before function declaration we can see a line of <code>__attribute__</code> mechanism code.</p>
+
+<p>We will not go deep into how <strong>logerror</strong> work, but focus into <code>__attribute__</code> keyword.</p>
+
+<h1 id="format-characterisitics">Format Characterisitics</h1>
+
+<p>I will not repeat writing some introduction about <em>format</em>, because there already have a very complete and nice one : <a href="http://www.unixwiz.net/techtips/gnu-c-attributes.html#format">http://www.unixwiz.net/techtips/gnu-c-attributes.html#format</a>.</p>
+
+<p>Here is the description about it:</p>
+
+<p>This <code>__attribute__</code> allows assigning printf-like or scanf-like characteristics to the declared function, and this enables the compiler to check the format string against the parameters provided throughout the code. This is exceptionally helpful in tracking down hard-to-find bugs.</p>
+
+<p>There are two flavors:</p>
+
+<pre><code class="language-c">__attribute__((format(printf,m,n)))
+</code></pre>
+
+<pre><code class="language-c">__attribute__((format(scanf,m,n)))
+</code></pre>
+
+<p>but in practice we use the first one much more often.</p>
+
+<p>The (m) is the number of the &laquo;format string&raquo; parameter, and (n) is the number of the first variadic parameter. To see some examples:</p>
+
+<pre><code class="language-c">/* like printf() but to standard error only */
+extern void eprintf(const char *format, ...)
+	__attribute__((format(printf, 1, 2)));  /* 1=format 2=params */
+
+/* printf only if debugging is at the desired level */
+extern void dprintf(int dlevel, const char *format, ...)
+	__attribute__((format(printf, 2, 3)));  /* 2=format 3=params */
+</code></pre>
+
+<p>With the functions so declared, the compiler will examine the argument lists:</p>
+
+<pre><code>$ cat test.c
+</code></pre>
+
+<pre><code class="language-c">extern void eprintf(const char *format, ...)
+               __attribute__((format(printf, 1, 2)));
+
+  void foo()
+  {
+      eprintf(&quot;s=%s\n&quot;, 5);             /* error on this line */
+
+      eprintf(&quot;n=%d,%d,%d\n&quot;, 1, 2);    /* error on this line */
+  }
+</code></pre>
+
+<pre><code>$ cc -Wall -c test.c
+</code></pre>
+
+<p>outputs:</p>
+
+<pre><code>test.c: In function `foo':
+test.c:6: warning: format argument is not a pointer (arg 2)
+test.c:8: warning: too few arguments for format
+</code></pre>
+
+<p>Note that the &laquo;standard&raquo; library functions - printf and the like - are already understood by the compiler by default.</p>
+
+<h1 id="other-characteristics">Other Characteristics</h1>
+
+<p>The <code>__attribute__</code> contains some other useful characteristics. Except of function characteristics, there are :</p>
+
+<ol>
+<li>Variable Attributes</li>
+<li>Type Atrributes</li>
+</ol>
+
+<p>Adding mentions before:</p>
+
+<ol>
+<li>Function Atrributes</li>
+</ol>
+
+<p>I will not build a repeatable wheel thing ,if you like to take a view of all the attributes,there are some reference-library:</p>
+
+<ul>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html</a></li>
+<li><a href="http://www.unixwiz.net/techtips/gnu-c-attributes.html">http://www.unixwiz.net/techtips/gnu-c-attributes.html</a></li>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Function-Attributes.html">https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Function-Attributes.html</a></li>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Variable-Attributes.html">https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Variable-Attributes.html</a></li>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Type-Attributes.html">https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Type-Attributes.html</a></li>
+</ul>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+
+</div>
+
+  <div class="container comments">
+  <h2>Comments</h2>
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+<a href="http://dyrone.github.io/license">license</a>
+
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <i class='fa fa-heart'></i>
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 dyrone.
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

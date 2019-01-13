@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>dyrone</title>
-    <link>http://dyrone.github.io/</link>
-    <description>Recent content on dyrone</description>
+    <title>Clang on dyrone</title>
+    <link>http://dyrone.github.io/tags/clang/</link>
+    <description>Recent content in Clang on dyrone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
@@ -11,7 +11,7 @@
     <copyright>(c) 2019 dyrone.</copyright>
     <lastBuildDate>Sun, 13 Jan 2019 13:54:02 +0800</lastBuildDate>
     
-	<atom:link href="http://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://dyrone.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
