@@ -9,10 +9,22 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Sun, 13 Jan 2019 13:54:02 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Jan 2019 21:54:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>syslog protocol</title>
+      <link>http://dyrone.github.io/2019/01/13/syslog-protocol/</link>
+      <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/13/syslog-protocol/</guid>
+      <description>syslog protocol syslog is a protocol that use for recording logging informations at Unix.
+The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of syslog is the basic OS logging fuctions, this is what we will talk about in the next.
+formation syslog is consist of 7 parts:
+ Facility Level Action Time Hostname or IP Address PID Logging Message  Facility, Level and Action will define the location of the logging messages and the logging types and levels.</description>
+    </item>
     
     <item>
       <title>Introduction of __attribute__ </title>

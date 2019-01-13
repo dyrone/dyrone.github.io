@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>dyrone</title>
-    <link>http://dyrone.github.io/</link>
-    <description>Recent content on dyrone</description>
+    <title>Os on dyrone</title>
+    <link>http://dyrone.github.io/tags/os/</link>
+    <description>Recent content in Os on dyrone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
@@ -11,7 +11,7 @@
     <copyright>(c) 2019 dyrone.</copyright>
     <lastBuildDate>Sun, 13 Jan 2019 21:54:02 +0800</lastBuildDate>
     
-	<atom:link href="http://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://dyrone.github.io/tags/os/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -24,16 +24,6 @@
 The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of syslog is the basic OS logging fuctions, this is what we will talk about in the next.
 formation syslog is consist of 7 parts:
  Facility Level Action Time Hostname or IP Address PID Logging Message  Facility, Level and Action will define the location of the logging messages and the logging types and levels.</description>
-    </item>
-    
-    <item>
-      <title>Introduction of __attribute__ </title>
-      <link>http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/</link>
-      <pubDate>Sun, 13 Jan 2019 13:54:02 +0800</pubDate>
-      <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/</guid>
-      <description>The __attribute__ Mechanism Preview  One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
-contents from: http://www.unixwiz.net/techtips/gnu-c-attributes.html</description>
     </item>
     
   </channel>

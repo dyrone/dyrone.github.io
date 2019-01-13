@@ -9,7 +9,7 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Sun, 13 Jan 2019 13:54:02 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Jan 2019 21:54:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,9 +17,18 @@
     <item>
       <title>Clang</title>
       <link>http://dyrone.github.io/tags/clang/</link>
-      <pubDate>Sun, 13 Jan 2019 13:54:02 +0800</pubDate>
+      <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
       <guid>http://dyrone.github.io/tags/clang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Os</title>
+      <link>http://dyrone.github.io/tags/os/</link>
+      <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/tags/os/</guid>
       <description></description>
     </item>
     
