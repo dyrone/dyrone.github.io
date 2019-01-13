@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on sitename</title>
+    <title>Tags on dyrone</title>
     <link>http://dyrone.github.io/tags/</link>
-    <description>Recent content in Tags on sitename</description>
+    <description>Recent content in Tags on dyrone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
-    <managingEditor>yourname@example.com (yourname)</managingEditor>
-    <webMaster>yourname@example.com (yourname)</webMaster>
-    <copyright>(c) 2015 yourname.</copyright>
+    <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
+    <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
+    <copyright>(c) 2019 dyrone.</copyright>
     
 	<atom:link href="http://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
