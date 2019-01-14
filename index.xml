@@ -9,10 +9,19 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Sun, 13 Jan 2019 21:54:02 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jan 2019 09:38:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sliding Window Algorithm</title>
+      <link>http://dyrone.github.io/2019/01/14/sliding-window-algorithm/</link>
+      <pubDate>Mon, 14 Jan 2019 09:38:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/14/sliding-window-algorithm/</guid>
+      <description>There is a pic of sliding window arrived first, i will write the blog back soon!</description>
+    </item>
     
     <item>
       <title>syslog protocol</title>

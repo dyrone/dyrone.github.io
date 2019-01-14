@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on dyrone</title>
+    <link>http://dyrone.github.io/tags/algorithm/</link>
+    <description>Recent content in Algorithm on dyrone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-EN</language>
+    <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
+    <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
+    <copyright>(c) 2019 dyrone.</copyright>
+    <lastBuildDate>Mon, 14 Jan 2019 09:38:02 +0800</lastBuildDate>
+    
+	<atom:link href="http://dyrone.github.io/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sliding Window Algorithm</title>
+      <link>http://dyrone.github.io/2019/01/14/sliding-window-algorithm/</link>
+      <pubDate>Mon, 14 Jan 2019 09:38:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/14/sliding-window-algorithm/</guid>
+      <description>There is a pic of sliding window arrived first, i will write the blog back soon!</description>
+    </item>
+    
+  </channel>
+</rss>
