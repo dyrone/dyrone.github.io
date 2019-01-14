@@ -55,7 +55,7 @@
     },
     "datePublished": "2019-01-13",
     "description": "",
-    "wordCount": 473
+    "wordCount": 478
   }
 </script>
 
@@ -185,7 +185,7 @@
 
   
   &middot; Read in about 3 min
-  &middot; (473 Words)
+  &middot; (478 Words)
   <br>
   
 <a class="label" href="http://dyrone.github.io/tags/clang">clang</a>
@@ -199,28 +199,22 @@
   <div class="container content">
   
 
-<h1 id="the-attribute-mechanism-preview">The <code>__attribute__</code> Mechanism Preview</h1>
+<h1 id="the-attribute-mechanism-preview">The <strong>attribute</strong> Mechanism Preview</h1>
 
-<blockquote>
 <p>One of the best (but little known) features of GNU C is the <code>__attribute__</code> mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&rsquo;ve been using this for years in highly portable code with very good results.</p>
 
+<blockquote>
 <p>contents from: <a href="http://www.unixwiz.net/techtips/gnu-c-attributes.html">http://www.unixwiz.net/techtips/gnu-c-attributes.html</a></p>
 </blockquote>
 
-<p>Basic informations:</p>
+<p>Basic informations:
+1. <code>__attribute__</code> is a feature or mechanism from <strong>GNU C</strong> .
+2. we can attach <strong>characteristics</strong> to <strong>function</strong> declarations.
+3. active scope is at <strong>compile phases</strong>.</p>
 
-<ol>
-<li><code>__attribute__</code> is a feature or mechanism from <strong>GNU C</strong> .</li>
-<li>we can attach <strong>characteristics</strong> to <strong>function</strong> declarations.</li>
-<li>active scope is at <strong>compile phases</strong>.</li>
-</ol>
-
-<p>Benefits:</p>
-
-<ol>
-<li>Designed <code>compatible</code> with non-GNU implementations.</li>
-<li>Highly <code>portable</code> code with very good results.</li>
-</ol>
+<p>Benefits:
+1. Designed <code>compatible</code> with non-GNU implementations.
+2. Highly <code>portable</code> code with very good results.</p>
 
 <p>When I was reading source code in git ,I found some codes like this:</p>
 

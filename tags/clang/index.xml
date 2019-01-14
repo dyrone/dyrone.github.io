@@ -32,8 +32,8 @@ formation syslog is consist of 7 parts:
       <pubDate>Sun, 13 Jan 2019 13:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
       <guid>http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/</guid>
-      <description>The __attribute__ Mechanism Preview  One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
-contents from: http://www.unixwiz.net/techtips/gnu-c-attributes.html</description>
+      <description>The attribute Mechanism Preview One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
+ contents from: http://www.unixwiz.net/techtips/gnu-c-attributes.html</description>
     </item>
     
   </channel>
