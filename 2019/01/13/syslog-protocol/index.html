@@ -57,7 +57,7 @@
     },
     "datePublished": "2019-01-13",
     "description": "",
-    "wordCount": 478
+    "wordCount": 722
   }
 </script>
 
@@ -186,8 +186,8 @@
 
 
   
-  &middot; Read in about 3 min
-  &middot; (478 Words)
+  &middot; Read in about 4 min
+  &middot; (722 Words)
   <br>
   
 <a class="label" href="http://dyrone.github.io/tags/clang">clang</a>
@@ -327,6 +327,68 @@ none	# means no levels
 <p>It&rsquo;s easy to recognize the formation of the message ,there is more clearly looking below:</p>
 
 <p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fz5cqr321yj30o10cuq4e.jpg" alt="" /></p>
+
+<h1 id="rsyslog">rsyslog</h1>
+
+<p>I will show the usage of <strong>rsyslog</strong> instead of syslog.
+The rsyslog routine is a level-up version of <strong>syslog</strong>. It&rsquo;s providing more functions and bigger throughput than syslog.</p>
+
+<p>Let&rsquo;s take a look how to use it in <em>Ubuntu</em>.</p>
+
+<p>First step , install the rsyslog using <strong>apt-get</strong>:</p>
+
+<pre><code>apt-get install rsyslog
+</code></pre>
+
+<p>Then, open <em>/etc/rsyslogd.conf</em> config file, you can determine which protocol you want to take, here we select UDP protocol, default port is <strong>514</strong></p>
+
+<pre><code># provides UDP syslog reception
+module(load=&quot;imudp&quot;)
+input(type=&quot;imudp&quot; port=&quot;514&quot;)
+
+# provides TCP syslog reception
+#module(load=&quot;imtcp&quot;)
+#input(type=&quot;imtcp&quot; port=&quot;514&quot;)
+</code></pre>
+
+<p>Now,let&rsquo;s start rsyslog by <strong>rsyslogd</strong> and taked a look at the running process to check whether the log service is startup.</p>
+
+<pre><code>rsyslogd
+</code></pre>
+
+<pre><code>root@c1f399b35ca3:/etc# ps -ef|grep rsyslogd
+syslog   62810     0  0 03:26 ?        00:00:00 rsyslogd
+root     62835 62621  0 03:39 pts/2    00:00:00 grep --color=auto rsyslogd
+</code></pre>
+
+<p>If you want to change the rsyslog facilities , levels or actions for yourself, you can modify the config file locates at:</p>
+
+<pre><code>/etc/rsyslog.d/50-default.conf
+</code></pre>
+
+<p>We can find out the default mask is <em>/var/log/syslog</em> .</p>
+
+<pre><code>auth,authpriv.*                 /var/log/auth.log
+*.*;auth,authpriv.none          -/var/log/syslog
+#cron.*                         /var/log/cron.log
+#daemon.*                       -/var/log/daemon.log
+kern.*                          -/var/log/kern.log
+#lpr.*                          -/var/log/lpr.log
+mail.*                          -/var/log/mail.log
+</code></pre>
+
+<p>So we&rsquo;ll make a test to it by using <em>logger</em> routine.</p>
+
+<pre><code>root@c1f399b35ca3:/var/log# logger test
+</code></pre>
+
+<p>And output will be append at the tail of <em>/var/log/syslog</em>, we ca t find the message &laquo;test&raquo; we logged.</p>
+
+<pre><code>root@c1f399b35ca3:/var/log# tail -3 syslog
+Jan 14 03:26:07 c1f399b35ca3 rsyslogd: rsyslogd's userid changed to 101
+Jan 14 03:26:07 c1f399b35ca3 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.32.0&quot; x-pid=&quot;62810&quot; x-info=&quot;http://www.rsyslog.com&quot;] start
+Jan 14 03:26:33 c1f399b35ca3 root: test
+</code></pre>
 
 <h1 id="reference-library">Reference library</h1>
 
