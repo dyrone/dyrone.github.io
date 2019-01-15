@@ -24,11 +24,11 @@
     </item>
     
     <item>
-      <title>syslog protocol</title>
-      <link>http://dyrone.github.io/2019/01/13/syslog-protocol/</link>
+      <title>The syslog in Clang</title>
+      <link>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</link>
       <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/13/syslog-protocol/</guid>
+      <guid>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</guid>
       <description>syslog protocol syslog is a protocol that use for recording logging informations at Unix.
 The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of syslog is the basic OS logging fuctions, this is what we will talk about in the next.
 formation syslog is consist of 7 parts:
@@ -36,12 +36,12 @@ formation syslog is consist of 7 parts:
     </item>
     
     <item>
-      <title>Introduction of __attribute__ </title>
-      <link>http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/</link>
+      <title>The attribute characteristics in Clang</title>
+      <link>http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/</link>
       <pubDate>Sun, 13 Jan 2019 13:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/13/introduction-of-__attribute__/</guid>
-      <description>The attribute Mechanism Preview One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
+      <guid>http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/</guid>
+      <description>THe attribute mechanism preview One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
  contents from: http://www.unixwiz.net/techtips/gnu-c-attributes.html</description>
     </item>
     

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>The syslog in Clang  &middot; dyrone</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="clang, os, ">
+
+
+<meta property="og:title" content="The syslog in Clang  &middot; dyrone ">
+<meta property="og:site_name" content="dyrone"/>
+<meta property="og:url" content="http://dyrone.github.io/2019/01/13/the-syslog-in-clang/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2019-01-13T21:54:02&#43;08:00" />
+<meta property="og:article:modified_time" content="2019-01-13T21:54:02&#43;08:00" />
+
+  
+    
+<meta property="og:article:tag" content="clang">
+    
+<meta property="og:article:tag" content="os">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@dyroneteng" />
+<meta name="twitter:creator" content="@dyroneteng" />
+<meta name="twitter:title" content="The syslog in Clang" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="http://dyrone.github.io/2019/01/13/the-syslog-in-clang/" />
+<meta name="twitter:domain" content="http://dyrone.github.io">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "The syslog in Clang",
+    "author": {
+      "@type": "Person",
+      "name": "http://profiles.google.com/+?rel=author"
+    },
+    "datePublished": "2019-01-13",
+    "description": "",
+    "wordCount": 723
+  }
+</script>
+
+
+
+<link rel="canonical" href="http://dyrone.github.io/2019/01/13/the-syslog-in-clang/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://dyrone.github.io/touch-icon-144-precomposed.png">
+<link href="http://dyrone.github.io/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.53" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-29549927-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="http://dyrone.github.io">
+  dyrone
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Sometimes it is the people who no one imagines anything of, that do the things that no one can imagine.
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="http://dyrone.github.io">home</a>
+
+
+  
+<a href="http://dyrone.github.io/about">About</a>
+
+<a href="http://dyrone.github.io/post" title="Show list of posts">Posts</a>
+
+<a href="http://dyrone.github.io/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" aria-label="Email" href="mailto:dyroneteng@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" aria-label="Github" href="https://github.com/dyrone">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" aria-label="Twitter" href="https://twitter.com/dyroneteng">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>The syslog in Clang
+</h1>
+
+  <div class="metas">
+<time datetime="2019-01-13">13 Jan, 2019</time>
+
+
+  
+  &middot; Read in about 4 min
+  &middot; (723 Words)
+  <br>
+  
+<a class="label" href="http://dyrone.github.io/tags/clang">clang</a>
+
+<a class="label" href="http://dyrone.github.io/tags/os">os</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fz5d3g6dqej305i048dfq.jpg" alt="syslog" /></p>
+
+<h1 id="syslog-protocol">syslog protocol</h1>
+
+<p><code>syslog</code> is a protocol that use for recording logging informations at Unix.</p>
+
+<p>The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of <strong>syslog</strong> is the basic OS logging fuctions, this is what we will talk about in the next.</p>
+
+<h1 id="formation">formation</h1>
+
+<p><code>syslog</code> is consist of 7 parts:</p>
+
+<ol>
+<li><strong>Facility</strong></li>
+<li><strong>Level</strong></li>
+<li><strong>Action</strong></li>
+<li><strong>Time</strong></li>
+<li><strong>Hostname or IP Address</strong></li>
+<li><strong>PID</strong></li>
+<li><strong>Logging Message</strong></li>
+</ol>
+
+<p>Facility, Level and Action will define the location of the logging messages and the logging types and levels.</p>
+
+<h2 id="1-facilities">1. Facilities</h2>
+
+<pre><code>kern     	# kernel
+user     	# user
+mail    	# mails  
+daemon  	# backgroud daemon processs
+authpriv    	# auth privileges
+syslog      	# sys log
+lpr      	# prints
+news     	# news
+uucp     	# uucp
+cron    	# cron tasks
+mark    	# syslog generate timestamps
+local0-local7	# other local customized facilities
+*  		# * means all facilities except &quot;mark&quot;
+</code></pre>
+
+<p>Those Facilities that have been designated are shown in the following table along with their numerical code values:</p>
+
+<pre><code>       Numerical             Facility
+          Code
+
+           0             kernel messages
+           1             user-level messages
+           2             mail system
+           3             system daemons
+           4             security/authorization messages (note 1)
+
+           5             messages generated internally by syslogd
+           6             line printer subsystem
+           7             network news subsystem
+           8             UUCP subsystem
+           9             clock daemon (note 2)
+          10             security/authorization messages (note 1)
+          11             FTP daemon
+          12             NTP subsystem
+          13             log audit (note 1)
+          14             log alert (note 1)
+          15             clock daemon (note 2)
+          16             local use 0  (local0)
+          17             local use 1  (local1)
+          18             local use 2  (local2)
+          19             local use 3  (local3)
+          20             local use 4  (local4)
+          21             local use 5  (local5)
+          22             local use 6  (local6)
+          23             local use 7  (local7)
+</code></pre>
+
+<h2 id="2-levels-levels-of-logging">2. Levels: levels of logging</h2>
+
+<pre><code>debug 		# debuginfos
+info 		# normal infos
+notice 		# not influence, but important
+warning/warn 	# may make influence
+err/error 	# error infos
+crit 		# critical infos 
+alert 		# must take actions immediately
+emerg/canic 	# may cause unavailable
+*		# means all levels
+none	# means no levels
+</code></pre>
+
+<p>These are described in the following table along with their numerical values.</p>
+
+<pre><code>        Numerical         Severity
+          Code
+
+           0       Emergency: system is unusable
+           1       Alert: action must be taken immediately
+           2       Critical: critical conditions
+           3       Error: error conditions
+           4       Warning: warning conditions
+           5       Notice: normal but significant condition
+           6       Informational: informational messages
+           7       Debug: debug-level messages
+</code></pre>
+
+<h2 id="3-actions-locations-of-logging">3. Actions: locations of logging</h2>
+
+<p><strong>Action</strong> is the configuration of the locations</p>
+
+<p>Locations could be :
+1. local path: /var/log/XXX
+2. pipe: |
+3. devs/terminals: /dev/console
+4. remote servers: @1.1.1.1</p>
+
+<h2 id="4-time-hostname-ip-pid-message">4. time, hostname/IP, PID, message</h2>
+
+<p>When <code>facility, level, action</code> determine the necessary configs of logging, the left members <code>time, hostname/IP, PID, message</code> will construct a specific message of syslog.</p>
+
+<p>There is a example of syslog:</p>
+
+<pre><code>Jan 13 22:50:34 r*****7.***sqa tenglong.tl[64994]: alicmd:tenglong.tl:logger &quot;test&quot;:tenglong.tl pts/1 2019-01-13 21:27 (10.65.140.250)
+</code></pre>
+
+<p>It&rsquo;s easy to recognize the formation of the message ,there is more clearly looking below:</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fz5cqr321yj30o10cuq4e.jpg" alt="" /></p>
+
+<h1 id="rsyslog">rsyslog</h1>
+
+<p>I will show the usage of <strong>rsyslog</strong> instead of syslog.
+The rsyslog routine is a level-up version of <strong>syslog</strong>. It&rsquo;s providing more functions and bigger throughput than syslog.</p>
+
+<p>Let&rsquo;s take a look how to use it in <em>Ubuntu</em>.</p>
+
+<p>First step , install the rsyslog using <strong>apt-get</strong>:</p>
+
+<pre><code>apt-get install rsyslog
+</code></pre>
+
+<p>Then, open <em>/etc/rsyslogd.conf</em> config file, you can determine which protocol you want to take, here we select UDP protocol, default port is <strong>514</strong></p>
+
+<pre><code># provides UDP syslog reception
+module(load=&quot;imudp&quot;)
+input(type=&quot;imudp&quot; port=&quot;514&quot;)
+
+# provides TCP syslog reception
+#module(load=&quot;imtcp&quot;)
+#input(type=&quot;imtcp&quot; port=&quot;514&quot;)
+</code></pre>
+
+<p>Now,let&rsquo;s start rsyslog by <strong>rsyslogd</strong> and taked a look at the running process to check whether the log service is startup.</p>
+
+<pre><code>rsyslogd
+</code></pre>
+
+<pre><code>root@c1f399b35ca3:/etc# ps -ef|grep rsyslogd
+syslog   62810     0  0 03:26 ?        00:00:00 rsyslogd
+root     62835 62621  0 03:39 pts/2    00:00:00 grep --color=auto rsyslogd
+</code></pre>
+
+<p>If you want to change the rsyslog facilities , levels or actions for yourself, you can modify the config file locates at:</p>
+
+<pre><code>/etc/rsyslog.d/50-default.conf
+</code></pre>
+
+<p>We can find out the default mask is <em>/var/log/syslog</em> .</p>
+
+<pre><code>auth,authpriv.*                 /var/log/auth.log
+*.*;auth,authpriv.none          -/var/log/syslog
+#cron.*                         /var/log/cron.log
+#daemon.*                       -/var/log/daemon.log
+kern.*                          -/var/log/kern.log
+#lpr.*                          -/var/log/lpr.log
+mail.*                          -/var/log/mail.log
+</code></pre>
+
+<p>So we&rsquo;ll make a test to it by using <em>logger</em> routine.</p>
+
+<pre><code>root@c1f399b35ca3:/var/log# logger test
+</code></pre>
+
+<p>And output will be append at the tail of <em>/var/log/syslog</em>, we ca t find the message &laquo;test&raquo; we logged.</p>
+
+<pre><code>root@c1f399b35ca3:/var/log# tail -3 syslog
+Jan 14 03:26:07 c1f399b35ca3 rsyslogd: rsyslogd's userid changed to 101
+Jan 14 03:26:07 c1f399b35ca3 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.32.0&quot; x-pid=&quot;62810&quot; x-info=&quot;http://www.rsyslog.com&quot;] start
+Jan 14 03:26:33 c1f399b35ca3 root: test
+</code></pre>
+
+<h1 id="reference-library">Reference library</h1>
+
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc3164">https://tools.ietf.org/html/rfc3164</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Syslog">https://en.wikipedia.org/wiki/Syslog</a></li>
+<li><a href="https://linux.die.net/man/5/syslog.conf">https://linux.die.net/man/5/syslog.conf</a></li>
+<li><a href="https://linux.die.net/man/3/syslog">https://linux.die.net/man/3/syslog</a></li>
+</ul>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/" title="The attribute characteristics in Clang">
+      Previous
+    </a>
+    
+
+    
+    <a class="next" href="http://dyrone.github.io/2019/01/14/sliding-window-algorithm/" title="Sliding Window Algorithm">
+      Next
+    </a>
+    
+
+  
+
+
+</div>
+
+  <div class="container comments">
+  <h2>Comments</h2>
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//dyrone-github-io.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+<a href="http://dyrone.github.io/license">license</a>
+
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <i class='fa fa-heart'></i>
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 dyrone.
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//dyrone-github-io.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

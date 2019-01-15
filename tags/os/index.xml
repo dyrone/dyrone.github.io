@@ -15,11 +15,11 @@
     
     
     <item>
-      <title>syslog protocol</title>
-      <link>http://dyrone.github.io/2019/01/13/syslog-protocol/</link>
+      <title>The syslog in Clang</title>
+      <link>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</link>
       <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/13/syslog-protocol/</guid>
+      <guid>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</guid>
       <description>syslog protocol syslog is a protocol that use for recording logging informations at Unix.
 The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of syslog is the basic OS logging fuctions, this is what we will talk about in the next.
 formation syslog is consist of 7 parts:
