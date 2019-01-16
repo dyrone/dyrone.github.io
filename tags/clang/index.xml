@@ -9,27 +9,27 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Mon, 14 Jan 2019 15:20:02 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jan 2019 17:30:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>DEVELOPER parameter in make</title>
-      <link>http://dyrone.github.io/2019/01/14/developer-parameter-in-make/</link>
-      <pubDate>Mon, 14 Jan 2019 15:20:02 +0800</pubDate>
+      <link>http://dyrone.github.io/2019/01/16/developer-parameter-in-make/</link>
+      <pubDate>Wed, 16 Jan 2019 17:30:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/14/developer-parameter-in-make/</guid>
+      <guid>http://dyrone.github.io/2019/01/16/developer-parameter-in-make/</guid>
       <description>GNU Make  GNU Make is a tool which controls the generation of executables and other non-source files of a program from the program&amp;rsquo;s source files.
 Make gets its knowledge of how to build your program from a file called the makefile, which lists each of the non-source files and how to compute it from other files. When you write a program, you should write a makefile for it, so that it is possible to use Make to build and install the program.</description>
     </item>
     
     <item>
-      <title>The syslog in Clang</title>
-      <link>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</link>
+      <title>syslog in Clang</title>
+      <link>http://dyrone.github.io/2019/01/13/syslog-in-clang/</link>
       <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</guid>
+      <guid>http://dyrone.github.io/2019/01/13/syslog-in-clang/</guid>
       <description>syslog protocol syslog is a protocol that use for recording logging informations at Unix.
 The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of syslog is the basic OS logging fuctions, this is what we will talk about in the next.
 formation syslog is consist of 7 parts:

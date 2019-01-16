@@ -9,17 +9,17 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Mon, 14 Jan 2019 15:20:02 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jan 2019 17:30:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>DEVELOPER parameter in make</title>
-      <link>http://dyrone.github.io/2019/01/14/developer-parameter-in-make/</link>
-      <pubDate>Mon, 14 Jan 2019 15:20:02 +0800</pubDate>
+      <link>http://dyrone.github.io/2019/01/16/developer-parameter-in-make/</link>
+      <pubDate>Wed, 16 Jan 2019 17:30:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/14/developer-parameter-in-make/</guid>
+      <guid>http://dyrone.github.io/2019/01/16/developer-parameter-in-make/</guid>
       <description>GNU Make  GNU Make is a tool which controls the generation of executables and other non-source files of a program from the program&amp;rsquo;s source files.
 Make gets its knowledge of how to build your program from a file called the makefile, which lists each of the non-source files and how to compute it from other files. When you write a program, you should write a makefile for it, so that it is possible to use Make to build and install the program.</description>
     </item>
@@ -34,11 +34,11 @@ Make gets its knowledge of how to build your program from a file called the make
     </item>
     
     <item>
-      <title>The syslog in Clang</title>
-      <link>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</link>
+      <title>syslog in Clang</title>
+      <link>http://dyrone.github.io/2019/01/13/syslog-in-clang/</link>
       <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
       <author>dyroneteng@gmail.com (dyrone)</author>
-      <guid>http://dyrone.github.io/2019/01/13/the-syslog-in-clang/</guid>
+      <guid>http://dyrone.github.io/2019/01/13/syslog-in-clang/</guid>
       <description>syslog protocol syslog is a protocol that use for recording logging informations at Unix.
 The protocol not only could use for logging system infos, but also could logging the devices transportation, like network switches, routers etc. But the most use scence of syslog is the basic OS logging fuctions, this is what we will talk about in the next.
 formation syslog is consist of 7 parts:
@@ -53,6 +53,19 @@ formation syslog is consist of 7 parts:
       <guid>http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/</guid>
       <description>THe attribute mechanism preview One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
  contents from: http://www.unixwiz.net/techtips/gnu-c-attributes.html</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://dyrone.github.io/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/1/01/01/</guid>
+      <description> 匹配特定目录下的特定分支  git svn init file:///disk1/svnroot/ali_china/olps/trading -T trunk -b branches/2019* trading
+ git svn fetch
+  git svn clone &amp;ndash;ignore-refs的正常否定查找不好用 or
+sh svn_convert_to_git.sh -k &#39;CONVERT&#39; -n &#39;ali_china/olps/trading&#39; -c &#39;http://daily-code.aone.alibaba.net/api/v3/migrate/callback&#39; -i &#39;1&#39; -g &#39;git@gitlab.alibaba-inc.com:1688trade/trading.git&#39; -f true -s true -t &#39;trunk&#39; -b &#39;branches/2019*&#39;  #refs:
+ http://www.worldhello.net/gotgit/04-git-model/070-git-svn.html https://git-scm.com/book/zh/v1/Git-%E4%B8%8E%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F-%E8%BF%81%E7%A7%BB%E5%88%B0-Git  </description>
     </item>
     
   </channel>

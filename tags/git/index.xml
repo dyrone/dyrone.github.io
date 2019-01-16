@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on dyrone</title>
+    <link>http://dyrone.github.io/tags/git/</link>
+    <description>Recent content in Git on dyrone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-EN</language>
+    <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
+    <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
+    <copyright>(c) 2019 dyrone.</copyright>
+    <lastBuildDate>Mon, 14 Jan 2019 15:20:02 +0800</lastBuildDate>
+    
+	<atom:link href="http://dyrone.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>project _gitignore_  in Github</title>
+      <link>http://dyrone.github.io/2019/01/14/project-_gitignore_-in-github/</link>
+      <pubDate>Mon, 14 Jan 2019 15:20:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/14/project-_gitignore_-in-github/</guid>
+      <description> Project gitignore contains A collection of .gitignore templates.It will be very useful when you need to import/generate specific programming language.
+link: https://github.com/github/gitignore </description>
+    </item>
+    
+  </channel>
+</rss>

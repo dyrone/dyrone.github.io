@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Posts  &middot; dyrone</title>
+  <title>DEVELOPER parameter in make  &middot; dyrone</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
@@ -14,22 +14,54 @@
 
 <meta name="description" content="" />
 
-<meta name="keywords" content="">
+<meta name="keywords" content="clang, ">
 
 
-<meta property="og:title" content="Posts  &middot; dyrone ">
+<meta property="og:title" content="DEVELOPER parameter in make  &middot; dyrone ">
 <meta property="og:site_name" content="dyrone"/>
-<meta property="og:url" content="http://dyrone.github.io/post/" />
+<meta property="og:url" content="http://dyrone.github.io/2019/01/16/developer-parameter-in-make/" />
 <meta property="og:locale" content="en-EN">
 
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2019-01-16T17:30:02&#43;08:00" />
+<meta property="og:article:modified_time" content="2019-01-16T17:30:02&#43;08:00" />
+
+  
+    
+<meta property="og:article:tag" content="clang">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@dyroneteng" />
+<meta name="twitter:creator" content="@dyroneteng" />
+<meta name="twitter:title" content="DEVELOPER parameter in make" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="http://dyrone.github.io/2019/01/16/developer-parameter-in-make/" />
+<meta name="twitter:domain" content="http://dyrone.github.io">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "DEVELOPER parameter in make",
+    "author": {
+      "@type": "Person",
+      "name": "http://profiles.google.com/+?rel=author"
+    },
+    "datePublished": "2019-01-16",
+    "description": "",
+    "wordCount": 146
+  }
+</script>
 
 
 
-<link href="http://dyrone.github.io/post/index.xml" rel="alternate" type="application/rss+xml" title="Posts" />
-
-<link rel="canonical" href="http://dyrone.github.io/post/" />
+<link rel="canonical" href="http://dyrone.github.io/2019/01/16/developer-parameter-in-make/" />
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://dyrone.github.io/touch-icon-144-precomposed.png">
 <link href="http://dyrone.github.io/favicon.png" rel="icon">
@@ -142,71 +174,113 @@
 </header>
 
 
-<section id="main-content" class="container main_content section">
-  <header class="container">
-    <h1>Posts
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>DEVELOPER parameter in make
 </h1>
 
-  </header>
-  
-    <div class="container hat">
-  <h2><a href="http://dyrone.github.io/2019/01/16/developer-parameter-in-make/">DEVELOPER parameter in make
-</a>
-</h2>
+  <div class="metas">
+<time datetime="2019-01-16">16 Jan, 2019</time>
 
-  <time datetime="2019-01-16">16 Jan, 2019</time>
+
+  
+  &middot; Read in about 1 min
+  &middot; (146 Words)
+  <br>
+  
+<a class="label" href="http://dyrone.github.io/tags/clang">clang</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+<h1 id="gnu-make">GNU Make</h1>
+
+<blockquote>
+<p>GNU Make is a tool which controls the generation of executables and other non-source files of a program from the program&rsquo;s source files.</p>
+
+<p>Make gets its knowledge of how to build your program from a file called the makefile, which lists each of the non-source files and how to compute it from other files. When you write a program, you should write a makefile for it, so that it is possible to use Make to build and install the program.</p>
+
+<p>from <a href="https://www.gnu.org/software/make/">https://www.gnu.org/software/make/</a></p>
+</blockquote>
+
+<h1 id="developer-parameter-in-make">DEVELOPER parameter in make</h1>
+
+<p>DEVELOPER is useful when we want a strict coding in Clang.</p>
+
+<p>We can add a bash snippet in MakeFile like this:</p>
+
+<pre><code class="language-bash">ifdef DEVELOPER
+CFLAGS += $(DEVELOPER_CFLAGS)
+endif
+</code></pre>
+
+<p>We add <strong>CFLAGS</strong> to make cmd. So, when we execute:</p>
+
+<pre><code class="language-bash">make DEVELOPER=1
+</code></pre>
+
+<p>Output console will print the coding warnings as <strong>make errors</strong> now, then will break the <strong>make</strong> progress:</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fz8n18tdn7j319k0h2q6l.jpg" alt="pic1" /></p>
+
+<h1 id="references">references</h1>
+
+<ul>
+<li><a href="https://www.gnu.org/software/make/">https://www.gnu.org/software/make/</a></li>
+</ul>
 
 </div>
 
 
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
   
-    <div class="container hat">
-  <h2><a href="http://dyrone.github.io/2019/01/14/sliding-window-algorithm/">Sliding Window Algorithm
-</a>
-</h2>
+  
 
-  <time datetime="2019-01-14">14 Jan, 2019</time>
+    
+    <a class="prev" href="http://dyrone.github.io/2019/01/14/sliding-window-algorithm/" title="Sliding Window Algorithm">
+      Previous
+    </a>
+    
+
+    
+
+  
+
 
 </div>
 
-
+  <div class="container comments">
+  <h2>Comments</h2>
   
-    <div class="container hat">
-  <h2><a href="http://dyrone.github.io/2019/01/13/syslog-in-clang/">syslog in Clang
-</a>
-</h2>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
 
-  <time datetime="2019-01-13">13 Jan, 2019</time>
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//dyrone-github-io.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 </div>
 
+</footer>
 
-  
-    <div class="container hat">
-  <h2><a href="http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/">The attribute characteristics in Clang
-</a>
-</h2>
-
-  <time datetime="2019-01-13">13 Jan, 2019</time>
-
-</div>
-
-
-  
-    <div class="container hat">
-  <h2><a href="http://dyrone.github.io/1/01/01/">
-</a>
-</h2>
-
-  <time datetime="0001-01-01">1 Jan, 0001</time>
-
-</div>
-
-
-  
-  
-
-</section>
+</article>
       <footer id="main-footer" class="container main_footer">
   
 
