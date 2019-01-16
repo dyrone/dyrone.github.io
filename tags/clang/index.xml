@@ -9,10 +9,20 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Sun, 13 Jan 2019 21:54:02 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Jan 2019 15:20:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DEVELOPER parameter in make</title>
+      <link>http://dyrone.github.io/2019/01/14/developer-parameter-in-make/</link>
+      <pubDate>Mon, 14 Jan 2019 15:20:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/14/developer-parameter-in-make/</guid>
+      <description>GNU Make  GNU Make is a tool which controls the generation of executables and other non-source files of a program from the program&amp;rsquo;s source files.
+Make gets its knowledge of how to build your program from a file called the makefile, which lists each of the non-source files and how to compute it from other files. When you write a program, you should write a makefile for it, so that it is possible to use Make to build and install the program.</description>
+    </item>
     
     <item>
       <title>The syslog in Clang</title>
