@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>How git make i18n work?  &middot; dyrone</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="git, clang, ">
+
+
+<meta property="og:title" content="How git make i18n work?  &middot; dyrone ">
+<meta property="og:site_name" content="dyrone"/>
+<meta property="og:url" content="http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2019-03-11T20:27:02&#43;08:00" />
+<meta property="og:article:modified_time" content="2019-03-11T20:27:02&#43;08:00" />
+
+  
+    
+<meta property="og:article:tag" content="git">
+    
+<meta property="og:article:tag" content="clang">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@dyroneteng" />
+<meta name="twitter:creator" content="@dyroneteng" />
+<meta name="twitter:title" content="How git make i18n work?" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/" />
+<meta name="twitter:domain" content="http://dyrone.github.io">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "How git make i18n work?",
+    "author": {
+      "@type": "Person",
+      "name": "http://profiles.google.com/+?rel=author"
+    },
+    "datePublished": "2019-03-11",
+    "description": "",
+    "wordCount": 703
+  }
+</script>
+
+
+
+<link rel="canonical" href="http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://dyrone.github.io/touch-icon-144-precomposed.png">
+<link href="http://dyrone.github.io/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.53" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-29549927-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="http://dyrone.github.io">
+  dyrone
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Sometimes it is the people who no one imagines anything of, that do the things that no one can imagine.
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="http://dyrone.github.io">home</a>
+
+
+  
+<a href="http://dyrone.github.io/about">About</a>
+
+<a href="http://dyrone.github.io/post" title="Show list of posts">Posts</a>
+
+<a href="http://dyrone.github.io/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" aria-label="Email" href="mailto:dyroneteng@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" aria-label="Github" href="https://github.com/dyrone">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" aria-label="Twitter" href="https://twitter.com/dyroneteng">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>How git make i18n work?
+</h1>
+
+  <div class="metas">
+<time datetime="2019-03-11">11 Mar, 2019</time>
+
+
+  
+  &middot; Read in about 4 min
+  &middot; (703 Words)
+  <br>
+  
+<a class="label" href="http://dyrone.github.io/tags/git">git</a>
+
+<a class="label" href="http://dyrone.github.io/tags/clang">clang</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+<p>This article is to introduce i18n with <strong>gettext</strong> in CLang and how git implements i18n.</p>
+
+<p>Git is writtern by CLang, so it&rsquo;s used <strong>gettext</strong> to make i18n work, let&rsquo;s take a look at gettext.</p>
+
+<h1 id="1-glance-of-gettext">1. Glance of <code>gettext</code></h1>
+
+<pre><code class="language-C">
+#include &quot;stdio.h&quot;
+#include &lt;locale.h&gt;
+#include &lt;libintl.h&gt;
+
+int main(int argc, char const *argv[])
+{
+    /* code */
+    printf(gettext(&quot; My name is %s.\n &quot;), &quot;dyrone&quot;);
+    return 0;
+}
+
+</code></pre>
+
+<blockquote>
+<p>gcc get_text.c -o get_text</p>
+</blockquote>
+
+<p>when we execute get_text, the error comes out  :</p>
+
+<pre><code class="language-shell">Undefined symbols for architecture x86_64:
+  &quot;_libintl_gettext&quot;, referenced from:
+      _main in get_text-7e8c99.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+</code></pre>
+
+<p>Face this, we can add <code>-lintl</code> to solve it:
+&gt; -lintl:
+&gt; <a href="https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#Link-Options">https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#Link-Options</a>
+<img src="https://ws4.sinaimg.cn/large/006tKfTcly1g0vh624w62j327c0c2jtu.jpg" alt="" /></p>
+
+<p>But there&rsquo;s another question, where is <code>intl</code> at?</p>
+
+<pre><code class="language-shell">➜  lib ll
+total 4320
+drwxr-xr-x  7 tenglong.tl  staff   224B  3  8 16:12 gettext
+-r--r--r--  1 tenglong.tl  staff    13K  3  8 16:12 libasprintf.0.dylib
+-r--r--r--  1 tenglong.tl  staff   4.0K  6 11  2016 libasprintf.a
+lrwxr-xr-x  1 tenglong.tl  staff    19B  6 11  2016 libasprintf.dylib -&gt; libasprintf.0.dylib
+-r--r--r--  1 tenglong.tl  staff   945K  3  8 16:12 libgettextlib-0.19.8.1.dylib
+lrwxr-xr-x  1 tenglong.tl  staff    28B  6 11  2016 libgettextlib.dylib -&gt; libgettextlib-0.19.8.1.dylib
+-rw-r--r--  1 tenglong.tl  staff   302K  3  8 16:12 libgettextpo.0.dylib
+-r--r--r--  1 tenglong.tl  staff   495K  6 11  2016 libgettextpo.a
+lrwxr-xr-x  1 tenglong.tl  staff    20B  6 11  2016 libgettextpo.dylib -&gt; libgettextpo.0.dylib
+-rw-r--r--  1 tenglong.tl  staff   262K  3  8 16:12 libgettextsrc-0.19.8.1.dylib
+lrwxr-xr-x  1 tenglong.tl  staff    28B  6 11  2016 libgettextsrc.dylib -&gt; libgettextsrc-0.19.8.1.dylib
+-r--r--r--  1 tenglong.tl  staff    49K  3  8 16:12 libintl.8.dylib
+-r--r--r--  1 tenglong.tl  staff    69K  6 11  2016 libintl.a
+lrwxr-xr-x  1 tenglong.tl  staff    15B  6 11  2016 libintl.dylib -&gt; libintl.8.dylib
+➜  lib pwd
+/usr/local/Cellar/gettext/0.19.8.1/lib
+</code></pre>
+
+<p>On my Mac, it&rsquo;s locate at /usr/local/Cellar/gettext/0.19.8.1/lib, and   notice the dylib file link:  <code>libintl.dylib -&gt; libintl.8.dylib</code> and <code>libintl.a</code></p>
+
+<h1 id="2-how-does-gettext-work">2. How does <code>gettext</code> work</h1>
+
+<p>We can install it by <code>brew install gettext</code>, on my MacOS looks like :</p>
+
+<pre><code class="language-shell">#If you need to have gettext first in your PATH run:
+  echo 'export PATH=&quot;/usr/local/opt/gettext/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
+#For compilers to find gettext you may need to set:
+  export LDFLAGS=&quot;-L/usr/local/opt/gettext/lib&quot;
+  export CPPFLAGS=&quot;-I/usr/local/opt/gettext/include&quot;
+</code></pre>
+
+<h2 id="a-call-gettext">a. call <strong>gettext()</strong></h2>
+
+<p>we touch a file named : dyrone_get_text.c</p>
+
+<pre><code class="language-C">#include &quot;stdio.h&quot;
+#include &lt;libintl.h&gt;
+#include &lt;locale.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define _(text) gettext(text)
+#define PACKAGE &quot;first_gettext&quot;
+
+
+int main(int argc, char const *argv[]) {
+  /*  gettext then uses the supplied strings as keys for looking up
+   * alternative translations, and will return the original string when no
+   * translation is available.
+   */
+    setlocale(LC_ALL,&quot;&quot;); // 使用的环境变量(空代表系统当前的值)
+    bindtextdomain(PACKAGE, &quot;locale&quot;);
+    textdomain(PACKAGE);
+    printf(gettext(&quot; My name is %s.\n &quot;), &quot;dyrone&quot;);
+    return 0;
+}
+
+</code></pre>
+
+<p><strong>gettext</strong> is defined in <strong>libintl.h</strong>.</p>
+
+<h2 id="b-pot-portable-object-template-file">b. pot (Portable Object Template) file</h2>
+
+<p>execute xgettext cmd to generate pot file:</p>
+
+<pre><code class="language-shell">xgettext -a dyrone_get_text.c -o dyrone_get_text.pot --from-code=utf-8
+</code></pre>
+
+<p>dyrone_get_text.pot:</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0z4vntqjzj30gm0k1wgb.jpg" alt="" /></p>
+
+<h2 id="c-po-portable-object-file">c. po(Portable Object) file</h2>
+
+<p>execute msgint cmd ti generate po file :</p>
+
+<pre><code class="language-shell">xgettext -a dyrone_get_text.pot -o dyrone_get_text.po --from-code=utf-8
+msginit -l zh_CN -i dyrone_get_text.po
+</code></pre>
+
+<p>dyrone_get_text.po:</p>
+
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g0z303tofaj30hd0jyt9b.jpg" alt="" /></p>
+
+<p>Modify the charset:</p>
+
+<pre><code class="language-shell">&quot;Content-Type: text/plain; charset=UTF-8\n&quot;
+</code></pre>
+
+<p>We can change the po file, tranlate msgstr as we want:</p>
+
+<pre><code class="language-shell">#: dyrone_get_text.c:17
+#, c-format
+msgid &quot;&quot;
+&quot; My name is %s.\n&quot;
+msgstr &quot;我的名字是%s.\n&quot;
+
+#: dyrone_get_text.c:17
+msgid &quot;dyrone&quot;
+msgstr &quot;滕三&quot;
+</code></pre>
+
+<h2 id="d-mo-machine-object-file">d. mo(Machine Object) file</h2>
+
+<p>mo file is binary, generate it by <strong>msgfmt</strong>:</p>
+
+<pre><code>mkdir -p local/zh_CN/LC_MESSAGES
+msgfmt --verbose --output-file local/zh_CN/LC_MESSAGES/dyrone_get_text.mo dyrone_get_text.po
+</code></pre>
+
+<h2 id="e-export-lang-env-config-and-test">e. export <em>$LANG</em> env config and test</h2>
+
+<pre><code class="language-shell"># compile
+gcc -Wall -o dyrone_get_text dyrone_get_text.c
+# run 
+./dyrone_get_text
+# output: My name is dyrone.
+# modify locale env
+export LANG=zh_CN.utf-8
+#run again
+./dyrone_get_text
+#output:
+</code></pre>
+
+<h2 id="f-gettext-translation-flow">f. gettext translation flow</h2>
+
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g0vjasqqrtj30di0jmmxw.jpg" alt="" /></p>
+
+<p><a href="http://yongqing.is-programmer.com/posts/182144.html">http://yongqing.is-programmer.com/posts/182144.html</a></p>
+
+<h1 id="3-i18n-in-git">3. i18n in <code>git</code></h1>
+
+<h2 id="a-the-po-dir">a. the <strong>po</strong> dir</h2>
+
+<p>git project has a <code>po</code> dir to place po files:</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0z4cqh6wmj30j20majrv.jpg" alt="" /></p>
+
+<p>And the makefile in git :</p>
+
+<h2 id="b-makefile">b. makefile</h2>
+
+<pre><code class="language-makefile">po/build/locale/%/LC_MESSAGES/git.mo: po/%.po
+	$(QUIET_MSGFMT)mkdir -p $(dir $@) &amp;&amp; $(MSGFMT) -o $@ $
+</code></pre>
+
+<h2 id="c-translation-process-flow">c. translation Process Flow</h2>
+
+<p>from git repository <strong>po/README</strong>, The overall data-flow looks like this:</p>
+
+<pre><code>+-------------------+            +------------------+
+| Git source code   | ---(1)---&gt; | L10n coordinator |
+| repository        | &lt;---(4)--- | repository       |
++-------------------+            +------------------+
+                                      |      ^
+                                     (2)    (3)
+                                      V      |
+                                 +------------------+
+                                 | Language Team XX |
+                                 +------------------+
+</code></pre>
+
+<ul>
+<li>Translatable strings are marked in the source file.</li>
+<li>L10n coordinator pulls from the source (1)</li>
+<li>L10n coordinator updates the message template po/git.pot</li>
+<li>Language team pulls from L10n coordinator (2)</li>
+<li>Language team updates the message file po/XX.po</li>
+<li>L10n coordinator pulls from Language team (3)</li>
+<li>L10n coordinator asks the result to be pulled (4).</li>
+</ul>
+
+<h1 id="4-references">4. References:</h1>
+
+<ul>
+<li><a href="http://www.gnu.org/software/gettext//manual/html_node/Comparison.html">http://www.gnu.org/software/gettext//manual/html_node/Comparison.html</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gettext">https://en.wikipedia.org/wiki/Gettext</a></li>
+<li><a href="http://www.gnu.org/software/gettext/manual/gettext.html">http://www.gnu.org/software/gettext/manual/gettext.html</a></li>
+<li><a href="https://github.com/git/git/blob/master/po/README">https://github.com/git/git/blob/master/po/README</a></li>
+</ul>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="http://dyrone.github.io/2019/03/05/how-to-debug-git/" title="How to debug git?">
+      Previous
+    </a>
+    
+
+    
+
+  
+
+
+</div>
+
+  <div class="container comments">
+  <h2>Comments</h2>
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//dyrone-github-io.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+<a href="http://dyrone.github.io/license">license</a>
+
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <i class='fa fa-heart'></i>
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 dyrone.
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//dyrone-github-io.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

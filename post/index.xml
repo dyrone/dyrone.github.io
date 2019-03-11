@@ -9,10 +9,21 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Tue, 05 Mar 2019 15:20:02 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2019 20:27:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How git make i18n work?</title>
+      <link>http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/</link>
+      <pubDate>Mon, 11 Mar 2019 20:27:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/</guid>
+      <description>This article is to introduce i18n with gettext in CLang and how git implements i18n.
+Git is writtern by CLang, so it&amp;rsquo;s used gettext to make i18n work, let&amp;rsquo;s take a look at gettext.
+1. Glance of gettext #include &amp;quot;stdio.h&amp;quot; #include &amp;lt;locale.h&amp;gt; #include &amp;lt;libintl.h&amp;gt; int main(int argc, char const *argv[]) { /* code */ printf(gettext(&amp;quot; My name is %s.\n &amp;quot;), &amp;quot;dyrone&amp;quot;); return 0; }   gcc get_text.c -o get_text</description>
+    </item>
     
     <item>
       <title>How to debug git?</title>
@@ -45,6 +56,16 @@ Make gets its knowledge of how to build your program from a file called the make
     </item>
     
     <item>
+      <title>What&#39;s Umask use for?</title>
+      <link>http://dyrone.github.io/2019/01/13/whats-umask-use-for/</link>
+      <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/13/whats-umask-use-for/</guid>
+      <description>http://man7.org/linux/man-pages/man2/umask.2.html
+https://en.wikipedia.org/wiki/Umask</description>
+    </item>
+    
+    <item>
       <title>syslog in Clang</title>
       <link>http://dyrone.github.io/2019/01/13/syslog-in-clang/</link>
       <pubDate>Sun, 13 Jan 2019 21:54:02 +0800</pubDate>
@@ -64,6 +85,15 @@ formation syslog is consist of 7 parts:
       <guid>http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/</guid>
       <description>THe attribute mechanism preview One of the best (but little known) features of GNU C is the __attribute__ mechanism, which allows a developer to attach characteristics to function declarations to allow the compiler to perform more error checking. It was designed in a way to be compatible with non-GNU implementations, and we&amp;rsquo;ve been using this for years in highly portable code with very good results.
  contents from: http://www.unixwiz.net/techtips/gnu-c-attributes.html</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://dyrone.github.io/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/1/01/01/</guid>
+      <description></description>
     </item>
     
     <item>

@@ -9,10 +9,21 @@
     <managingEditor>dyroneteng@gmail.com (dyrone)</managingEditor>
     <webMaster>dyroneteng@gmail.com (dyrone)</webMaster>
     <copyright>(c) 2019 dyrone.</copyright>
-    <lastBuildDate>Tue, 05 Mar 2019 15:20:02 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 11 Mar 2019 20:27:02 +0800</lastBuildDate>
     
 	<atom:link href="http://dyrone.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How git make i18n work?</title>
+      <link>http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/</link>
+      <pubDate>Mon, 11 Mar 2019 20:27:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/03/11/how-git-make-i18n-work/</guid>
+      <description>This article is to introduce i18n with gettext in CLang and how git implements i18n.
+Git is writtern by CLang, so it&amp;rsquo;s used gettext to make i18n work, let&amp;rsquo;s take a look at gettext.
+1. Glance of gettext #include &amp;quot;stdio.h&amp;quot; #include &amp;lt;locale.h&amp;gt; #include &amp;lt;libintl.h&amp;gt; int main(int argc, char const *argv[]) { /* code */ printf(gettext(&amp;quot; My name is %s.\n &amp;quot;), &amp;quot;dyrone&amp;quot;); return 0; }   gcc get_text.c -o get_text</description>
+    </item>
     
     <item>
       <title>How to debug git?</title>
