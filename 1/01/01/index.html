@@ -51,7 +51,7 @@
     },
     "datePublished": "0001-01-01",
     "description": "",
-    "wordCount": 0
+    "wordCount": 600
   }
 </script>
 
@@ -180,8 +180,8 @@
 
 
   
-  &middot; Read in about 0 min
-  &middot; (0 Words)
+  &middot; Read in about 3 min
+  &middot; (600 Words)
   <br>
   
 
@@ -192,6 +192,368 @@
 
   <div class="container content">
   
+
+<p>在<a href="https://www.atatech.org/articles/136385">Git Rev News #48期</a>的 <strong>LightReading</strong> 中有一篇文章写的不错，不仅干货满满而且还附带了操作视频。其中的内容不仅覆盖了很多git使用上的基础知识，也从使用角度上解答了很多刚接触git的开发者的疑问。</p>
+
+<blockquote>
+<p>尊重原创，原文地址为(English):<a href="https://hacker-tools.github.io/version-control/">https://hacker-tools.github.io/version-control/</a></p>
+</blockquote>
+
+<p>所以正因为这篇文章不错，基于便于理解的原则，尽量通俗化翻译的同时也添加了一些内容帮助理解。其中包含的内容可能会有你之前是不知道或者不了解的，故希望读者能耐心的看完它，丰富自己git的使用经验。整篇的文章是对于git工具层面上的一个总体介绍，针对个别细节的原理和内部差异性，因为篇幅的原因文章内不过度引申。</p>
+
+<p>下面开始进入正文。</p>
+
+<h1 id="担忧">担忧</h1>
+
+<p><img src="https://media2.giphy.com/media/X4UoyvKE7MDqE/giphy.gif" alt="" /></p>
+
+<p>很多人怕使用git，我个人觉得主要可能是两部分的原因：
+* 没接触过：平时接触的代码还托管在SVN或CVS等工具上。
+* 不太熟悉：可能对git的使用还不太熟悉和全面，导致了在使用git时步步为营。</p>
+
+<blockquote>
+<p>Never Be Afraid To Try Something New.</p>
+</blockquote>
+
+<p>代码对于开发者是劳作成果的结晶，对于公司而言是核心资产，有一些担忧也是正常的。但git也并没有我们想象中的那么复杂，需要让我们每次使用都心有余悸，其实我们只需要稍微花一点时间尝试多多了解它，在很多时候你会发现，非但git不会让你产生担忧，而且会让自己的交付过程更加高效。</p>
+
+<h1 id="version-control">Version Control</h1>
+
+<p>谈及git就不得不提到 <strong>Version Control</strong> ，我们不妨先来看下版本控制是做什么的，这将有助与后续对git的理解。</p>
+
+<p>当你在工作中面对的是一些经常变化的文档、代码等等交付物的时候，考虑如何去追踪和记录这些changes就变得非常重要，原因可能是：
+* 对于频繁改动和改进的交付物，非常必要去记录下每次变更的内容，每次记录内容汇成了一段修改的历史，有了历史我们才知道我们曾经做过什么。
+* 记录的历史中必须要包含一些重要的信息，这样追溯才变得有意义，比如：
+  * Who: 是谁执行的变更？
+  * When:什么时候做出的变更？
+  * What:这次变更做了什么事情？
+* 最好可以支持撤销变更，不让某一个提交的严重问题，去污染整个提交历史。</p>
+
+<blockquote>
+<p>版本控制系统（VCS: Version Control System），正会为你提供这种记录和追溯变更的能力。</p>
+</blockquote>
+
+<p><img src="https://git-scm.com/book/en/v2/images/local.png" alt="" /></p>
+
+<p>大多数的VCS支持在多个使用者之间共享变更的提交历史，这从实质上来让团队协同变为了可能，简单说来就是：
+* 你可以看到我的变更提交。
+* 我也可以看到你的变更提交。
+* 如果双方都进行了变更提交，也可以以某种方式方法进行比对和合并，最终作出统一的变更版本。</p>
+
+<p>VCS历经多年的发展，目前业界中有许多VCS工具可供我们选择。在本文中，我们将会针对目前最流行的 <strong>git</strong> 来介绍。</p>
+
+<h1 id="git是黑魔法么">git是黑魔法么？</h1>
+
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1553537633102&amp;di=b19e7f9634c56c2d621402b26770f049&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.aykj.net%2Fupload%2Fimage%2F201610%2F20161028103252.gif" alt="" /></p>
+
+<p>刚接触git时，git确实有让人觉得有点像黑魔法一样神秘，但是又有哪个技术不是这样呢？当我们了解其基本的数据结构结构后，会发现git从使用角度来讲其实并不复杂，我们甚至可以更进一步的学习git的一些优良的软件设计理论，从中获益。首先，让我们先从commit说起。</p>
+
+<h2 id="git-object-commit">git object commit</h2>
+
+<ul>
+<li>提交对象(git commit object): 每一个提交在git中都通过git commit object存储，对象具有一个全局唯一的名称，叫做 <strong>revision hash</strong>。它的名字是由 <strong>SHA-1</strong> 算法生成，形如&raquo;998622294a6c520db718867354bf98348ae3c7e2&raquo;，我们通常会取其缩写方便使用，如&raquo;9986222&raquo;。</li>
+<li>对象构成: commit对象包含了 <strong>author + commit message</strong> 的基本信息。</li>
+<li>对象存储：git commit object保存一次变更提交内的所有变更内容，而不是增量变化的数据delta(很多人都理解错了这一点)，所以git对于每次改动存储的都是全部状态的数据。</li>
+<li>大对象存储：因对于大文件的修改和存储，同样也是存储全部状态的数据，所以可能会影响git使用时的性能(glfs可以改进这一点）。</li>
+<li>提交树: 多个commit对象会组成一个提交树，它让我们可以轻松的追溯commit的历史，也能对比树上commit与commit之间的变更差异。</li>
+</ul>
+
+<h2 id="git-commit-练习">git commit 练习</h2>
+
+<p>让我们通过实战来帮助理解，第一步我们来初始化一个repository（git仓库），默认初始化之后仓库是空的，其中既没有保存任何文本内容也没有附带任何提交：</p>
+
+<pre><code class="language-shell">$ git init hackers
+$ cd hackers
+$ git status
+</code></pre>
+
+<p>第二步，让我们来看下执行过后git给出的输出内容，它会指引我们进行进一步的了解：</p>
+
+<pre><code class="language-shell">➜  hackers git:(master) git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use &quot;git add&quot; to track)
+</code></pre>
+
+<blockquote>
+<p>output 1: On branch master</p>
+</blockquote>
+
+<ul>
+<li>对于刚刚创建空仓库来说，master是我们的默认分支，一个git仓库下可以有很多分支(branches)，具体某一个分支的命名可以完全由你自己决定，通常会起便于理解的名字，如果用hash号的话肯定不是一个好主意。</li>
+<li>branches是一种引用(ref)，他们指向了一个确定的commit hash号，这样我们就可以明确我们的分支当前的内容（除了branches以外，tags也是一种ref）</li>
+<li>除了branches引用以外，还有一种引用叫做tags，相信大家也不会陌生。</li>
+<li>master通常被我们更加熟知，因为大多数的分支开发模式都是用master来指向“最新”的commit。</li>
+<li>On branch master代表着我们当前是在master分支下操作，所以每次当我们在提交新的commit时，git会自动将master指向我们新的commit，当工作在其他分支上时，同理。</li>
+<li>有一个很特殊的ref名称叫做&raquo;HEAD&raquo;，它指向我们当前正在操作的branches或tags(正常工作时)，其命名上非常容易理解，表示当前的引用状态。</li>
+<li>通过 <strong>git branch(或 git tag)</strong> 命令你可以灵活的操作和修改branches或tags。</li>
+</ul>
+
+<blockquote>
+<p>output 2: No commits yet
+* 对于空仓库来说，，目前我们还没有进行任意的提交</p>
+
+<p>nothing to commit (create/copy files and use &laquo;git add&raquo; to track)</p>
+</blockquote>
+
+<p>output中提示我们需要使用 <strong>git add</strong> 命令，说到这里就必须要提到暂存或索引(stage)，那么如何去理解暂存呢？
+一个文件从改动到提交到git仓库，需要经历三个状态：
+* 1. 工作区：工作区指的是我们本地工作的目录，比如我们可以在刚才创建的hackers目录下新增一个readme文件，readme文件这时只是本地文件系统上的修改，还未存储到git。
+* 2. 暂存(索引)区: 暂存实际上是将我们本地文件系统的改动转化为git的对象存储的过程
+* 3. 仓库：git commit后将提交对象存储到git库中$$  $$</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1ice44lo9j30v60ou41q.jpg" alt="" /></p>
+
+<ul>
+<li><p>git在将 <strong>changes -&gt; commit</strong> 的过程中，要经过一个叫 <strong>stage</strong> 的步骤，通常叫做 <strong>暂存 或 索引</strong>。</p>
+
+<ul>
+<li>通过 <strong>git add</strong> 命令将我们的新的修改暂存</li>
+<li>可以使用 <strong>git add -p</strong> 来依次暂存每一个文件，过程中我们可以灵活选择文件中的变更内容，从而决定 stage or not stage</li>
+<li>如果 <strong>git add</strong> 后没有任何附加的参数，那么默认就是对工作目录中所有已知的文件进行操作</li>
+<li>通过 <strong>git rm</strong> 命令，我们可以删除文件，并且从暂存区中剔除</li>
+</ul>
+
+<ol>
+<li>暂存区的回滚</li>
+<li>通过 <strong>git reset</strong> 命令，我们可以将暂存区的内容清空，比如我们多暂存了一些文件不希望进行提交，那么我们可以清空后重新是用 <strong>git add -p</strong> 命令</li>
+<li>注意：这个过程其实不会对你的文件进行任何修改操作，只是git会认为目前没有改动需要被提交</li>
+<li>如果我们想分阶段(分文件)进行reset，可以使用 <strong>git reset FILE or git reset -p</strong> 命令</li>
+</ol></li>
+</ul>
+
+<ol>
+<li>查看暂存区状态</li>
+<li>可以用 <strong>git diff &ndash;staged</strong> 依次检查暂存区内每一个文件的修改</li>
+
+<li><p>用 <strong>git diff</strong> 查看剩余的还未暂存内容的修改</p></li>
+
+<li><p>just commit！</p></li>
+</ol>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1fgetar7sj308c02eaa1.jpg" alt="" /></p>
+
+<ul>
+<li>当你对需要修改的内容和范围满意时，你就可以将暂存区的内容进行commit了，命令就是 <strong>git commit</strong>
+
+<ul>
+<li>如果你觉得需要把所有当前工作空间的修改全部commit，并且这是对的，可以执行 <strong>git commit -a</strong> ，相当于先执行 <strong>git add</strong> 再执行 <strong>git commit</strong>，当然这对于有很好提交习惯的人来说是很高效的。（我们建议一个提交中只做一件事，这符合单一职责的同时，可以让我们明确的知道每一个commit中做了一件什么事情而不是很多事情，通常我们都是需要git add -p 来看下我们的提交内容是否合理，是否需要更细的拆分提交，这将让commit非常优雅和漂亮☕️）
+<br /></li>
+</ul></li>
+</ul>
+
+<p>ok，我们已经在不知不觉中掌握了很多内容，我们来回顾下，它们包括了：
+* commit包含了什么？
+* commit是如何表示的？
+* 暂存区是什么、如何添加、删除和查询diff
+* 如何commit？
+* 还附带简单的提及了如何做好每一次commit</p>
+
+<p>而且在这个过程中我们提及了改动的几个关键的状态：
+* 工作区(Working Directory)
+* 暂存区(Index)
+* Git仓库(Git Repo)</p>
+
+<p>下图为上述过程中各个状态的转换过程：
+<img src="https://smusamashah.github.io/images/git/index.gif" alt="" />
+* 本地改动，此时只是工作区内的改动
+* git add之后，工作区内的改动转化为git对象存储在暂存区
+* git commit之后，暂存区的内容存储在git仓库中，更新HEAD指向等等。这样commit就与这一次改动的完整状态一一对应了</p>
+
+<blockquote>
+<p>正是因为git对于这几个区域状态的设计，为git在本地开发过程带来了灵活的变化。我们可以灵活的选择哪些改动暂存，哪些暂存的改动可以作为一次commit从而进一步与其他人进行协同。</p>
+</blockquote>
+
+<h1 id="进一步的了解commit">进一步的了解commit</h1>
+
+<p>经过之前的git操作后，我们已经有了一个commit，现在我们终于可以围绕commit做很多新的事情了：</p>
+
+<ul>
+<li>可以看commit的历史: <strong>git log (or git log &ndash;oneline)</strong></li>
+<li>可以在commit中查看改动的diff: <strong>git log -p</strong></li>
+<li>可以查看一个ref与提交的关联关系，例如当前master指向的commit: <strong>git show master</strong></li>
+<li>检出之前的一个提交状态: <strong>git checkout NAME</strong>（如果NAME是一个具体的提交哈希值时，git会认为状态时“detached(分离的)”，因为git checkout过程中重要的一步是将HEAD指向那个分支的最后一次commit。所以如果这样做，将意味着没有分支在引用此提交，所以若我们这时候进行提交的话，没有人会知道它们的存在）</li>
+<li>可以用 <strong>git revert NAME</strong> 来恢复到之前的一个commit的状态。</li>
+<li>可以使用 <strong>git diff NAME..</strong> 将旧版本与当前版本进行比较，查看diff</li>
+<li>我们可以使用 <strong>git log NAME</strong>, 查看指定区间的提交</li>
+<li>我们可以使用 <strong>git reset NAME</strong> 将当前分支的指向回滚为特定的提交状态（从而有效地撤消所有内容）：</li>
+<li><strong>git reset &ndash;hard NAME</strong>：将所有文件的状态强制重置为NAME的状态（使用上需要小心）</li>
+</ul>
+
+<blockquote>
+<p>很多人不明白reset/revert/rebase的区别，后续我也会出一个文章介绍《Git怎么回滚？——check out，reset和revert》。</p>
+</blockquote>
+
+<h1 id="git名称上的讲究">git名称上的讲究</h1>
+
+<p>git中的名称有很多种，比如分支名称、hash号、HEAD，但是名称的故事还没有结束：</p>
+
+<ul>
+<li><strong>git branch b</strong> 我们可以创建我们自己的分支，名称为b
+
+<ul>
+<li>我们创建了一个b分支，其中暗藏的信息是b的指向就是HEAD对应的commit</li>
+<li>我们先在b分支上创建一个新的commit A，然后我们切回master分支上，这时提交了一个新的commit B，那么master和HEAD自然的指向了新的commit B，而b分支指向的还是原来的commit A</li>
+<li><strong>git checkout b</strong> 可以切换到b分支上,切换后新的提交都会在b分支上，理所应当</li>
+<li><strong>git checkout master</strong> 切换回master后，b分支的提交也不会带回master上，分支隔离</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>分支上提交隔离的设计，可以让我们非常轻松的切换我们的修改，做各类测试非常方便</p>
+</blockquote>
+
+<ul>
+<li>tags的名称不会改变，而且它们有自己的描述信息(比如可以作为release note以及标记发布的版本号等)。</li>
+</ul>
+
+<p>下面是几个特殊的符号介绍：
+* 符号^ :<strong>NAME^</strong> 代表NAME提交的前一次提交
+  * 我们可以递归得到NAME前面的第三次提交: <strong>NAME^^^</strong>
+* 符号~ :
+  * 用〜你也可以写X~3代表“比X更早的3次提交”
+  * 〜是“暂时的”，而^则是可以选择哪条祖先线
+  * ～～与^^含义相同
+  * HEAD^n 当n大于提交的祖先线总数时，会报错
+* 符号-:
+  *  -表示“以前的名字”</p>
+
+<p>关于符号的细节用法，后续将详细总结分享到另一篇文章《Git中的特殊符号》中</p>
+
+<h1 id="做好提交">做好提交</h1>
+
+<p>可能很多人的提交历史是长这个样子的：</p>
+
+<blockquote>
+<p>commit 14: add feature x – maybe even with a commit message about x!</p>
+
+<p>commit 13: forgot to add file</p>
+
+<p>commit 12: fix bug</p>
+
+<p>commit 11: typo</p>
+
+<p>commit 10: typo2</p>
+
+<p>commit 9: actually fix</p>
+
+<p>commit 8: actually actually fix</p>
+
+<p>commit 7: tests pass</p>
+
+<p>commit 6: fix example code</p>
+
+<p>commit 5: typo</p>
+
+<p>commit 4: x</p>
+
+<p>commit 3: x</p>
+
+<p>commit 2: x</p>
+
+<p>commit 1: x</p>
+</blockquote>
+
+<p>就git而言，这看上去没有问题，这是因为这是合法的，但对于那些对你修改感兴趣的人（很可能是未来的你），这样的提交在信息和关系的阅读中并没有多大帮助，如何写好提交可以参考知忧的这篇文章<a href="https://www.atatech.org/articles/126912">《写好你的提交，做一个有品位的程序员》</a></p>
+
+<p>但是如果你的提交已经长成这个样子了怎么办？</p>
+
+<p>没关系，git有办法可以改变这一些：</p>
+
+<ul>
+<li><p><strong>git commit &ndash;amend</strong> :</p>
+
+<ul>
+<li>我们可以将新的改动提交到当前最近的提交上，比如你发现少改了什么，但是又不想多出一个提交时会很有用。</li>
+<li>如果我们认为我们的提交信息写的并不好，我要修改修改，这也是一种办法，但是并不是最好的办法</li>
+<li>这个操作会更改先前的提交，并为其提供新的hash值</li>
+</ul></li>
+
+<li><p><strong>git rebase -i HEAD~13</strong> :</p>
+
+<ul>
+<li>这个命令非常厉害，可以说是神器，此命令含义是我们可以针对之前的13次的提交在VI环境中进行重新修改设计：</li>
+<li>操作选项 <strong>pick</strong> 意味着保持原样什么都不做，我们可以通过vim中编辑提交的顺序，使其在提交树上生效</li>
+<li>操作选项 <strong>r</strong>: 我们可以修改提交信息，这种方式比commit &ndash;amend要好的多，因为不会新生成一个commit</li>
+<li>操作选项 <strong>e</strong>: 我们可以修改commit，比如新增或者删除某些文件改动</li>
+<li>操作选项 <strong>s</strong>: 我们可以将这个提交与其上一次的提交进行合并，并重新编辑提交信息</li>
+<li>操作选项 <strong>f</strong>: f代表着&raquo;fixup&raquo;。例如我们如果想针对之前一个老的提交进行fixup，又不想做一次新的提交破坏提交树的历史的逻辑含义，可以采用这种方式，这种处理方式非常优雅,另一篇文章中有详细介绍：<a href="https://www.atatech.org/articles/130361#1">如何针对历史提交做优雅fix</a></li>
+</ul></li>
+</ul>
+
+<h1 id="关于git">关于git</h1>
+
+<p>版本控制的一个常见功能是允许多个人对一组文件进行更改，而不会互相影响。或者更确切地说，为了确保如果他们不会踩到彼此的脚趾，不会在提交代码到服务端时偷偷的覆盖彼此的变化。</p>
+
+<p>在git中我们如何保证这一点呢？</p>
+
+<p>git与svn不同，git不存在本地文件存在lock的情况，这是一种避免出现写作问题的方式，但是并不方便，而git与svn最大的不同在于它是一个分布式VCS，这意味着：
+* 每个人都有整个存储库的本地副本（其中不仅包含了自己的，也包含了其他人的提交到仓库的所有内容）。
+* 一些VCS是集中式的（例如，svn）：服务器具有所有提交，而客户端只有他们“已检出”的文件。所以基本上在本地我们只有当前文件，每次涉及本地不存在的文件操作时，都需要访问服务端进行进一步交互。
+* 每一个本地副本都可以当作服务端对外提供git服务
+* 我们可以用<strong>git push</strong>推送本地内容到任意我们有权限的git远端仓库
+* 不管是集团的force、github、gitlab等工具，其实本质上都是提供的git仓库存储的相关服务，在这一点上其实并没有特别之处，针对git本身和其协议上是透明的。</p>
+
+<p>svn :
+<img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1fgofm3dnj30m80fgmy8.jpg" alt="" /></p>
+
+<p>git:
+<img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1fgoyu75uj30ik0m875l.jpg" alt="" /></p>
+
+<h1 id="git的冲突解决">git的冲突解决</h1>
+
+<p>首先要知道冲突是不可避免地，当冲突产生时你必须将一个分支中的更改与另一个分支中的更改合并，对应git的命令为 <strong>git merge NAME</strong> ,过程为：
+  * 找到HEAD和NAME的一个共同祖先(common base)
+  * 尝试将这些NAME到共同祖先之间的修改合并到HEAD上
+  * 新创建一个merge commit对象，包含所有的这些变更内容
+  * HEAD指向这个新的merge commit</p>
+
+<p>git将会保证这个过程改动不会丢失。如果你之前用过git的话，你应该知道 <strong>git pull</strong> 命令，git pull命令实际上包含了git merge，具体过程是：
+* git fetch REMOTE
+* git merge REMOTE/BRANCH
+* 和 git push一样，有的时候需要先设置&raquo;tracking&raquo;(-u)，这样可以将本地和远程的分支一一对应。</p>
+
+<p>如果每次merge都如此顺利，那肯定是美滋滋的，但是有时候你会发现，在pull或者merge时会产生合并冲突，这时候也不用害怕，我们可以分几个步骤解决：
+* 冲突只是因为git不清楚你最终要合并后的文本是什么样子，这是很正常的情况
+* 产生冲突时，git会中断合并操作，并指导你解决好所有的冲突文件
+* 打开你的冲突文件，找到 &lt;&lt;&lt;&lt;&lt;&lt;&lt; ，这是你需要开始处理冲突的地方，然后找到=======，等号上面的内容是HEAD到共同祖先之间的改动，等号下面是NAME到共同祖先之间的改动。用 <strong>git mergetool</strong> 通常是比较好的选择，当然现在大多数IDE都集成了不错的冲突解决工具
+* 当你把冲突全部解决完毕，用 <strong>git add .</strong> 暂存这些改动吧
+* 最后进行git commit，如果你想放弃当前修改重新解决可以使用 <strong>git merge &ndash;abort</strong>
+* 当你完成了以上这些艰巨的任务，最后 <strong>git push</strong> 吧！</p>
+
+<h1 id="push失败">push失败？</h1>
+
+<p>排除REMOTE的git服务存在问题以外，我们push失败的大多数原因都是因为我们在工作的内容其他人也在工作的关系。</p>
+
+<p>Git会判断REMOTE的当前commit是不是你当前正在pushing commit的祖先。如果是的话，代表你的提交是相对比较新的，push是可以成功的(叫做fast-forwarding)，否则push失败并提示你其他人已经在你push之前执行更新(push is rejected)。</p>
+
+<p>push is rejected 后我们的几个处理方法如下:
+* 使用git pull合并远程的最新更改（git pull相当于git fetch + git merge）
+* 使用&ndash;force强制推送本地变化到远端饮用进行覆盖，需要注意的是 <strong>这种覆盖操作可能会丢失其他人的提交内容</strong>
+  * 可以使用&ndash;force-with-lease参数，只有远端的ref自上次从fetch后没有改变时才会强制进行更改，否则reject the push。这样的操作更安全，非常推荐使用这种方式，当可以覆盖其他人代码时进行判断并提示而不是直接覆盖。
+  * 如果rebase操作了本地的一些提交，而这些提交之前已经push过了的话，你可能需要进行force push了，可以想象看为什么？</p>
+
+<h1 id="推荐阅读">推荐阅读</h1>
+
+<ul>
+<li>rebase的介绍：<a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">https://git-scm.com/book/en/v2/Git-Branching-Rebasing</a></li>
+<li>merge和rebase的区别：
+
+<ul>
+<li><a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">https://www.atlassian.com/git/tutorials/merging-vs-rebasing</a></li>
+<li><a href="https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/">https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/</a></li>
+<li><a href="https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge">https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge</a></li>
+</ul></li>
+<li>learning git branch: <a href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a>
+<br /></li>
+</ul>
+
+<p>深入挖掘，你会发现Git作为一个底层工具，本身有着许许多多优秀的设计理念值得学习和探究。</p>
+
+<p>Git并不是什么黑魔法，当你了解、熟悉、熟练的使用它时，你会发现它其实就是你掌握的魔法。</p>
+
 </div>
 
 
@@ -202,13 +564,9 @@
   
 
     
-    <a class="prev" href="http://dyrone.github.io/1/01/01/" title="">
-      Previous
-    </a>
-    
 
     
-    <a class="next" href="http://dyrone.github.io/2019/01/13/the-attribute-characteristics-in-clang/" title="The attribute characteristics in Clang">
+    <a class="next" href="http://dyrone.github.io/1/01/01/" title="">
       Next
     </a>
     

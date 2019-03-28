@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>dyrone </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="">
+
+
+<meta property="og:title" content="dyrone ">
+<meta property="og:site_name" content="dyrone"/>
+<meta property="og:url" content="http://dyrone.github.io/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="website" />
+
+
+
+<link href="http://dyrone.github.io/index.xml" rel="alternate" type="application/rss+xml" title="dyrone" />
+
+<link rel="canonical" href="http://dyrone.github.io/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://dyrone.github.io/touch-icon-144-precomposed.png">
+<link href="http://dyrone.github.io/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.53" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-29549927-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="http://dyrone.github.io">
+  dyrone
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Sometimes it is the people who no one imagines anything of, that do the things that no one can imagine.
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="http://dyrone.github.io">home</a>
+
+
+  
+<a href="http://dyrone.github.io/about">About</a>
+
+<a href="http://dyrone.github.io/post" title="Show list of posts">Posts</a>
+
+<a href="http://dyrone.github.io/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" aria-label="Email" href="mailto:dyroneteng@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" aria-label="Github" href="https://github.com/dyrone">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" aria-label="Twitter" href="https://twitter.com/dyroneteng">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<section id="main-content" class="container main_content homepage">
+  <header class="container header">
+    <h1>dyrone
+</h1>
+
+    <span>last update: <time datetime="2019-03-11T20:27:02&#43;08:00">11 March at 8:27pm</time>
+</span>
+
+  </header>
+  
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="http://dyrone.github.io/1/01/01/">
+</a>
+</h2>
+
+  <time datetime="0001-01-01">1 Jan, 0001</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+    https://github.com/dyrone/git/tree/master/Documentation/technical
+1. protocol-common.txt https://github.com/dyrone/git/blob/master/Documentation/technical/protocol-common.txt
+a. ABNF notation git的协议是通过ABNF来描述的，ABNF是一个专门用来描述协议的语言，它可以通过符号结合基础运算表达式的形式，清晰的定义协议中相关的数据结构。
+b. 对象id和引用 git的ABNF描述中有几个核心的规则定义：
+ HEXDIG = DIGIT / &laquo;a&raquo; / &laquo;b&raquo; / &laquo;c&raquo; / &laquo;d&raquo; / &laquo;e&raquo; / &laquo;f&raquo;
+ 第一个：是关于HEX(16进制数)的表示，它的表示方式范围是是{DIGIT(10进制数), a, b, c, d, e, f}。
+ NUL = %x00
+ 第二个：是关于NUL的表示，其表示为%x00。我们都知道在C语言中%X的意思是以十六进制数形式输出整数，16进制的0就可以表示表示为0x00或%x00，也就是0的16进制表示。
+ zero-id = 40*&laquo;0&raquo;
+obj-id = 40*(HEXDIGIT)
+ 第三个：是关于git中id的描述，我们都知道在git中版本号是通过一个字符串来表示的，例如我们在git仓库下执行 git log 命令：
+其中 aa45af9d9aae905d8a03f70ba8a78d9408442f6a就是git管理的一种id，因为除了这种commit对象id之外，git其实还包含用来表示其他对象的id，但是他们的格式都是相同的，即：
+对于所有类型的object的id，用40个16进制数来表示。而表达“空id”时使用40个0。
+ refname = &laquo;HEAD&raquo;
+refname /= &laquo;refs/&raquo; &lt;see discussion below&gt;
+ 第四个：是关于引用名称(refname)的表示方式，ref代表git中的引用，引用名称可以是分支的名称也可以是tag的名称。
+如下图，引用通常会指向一个commit对象，这样比如我们在检出一个引用，例如master分支时，自然而然就会对应的是某一个commit，这就是引用和commit二者关联的方式。
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="http://dyrone.github.io/1/01/01/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="http://dyrone.github.io/1/01/01/">
+</a>
+</h2>
+
+  <time datetime="0001-01-01">1 Jan, 0001</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+     https://github.com/dyrone/git/tree/master/Documentation/technical
+https://github.com/git/git/blob/master/Documentation/technical/protocol-v2.txt 
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="http://dyrone.github.io/1/01/01/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="http://dyrone.github.io/1/01/01/">
+</a>
+</h2>
+
+  <time datetime="0001-01-01">1 Jan, 0001</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+    #&mdash; #title: &laquo;Git Sparse push&raquo; #date: 2019-03-26T18:20:02+08:00 #tags: [&laquo;git&raquo;,&laquo;clang&raquo;] #&mdash;
+ patch : https://public-inbox.org/git/pull.89.git.gitgitgadget@gmail.com/
+https://public-inbox.org/git/0725aac4bbf3d6881af483bc64e3499a59bcf1a9.1543441960.git.gitgitgadget@gmail.com/ 上面的patch5说的比较详细，比如一些原因和代码实现的判断逻辑 比如mark_trees_uninteresting_sparse方法的逻辑，里面为什么只有在一个root tree下既有interesting和uninteresting的tree对象时才会进一步递归标记uninteresting的tree：
+To actually improve the peformance, we need to terminate our recursion unless the oidset contains some intersting trees and some uninteresting trees. Technically, we only need one interesting tree for this to speed up in most cases, but we also will not mark anything UNINTERESTING if there are no uninteresting trees, so that would be wasted effort.
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="http://dyrone.github.io/1/01/01/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="http://dyrone.github.io/1/01/01/">
+</a>
+</h2>
+
+  <time datetime="0001-01-01">1 Jan, 0001</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+     1.strdup char *strdup(const char *__s1);  strdup usually paired by free() in _malloc.h
+void	free(void *);   compare with strcpy
+ References  https://blog.csdn.net/weixin_35921178/article/details/52449789  
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="http://dyrone.github.io/1/01/01/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="http://dyrone.github.io/1/01/01/">
+</a>
+</h2>
+
+  <time datetime="0001-01-01">1 Jan, 0001</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+     文件处理、权限处理
+1. char *strdup(const char *__s1);  strdup usually paired by free() in _malloc.h
+void	free(void *);  References  https://blog.csdn.net/weixin_35921178/article/details/52449789  
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="http://dyrone.github.io/1/01/01/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="http://dyrone.github.io/1/01/01/">
+</a>
+</h2>
+
+  <time datetime="0001-01-01">1 Jan, 0001</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+    在Git Rev News #48期的 LightReading 中有一篇文章写的不错，不仅干货满满而且还附带了操作视频。其中的内容不仅覆盖了很多git使用上的基础知识，也从使用角度上解答了很多刚接触git的开发者的疑问。
+ 尊重原创，原文地址为(English):https://hacker-tools.github.io/version-control/
+ 所以正因为这篇文章不错，基于便于理解的原则，尽量通俗化翻译的同时也添加了一些内容帮助理解。其中包含的内容可能会有你之前是不知道或者不了解的，故希望读者能耐心的看完它，丰富自己git的使用经验。整篇的文章是对于git工具层面上的一个总体介绍，针对个别细节的原理和内部差异性，因为篇幅的原因文章内不过度引申。
+下面开始进入正文。
+担忧 很多人怕使用git，我个人觉得主要可能是两部分的原因： * 没接触过：平时接触的代码还托管在SVN或CVS等工具上。 * 不太熟悉：可能对git的使用还不太熟悉和全面，导致了在使用git时步步为营。
+ Never Be Afraid To Try Something New.
+ 代码对于开发者是劳作成果的结晶，对于公司而言是核心资产，有一些担忧也是正常的。但git也并没有我们想象中的那么复杂，需要让我们每次使用都心有余悸，其实我们只需要稍微花一点时间尝试多多了解它，在很多时候你会发现，非但git不会让你产生担忧，而且会让自己的交付过程更加高效。
+Version Control 谈及git就不得不提到 Version Control ，我们不妨先来看下版本控制是做什么的，这将有助与后续对git的理解。
+当你在工作中面对的是一些经常变化的文档、代码等等交付物的时候，考虑如何去追踪和记录这些changes就变得非常重要，原因可能是： * 对于频繁改动和改进的交付物，非常必要去记录下每次变更的内容，每次记录内容汇成了一段修改的历史，有了历史我们才知道我们曾经做过什么。 * 记录的历史中必须要包含一些重要的信息，这样追溯才变得有意义，比如： * Who: 是谁执行的变更？ * When:什么时候做出的变更？ * What:这次变更做了什么事情？ * 最好可以支持撤销变更，不让某一个提交的严重问题，去污染整个提交历史。
+ 版本控制系统（VCS: Version Control System），正会为你提供这种记录和追溯变更的能力。
+ 大多数的VCS支持在多个使用者之间共享变更的提交历史，这从实质上来让团队协同变为了可能，简单说来就是： * 你可以看到我的变更提交。 * 我也可以看到你的变更提交。 * 如果双方都进行了变更提交，也可以以某种方式方法进行比对和合并，最终作出统一的变更版本。
+VCS历经多年的发展，目前业界中有许多VCS工具可供我们选择。在本文中，我们将会针对目前最流行的 git 来介绍。
+git是黑魔法么？ 刚接触git时，git确实有让人觉得有点像黑魔法一样神秘，但是又有哪个技术不是这样呢？当我们了解其基本的数据结构结构后，会发现git从使用角度来讲其实并不复杂，我们甚至可以更进一步的学习git的一些优良的软件设计理论，从中获益。首先，让我们先从commit说起。
+git object commit  提交对象(git commit object): 每一个提交在git中都通过git commit object存储，对象具有一个全局唯一的名称，叫做 revision hash。它的名字是由 SHA-1 算法生成，形如&raquo;998622294a6c520db718867354bf98348ae3c7e2&raquo;，我们通常会取其缩写方便使用，如&raquo;9986222&raquo;。 对象构成: commit对象包含了 author + commit message 的基本信息。 对象存储：git commit object保存一次变更提交内的所有变更内容，而不是增量变化的数据delta(很多人都理解错了这一点)，所以git对于每次改动存储的都是全部状态的数据。 大对象存储：因对于大文件的修改和存储，同样也是存储全部状态的数据，所以可能会影响git使用时的性能(glfs可以改进这一点）。 提交树: 多个commit对象会组成一个提交树，它让我们可以轻松的追溯commit的历史，也能对比树上commit与commit之间的变更差异。  git commit 练习 让我们通过实战来帮助理解，第一步我们来初始化一个repository（git仓库），默认初始化之后仓库是空的，其中既没有保存任何文本内容也没有附带任何提交：
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="http://dyrone.github.io/1/01/01/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
+  
+  
+<div class="container pagination">
+  
+
+
+<a aria-label="First" href="http://dyrone.github.io/">
+  <span aria-hidden="true">««</span>
+</a>
+
+<a aria-label="Previous" href="http://dyrone.github.io/">
+  <span aria-hidden="true">«</span>
+</a>
+
+
+<a href="http://dyrone.github.io/">
+  1
+</a>
+
+<a class="active" href="http://dyrone.github.io/page/2/">
+  2
+</a>
+
+
+<a class="disabled" aria-label="Next" href="#">
+  <span aria-hidden="true">»</span>
+</a>
+
+<a aria-label="Last" href="http://dyrone.github.io/page/2/">
+  <span aria-hidden="true">»»</span>
+</a>
+
+
+</div>
+
+
+</section>
+
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+<a href="http://dyrone.github.io/license">license</a>
+
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <i class='fa fa-heart'></i>
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 dyrone.
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//dyrone-github-io.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

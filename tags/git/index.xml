@@ -36,5 +36,22 @@ Git is writtern by CLang, so it&amp;rsquo;s used gettext to make i18n work, let&
 In another word, git is organized by git buildin cmds, When you run a git cmd such as git push or git init etc, git main routine will try to resolve it to the corresponding builtin cmd, For example,git cmd with args init =&amp;gt; git init is coresponding to git-init builtint cmd.</description>
     </item>
     
+    <item>
+      <title>git rev news 48[Chinese]</title>
+      <link>http://dyrone.github.io/2019/01/13/git-rev-news-48chinese/</link>
+      <pubDate>Sun, 13 Jan 2019 13:54:02 +0800</pubDate>
+      <author>dyroneteng@gmail.com (dyrone)</author>
+      <guid>http://dyrone.github.io/2019/01/13/git-rev-news-48chinese/</guid>
+      <description>引言: 每月一期的 Git Rev News 是由 GitHub 上的志愿者合作撰写的 Git 文摘，其中包含：当月 Git 邮件列表中的一些讨论，Git 社区人物介绍以及其他 Git 相关文章。Git Rev News 能帮助我们及时了解社区动态。
+本期技术分享来源：
+ Git Rev News #48,2019/02/27  本次因为git-merge大会内容较多，我们将把社区讨论内容和业界动态部分放在前面介绍，git-merge大会内容放在最后。
+一. 新闻 1. Various  git merge 大会blog: https://github.blog/2019-02-12-mission-report-git-merge-2019/   未来阿里巴巴代码平台一定要争取参与进去,慢慢成为git核心技术的开创者和引领者
+  gerrit的多站点插件将会公开：https://groups.google.com/forum/#!topic/repo-discuss/A9dGOppvgGA
+ git的2019编程之夏活动： https://git.github.io/SoC-2019-Ideas/
+  2. Light reading  gitgeist: a git-based social network proof of concept by Karim Yaghmour (mentioned on LWN.net)  https://github.com/opersys/gitgeist-poc
+感兴趣的同学可以看下，不过多介绍。
+ France enters the Matrix [LWN.</description>
+    </item>
+    
   </channel>
 </rss>
