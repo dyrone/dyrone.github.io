@@ -2,9 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dyrone.github.io/categories/</loc>
-  </url><url>
     <loc>https://dyrone.github.io/</loc>
+    <lastmod>2022-03-07T15:34:15+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/introduce/</loc>
+    <lastmod>2022-03-07T15:34:15+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/</loc>
+    <lastmod>2022-03-07T15:34:15+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/git-midx/</loc>
+    <lastmod>2022-03-07T14:44:25+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/categories/</loc>
   </url><url>
     <loc>https://dyrone.github.io/tags/</loc>
   </url>
