@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://dyrone.github.io/"
 title = "dyrone's blog"
 languageCode = "en-us"
 paginate = "10" # Number of posts per page
