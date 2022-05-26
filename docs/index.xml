@@ -6,7 +6,19 @@
     <description>Recent content on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Mar 2022 15:34:15 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 May 2022 11:44:25 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为什么交付测试（Acceptance Testing）如此重要?</title>
+      <link>https://dyrone.github.io/posts/acceptance_test/</link>
+      <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/acceptance_test/</guid>
+      <description>没有好的测试，就没有工程师文化。   1. 定义  &amp;#34;Acceptance Testing is a method of software testing where a system is tested for acceptability. The major aim of this test is to evaluate the &amp;gt; compliance of the system with the business requirements and assess whether it is acceptable for delivery or not.&amp;#34;
+    &amp;#34;验收测试是一种这样的软件测试方法, 其目的是评估系统与业务需求的合规性，通过测试进一步判定系统是否可以对外交付，简单来说，是用来测试一个系统是否合格。&amp;#34; From Wikipedia: https://en.wikipedia.org/wiki/Acceptance_testing
+       2. 定义之外 这里面有几点需要进一步说明的。
+ 第一，何为“合规性”？</description>
+    </item>
+    
     <item>
       <title>Introduce</title>
       <link>https://dyrone.github.io/posts/introduce/</link>
@@ -18,12 +30,18 @@
     </item>
     
     <item>
-      <title>Git Midx</title>
+      <title>git pack and index</title>
       <link>https://dyrone.github.io/posts/git-midx/</link>
       <pubDate>Mon, 07 Mar 2022 14:44:25 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/git-midx/</guid>
-      <description></description>
+      <description>为什么要写这篇文章？ 给外部看： 集团多个团队都涉及Git技术 给内部看： 加深团队内部的同学对这方面的了解 给自己看： 自己总结学习       1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
+   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
+  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
+   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
+ 现在我们回过来继续看packfile.
+ Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
+ Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）</description>
     </item>
     
   </channel>

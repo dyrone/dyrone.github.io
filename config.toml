@@ -6,10 +6,10 @@ theme = "mainroad"
 disqusShortname = "" # Enable Disqus comments by entering your Disqus shortname
 googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
-[Author] # Used in authorbox
-  name = "Dyrone Teng"
-  bio = "Nobody cares what's there, right"
-  avatar = "img/avatar.png"
+#[Author] # Used in authorbox
+#  name = "Dyrone Teng"
+#  bio = "Nobody cares what's there, right"
+#  avatar = "img/avatar.png"
 
 [Params]
   description = "Dyrone's Personal blog" # Site description. Used in meta description
@@ -18,7 +18,7 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
   schema = true # Enable Schema
   twitter_cards = true # Enable Twitter Cards if true
   readmore = false # Show "Read more" button in list if true
-  authorbox = true # Show authorbox at bottom of pages if true
+  authorbox = false # Show authorbox at bottom of pages if true
   toc = true # Enable Table of Contents
   pager = true # Show pager navigation (prev/next links) at the bottom of pages if true
   post_meta = ["author", "date", "categories", "translations"] # Order of post meta information
@@ -45,8 +45,8 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 
 [Params.logo]
   image = "img/placeholder.png" # Logo image. Path relative to "static"
-  title = "Teng Long" # Logo title, otherwise will use site title
-  subtitle = "lost everything = free to do anything" # Logo subtitle
+  title = "滕 龙" # Logo title, otherwise will use site title
+  subtitle = "Teng Long" # Logo subtitle
 
   [Params.thumbnail]
   visibility = ["posts", "non-work"] # Control thumbnail visibility

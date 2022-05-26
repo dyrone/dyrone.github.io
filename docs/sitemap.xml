@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dyrone.github.io/</loc>
-    <lastmod>2022-03-07T15:34:15+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/posts/introduce/</loc>
-    <lastmod>2022-03-07T15:34:15+08:00</lastmod>
+    <lastmod>2022-05-25T11:44:25+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/</loc>
+    <lastmod>2022-05-25T11:44:25+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/acceptance_test/</loc>
+    <lastmod>2022-05-25T11:44:25+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/introduce/</loc>
     <lastmod>2022-03-07T15:34:15+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/git-midx/</loc>

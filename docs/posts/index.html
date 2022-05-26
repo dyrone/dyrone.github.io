@@ -37,12 +37,12 @@
 	<div class="container header__container">
 		
 	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="Teng Long" rel="home">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
 			<div class="logo__item logo__imagebox">
 					<img class="logo__img" src="/img/placeholder.png">
 				</div><div class="logo__item logo__text">
-					<div class="logo__title">Teng Long</div>
-					<div class="logo__tagline">lost everything = free to do anything</div>
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
 				</div>
 		</a>
 	</div>
@@ -59,13 +59,29 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/acceptance_test/" rel="bookmark">
+			为什么交付测试（Acceptance Testing）如此重要?
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-05-25T11:44:25&#43;08:00">2022-05-25</time></div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		没有好的测试，就没有工程师文化。   1. 定义  &#34;Acceptance Testing is a method of software testing where a system is tested for acceptability. The major aim of this test is to evaluate the &gt; compliance of the system with the business requirements and assess whether it is acceptable for delivery or not.&#34;
+    &#34;验收测试是一种这样的软件测试方法, 其目的是评估系统与业务需求的合规性，通过测试进一步判定系统是否可以对外交付，简单来说，是用来测试一个系统是否合格。&#34; From Wikipedia: https://en.wikipedia.org/wiki/Acceptance_testing
+       2. 定义之外 这里面有几点需要进一步说明的。
+ 第一，何为“合规性”？
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/introduce/" rel="bookmark">
 			Introduce
 			</a>
 		</h2>
-		<div class="list__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Dyrone Teng</span>
-</div>
+		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-03-07T15:34:15&#43;08:00">2022-03-07</time></div></div>
 	</header>
@@ -78,17 +94,21 @@
 	<header class="list__header">
 		<h2 class="list__title post__title">
 			<a href="/posts/git-midx/" rel="bookmark">
-			Git Midx
+			git pack and index
 			</a>
 		</h2>
-		<div class="list__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Dyrone Teng</span>
-</div>
+		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-03-07T14:44:25&#43;08:00">2022-03-07</time></div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		
+		为什么要写这篇文章？ 给外部看： 集团多个团队都涉及Git技术 给内部看： 加深团队内部的同学对这方面的了解 给自己看： 自己总结学习       1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
+   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
+  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
+   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
+ 现在我们回过来继续看packfile.
+ Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
+ Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）
 	</div>
 </article>
 </main>
@@ -109,8 +129,9 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/acceptance_test/">为什么交付测试（Acceptance Testing）如此重要?</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/introduce/">Introduce</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/git-midx/">Git Midx</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/git-midx/">git pack and index</a></li>
 		</ul>
 	</div>
 </div>

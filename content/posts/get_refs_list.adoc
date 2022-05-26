@@ -1,0 +1,16 @@
+---
+title: "git refs lists"
+date: 2022-03-08T09:30:25+08:00
+draft: true
+---
+
+
+.get_refs_list	= get_refs_via_connect
+
+* 需要实现
+
+.get_refs_list	= get_refs_from_bundle 
+
+* 不支持prefix
+
+.get_refs_list	= get_refs_via_connect
