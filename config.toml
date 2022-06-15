@@ -5,7 +5,7 @@ paginate = "10" # Number of posts per page
 theme = "mainroad"
 disqusShortname = "" # Enable Disqus comments by entering your Disqus shortname
 googleAnalytics = "" # Enable Google Analytics by entering your tracking id
-
+summaryLength = "1"
 #[Author] # Used in authorbox
 #  name = "Dyrone Teng"
 #  bio = "Nobody cares what's there, right"

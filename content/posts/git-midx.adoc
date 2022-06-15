@@ -1,11 +1,14 @@
 ---
-title: "git pack and index (Chinese)"
+title: "Git pack and index"
 date: 2022-03-07T14:44:25+08:00
-draft: true
+draft: false
+tags:
+  - "git"
 ---
 
-packfile介绍
-==========
+About pack and index file in git.
+
+
 
 1. git packfile 介绍
 -----------------

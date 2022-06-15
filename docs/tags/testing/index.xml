@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>testing on dyrone&#39;s blog</title>
+    <link>https://dyrone.github.io/tags/testing/</link>
+    <description>Recent content in testing on dyrone&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 May 2022 11:44:25 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WhyAcceptance Testing is so important to us(Chinese)?</title>
+      <link>https://dyrone.github.io/posts/acceptance_test/</link>
+      <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/acceptance_test/</guid>
+      <description>No good testing, no engineer culture.</description>
+    </item>
+    
+  </channel>
+</rss>

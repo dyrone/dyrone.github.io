@@ -4,43 +4,25 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>git pack and index - dyrone&#39;s blog</title>
+	<title>Git pack and index - dyrone&#39;s blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="git pack and index" />
-<meta property="og:description" content="为什么要写这篇文章？ 给外部看： 集团多个团队都涉及Git技术 给内部看： 加深团队内部的同学对这方面的了解 给自己看： 自己总结学习       1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
-   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
-  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
-   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
- 现在我们回过来继续看packfile.
- Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
- Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）" />
+		<meta property="og:title" content="Git pack and index" />
+<meta property="og:description" content="About pack and index file in git." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://dyrone.github.io/posts/git-midx/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-07T14:44:25+08:00" />
 <meta property="article:modified_time" content="2022-03-07T14:44:25+08:00" />
 
 
-		<meta itemprop="name" content="git pack and index">
-<meta itemprop="description" content="为什么要写这篇文章？ 给外部看： 集团多个团队都涉及Git技术 给内部看： 加深团队内部的同学对这方面的了解 给自己看： 自己总结学习       1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
-   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
-  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
-   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
- 现在我们回过来继续看packfile.
- Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
- Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）"><meta itemprop="datePublished" content="2022-03-07T14:44:25+08:00" />
+		<meta itemprop="name" content="Git pack and index">
+<meta itemprop="description" content="About pack and index file in git."><meta itemprop="datePublished" content="2022-03-07T14:44:25+08:00" />
 <meta itemprop="dateModified" content="2022-03-07T14:44:25+08:00" />
-<meta itemprop="wordCount" content="772">
-<meta itemprop="keywords" content="" />
+<meta itemprop="wordCount" content="771">
+<meta itemprop="keywords" content="git," />
 		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="git pack and index"/>
-<meta name="twitter:description" content="为什么要写这篇文章？ 给外部看： 集团多个团队都涉及Git技术 给内部看： 加深团队内部的同学对这方面的了解 给自己看： 自己总结学习       1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
-   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
-  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
-   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
- 现在我们回过来继续看packfile.
- Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
- Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）"/>
+<meta name="twitter:title" content="Git pack and index"/>
+<meta name="twitter:description" content="About pack and index file in git."/>
 
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -77,27 +59,14 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">git pack and index</h1>
+			<h1 class="post__title">Git pack and index</h1>
 			<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-03-07T14:44:25&#43;08:00">2022-03-07</time></div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<div id="preamble">
-<div class="sectionbody">
-<div class="sidebarblock">
-<div class="content">
-<div class="title">为什么要写这篇文章？</div>
-<div class="literalblock">
-<div class="content">
-<pre>给外部看： 集团多个团队都涉及Git技术
-给内部看： 加深团队内部的同学对这方面的了解
-给自己看： 自己总结学习</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
+			<div class="paragraph">
+<p>About pack and index file in git.</p>
 </div>
 <div class="sect1">
 <h2 id="_1_git_packfile_介绍">1. git packfile 介绍</h2>
@@ -537,9 +506,6 @@ $cat pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack | hexdump -C
 <h2 id="_最后">最后</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>原本我是想给团队分享多包索引/多包bitmap/多包rev的内容，但是这块逃离不开首先要对pack和index的内容有充分的了解。</p>
-</div>
-<div class="paragraph">
 <p>但是写着写着， 这部分单独写了一篇文章， 目前先写到这里，后续该文档应该会大概率更新（补充index部分的文件内容分析），随后是多包索引之类的内容放到另外一篇blog中。</p>
 </div>
 <div class="paragraph">
@@ -549,15 +515,32 @@ $cat pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack | hexdump -C
 </div>
 
 		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+	</ul>
+</div>
+		</footer>
 	</article>
 </main>
 
 
 <nav class="pager flex">
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/introduce/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/introduce/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
 			<p class="pager__title">Introduce</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/acceptance_test/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">WhyAcceptance Testing is so important to us(Chinese)?</p>
 		</a>
 	</div>
 </nav>

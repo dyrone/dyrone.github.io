@@ -2,11 +2,13 @@
 title: "WhyAcceptance Testing is so important to us(Chinese)?"
 date: 2022-05-25T11:44:25+08:00
 draft: false
+tags:
+  - "testing"
 ---
 
 [source,shell]
 --
-没有好的测试，就没有工程师文化。
+No good testing, no engineer culture.
 --
 
 1. 定义
