@@ -6,9 +6,20 @@
     <description>Recent content in Posts on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 May 2022 11:44:25 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 15:56:16 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>为什么交付测试（Acceptance Testing）如此重要?</title>
+      <title>About Git Multi Points Representation</title>
+      <link>https://dyrone.github.io/posts/git-multi-points/</link>
+      <pubDate>Sun, 12 Jun 2022 15:56:16 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-multi-points/</guid>
+      <description>If we read the &amp;lsquo;git-rev-list.txt&amp;rsquo; in git project on github or in git rev-list --help output. You can find there are some the related description about multi points in git.
+The multiple points notation in git rev-list intents to select a range of commits on the repository commit graph.
+Two Points Notation: &amp;ldquo;..&amp;rdquo; A special notation &amp;#34;&amp;lt;commit1&amp;gt;..&amp;lt;commit2&amp;gt;&amp;#34; can be used as a short-hand for &amp;#34;^&amp;#39;&amp;lt;commit1&amp;gt;&amp;#39; &amp;lt;commit2&amp;gt;&amp;#34;. For example, either of the following may be used interchangeably: $ git rev-list origin.</description>
+    </item>
+    
+    <item>
+      <title>WhyAcceptance Testing is so important to us(Chinese)?</title>
       <link>https://dyrone.github.io/posts/acceptance_test/</link>
       <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
       
@@ -22,26 +33,10 @@
     <item>
       <title>Introduce</title>
       <link>https://dyrone.github.io/posts/introduce/</link>
-      <pubDate>Mon, 07 Mar 2022 15:34:15 +0800</pubDate>
+      <pubDate>Sat, 01 Jan 2022 15:34:15 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/introduce/</guid>
-      <description>dyrone   test
-     </description>
-    </item>
-    
-    <item>
-      <title>git pack and index</title>
-      <link>https://dyrone.github.io/posts/git-midx/</link>
-      <pubDate>Mon, 07 Mar 2022 14:44:25 +0800</pubDate>
-      
-      <guid>https://dyrone.github.io/posts/git-midx/</guid>
-      <description>为什么要写这篇文章？ 给外部看： 集团多个团队都涉及Git技术 给内部看： 加深团队内部的同学对这方面的了解 给自己看： 自己总结学习       1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
-   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
-  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
-   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
- 现在我们回过来继续看packfile.
- Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
- Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）</description>
+      <description>关于dyrone 2015年加入阿里巴巴，同年年底开始负责Aone下游系统scmcenter的建设，从而实现了阿里独有的分支集成的分支开发模式，并在Aone落地。   2016年继续提升用户整体研发体验，完善新版Aone代码部分功能，同时作为PM参与了冲突白屏化并将代码托管权限体系打通等工作。   2017年作为TM开始建设阿里巴巴自研的基于java技术栈的代码托管平台force，将代码团队技术栈进行统一。   2018年开始布局代码搜索，完成代码搜索一期建设。年底代码中台团队成立基础技术团队并加入，负责代码托管底层的相关技术研发工作。   2019年将集团svn全面迁移到git，完成了业界领先的gerrit分布式架构的设计和改造.   2020年完成了git存储三副本架构-伽利略, 阿里在Git存储架构方面仅落后与Github. 目前正在研究Git特性打造云上差异化产品特性以及云原生Git架构, 目标打造下一代面向云原生的代码基础设施。   2022年目前为阿里云云效Codeup产研负责人；     </description>
     </item>
     
   </channel>

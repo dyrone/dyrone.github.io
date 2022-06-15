@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on dyrone&#39;s blog</title>
+    <link>https://dyrone.github.io/tags/git/</link>
+    <description>Recent content in git on dyrone&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Jun 2022 15:56:16 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About Git Multi Points Representation</title>
+      <link>https://dyrone.github.io/posts/git-multi-points/</link>
+      <pubDate>Sun, 12 Jun 2022 15:56:16 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-multi-points/</guid>
+      <description>If we read the &amp;lsquo;git-rev-list.txt&amp;rsquo; in git project on github or in git rev-list --help output. You can find there are some the related description about multi points in git.
+The multiple points notation in git rev-list intents to select a range of commits on the repository commit graph.
+Two Points Notation: &amp;ldquo;..&amp;rdquo; A special notation &amp;#34;&amp;lt;commit1&amp;gt;..&amp;lt;commit2&amp;gt;&amp;#34; can be used as a short-hand for &amp;#34;^&amp;#39;&amp;lt;commit1&amp;gt;&amp;#39; &amp;lt;commit2&amp;gt;&amp;#34;. For example, either of the following may be used interchangeably: $ git rev-list origin.</description>
+    </item>
+    
+  </channel>
+</rss>
