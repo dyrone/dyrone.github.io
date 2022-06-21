@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>About Git Objects and References - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="About Git Objects and References" />
+<meta property="og:description" content="This article is written in Chinese." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/git-basic-ref-and-object/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-21T19:06:02+08:00" />
+<meta property="article:modified_time" content="2022-06-21T19:06:02+08:00" />
+
+
+		<meta itemprop="name" content="About Git Objects and References">
+<meta itemprop="description" content="This article is written in Chinese."><meta itemprop="datePublished" content="2022-06-21T19:06:02+08:00" />
+<meta itemprop="dateModified" content="2022-06-21T19:06:02+08:00" />
+<meta itemprop="wordCount" content="1931">
+<meta itemprop="keywords" content="git,chinese," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="About Git Objects and References"/>
+<meta name="twitter:description" content="This article is written in Chinese."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">About Git Objects and References</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-21T19:06:02&#43;08:00">2022-06-21</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-对象git-object">Git 对象(Git Object)</a>
+      <ul>
+        <li><a href="#1-了解git-离不开了解git对象">1. 了解Git, 离不开了解Git对象</a></li>
+        <li><a href="#2-对象类型">2. 对象类型</a></li>
+        <li><a href="#3-blob">3. Blob</a></li>
+        <li><a href="#4-git对象存储本质-key-value">4. Git对象存储本质: key-value</a></li>
+        <li><a href="#5-tree">5. Tree</a></li>
+        <li><a href="#6-commit">6. Commit</a></li>
+        <li><a href="#7-tag">7. Tag</a></li>
+      </ul>
+    </li>
+    <li><a href="#git-引用-git-reference">Git 引用 (Git Reference)</a>
+      <ul>
+        <li><a href="#1-git-引用的存储方式">1. Git 引用的存储方式</a></li>
+        <li><a href="#2-分支和标签引用">2. 分支和标签引用</a></li>
+        <li><a href="#3-符号引用">3. 符号引用</a></li>
+        <li><a href="#4-remotes引用">4. Remotes引用</a></li>
+        <li><a href="#5-引用维护">5. 引用维护</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<blockquote>
+<p><code>This article is written in Chinese. </code></p>
+</blockquote>
+<h2 id="git-对象git-object">Git 对象(Git Object)</h2>
+<h3 id="1-了解git-离不开了解git对象">1. 了解Git, 离不开了解Git对象</h3>
+<p>提到版本控制, 大家可能都不太陌生, 作为开发者或者软件工程师, 版本控制一直在频繁发生着, Git作为一款优秀的 VCS版本控制管理工具 (<em>Version Control System</em>) , 就是为了解决版本控制问题诞生。以下是来自维基百科中关于VCS的一段描述:</p>
+<blockquote>
+<p>“几乎与文章写作过程一样，对文本的组织和修订的需求一直存在, 只不过逻辑上的完成手段在各个历史时期有所不同, 书籍的 &lt;版本&gt; 和规范修订的 &lt;编号&gt; 的使用可以追溯到发明印刷术的时代。当计算时代来临之后，修订的逻辑诉求变得更加重要和复杂。如今，最强大或者最复杂的版本控制系统是用于软件开发的系统之中。复杂体现在通常版本需要多个人员同时读取和并发修改。”</p>
+<p>— From: <a href="https://en.wikipedia.org/wiki/Version_control">https://en.wikipedia.org/wiki/Version_control</a></p>
+</blockquote>
+<p>如上述描述所言, “版本控制在逻辑上的完成手段在各个历史时期有所不同”, 而现如今Git便是“逻辑上的完成手段”的极佳实现之一, 为何Git会脱颖而出呢? 依照作者看来主要有以下几个原因:</p>
+<ul>
+<li>
+<p><code>免费并开源</code> : Git是免费的, 并基于GPL-V2协议的开源软件;</p>
+</li>
+<li>
+<p><code>存储完整性</code> : Git可以让每台工作的计算机上都存储一个完整的代码存储仓库 (副本), “完整” 意味着每个副本均具备完整的变更历史记录 (一般场景均适用, 但如·shallow-clone·特性除外, 因为用户可以使用·shallow-clone·去下载一个指定的、裁剪过的提交历史, 而不下载整个Git仓库);</p>
+</li>
+<li>
+<p><code>网络独立性</code> : 因为具备了完整的版本跟踪能力, 存储在任何一个计算机上的Git仓库都可以脱离网络而独立工作 (一般场景均适用, 例如·partial-clone·情况除外, 因为用户可以使用·partial-clone·仅仅下载提交的历史, 而不下载任何相关的文本文件, 当在未来需要用到它们的时候“按需下载”, 如果没有网络则可能会造成surprise);</p>
+</li>
+<li>
+<p><code>协作能力强</code>:</p>
+<ul>
+<li>
+<p>合并策略 : Git基于三路合并 (<code>Three-way merge</code>) 算法进行合并, 对于合并双方存在多个不同祖先的情况 (<code>Criss-cross-merge</code>) , Git也可以通过 Recursive three-way merge 支持, 因为其提交历史可以通过作为 有向无环图 (<code>DAG</code>) 的方式被加载、分析和模拟合并等操作 (在 <em>Git</em> 新版本 <em>2.33</em> 中引入了新的merge-ort策略, 可以通过缓存的方式解决大型<code>merge-recursive</code>场景下的性能问题, 例如在大量文件rename场景下, 合并性能可提升500倍, Rebase可提升 <em>9000</em> 倍) ;</p>
+</li>
+<li>
+<p>冲突处理 : 除了简单冲突场景可以支持之外 (双方编辑同一个文件的同一段内容). 一些复杂场景也可以支持, 例如文件在一个版本中被修改内容, 而在另一个版本对文件重命名, 这类操作在一些VCS工具中被视作树冲突 (<code>Tree conflict</code>) 需要人为介入, 而在Git中可以自动帮我们识别完成;</p>
+</li>
+<li>
+<p>线性历史 : 除了合并和冲突之外, 另一个协作的方式是补丁交换 (Patch commutation) 来完成变更合并, 它的特点是可以改变补丁的顺序 (<code>reorder</code>) 或者是修改补丁描述 (<code>reword</code>) , 最终让变更成为一条 线性历史 , 这在Git中也被得以参考实现, 并叫做<code>Rebase</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>除了以上几个原因, 其实还有例如: Git迁移的能力、Git对大仓的支持、Git传输协议等等一些有优点。</p>
+<blockquote>
+<p>Git经过16年的发展, 已经从最初Linus的第一个提交 ( <em>2000</em> 多行代码) 演变成目前最流行的VCS工具, 过程中也新增了大量令开发者们惊叹的特性。不管是“存储完整”还是“网络独立”, 亦或是“协作能力”和“新诞生的特性”, <em>Git</em> 的一些最初的设计还是基本保留了下来。</p>
+<p>那么这些版本控制中到底有什么不为人知的魔法呢?</p>
+<p>认识 Git 作为 VCS 机理很好的途径——就是从如何存储版本数据开始,这就是本期要谈的话题:Git对象 (<code>Objects</code>) 和引用 (<code>References</code>) 。</p>
+</blockquote>
+<h3 id="2-对象类型">2. 对象类型</h3>
+<p>Git Objects近乎存储了Git的一切, 了解 Git Objects 是用好Git基础中的基础。</p>
+<p>关于 Git 对象的分类, 目前有两种不同的“分法”:</p>
+<ul>
+<li>
+<p>第一种: 将 Git 对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag 4种;</p>
+</li>
+<li>
+<p>第二种: 在 第一种 基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第5种对象, packfile 在本文章中将不会引申介绍；</p>
+</li>
+</ul>
+<h3 id="3-blob">3. Blob</h3>
+<h4 id="计算blob对象">计算BLOB对象</h4>
+<p>blob是Git中仅用来存储文件文本内容的对象。</p>
+<p>之所以上面用了一个 “仅” 这是因为BLOB中并不存储文件的名称, 时间戳, 或者其他的文件元数据 (例如Unix文件系统中attributes的概念, 例如文件权限信息、链接等) , 而只存储文件中的数据. 我们可以使用 git hash-object 子命令来尝试了解blob对象, 确保本机已经安装Git后, 执行如下命令:</p>
+<pre tabindex="0"><code>➜  git init test.git
+➜  cd test.git
+➜  echo &quot;some contents&quot; | git hash-object --stdin
+f70d6b139823ab30278db23bb547c61e0d4444fb
+</code></pre><p>稍做解释, 首先我们创建了一个 <code>test.git</code> 目录并使用其初始化为一个 Git 仓库, 随后在仓库中执行了 hash-object 子命令. 当成功执行后, 子命令在 <code>stdout</code> 输出了一个难以记忆的字符串 :</p>
+<p><code>f70d6b139823ab30278db23bb547c61e0d4444fb</code> 。</p>
+<p><code>hash-object</code> 子命令可以让我们方便的计算或生成我们需要的 Git 对象. 其中, 我们可以在执行前指定 <code>-t</code> 参数, 告诉 <code>hash-object</code> 我们要计算和生成何种类型的对象, 如果没有指定 <code>-t</code> 参数, 默认按照 <code>blob</code> 类型进行处理。</p>
+<p>使用 <code>git hash-object &lt;file&gt;</code>  是使用该子命令最基础的方式之一, 不带任何 <code>option</code> (换言之: 无 <code>-t</code> ), 意味着我们要计算 <code>blob</code> 类型的对象, 传入 <code>argument[1]</code> 为一个文件名用来读取其文件内部(contents),之后 <code>hash-object</code> 就可以根据文件文本进行计算或生成对象了。</p>
+<p>在上面的执行过程中, 我们没有传入<code>&lt;file&gt;</code>来指定需要被计算的文件名, 而是使用了 <code>--stdin</code> 参数的方式让 <code>hash_object</code> 从输入流中读取 <code>contents</code> , 这种读取输入流的方式与指定 <code>&lt;file&gt;</code> 作为参数在这个场景下并没有本质的不同, 有的话直观的体现在无需在磁盘上多生成一个文件。</p>
+<h3 id="4-git对象存储本质-key-value">4. Git对象存储本质: key-value</h3>
+<p>在上面的示例中, 我们只是根据 contents 计算得到了一个 blob object, 这个 object 体现在了一个“难以记忆的字符串”的上面, 似乎除此之外我们对 blob 既看不见, 又摸不着. 那么“f70d6b139823ab30278db23bb547c61e0d4444fb” 究竟代表了什么含义呢?</p>
+<p>这个难以记忆的字符串实际上就是Git对象的 <code>key</code> 值,  也被叫做 <code>OID (Object ID)</code> 。</p>
+<p>在Git的世界, 不同的对象有着不同的 <code>key</code> 值, 就像这世上没有两个完全相同的叶子一样——key具备 唯一性. Git 对这种 <code>key</code> 默认使用 <code>SHA-1</code> 格式表示, 即: <em>40</em> 位 <em>16</em> 进制组成的字符串 。我们可以重复执行上面的 <code>echo &quot;some contents&quot; | git hash-object --stdin</code> 命令, 可以发现每次输出的 <code>key</code> 值都是相同的。</p>
+<p>简单说来, 如果 <code>key</code> 值相同, 一定代表两个对象代表同一个含义, 否则就会有大的问题, 这种Git对象之间的 hash碰撞 (collision) 将会引发仓库可靠性和安全性上的严重隐患。实际上 <code>SHA-1</code> 也确实在 <em>2017</em> 年被证明可以被攻破(<a href="https://phys.org/news/2017-02-cwi-google-collision-industry-standard.html),">https://phys.org/news/2017-02-cwi-google-collision-industry-standard.html),</a> 所以在 Git 新版本中, Git 支持升级更严格的 <code>SHA-256</code> 哈希算法, 即 <em>64</em> 位的 <em>16</em> 进制字符串表示 ,从而增强Git本身的安全性。</p>
+<p>Git 对象的 key 我们有了初步了解, 那对象的 <code>value</code> 是什么呢? 我们可以执行下面的命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  echo <span style="color:#e6db74">&#34;some contents&#34;</span> | git hash-object --stdin -w
+f70d6b139823ab30278db23bb547c61e0d4444fb
+
+➜  tree .git/objects
+.git/objects
+├── f7
+│   └── 0d6b139823ab30278db23bb547c61e0d4444fb
+├── info
+└── pack
+</code></pre></div><p>与之前执行 <code>hash-object</code> 子命令所不同的是, 这一次我们添加了 <code>-w</code> 选项, 这表示本次执行将不光计算 <em>blob</em> 的 <em>OID</em>, 还会将 <em>OID</em> 对应的 <code>value</code> 写入到 Git 仓库当中, 我们可以对 <code>.git/objects</code> 目录执行 <em>tree</em> 命令来验证这一点, 可以看到随着命令执行成功, 在 <code>.git/objects</code> 下产生了 <code>f7/0d6b139823ab30278db23bb547c61e0d4444fb</code> 文件. 其中目录名 <code>f7</code> 代表的是 <code>OID</code> 的前 <em>2</em> 位字符, 而OID剩余的 <em>38</em> 个字符则为文件名, 这样做的原因是可以让Git对象更加离散的存放到 <code>00~ff</code> 范围的 <em>256</em> 个目录之中, 提升操作系统查找性能和解决单个目录下可能带来的文件数量的限制, 这种对象的存放方式叫做 松散存储(<code>loose</code>) 或者 未打包存储(<code>unpacked</code>) 。</p>
+<p>另外, 值得注意的是, 在执行 <em>tree</em> 命令的输出结果中, 可以发现除了用于存储松散对象的目录之外, 还有 <em>pack</em> 和 <em>info</em> 目录, 他们其实也是用于存储对象的, 只不过不是在当前仓库中采用松散的形式, 而是采用其他的方式, 比如将对象打包为 <code>pack-file</code> 或者从 <code>alternates</code> 资源中 (本地 <em>link</em> 或者 <em>http</em> 协议) 获取对象.。这些内容如果有机会, 也会在后面的视频和文章中会继续介绍, 本文不会过度引申. 对于之前不了解Git的读者来说, 暂知晓松散存储的方式即可。</p>
+<p>我们可以执行 cat 命令查看松散文件的内容:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜   cat .git/objects/f7/0d6b139823ab30278db23bb547c61e0d4444fb
+xblob 14some contents
+S<span style="color:#f92672">[</span>q
+</code></pre></div><p>很明显, 这里并没有直接存储我们期待的文本内容: <code>&quot;some contents&quot;</code> , 而看似多了一些其他的内容。这是因为 <em>Git</em> 使用了 <em>zlib</em> 对文本内容和 对象的头信息(<em>header</em>) 进行了压缩, 为了真实还原我们存储的文本内容, 我们可以使用 <code>git cat-file</code> 子命令来查看:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git cat-file -p f70d6b139823ab30278db23bb547c61e0d4444fb
+some contents
+
+➜  git cat-file  -t f70d6b139823ab30278db23bb547c61e0d4444fb
+blob
+
+</code></pre></div><p><code>git cat-file</code> 子命令是用于查看 <code>Object value</code> 的绝佳助手, 这里我们通过指定的 <em>OID</em> 作为执行参数 (<em>arg</em>) 并添加 <code>-p</code> 选项 (<em>opt</em>) 来让 <code>cat-file</code> 自动适配对象的类型, 并且以较为美观的输出方式 (<em>pretty-print</em>) 对象中存储的数据 (<em>Git Object Data</em>) 进行输出。另外, 我们也可以使用 <code>-t</code> 选项来获取对象的类型。</p>
+<p>以上, 我们简单介绍了 <em>blob</em> 对象——这是 <em>Git</em> 用来仅存放文件文本内容的一种存储的格式。同时, 我们还介绍了对象的 <code>key-value</code> 是如何将对象松散存储在 <em>Git</em> 仓库中, 以及如何根据 <em>OID</em> 来查看对应的 <em>data</em>。</p>
+<p>文件的内容得以保存, 那么文件名等信息到底存在哪里呢? 接下来就要给大家介绍另一个对象类型 <em>tree</em> 。</p>
+<h3 id="5-tree">5. Tree</h3>
+<p>Git 的一个设计理念是: 在版本控制过程中, Git 针对变更是基于创建 完整快照 (<code>Snapshots</code>) 而非增量修改 (<code>Deltas</code>) 。需要其他的VCS工具是使用增量编码(压缩)的形式存储增量, 从而节约存储空间 (通常是这个目的) , 但 Git 并没有沿用这一理念, 而是坚定的使用了快照的设计. 快照的方式不可避免的会对带来存储空间的快速增长, 但是也带来了Git对象在存储上不可变性 (<code>Immutable</code>) 的优势, 这是设计上的一个权衡 (<em>trade-off</em>)。</p>
+<p><code>Snapshots</code>得以让 Git 可以针对一个提交、目录树或者文件, 在无需保存任何其他的关联对象的信息的情况下, 随时可以还原某一个历史时刻的仓库状态。</p>
+<p><em>tree</em> 对象负责存储一个目录的快照(<code>snapshot</code>), 快照包含一组文件的文件类型(<code>type</code>)、文件名、文件模式 (<code>mode</code>)等信息。</p>
+<p><em>tree</em> 对象保存的信息和我们常见的目录结构很类似, 其内部可以递归包含其他的目录和 <em>blobs</em>, 这其实和 <em>Unix</em> 的文件系统 (树映射) 的设计方式很相似(<a href="https://en.wikipedia.org/wiki/Unix_filesystem#Principles">https://en.wikipedia.org/wiki/Unix_filesystem#Principles</a>)。<em>tree</em> 对象其内部的存储方式是使用 哈希树 的结构 (<a href="https://en.wikipedia.org/wiki/Merkle_tree">https://en.wikipedia.org/wiki/Merkle_tree</a>)。这样, <em>Git</em> 只需要一个 根树 (<code>root-tree</code>) 的 <code>OID</code> 就足够推演整个目录的状态, 随后将根树和 commit对象 关联, 就可以知道在那个提交的时间节点上工作空间的快照。</p>
+<h4 id="根树对象root-tree">根树对象—Root Tree</h4>
+<p>为了更进一步的解根树的存储方式 (root-tree) , 我们可以执行如下命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  echo <span style="color:#e6db74">&#39;readme&#39;</span> &gt; README.md
+➜  git add README.md
+➜  git commit -s
+<span style="color:#f92672">[</span>master <span style="color:#f92672">(</span>root-commit<span style="color:#f92672">)</span> 3de31e2<span style="color:#f92672">]</span> COMMIT A
+ <span style="color:#ae81ff">1</span> file changed, <span style="color:#ae81ff">1</span> insertion<span style="color:#f92672">(</span>+<span style="color:#f92672">)</span>
+ create mode <span style="color:#ae81ff">100644</span> README.md
+➜
+➜  git cat-file -p master
+tree 764409de08fa4fda9ba6c85a54f5f31d00cec93e
+author Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633679101</span> +0800
+committer Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633679101</span> +0800
+COMMIT A
+➜
+➜  git cat-file -t 764409de08fa4fda9ba6c85a54f5f31d00cec93e
+tree
+➜  git cat-file -p 764409de08fa4fda9ba6c85a54f5f31d00cec93e
+<span style="color:#ae81ff">100644</span> blob 8178c76d627cade75005b40711b92f4177bc6cfc    README.md
+➜  git cat-file -p 8178c76d627cade75005b40711b92f4177bc6cfc
+readme
+</code></pre></div><p>我们首先创建了一个名为 <code>README.md</code> 的文本文件. 随后执行了 <code>git add</code> 子命令, 在这个过程中Git会将该文本文件转化为 <em>blob</em> 对象进行存储。随后执行 <code>git commit</code> 子命令, 在这个过程中Git会生成一个 <em>tree</em> 对象来存储当前仓库目录的快照, 之后再生成一个指向该 <em>tree</em> 的 <em>commit</em> 对象, 这个新生成并被 <em>commit</em> 引用的 <em>tree</em> 即 <em>root-tree</em> 。</p>
+<p>我们可以执行 <code>git cat-file</code> 子命令来查看某个提交所引用的 <em>root-tree</em> 对象, 并递归执行查看查看该 <em>tree</em> 对象的类型和内容。</p>
+<p>通过上面的输出结果可以看到, 此时 <code>root-tree</code> 中包含了 <em>README.md</em> 中文本对应的 <em>blob</em> 对象: <code>8178c76d627cade75005b40711b92f4177bc6cfc</code> , <em>blob</em> 中存储了内容: &ldquo;readme&rdquo; 。</p>
+<h4 id="普通tree对象">普通Tree对象</h4>
+<p><code>Root Tree</code>是一种逻辑含义上特殊的 <em>tree</em> 对象, 因为它是由 <em>Git</em> 自动生成的对某个目录的映射或索引. 但是在物理含义上, 它与普通的 <em>tree</em> 对象并没有本质差别, 我们尝试通过新增目录的方式, 来进一步了解 <em>tree</em> 对象:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  mkdir src docs
+➜  echo <span style="color:#e6db74">&#34;abc&#34;</span> &gt; src/main.c
+➜  echo <span style="color:#e6db74">&#34;efg&#34;</span> &gt; docs/project.txt
+➜  git add src docs
+➜  git commit -s
+<span style="color:#f92672">[</span>master 87902f9<span style="color:#f92672">]</span> COMMIT B
+ <span style="color:#ae81ff">2</span> files changed, <span style="color:#ae81ff">2</span> insertions<span style="color:#f92672">(</span>+<span style="color:#f92672">)</span>
+ create mode <span style="color:#ae81ff">100644</span> src/main.c
+ create mode <span style="color:#ae81ff">100644</span> src/project.txt
+➜
+➜  git cat-file -p master
+tree 2e6cdc032db0ecfa4e3e898b8f8551acce10db11
+parent 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6
+author Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633681481</span> +0800
+committer Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633681627</span> +0800
+COMMIT B
+Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+➜
+➜  git cat-file -p 2e6cdc032db0ecfa4e3e898b8f8551acce10db11
+<span style="color:#ae81ff">100644</span> blob 8178c76d627cade75005b40711b92f4177bc6cfc    README.md
+<span style="color:#ae81ff">040000</span> tree 99b20b290a90e1137e0487f955620db05b229abe    docs
+<span style="color:#ae81ff">040000</span> tree 8db636fa1dbc4d704179895bdb6e4322f32cbda6    src
+➜
+➜  git cat-file -p 99b20b290a90e1137e0487f955620db05b229abe
+<span style="color:#ae81ff">100644</span> blob 1505b408c2ef47655f603b9045464e642ab28d97    project.txt
+➜
+➜  git cat-file -p 8db636fa1dbc4d704179895bdb6e4322f32cbda6
+<span style="color:#ae81ff">100644</span> blob 8baef1b4abc478178b004d62031cf7fe6db6f903    main.c
+</code></pre></div><p>我们在工作空间中, 新创建了两个文本文件为 <em>main.c</em> 和 <em>project.txt</em> 并分别存放在新的目录 <em>src</em> 和 <em>docs</em> 下, 随后对当前工作空间的更改进行提交。</p>
+<p>通过 <code>git cat-file -p master</code> 来查看 <em>master</em> 分支 (Git自动为我们生成的默认分支名) 上最近提交的 <em>root-tree</em> 对象, 随后进一步通过该子命令进行递归查看. 我们可以从输出结果分析出以下绩点(仅分析 <em>tree</em> 和 <em>blob</em> 对象):</p>
+<ul>
+<li>创建 <em>blob</em> 对象 <code>1505b408c2ef47655f603b9045464e642ab28d97</code> 用于存放 <code>project.txt</code> 文件的文本内容;</li>
+<li>创建 <em>blob</em> 对象 <code>8baef1b4abc478178b004d62031cf7fe6db6f903</code> 用于存放 <code>main.c</code> 文件的文本内容;</li>
+<li>创建 <em>tree</em> 对象 <code>8db636fa1dbc4d704179895bdb6e4322f32cbda6</code> 用于存放 <em>src</em> 目录索引信息, 其中包含了 <em>main.c</em> 文件的名称、类型和模式等信息;</li>
+<li>创建 <em>tree</em> 对象 <code>99b20b290a90e1137e0487f955620db05b229abe</code> 用于存放 <em>docs</em> 目录索引信息, 其中包含了 <em>project.txt</em> 文件的名称、类型和模式等a信息;</li>
+</ul>
+<p>•创建 <em>tree</em> 对象 (<code>root-tree</code>) <code>2e6cdc032db0ecfa4e3e898b8f8551acce10db11</code> 用于存放当前仓库目录的索引信息, 其中包含了 <em>src</em> 以及 <em>docs</em> 目录以及 <em>README.md</em> 文件的名称、类型和模式等信息;</p>
+<p>大家是否注意到, 当我们使用 <em>cat-file</em> 查看一个 <em>tree</em> 对象时, 其中不仅包含了文件名、<em>OID</em> 和对象类型, 还输出了类似 <code>100644</code> 以及 <code>040000</code> 等信息, 这些信息则代表着文件的 <em>类型</em> 和 <em>模式</em> 。</p>
+<h4 id="文件的类型type与模式mode">文件的类型(<em>type</em>)与模式(<em>mode</em>)</h4>
+<p>文件类型 (<a href="https://en.wikipedia.org/wiki/Unix_file_types">https://en.wikipedia.org/wiki/Unix_file_types</a>) 和模式 (<a href="https://en.wikipedia.org/wiki/File-system_permissions),">https://en.wikipedia.org/wiki/File-system_permissions),</a> 是源于 <em>Unix</em> 文件系统中的设计, 而在 <em>Git</em> 中则进行了选择性的沿用, 可以认为是一个 <em>Unix</em> 文件结构设计的迷你版。</p>
+<p>Git 采用 <em>32</em> 位长存储文件模式，从高位到低位依次:</p>
+<ul>
+<li>4位: 保存对象类型, 二进制的有效值为 1000（常规文件）、1010（符号链接）和 1110 (gitlinks)</li>
+<li>3位: 保留</li>
+<li>9位: unix 权限格式, 只有 0755 和 0644 对常规文件有效, 符号链接和 gitlinks 在该字段中的值为0.</li>
+</ul>
+<p>目前的模式有以下几种:</p>
+<ul>
+<li>0100000000000000 (040000): 目录;</li>
+<li>1000000110100100 (100644): 普通文件(非可执行);</li>
+<li>1000000110110100 (100664): 普通文件(非可执行、group可写);</li>
+<li>1000000111101101 (100755): 普通文件(可执行);</li>
+<li>1010000000000000 (120000): 符号链接(Symbolic link);</li>
+<li>1110000000000000 (160000): Gitlink(用于Git Submodule);</li>
+</ul>
+<h3 id="6-commit">6. Commit</h3>
+<p>通过上面的介绍, 我们已经大体了解了 <em>blob</em> 和 <em>tree</em> 的用途, 其中 <em>tree</em> 区别了不同状态下仓库内容的快照, 但光有这些还是不够的, 因为这时候还缺少如下的信息:</p>
+<ul>
+<li>
+<p>无法追溯 : 仅有快照, 相当于有了 <em>What</em> . 但快照和快照之间的联系没有建立起来, 如前面介绍它们只是松散存储的 <em>Tree</em> 对象, 没有形成历史结构存储下来。</p>
+<ul>
+<li>Who : 不知道快照的参与者是谁。</li>
+<li>Why/How : 不知道当初创建快照的原因。</li>
+<li>When : 不知道什么时间创建了快照。</li>
+</ul>
+</li>
+<li>
+<p>提交 (commit) 对象用来解决这些问题:</p>
+<ul>
+<li>
+<p>关联快照 : commit引用了一个 _root-tree_对象, 即仓库顶层目录的快照, 从而将提交对象和树对象关联。</p>
+</li>
+<li>
+<p>Who : commit对象中记录了作者、提交人以及其他参与者的信息, 例如可以通过 git commit 子命令的 -signoff 选项, 在提交末尾添加 Signed-off-by (授权提交) 信息. 诸如此类的还有:</p>
+<ul>
+<li>Reported-and-tested-by: reported and tested the issue (I assume);</li>
+<li>Acked-by: acknowledged by the owner of the code, “looks good to me” ;</li>
+<li>Reviewed-by: reviewed;</li>
+<li>
+<ul>
+<li>Cc: was notified about the patch;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>When : 提交中通过时间戳记录了创建的时间以及提交的时间. 这是因为, Git的作者和提交者可以是不同的人, 对应的创作时间和提交时间自然就可能不同, 我们可以执行 git log &ndash;format=fuller 查看包含了上述全部信息的提交历史列表。</p>
+</li>
+<li>
+<p>Why/How : 提交中还保存了提交的描述信息, 其中可以记录本次提交的原因、背景和实现策略等.</p>
+<ul>
+<li>一行标题;</li>
+<li>一行空行;</li>
+<li>可以包含多个段落的具体描述;</li>
+</ul>
+</li>
+<li>
+<p>可追溯 : Git commit中可以存储包含指向父提交的引用(parent), 通过这种方式, 新的 commit 和旧的 commits 之间就构成了一个有向无环图 (DAG), 我们可以从图中搜索 commit 并递归追溯其所有的祖先提交 (ancestors)。通常, 一个提交可以有0个或n个父提交, 情况分别为:</p>
+<ul>
+<li>0个 : 当提交为根提交(root-commit) 或者使用 git commit-tree 子命令(不加 -p 选项)直接创建的commit对象。</li>
+<li>1个 : 非根提交, 或非合并提交的情况下</li>
+<li>2个 : 合并提交(merged-commit)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>一个较好的参考示例:</p>
+<p>•https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=19be0eaffa3ac7d8eb6784ad9bdbc7d67ed8e619</p>
+<p>为了很好的理解上面的几点, 我们可以在刚才创建的 test.git 中执行:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git log --parents --pretty<span style="color:#f92672">=</span>fuller
+commit 6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6 <span style="color:#f92672">(</span>HEAD -&gt; master<span style="color:#f92672">)</span>
+Author:     Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+AuthorDate: Fri Oct <span style="color:#ae81ff">8</span> 16:24:41 <span style="color:#ae81ff">2021</span> +0800
+Commit:     Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+CommitDate: Fri Oct <span style="color:#ae81ff">8</span> 16:27:07 <span style="color:#ae81ff">2021</span> +0800
+    
+    COMMIT B
+
+    Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+
+commit 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6
+Author:     Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+AuthorDate: Fri Oct <span style="color:#ae81ff">8</span> 15:45:01 <span style="color:#ae81ff">2021</span> +0800
+Commit:     Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+CommitDate: Fri Oct <span style="color:#ae81ff">8</span> 15:45:01 <span style="color:#ae81ff">2021</span> +0800
+
+    COMMIT A
+
+    Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+</code></pre></div><p>我们通过添加 <code>--parents</code> 选项, 让 <code>git log</code> 子命令输出 <code>parents</code>提交的相关信息, 同时还添加了 <code>--pretty=fuller</code> 选项, 让输出结果中同时展示作者, 提交者, 创作时间和提交时间。</p>
+<h4 id="小结回顾">小结回顾</h4>
+<p>Git 对于每一次的文件内容变化, 都会单独保存为一个 zlib 压缩过的 blob 对象(文件), 进一步通过 commit 和 tree 将文件和目录组织起来形成快照, 并将提交和快照关联起来, 建立提交之间的 DAG。</p>
+<p>这种设计, 让版本管理变得简单可靠, 但同时, 也不可避免的会造成 Git 仓库存储的 快速膨胀 。Git 可以通过将松散的对象打包为 pack 文件, 来解决这个问题。除此以外, pack 中还支持保存 delta 的方式(<code>delta compression</code>), 保存对象之间的 delta 差异 (2进制则会失效)。</p>
+<h3 id="7-tag">7. Tag</h3>
+<p>标签 (<code>tags</code>) 的概念并非 Git 独创, 通常用来记录被认为很重要的提交, 例如软件的发行版本。</p>
+<h4 id="轻量级标签-lightweight-tags">轻量级标签 (<code>Lightweight Tags</code>)</h4>
+<p>我们可以创建一个不带有任何额外信息的 <em>tag</em>, <em>Git</em> 称这种类型的标签为 轻量级 <em>tag</em> (<code>lightweight</code>)。 &ldquo;签如其名&rdquo;,  轻量级 <em>tag</em> 看上去与一个 <em>commit</em> 并无太多差别, 事实也确实是这样, 因为其不会保存额外的信息, 只是一个 <em>commit</em> 的指针, 我们可以在 <code>test.git</code> 中创建一个名为 <code>v1.0</code> 的轻量级tag:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git tag v1.0
+➜  git cat-file -t v1.0
+
+commit
+</code></pre></div><p>可以看到, 标签名也支持使用 <code>git cat-file</code> 子命令, 我们可以看到其对象类型为 <em>commit</em>。</p>
+<h4 id="附注标签-annotated-tags">附注标签 (<code>Annotated Tags</code>)</h4>
+<p>另外一类标签叫做 附注标签 (<code>Annotated Tags</code>) , 附注标签可以记录额外的信息。例如: 如果一个 tag 被用来标记发行版本, 就可以通过附注的信息记录本次发布了什么内容。此外, 附注标签还可以记录标签的 作者 (<em>tagger</em>) 、邮箱 (<em>tagger email</em>) 以及 时间戳 , 这些都可以理解为标签说被附注的 元数据(<em>meta-data</em>) 。最后, 附注标签还支持使用默认配置的邮箱信息, 用于生成 <em>GPG</em> 签名信息并附注在 <em>tag</em> 中。</p>
+<p>附注标签与轻量级标签不同的是, 附注标签会以tag对象类型进行保存:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git tag -a v2.0 -m <span style="color:#e6db74">&#34;create v2.0&#34;</span>
+➜
+➜  git cat-file -t v2.0
+tag
+➜
+➜  git cat-file tag v2.0
+object 6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f
+type commit
+tag v2.0
+tagger Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633919318</span> +0800
+ 
+create v2.0
+</code></pre></div><p>如上所示, 我们创建了一个名为 <code>v2.0</code> 的附注标签, 其描述信息为 <code>create v2.0</code> 。我们可以使用 <code>cat-file</code> 子命令查看该标签会发现其对象类型为 <em>tag</em> 。进一步, 如果我们希望查看 <em>tag</em> 的附注信息, 我们可以执行 <code>git cat-file tag</code> 子命令完成。</p>
+<h2 id="git-引用-git-reference">Git 引用 (Git Reference)</h2>
+<p><code>OID</code>, 即 <em>40</em> 位的 <em>16</em> 进制字符串表示(<em>SHA-256</em> 则为 <em>64</em> 位), 毫无疑问让我们非常晦涩难记。Git 引用 (References 或 Refs) 就是为此而生的, 引用是一个逻辑概念, 其并非 Git 所独创, 很多的 VCS 工具都有类似的概念和设计, 但是基本通过不同的物理方式实现。</p>
+<h3 id="1-git-引用的存储方式">1. Git 引用的存储方式</h3>
+<p>Git 引用存储的文件可以在我们仓库中轻松找到, 并且其存储的内容结构也非常简易。Git refs通常会 松散存储 在仓库的 <code>.git/refs/</code> 目录下 (实际上也可以“打包”), 我们可以在此前的仓库中执行 <code>find</code> 命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  find .git/refs
+.git/refs
+.git/refs/heads
+.git/refs/heads/master
+.git/refs/tags
+.git/refs/tags/v2.0
+.git/refs/tags/v1.0
+</code></pre></div><p>其中 <code>.git/refs/heads</code> 和 <code>.git/refs/tags</code> 等目录是用来让 Git 区分不同引用类型, 其中包括:</p>
+<p>仓库内建引用目录标识:</p>
+<ul>
+<li><code>git/refs/heads/</code> : 分支引用(<code>Branches</code>);</li>
+<li><code>git/refs/tags/</code> : 标签引用(<code>Tags</code>);</li>
+<li><code>git/refs/remotes/</code> : 远端引用(<code>Remotes Refs</code>);</li>
+<li><code>git/refs/stash/</code> : 暂存引用(保存还未提交的对象信息);</li>
+<li><code>git/</code> : 符号引用(例如: <em>HEAD</em> 等);</li>
+<li><code>git/refs/meta/config</code> : <code>Gerrit</code> 用于保存仓库信息和用户权限等用到的特殊引用;</li>
+</ul>
+<h3 id="2-分支和标签引用">2. 分支和标签引用</h3>
+<p>分支(<code>Branches</code>) 是 <code>Git refs</code> 最常见的引用之一, 我们可以通过 <code>cat</code> 命令直接查看我们在 <code>test.git</code> 仓库中已经默认创建的 <code>master</code> 分支:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  cat .git/refs/heads/master
+6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f
+➜
+➜  git cat-file -p 6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f
+tree 2e6cdc032db0ecfa4e3e898b8f8551acce10db11
+parent 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6
+author Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633681481</span> +0800
+committer Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633681627</span> +0800
+
+COMMIT B
+
+Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+</code></pre></div><p>可以看到, 在引用文件 <code>.git/refs/heads/master</code> 中保存了 <code>6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f</code> , 这个 <code>OID</code> 就是我们刚才创建的 <code>COMMIT B</code> 的对象。同理, 我们可以查看 <code>.git/refs/tags/v1.0</code> 的引用存储的信息, 我们可以执行:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  cat .git/refs/tags/v1.0 | xargs git cat-file -p
+tree 2e6cdc032db0ecfa4e3e898b8f8551acce10db11
+parent 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6
+author Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633681481</span> +0800
+committer Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt; <span style="color:#ae81ff">1633681627</span> +0800
+
+COMMIT B
+
+Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+</code></pre></div><h3 id="3-符号引用">3. 符号引用</h3>
+<p>了解 符号引用(<code>Symbolic Reference</code>) 之前, 我们先在 <code>test.git</code> 目录中执行 <code>git log</code> 子命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git log
+
+commit 6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f <span style="color:#f92672">(</span>HEAD -&gt; master, tag: v2.0, tag: v1.0<span style="color:#f92672">)</span>
+Author: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Fri Oct <span style="color:#ae81ff">8</span> 16:24:41 <span style="color:#ae81ff">2021</span> +0800
+
+    COMMIT B
+
+    Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+
+commit 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6
+Author: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Fri Oct <span style="color:#ae81ff">8</span> 15:45:01 <span style="color:#ae81ff">2021</span> +0800
+
+    COMMIT A
+
+    Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+
+</code></pre></div><p><code>git log</code> 子命令用于查看 <em>提交历史</em>, 这里我们没有指定任何一个选项或者参数, 这中情况下子命令会为我们展示 当前所在引用(<code>the branch currently on</code>) 分支 的最新提交历史, 那么Git是如何知晓我们当前引用是哪个呢? 原因就在于符号引用。
+<code>Git</code> 使用 <code>.git/HEAD</code> 文件来保存你当前所在分支引用的信息, 与分支引用和标签引用相比不同的是, 后者存储的是引用对象的信息, 而前者保存的是 引用的引用 , 我们执行 :</p>
+<p>除了 <code>HEAD</code> 之外, 实际上我们可以 <code>symbolic-ref</code> 子命令更新和获取, 自定义名称的符号引用:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git symbolic-ref MARK refs/heads/master
+➜  test.git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat .git/MARK
+ref: refs/heads/master
+</code></pre></div><h3 id="4-remotes引用">4. Remotes引用</h3>
+<p><em>Remotes</em> 引用, 通常用来存储 已经存在于远程存储库中的对象 信息, 例如在执行 <code>git push</code> 子命令后进行维护. 我们此前介绍的内容都是基于本地仓库, 并不涉及与远端仓库的协作. 如果我们添加一个远端仓库 (<em>remote</em>) 的地址并将新的提交执行推送 (<em>push</em>) ，Git 便会将上次推送的对象的值存储在 <code>refs/remotes</code> 目录中的对应分支中。例如，您可以添加一个名为 <em>origin</em> 的远程信息并将 <em>master</em> 推送上去：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜   git remote add origin https://codeup.aliyun.com/rdc2020/dyrone.git
+➜
+➜   git push origin master
+Enumerating objects: 9, <span style="color:#66d9ef">done</span>.
+Counting objects: 100% <span style="color:#f92672">(</span>9/9<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Delta compression using up to <span style="color:#ae81ff">8</span> threads
+Compressing objects: 100% <span style="color:#f92672">(</span>3/3<span style="color:#f92672">)</span>, <span style="color:#66d9ef">done</span>.
+Writing objects: 100% <span style="color:#f92672">(</span>9/9<span style="color:#f92672">)</span>, <span style="color:#ae81ff">754</span> bytes | 754.00 KiB/s, <span style="color:#66d9ef">done</span>.
+Total <span style="color:#ae81ff">9</span> <span style="color:#f92672">(</span>delta 1<span style="color:#f92672">)</span>, reused <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>delta 0<span style="color:#f92672">)</span>, pack-reused <span style="color:#ae81ff">0</span>
+To https://codeup.aliyun.com/rdc2020/dyrone.git
+ * <span style="color:#f92672">[</span>new branch<span style="color:#f92672">]</span>      master -&gt; master
+➜
+➜  cat .git/refs/remotes/origin/master
+6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f
+</code></pre></div><p>现在我们可以看到, 在 <code>.git/refs/remotes/origin/master</code> 引用中记录了我们上一次 <code>push</code> 到名为 <code>origin</code> 的远端仓库上的对象信息。</p>
+<h3 id="5-引用维护">5. 引用维护</h3>
+<p>了解了引用的存储方式以后, 我们可以通过直接创建文件的方式, 创建一个仓库中的引用:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git log --graph
+* commit 6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f <span style="color:#f92672">(</span>HEAD -&gt; master, tag: v2.0, tag: v1.0, origin/master<span style="color:#f92672">)</span>
+| Author: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+| Date:   Fri Oct <span style="color:#ae81ff">8</span> 16:24:41 <span style="color:#ae81ff">2021</span> +0800
+|
+|     COMMIT B
+|
+|     Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+|
+* commit 3de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6 <span style="color:#f92672">(</span>topic_aliyun<span style="color:#f92672">)</span>
+  Author: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+  Date:   Fri Oct <span style="color:#ae81ff">8</span> 15:45:01 <span style="color:#ae81ff">2021</span> +0800
+
+      COMMIT A
+
+      Signed-off-by: Dyrone Teng &lt;tenglong.tl@alibaba-inc.com&gt;
+➜
+➜  echo 3de31e23de31e208ae26c6b44d9e6c4a3f0adb32d0c68b6 &gt; .git/refs/heads/topic_aliyun
+➜
+➜  git log --oneline refs/heads/topic_aliyun
+3de31e2 <span style="color:#f92672">(</span>topic_aliyun<span style="color:#f92672">)</span> COMMIT A
+</code></pre></div><p>首先我们找到仓库中的第一个提交, 随后基于第一个提交的OID创建一个名为 <code>topic_aliyun</code> 的分支引用, 随后执行 <code>git log</code> 子命令查看新分支的提交记录, 其中 <code>--graph</code> 选项可以在提交历史中附带输出文本形式的简易图形信息, <code>--oneline</code> 可以简化我们的输出信息, 只关注提交的 标题 和 简短形式的 <code>OID</code>。</p>
+<p>直接使用 <code>echo</code> 的方式去修改引用其实不是非常安全, 所以 <code>Git</code> 设计了 <code>git update-ref</code> 子命令专门用来维护引用的数据。例如, 我们可以尝试将分支应用 <code>refs/heads/topic_aliyun</code> 更新为 <em>COMMIT B</em> 的提交对象:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git update-ref refs/heads/topic_aliyun 6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f
+➜  cat .git/refs/heads/topic_aliyun
+6ae8bbeeb4dba091d3c6295d0b3d0f9a3863d32f
+</code></pre></div><h2 id="总结">总结</h2>
+<p>本文花了一部分的篇幅用来介绍了 <em>Git</em> 的设计思路, 引出了 <em>Git</em> 是如何通过对象来完成版本控制数据的存储, 以及如何通过引用来方便的管理和使用这些对象, 希望这些内容对不太了解 <em>Git</em> 的同学能够小有帮助, 同时这也是继续了解 <em>Git</em> 的重要基础。</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/chinese/" rel="tag">chinese</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/git-multi-points/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">About Git Multi Points Representation</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

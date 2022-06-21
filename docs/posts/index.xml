@@ -6,7 +6,16 @@
     <description>Recent content in Posts on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jun 2022 15:56:16 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jun 2022 19:06:02 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About Git Objects and References</title>
+      <link>https://dyrone.github.io/posts/git-basic-ref-and-object/</link>
+      <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-basic-ref-and-object/</guid>
+      <description>This article is written in Chinese.</description>
+    </item>
+    
     <item>
       <title>About Git Multi Points Representation</title>
       <link>https://dyrone.github.io/posts/git-multi-points/</link>
@@ -22,7 +31,7 @@
       <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/acceptance_test/</guid>
-      <description>No good testing, no engineer culture.</description>
+      <description>`This article is written in Chinese.</description>
     </item>
     
     <item>
@@ -31,7 +40,7 @@
       <pubDate>Mon, 07 Mar 2022 14:44:25 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/git-midx/</guid>
-      <description>About pack and index file in git.</description>
+      <description>`This article is written in Chinese.</description>
     </item>
     
     <item>
