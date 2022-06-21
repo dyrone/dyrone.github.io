@@ -13,12 +13,13 @@ The multiple points notation in `git rev-list` intents to select a range of comm
 
 ## Two Points Notation: ".."
 
-```shell
-A special notation "<commit1>..<commit2>" can be used as a short-hand for "^'<commit1>' <commit2>". For example, either of the following may be used interchangeably:
+> 
+> A special notation `<commit1>..<commit2>` can be used as a short-hand for `^'<commit1>' <commit2>`. For example, either of the following may be used interchangeably:
+> 
+>    $ git rev-list origin..HEAD
+> 
+>    $ git rev-list HEAD ^origin
 
-    $ git rev-list origin..HEAD
-    $ git rev-list HEAD ^origin
-```
 
 ### Without Merge commit
 
@@ -48,7 +49,7 @@ $ git rev-list topic-1..master
 
 ### With Merge commit
 
-Now, let's make the scenario a little more complicated. We create a new branch named `topic-2` and commit some new commits to it and we commit a new commit on master too. Then we merge `topic-1` into `master`, the commit graph now will look like this:
+Now, let's make the scenario a little more complicated. We create a new branch named `topic-2` and make some new commits to it and then we will actually create a new commit on master too. Then we merge `topic-1` into `master`, the commit graph now will look like this:
 
 ```shell
 *   06e3ed6 (master) Merge branch 'topic-1'
@@ -109,7 +110,33 @@ $ git log --all --graph --oneline --topo-order
 * 9161dc7 master-commit-A
 ```
 
-Actually the commit graph is not so clear on `diverge`, there are no explicit mark or tip on diverged commit and only exists a "TAB" on the merge commit, so I think this brings a little ambugious meanings.
+Actually the commit graph is not so clear on `diverge`, there are no explicit mark or tip on diverged commit and only exists a "TAB" on the merge commit, so I think this brings a little ambugious meanings, so we can change the command a little bit like:
+
+```shell
+$ git log --all --graph --pretty="%h %s%n"
+* 9def6a4 Diverged commit X
+  
+*   06e3ed6 Merge branch 'topic-1'
+|\  
+| | 
+| * 0f0623d topic-1-commit-X
+| | 
+* | ac7af40 master-commit-D
+| | 
+| | * 154fbae topic-2-commit-Y
+| | | 
+| | * 28c5a85 topic-2-commit-X
+| |/  
+|/|   
+| |   
+* | 388c28e master-commit-C
+|/  
+|   
+* 0880fe7 master-commit-B
+| 
+* 9161dc7 master-commit-A
+```
+Now we use `--pretty="%h %s%n"` to add a LR on each line, we can find out that there are no connected line between `9def6a4` and `06e3ed6`, that's what the diverged commit looks like on commit graph output.
 
 We can execute `git merge-base` to check the merge base of two commits, and we can find out that there are no outputs on the following command:
 
@@ -142,15 +169,14 @@ The result of `git rev-list` on the two diverge commits is the whole commits on 
 ## Three Points Notation: "..."
 
 The three points notation is used to represent a range of commits too, in `git-rev-list.txt` it is described as:
-```shell
-    Another special notation is "<commit1>...<commit2>" which is useful for merges. The resulting set of commits is the symmetric difference between the two operands. The following two commands are equivalent:
 
-        $ git rev-list A B --not $(git merge-base --all A B)
-        $ git rev-list A...B
+> Another special notation is "<commit1>...<commit2>" which is useful for merges. The resulting set of commits is the symmetric difference between the two operands. The following two commands are equivalent:
+>
+>        $ git rev-list A B --not $(git merge-base --all A B)
+>        $ git rev-list A...B
+>
+> `rev-list` is a very essential Git command, since it provides the ability to build and traverse commit ancestry graphs. For this reason, it has a lot of different options that enables it to be used by commands as different as git bisect and git repack.
 
-    rev-list is a very essential Git command, since it provides the ability to build and traverse commit ancestry graphs. For this reason, it has a lot of different options that enables it to be used by commands as different as git bisect
-    and git repack.
-```
 
 
 
@@ -166,7 +192,7 @@ Some of the content below is taken from the documentation `git-merge-base.txt`. 
            ---o---1---o---o---o---A
 ```
 
-Second example: given commit A B and C, the merge base will be `1`, because git will compute the merge base of B and C, and then compute the merge base of that and A:
+Second example, first compute M as the virtual merge commit of B and C, then the merge-base of A and M will be `1`. Commit 2 is also a common ancestor between A and M, but 1 is a better common ancestor, because 2 is an ancestor of 1. Hence, 2 is not a merge base.
 
 ```shell
                   o---o---o---o---C
@@ -182,7 +208,6 @@ Second example: given commit A B and C, the merge base will be `1`, because git 
            ---2---1---o---o---o---A
 ```
 
-First compute M as the merge base of B and C, then the merge-base of A and M will be `1`. Commit 2 is also a common ancestor between A and M, but 1 is a better common ancestor, because 2 is an ancestor of 1. Hence, 2 is not a merge base.
 
 If we execute `git merge-base --octopus A B C`, the result will be `2`, because `2` is the best common ancestor of all commits.About more information about octopus merge, I found an article[https://www.freblogg.com/git-octopus-merge] from google, maybe helpful.
 
@@ -200,19 +225,25 @@ Let's back to the merge-base, a more complex example is `criss-cross merge`, her
 Both 1 and 2 are merge-bases of A and B. Neither one is better than the other (both are best merge bases).When the --all option is not given, it is unspecified which best one is output.
 
 ```shell
-$ git log   --graph --oneline criss-cross-1 criss-cross-2 
-* 2375853 (HEAD -> criss-cross-2) criss-cross-commit-Y
+$ git log  --graph --pretty="%h %s%n" criss-cross-1 criss-cross-2
+* 2375853 criss-cross-commit-Y
+| 
 *   1594ff3 Merge branch 'criss-cross-1' into criss-cross-2
 |\  
-| | * f6c42b8 (criss-cross-1) criss-cross-commit-X
+| | 
+| | * f6c42b8 criss-cross-commit-X
+| | | 
 | | * 77fb920 Merge commit '3e872dd' into criss-cross-1
 | |/| 
 | |/  
 |/|   
+| |   
 * | 3e872dd criss-cross-commit-B
+| | 
 | * e400d1e criss-cross-commit-A
 |/  
-* 9def6a4 (diverge) Diverged commit X
+|   
+* 9def6a4 Diverged commit X
 ```
 
 We made a scenario about `criss-cross` like above. both `2375853` and `f6c42b8` has two merge-bases. Then we should add `--all` options to get the two best merge-bases:
@@ -237,29 +268,44 @@ Another special notation is "<commit1>...<commit2>" which is useful for merges. 
 The whole graph now looks like this:
 
 ```shell
-* 2375853 (HEAD -> criss-cross-2) criss-cross-commit-Y
+$git log  --graph --pretty="%h %s%n" --all
+* 2375853 criss-cross-commit-Y
+| 
 *   1594ff3 Merge branch 'criss-cross-1' into criss-cross-2
 |\  
-| | * f6c42b8 (criss-cross-1) criss-cross-commit-X
+| | 
+| | * f6c42b8 criss-cross-commit-X
+| | | 
 | | * 77fb920 Merge commit '3e872dd' into criss-cross-1
 | |/| 
 | |/  
 |/|   
+| |   
 * | 3e872dd criss-cross-commit-B
+| | 
 | * e400d1e criss-cross-commit-A
 |/  
-* 9def6a4 (diverge) Diverged commit X
-*   06e3ed6 (master) Merge branch 'topic-1'
+|   
+* 9def6a4 Diverged commit X
+  
+*   06e3ed6 Merge branch 'topic-1'
 |\  
-| * 0f0623d (topic-1) topic-1-commit-X
+| | 
+| * 0f0623d topic-1-commit-X
+| | 
 * | ac7af40 master-commit-D
-| | * 154fbae (topic-2) topic-2-commit-Y
+| | 
+| | * 154fbae topic-2-commit-Y
+| | | 
 | | * 28c5a85 topic-2-commit-X
 | |/  
 |/|   
+| |   
 * | 388c28e master-commit-C
 |/  
+|   
 * 0880fe7 master-commit-B
+| 
 * 9161dc7 master-commit-A
 ```
 
@@ -305,7 +351,7 @@ The whole graph has been no changes. After the last paragraph, we made `master` 
 Thirdly, we choose `9def6a4` and `06e3ed6` as the commit range, they are diverged for each other, the result is still consistent with `git rev-list`
 
 ```shell
-$git log --oneline 9def6a4..06e3ed6
+$ git log --oneline 9def6a4..06e3ed6
 06e3ed6 (master) Merge branch 'topic-1'
 ac7af40 master-commit-D
 388c28e master-commit-C
@@ -346,12 +392,12 @@ Next, we use criss-cross branches to test the multi-merge-base in `git log`, fro
 
 ```shell
 [tenglong.tl@code-infra-dev-cbj.ea134 /home/tenglong.tl/test/dyrone_graph]
-$git log --oneline criss-cross-1..criss-cross-2
+$ git log --oneline criss-cross-1..criss-cross-2
 2375853 (HEAD -> criss-cross-2) criss-cross-commit-Y
 1594ff3 Merge branch 'criss-cross-1' into criss-cross-2
 
 [tenglong.tl@code-infra-dev-cbj.ea134 /home/tenglong.tl/test/dyrone_graph]
-$git log --oneline criss-cross-2..criss-cross-1
+$ git log --oneline criss-cross-2..criss-cross-1
 f6c42b8 (criss-cross-1) criss-cross-commit-X
 77fb920 Merge commit '3e872dd' into criss-cross-1
 ```
@@ -362,18 +408,15 @@ We already know that `git log` will perform the same effects with multi-points, 
 
 Actually, `git diff` will perform the totally different results as before: here are some partial documentation content from 'git-diff.txt'
 
-```shell
-    
-    git diff [<options>] <commit> <commit> [--] [<path>...]
-        This is to view the changes between two arbitrary <commit>.
+>    git diff [<options>] <commit> <commit> [--] [<path>...]
+>        This is to view the changes between two arbitrary <commit>.
+>
+>    git diff [<options>] <commit>..<commit> [--] [<path>...]
+>        This is synonymous to the previous form. If <commit> on one side is omitted, it will have the same effect as using HEAD instead.
+>
+>    git diff [<options>] <commit>...<commit> [--] [<path>...]
+>       This form is to view the changes on the branch containing and up to the second <commit>, starting at a common ancestor of both <commit>. "git diff A...B" is equivalent to "git diff $(git-merge-base A B) B". You can omit any one of <commit>, which has the same effect as using HEAD instead.
 
-    git diff [<options>] <commit>..<commit> [--] [<path>...]
-        This is synonymous to the previous form. If <commit> on one side is omitted, it will have the same effect as using HEAD instead.
-
-    git diff [<options>] <commit>...<commit> [--] [<path>...]
-       This form is to view the changes on the branch containing and up to the second <commit>, starting at a common ancestor of both <commit>. "git diff A...B" is equivalent to "git diff $(git-merge-base A B) B". You can omit
-       any one of <commit>, which has the same effect as using HEAD instead.
-```
 
 In conclusion, the multi points notation in `git diff` represents:
 
