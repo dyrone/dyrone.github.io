@@ -1,5 +1,5 @@
 ---
-title: "WhyAcceptance Testing is so important to us(Chinese)?"
+title: "Why Acceptance Testing is so important to us(Chinese)?"
 date: 2022-05-25T11:44:25+08:00
 draft: false
 tags:
