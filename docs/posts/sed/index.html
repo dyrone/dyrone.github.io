@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Sed Section[1] - Basic Usage - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Sed Section[1] - Basic Usage" />
+<meta property="og:description" content="About sed sed means as &ldquo;stream editor&rdquo;, it is used to perform text things from an input stream to an output stream." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/sed/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-25T17:00:04+08:00" />
+<meta property="article:modified_time" content="2022-06-25T17:00:04+08:00" />
+
+
+		<meta itemprop="name" content="Sed Section[1] - Basic Usage">
+<meta itemprop="description" content="About sed sed means as &ldquo;stream editor&rdquo;, it is used to perform text things from an input stream to an output stream."><meta itemprop="datePublished" content="2022-06-25T17:00:04+08:00" />
+<meta itemprop="dateModified" content="2022-06-25T17:00:04+08:00" />
+<meta itemprop="wordCount" content="959">
+<meta itemprop="keywords" content="" />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sed Section[1] - Basic Usage"/>
+<meta name="twitter:description" content="About sed sed means as &ldquo;stream editor&rdquo;, it is used to perform text things from an input stream to an output stream."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Sed Section[1] - Basic Usage</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-25T17:00:04&#43;08:00">2022-06-25</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#s-command"><code>s</code> command</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h1 id="about-sed">About <strong>sed</strong></h1>
+<p><code>sed</code> means as &ldquo;stream editor&rdquo;, it is used to perform text things from an input stream to an output stream.</p>
+<h1 id="glimpse-man-page">glimpse <strong>man</strong> page</h1>
+<blockquote>
+<p>DESCRIPTION
+The sed utility reads the specified files, or the standard input if no files are specified, modifying the input as specified by a list of commands.  The input is then written
+to the standard output.</p>
+<pre><code> A single command may be specified as the first argument to sed.  Multiple commands may be specified by using the -e or -f options.  All commands are applied to the input in
+ the order they are specified regardless of their origin.
+</code></pre>
+</blockquote>
+<p>Suppress the output, and <code>p</code> command to print specific lines.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  /tmp echo <span style="color:#e6db74">&#39;aabbcc&#39;</span> | sed -n <span style="color:#e6db74">&#39;1p&#39;</span>
+aabbcc
+➜  /tmp echo <span style="color:#e6db74">&#39;aabbcc&#39;</span> | sed -n <span style="color:#e6db74">&#39;2p&#39;</span>
+➜  /tmp 
+</code></pre></div><p><code>$p</code> command means to ouput the last line of the stream. By the
+way, sed treats multiple input files as one long stream.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+<span style="color:#75715e"># Print the first line of one.txt and the last line of two.txt </span>
+➜  /tmp sed -n <span style="color:#e6db74">&#39;1p;$p&#39;</span> one.txt two.txt
+one
+end two
+</code></pre></div><h1 id="command-line-options">Command line options</h1>
+<p>It&rsquo;s a good way to use <code>man sed</code> to know the options which <code>sed</code>
+supports quickly.</p>
+<p>And also, you can find the official documentations at <a href="https://www.gnu.org/software/sed/manual/html_node/index.html" title="here">here</a>.</p>
+<h1 id="script">Script</h1>
+<p>sed commands follow this syntax:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">	<span style="color:#f92672">[</span>addr<span style="color:#f92672">]</span>X<span style="color:#f92672">[</span>options<span style="color:#f92672">]</span>
+</code></pre></div><ul>
+<li>X: is a single-letter sed command.</li>
+<li>[addr]: is an optional line address. If specified, the command <code>X</code>
+will only executed on the matched lines. [addr] canbe a single line
+number, a regular expression, or a range of lines.</li>
+</ul>
+<p>The following example deletes lines 30 to 35 in the input, <code>30,35</code> is
+an address rage. <code>d</code> is the delete command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed ’30,35d’ input.txt &gt; output.txt
+</code></pre></div><p>The following example prints all input until a line starting with the
+word &ldquo;import&rdquo;, then quit with exit code 42. If such line was not
+found, sed return with 0. <code>/^foo/</code> is a regular expression
+address. <code>q</code> is the quit command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$sed <span style="color:#e6db74">&#39;/^#define/q42&#39;</span> git.c ; echo $?
+<span style="color:#75715e">#include &#34;builtin.h&#34;</span>
+<span style="color:#75715e">#include &#34;config.h&#34;</span>
+<span style="color:#75715e">#include &#34;exec-cmd.h&#34;</span>
+<span style="color:#75715e">#include &#34;help.h&#34;</span>
+<span style="color:#75715e">#include &#34;run-command.h&#34;</span>
+<span style="color:#75715e">#include &#34;alias.h&#34;</span>
+<span style="color:#75715e">#include &#34;shallow.h&#34;</span>
+
+<span style="color:#75715e">#define RUN_SETUP               (1&lt;&lt;0)</span>
+<span style="color:#ae81ff">42</span>
+</code></pre></div><p>Commands within a script or script-file can be separated by semicolons (;) or newlines
+(ASCII 10). Multiple scripts can be specified with -e or -f options.</p>
+<p>The following examples are all equivalent:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed ’/^foo/d ; s/hello/world/’ input.txt &gt; output.txt
+
+sed -e ’/^foo/d’ -e ’s/hello/world/’ input.txt &gt; output.txt
+
+echo ’/^foo/d’ &gt; script.sed
+echo ’s/hello/world/’ &gt;&gt; script.sed
+sed -f script.sed input.txt &gt; output.txt
+
+echo ’s/hello/world/’ &gt; script2.sed
+sed -e ’/^foo/d’ -f script2.sed input.txt &gt; output.txt
+</code></pre></div><h1 id="sed-commands">sed commands</h1>
+<p>There are three usual kinds of command:</p>
+<ul>
+<li>support by GNU sed</li>
+<li>GNU extension</li>
+<li>standard POSIX commands</li>
+</ul>
+<h2 id="s-command"><code>s</code> command</h2>
+<p>The syntax is :</p>
+<pre><code>‘s/regexp/replacement/flags’
+</code></pre>
+<ul>
+<li>
+<p>regexp:
+<a href="https://www.gnu.org/software/sed/manual/html_node/Regexp-Addresses.html#Regexp-Addresses">https://www.gnu.org/software/sed/manual/html_node/Regexp-Addresses.html#Regexp-Addresses</a></p>
+</li>
+<li>
+<p>replacement:</p>
+<ul>
+<li>
+<p>contain <em>\n</em>: n is a number from 1 to 9  reference, refer to the
+portion.</p>
+</li>
+<li>
+<p>can contain <em>&amp;</em> characters which reference the whole matched
+portion of the pattern space.</p>
+</li>
+<li>
+<p><em>/</em> characters may be uniformly replaced by <code>s</code> command. It can
+appear in regexp or replacement only if it is preceded by a <code>\</code>
+character.</p>
+</li>
+<li>
+<p>GNU sed extension:</p>
+<ul>
+<li><code>\L</code>: Turn the replacement to lowercase until a \U or \E is
+found,</li>
+<li><code>\l</code>: Turn the next character to lowercase,</li>
+<li><code>\U</code>: Turn the replacement to uppercase until a \L or \E is
+found,</li>
+<li><code>\u</code>: Turn the next character to uppercase,</li>
+<li><code>\E</code>: Stop case conversion started by \L or \U.</li>
+</ul>
+</li>
+<li>
+<p><code>g</code>: case conversion does not propagate from one occurrence of
+the regular expression to another. For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/\(b\?\)-/x\u\1/g&#39;</span>
+axxB
+
+$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/\(b\?\)-/\u\1x/g&#39;</span>
+aXBx
+
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<p>The first example: the output is ‘axxB’. When replacing the first ‘-’, the ‘\u’
+sequence only affects the empty replacement of ‘\1’. It does not affect the x
+character that is added to pattern space when replacing b- with xB.</p>
+<p>The second example: On the other hand, \l and \u do affect the remainder of the
+replacement text if they are followed by an empty substitution. It will will
+replace ‘-’ with ‘X’ (uppercase) and ‘b-’ with ‘Bx’. If this behavior is
+undesirable, you can prevent it by adding a ‘\E’ sequence—after ‘\1’ in this case.</p>
+<blockquote>
+<p>flag: <code>g</code></p>
+</blockquote>
+<p>Apply the replacement to all matches to the regexp, not just the first.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/-/=/&#39;</span>
+a<span style="color:#f92672">=</span>b-
+
+$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/-/=/g&#39;</span>
+a<span style="color:#f92672">=</span>b<span style="color:#f92672">=</span>
+
+</code></pre></div><blockquote>
+<p>flag: <code>number</code></p>
+</blockquote>
+<p>Only replace the numberth match of the regexp.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/-/=/2&#39;</span>
+a-b<span style="color:#f92672">=</span>
+
+</code></pre></div><blockquote>
+<p>flag: <code>p</code></p>
+</blockquote>
+<p>If the substitution was made, then print the new pattern space.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/=/=/p&#39;</span>
+a-b-
+
+$ echo <span style="color:#e6db74">&#39;a-b-&#39;</span> | sed <span style="color:#e6db74">&#39;s/-/=/p&#39;</span>
+a<span style="color:#f92672">=</span>b-
+a<span style="color:#f92672">=</span>b-
+
+</code></pre></div><blockquote>
+<p>flag: <code>w</code> <em>filename</em></p>
+</blockquote>
+<p>If the substitution was made, then write out the result to the named file.</p>
+<p>the special filename are supported:</p>
+<ul>
+<li>/dev/stderr</li>
+<li>/dev/stdout</li>
+<li>/dev/null</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  /tmp cat sed.output 
+a-b-
+➜  /tmp sed <span style="color:#e6db74">&#39;s/-/=/w /dev/stdout&#39;</span> &lt; sed.output
+a<span style="color:#f92672">=</span>b-
+a<span style="color:#f92672">=</span>b-
+➜  /tmp sed <span style="color:#e6db74">&#39;s/-/=/w /dev/null&#39;</span> &lt; sed.output
+a<span style="color:#f92672">=</span>b-
+</code></pre></div><blockquote>
+<p>flag <code>e</code></p>
+</blockquote>
+<p>This command is a GNU sed extension, so it may not supported to execute on MacOS terminal env.</p>
+<p>This command allows one to pipe input from a shell command into pattern
+space. If a substitution was made, the command that is found in pattern space
+is executed and pattern space is replaced with its output. A trailing newline
+is suppressed; results are undefined if the command to be executed contains a
+nul character. This is a GNU sed extension.</p>
+<p><!-- raw HTML omitted --> I did not understand how to do with it yet.</p>
+<blockquote>
+<p>flag <code>I</code> <code>i</code></p>
+</blockquote>
+<p><code>I</code> is a GNU extension, and makes sed match regexp in case-insensitive manner.</p>
+<p>The tip you should be noticed is some OS does not support the <code>GNU extension</code>, so
+when we want to use it in different platform, the usages may cause incompatible as
+a failed sed command execution.</p>
+<blockquote>
+<p>flag <code>M</code> <code>m</code></p>
+</blockquote>
+<p>This is a GNU extension, directs GNU sed to match the regular expression in multi-line mode.</p>
+<!-- raw HTML omitted -->
+
+		</div>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/sed-2/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Sed Section[2] - Exit Code In Sed</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/git-load-testing/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Git Load Testing</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

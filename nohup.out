@@ -1,0 +1,90 @@
+Start building sites … 
+hugo v0.88.1+extended darwin/amd64 BuildDate=unknown
+
+                   | EN  
+-------------------+-----
+  Pages            | 39  
+  Paginator pages  |  2  
+  Non-page files   |  5  
+  Static files     |  5  
+  Processed images |  0  
+  Aliases          |  9  
+  Sitemaps         |  1  
+  Cleaned          |  0  
+
+Built in 400 ms
+Watching for changes in /Users/tenglong.tl/Works/Projects/blogs/{archetypes,content,data,layouts,static,themes}
+Watching for config changes in /Users/tenglong.tl/Works/Projects/blogs/config.toml
+Environment: "development"
+Serving pages from memory
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+
+Change detected, rebuilding site.
+2022-07-04 10:00:17.616 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[3].md": WRITE|CHMOD
+Total in 11 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:01:11.615 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[4].md": WRITE
+Total in 7 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:01:33.619 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[4].md": WRITE
+Total in 9 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:01:52.618 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[3].md": WRITE|CHMOD
+Total in 10 ms
+Start building sites … 
+hugo v0.88.1+extended darwin/amd64 BuildDate=unknown
+
+                   | EN  
+-------------------+-----
+  Pages            | 25  
+  Paginator pages  |  0  
+  Non-page files   |  5  
+  Static files     |  5  
+  Processed images |  0  
+  Aliases          |  8  
+  Sitemaps         |  1  
+  Cleaned          |  0  
+
+Built in 282 ms
+Watching for changes in /Users/tenglong.tl/Works/Projects/blogs/{archetypes,content,data,layouts,static,themes}
+Watching for config changes in /Users/tenglong.tl/Works/Projects/blogs/config.toml
+Environment: "development"
+Serving pages from memory
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+
+Change detected, rebuilding site.
+2022-07-04 10:04:39.776 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[1].md": CREATE
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed.md": RENAME
+Total in 9 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:05:22.775 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[2].md": WRITE
+Total in 8 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:05:35.273 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[1].md": WRITE
+Total in 6 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:17:48.264 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[2].md": WRITE
+Total in 7 ms
+
+Change detected, rebuilding site.
+2022-07-04 10:18:25.764 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[2].md": WRITE
+Total in 12 ms
