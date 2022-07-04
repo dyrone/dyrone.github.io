@@ -1,7 +1,8 @@
 ---
 title: "Sed Section[1] - Basic Usage"
 date: 2022-07-01T17:00:04+08:00
-tag: "sed"
+tags: 
+  - "sed"
 draft: false
 ---
 

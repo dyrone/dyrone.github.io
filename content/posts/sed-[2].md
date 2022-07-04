@@ -2,7 +2,8 @@
 ---
 title: "Sed Section[2] - Exit Code In Sed"
 date: 2022-07-03T17:00:04+08:00
-tag: "sed"
+tags: 
+    - "sed"
 draft: false
 ---
 
