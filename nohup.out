@@ -93,3 +93,38 @@ Change detected, rebuilding site.
 2022-07-04 10:48:40.801 +0800
 Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/emacs.md": WRITE
 Total in 8 ms
+
+Change detected, rebuilding site.
+2022-07-04 11:12:54.356 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[1].md": WRITE
+Total in 5 ms
+
+Change detected, rebuilding site.
+2022-07-04 11:13:22.358 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/sed-[2].md": WRITE
+Total in 11 ms
+
+Change detected, rebuilding site.
+2022-07-05 20:56:48.490 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/brew.md": CREATE
+Total in 13 ms
+
+Change detected, rebuilding site.
+2022-07-05 20:57:32.990 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/brew.md": WRITE|CHMOD
+Total in 10 ms
+
+Change detected, rebuilding site.
+2022-07-05 20:57:34.489 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/brew.md": WRITE
+Total in 9 ms
+
+Change detected, rebuilding site.
+2022-07-05 20:57:36.488 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/brew.md": WRITE|CHMOD
+Total in 9 ms
+
+Change detected, rebuilding site.
+2022-07-05 20:59:13.989 +0800
+Source changed "/Users/tenglong.tl/Works/Projects/blogs/content/posts/brew.md": WRITE|CHMOD
+Total in 10 ms

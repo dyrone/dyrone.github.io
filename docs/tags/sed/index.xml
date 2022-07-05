@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sed on dyrone&#39;s blog</title>
+    <link>https://dyrone.github.io/tags/sed/</link>
+    <description>Recent content in sed on dyrone&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Jul 2022 17:00:04 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/sed/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sed Section[2] - Exit Code In Sed</title>
+      <link>https://dyrone.github.io/posts/sed-2/</link>
+      <pubDate>Sun, 03 Jul 2022 17:00:04 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/sed-2/</guid>
+      <description>In this article, we will talk about the exit code when executing sed command.</description>
+    </item>
+    
+    <item>
+      <title>Sed Section[1] - Basic Usage</title>
+      <link>https://dyrone.github.io/posts/sed-1/</link>
+      <pubDate>Fri, 01 Jul 2022 17:00:04 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/sed-1/</guid>
+      <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.</description>
+    </item>
+    
+  </channel>
+</rss>
