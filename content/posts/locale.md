@@ -6,6 +6,23 @@ tags:
 draft: false 
 ---
 
+## Scenarios
+
+I found an article which represent well about the locale commu uses I think, and I will excerpt part from [Differences between the C Locale and the C++ Locales](https://stdcxx.apache.org/doc/stdlibug/24-3.html "Differences between the C Locale and the C++ Locales")
+
+> **Default locale.** As a developer, you may never require internationalization features, and thus you may never call std::setlocale(). If you can safely assume that users of your applications are accommodated by the classic US English ASCII behavior, you have no need for localization. Without even knowing it, you always use the default locale, which is the US English ASCII locale.
+> 
+> **Native locale.** If you do plan on localizing your program, the appropriate strategy may be to retrieve the native locale once at the beginning of your program, and never, ever change this setting again. This way your application adapts itself to one particular locale, and uses this throughout its entire runtime. Users of such applications can explicitly set their favorite locale before starting the application. On UNIX systems, they do this by setting environment variables such as LANG; other operating systems may use other methods.
+> 
+> In your program, you can specify that you want to use the user's preferred native locale by calling std::setlocale("") at startup, passing an empty string as the locale name. The empty string tells setlocale to use the locale specified by the user in the environment.
+> 
+> **Multiple locales.** It may well happen that you do have to work with multiple locales. For example, to implement an application for Switzerland, you might want to output messages in Italian, French, and German. As the C locale is a global data structure, you must switch locales several times.
+> 
+> Let's look at an example of an application that works with multiple locales. Imagine an application that prints invoices to be sent to customers all over the world. Of course, the invoices must be printed in the customer's native language, so the application must write output in multiple languages. Prices to be included in the invoice are taken from a single price list. If we assume that the application is used by a US company, the price list is in US English.
+> 
+> The application reads input (the product price list) in US English, and writes output (the invoice) in the customer's native language, say German. Since there is only one global locale in C that affects both input and output, the global locale must change between input and output operations. Before a price is read from the English price list, the locale must be switched from the German locale used for printing the invoice to a US English locale. Before inserting the price into the invoice, the global locale must be switched back to the German locale. To read the next input from the price list, the locale must be switched back to English, and so forth. Figure 6 summarizes this activity.
+> 
+
 ## Default settings
 
 The C locale, also known as the POSIX locale, is the POSIX system default locale for all POSIX-compliant systems. The Oracle Solaris operating system is a POSIX system. The Single UNIX Specification, Version 3, defines the C locale. Register to read and download the specification at: http://www.unix.org/version3/online.html.

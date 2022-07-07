@@ -13,7 +13,7 @@
       <pubDate>Thu, 07 Jul 2022 10:38:21 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/locale/</guid>
-      <description>Default settings The C locale, also known as the POSIX locale, is the POSIX system default locale for all POSIX-compliant systems.</description>
+      <description>Scenarios I found an article which represent well about the locale commu uses I think, and I will excerpt part from Differences between the C Locale and the C++ Locales</description>
     </item>
     
   </channel>
