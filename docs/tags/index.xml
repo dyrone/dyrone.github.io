@@ -6,7 +6,25 @@
     <description>Recent content in Tags on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Jul 2022 17:00:04 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jul 2022 10:38:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>libc</title>
+      <link>https://dyrone.github.io/tags/libc/</link>
+      <pubDate>Thu, 07 Jul 2022 10:38:21 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/tags/libc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://dyrone.github.io/tags/tools/</link>
+      <pubDate>Tue, 05 Jul 2022 20:56:48 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/tags/tools/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>sed</title>
       <link>https://dyrone.github.io/tags/sed/</link>

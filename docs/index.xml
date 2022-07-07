@@ -6,14 +6,23 @@
     <description>Recent content on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Jul 2022 20:56:48 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jul 2022 10:38:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Brew</title>
+      <title>Locale and Priority</title>
+      <link>https://dyrone.github.io/posts/locale/</link>
+      <pubDate>Thu, 07 Jul 2022 10:38:21 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/locale/</guid>
+      <description>Default settings The C locale, also known as the POSIX locale, is the POSIX system default locale for all POSIX-compliant systems.</description>
+    </item>
+    
+    <item>
+      <title>Speed Up Brew With Mirror </title>
       <link>https://dyrone.github.io/posts/brew/</link>
       <pubDate>Tue, 05 Jul 2022 20:56:48 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/brew/</guid>
-      <description>brew mirror We could use a brew mirror to speed up the install procedure if the download speed is so pool in your area.</description>
+      <description>Brew Mirror We could use a brew mirror to speed up the install procedure if the download speed is so pool in your area.</description>
     </item>
     
     <item>

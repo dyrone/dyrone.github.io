@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>libc on dyrone&#39;s blog</title>
+    <link>https://dyrone.github.io/tags/libc/</link>
+    <description>Recent content in libc on dyrone&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Jul 2022 10:38:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/libc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Locale and Priority</title>
+      <link>https://dyrone.github.io/posts/locale/</link>
+      <pubDate>Thu, 07 Jul 2022 10:38:21 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/locale/</guid>
+      <description>Default settings The C locale, also known as the POSIX locale, is the POSIX system default locale for all POSIX-compliant systems.</description>
+    </item>
+    
+  </channel>
+</rss>
