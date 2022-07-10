@@ -6,7 +6,16 @@
     <description>Recent content in Posts on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jul 2022 10:38:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jul 2022 23:55:52 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sed Part[3]-&#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
+      <link>https://dyrone.github.io/posts/sed-3/</link>
+      <pubDate>Sun, 10 Jul 2022 23:55:52 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/sed-3/</guid>
+      <description>Why exists two seds?</description>
+    </item>
+    
     <item>
       <title>Locale and Priority</title>
       <link>https://dyrone.github.io/posts/locale/</link>
