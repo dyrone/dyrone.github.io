@@ -16,6 +16,28 @@ will add the content one after another._
 You can take a look at https://man7.org/linux/man-pages/man3/errno.3.html to
 know about what's errno and how the errno is supported in POSIX and C99.
 
+
+## Man Page
+
+```adoc
+       errno {name-or-code}
+
+       errno [-ls] [--list]
+
+       errno [-s] [--search] {word}
+
+       errno [-S] [--search-all-locales] {word}
+```
+
+```shell
+➜  git git:(tl/bitmap-append-trace2-outputs) ✗ errno -s direct 
+ENOENT 2 No such file or directory
+ENOTDIR 20 Not a directory
+EISDIR 21 Is a directory
+ENOTEMPTY 66 Directory not empty
+```
+
+
 ## 20: ENOTDIR
 
 In a recent Git patch, Junio C Hamano, the maintainer of the Git community, gave
@@ -32,3 +54,4 @@ me the following advice about ENOTDIR:
 > may be cases where ENOTDIR can justifiably and should be ignored.
 > 
 > from  https://public-inbox.org/git/xmqqpmibmjjs.fsf@gitster.g/
+

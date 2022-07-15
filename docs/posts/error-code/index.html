@@ -18,7 +18,7 @@
 		<meta itemprop="name" content="About errno ">
 <meta itemprop="description" content="This article mainly introduces errno related content."><meta itemprop="datePublished" content="2022-07-14T22:44:37+08:00" />
 <meta itemprop="dateModified" content="2022-07-14T22:44:37+08:00" />
-<meta itemprop="wordCount" content="185">
+<meta itemprop="wordCount" content="229">
 <meta itemprop="keywords" content="errno," />
 		<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="About errno "/>
@@ -71,6 +71,7 @@
 		<nav id="TableOfContents">
   <ul>
     <li><a href="#about-errno">About errno</a></li>
+    <li><a href="#man-page">Man Page</a></li>
     <li><a href="#20-enotdir">20: ENOTDIR</a></li>
   </ul>
 </nav>
@@ -84,7 +85,20 @@ will add the content one after another.</em></p>
 </blockquote>
 <p>You can take a look at <a href="https://man7.org/linux/man-pages/man3/errno.3.html">https://man7.org/linux/man-pages/man3/errno.3.html</a> to
 know about what&rsquo;s errno and how the errno is supported in POSIX and C99.</p>
-<h2 id="20-enotdir">20: ENOTDIR</h2>
+<h2 id="man-page">Man Page</h2>
+<pre tabindex="0"><code class="language-adoc" data-lang="adoc">       errno {name-or-code}
+
+       errno [-ls] [--list]
+
+       errno [-s] [--search] {word}
+
+       errno [-S] [--search-all-locales] {word}
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git git:<span style="color:#f92672">(</span>tl/bitmap-append-trace2-outputs<span style="color:#f92672">)</span> ✗ errno -s direct 
+ENOENT <span style="color:#ae81ff">2</span> No such file or directory
+ENOTDIR <span style="color:#ae81ff">20</span> Not a directory
+EISDIR <span style="color:#ae81ff">21</span> Is a directory
+ENOTEMPTY <span style="color:#ae81ff">66</span> Directory not empty
+</code></pre></div><h2 id="20-enotdir">20: ENOTDIR</h2>
 <p>In a recent Git patch, Junio C Hamano, the maintainer of the Git community, gave
 me the following advice about ENOTDIR:</p>
 <blockquote>
