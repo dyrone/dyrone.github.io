@@ -12,3 +12,6 @@ tag: git
 
  Enable "brief" feature which turns off "<clock> <file>:<line> " prefix.
 
+## GIT_TRACE2_PERF_BRIEF
+
+By PERF format but remove some fields
