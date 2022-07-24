@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c on dyrone&#39;s blog</title>
+    <link>https://dyrone.github.io/tags/c/</link>
+    <description>Recent content in c on dyrone&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 24 Jul 2022 23:11:16 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>stat and fstat</title>
+      <link>https://dyrone.github.io/posts/stat-and-fstat/</link>
+      <pubDate>Sun, 24 Jul 2022 23:11:16 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/stat-and-fstat/</guid>
+      <description>stat stat() retrieve information about the file pointed to by pathname;</description>
+    </item>
+    
+    <item>
+      <title>mmap</title>
+      <link>https://dyrone.github.io/posts/mmap/</link>
+      <pubDate>Mon, 18 Jul 2022 19:24:48 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/mmap/</guid>
+      <description>munmap If you use &amp;ldquo;mmap&amp;rdquo; successfully, it&amp;rsquo;s usually need to munmap when the work finished.</description>
+    </item>
+    
+  </channel>
+</rss>

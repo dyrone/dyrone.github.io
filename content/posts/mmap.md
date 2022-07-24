@@ -1,17 +1,19 @@
 ---
 title: "mmap"
 date: 2022-07-18T19:24:48+08:00
-draft: true
+draft: false
+tags:
+  - "c"
 ---
 
 ## munmap 
 
-If you use mmap successfully, it's usually need to munmap when the work
+If you use "mmap" successfully, it's usually need to munmap when the work
 finished.
 
 ## mmap
 
-It's recommanded to read the mmap manpage at first. What I read is the
+It's recommanded to read the "mmap" manpage at first. What I read is the
 Linux Programmer's Manual version, I think the BSD revison(like Darwin
 on MacOS) maybe exist some difference but should be compatible.
 
@@ -38,17 +40,16 @@ and modifications to that region are not written out to the file.
 
 ### arg addr:
 
-The starting address for the new mapping is specified in addr ** If addr
-  is NULL, then the kernel chooses the address at which to create the mapping;
-  ** If addr is not NULL, then the kernel takes it as a hint about where to
-  place the mapping; (on Linux, the mapping will be created at a nearby page
-  boundary. The address of the new mapping is returned as the result of the
-  call.)
+The starting address for the new mapping is specified in addr ** If addr is
+NULL, then the kernel chooses the address at which to create the mapping.
+
+If addr is not NULL, then the kernel takes it as a hint about where to place the
+mapping; (on Linux, the mapping will be created at a nearby page boundary. The
+address of the new mapping is returned as the result of the call.)
 
 ### arg length:
 
 initialized size in bytes.
-
 
 ### arg offset:
 
@@ -108,7 +109,6 @@ region.
 All pages containing a part of the indicated range are unmapped, and subsequent
 references to these pages will generate `SIGSEGV`. It's not an error if the
 indicated range does not contain any mapped pages.
-
   
 ## mmap in git
 
