@@ -1,7 +1,7 @@
 ---
 title: "page table"
-date: 2022-07-25T19:24:48+08:00
-draft: true
+date: 2022-07-28T18:24:48+08:00
+draft: false
 tags:
     - "c"
 ---
@@ -36,3 +36,8 @@ instruction is restarted, which may happen in parallel as well. The subsequent
 translation will result in a TLB hit, and the memory access will continue.
 
 ![TLB Hit/Miss/Walk](https://en.wikipedia.org/wiki/File:Page_table_actions.svg "TLB Hit/Miss/Walk")
+
+
+## reference 
+
+https://www.youtube.com/watch?v=8hVLcyBkSXY

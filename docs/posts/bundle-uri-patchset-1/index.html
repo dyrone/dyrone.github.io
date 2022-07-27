@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>[wip] About Bundle Uri Patchset 1 - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="[wip] About Bundle Uri Patchset 1" />
+<meta property="og:description" content="Original patchset address https://lore." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/bundle-uri-patchset-1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-26T16:54:32+08:00" />
+<meta property="article:modified_time" content="2022-07-26T16:54:32+08:00" />
+
+
+		<meta itemprop="name" content="[wip] About Bundle Uri Patchset 1">
+<meta itemprop="description" content="Original patchset address https://lore."><meta itemprop="datePublished" content="2022-07-26T16:54:32+08:00" />
+<meta itemprop="dateModified" content="2022-07-26T16:54:32+08:00" />
+<meta itemprop="wordCount" content="571">
+<meta itemprop="keywords" content="git," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[wip] About Bundle Uri Patchset 1"/>
+<meta name="twitter:description" content="Original patchset address https://lore."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">[wip] About Bundle Uri Patchset 1</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-26T16:54:32&#43;08:00">2022-07-26</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#original-patchset-address">Original patchset address</a></li>
+    <li><a href="#directly-read--v3-patch">Directly read  v3 patch</a>
+      <ul>
+        <li><a href="#commit-1-design-document">commit 1: design document</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="original-patchset-address">Original patchset address</h2>
+<p><a href="https://lore.kernel.org/git/e0f003e1b5fae07e98e89875c047c795396ea494.1658757188.git.gitgitgadget@gmail.com/">https://lore.kernel.org/git/e0f003e1b5fae07e98e89875c047c795396ea494.1658757188.git.gitgitgadget@gmail.com/</a></p>
+<h2 id="directly-read--v3-patch">Directly read  v3 patch</h2>
+<h3 id="commit-1-design-document">commit 1: design document</h3>
+<h4 id="design-goals">Design Goals</h4>
+<blockquote>
+<p>Forgive me to repeat some text from the original patch, because they are
+important.</p>
+</blockquote>
+<ul>
+<li>
+<p>bundle: packfile + refs + necessary commits(opt)</p>
+</li>
+<li>
+<p>bundle uri: locations where git can download one or more bundles</p>
+</li>
+<li>
+<p>benifits: speed up download progress + reduce load on server(heavy users: CI
+build)</p>
+</li>
+<li>
+<p>how to enable: using command-line options or server advertise one or mor URIs
+via a protocol v2 capability.</p>
+</li>
+<li>
+<p>bundle name: to immutable data by using a hash of the bundle contents</p>
+</li>
+<li>
+<p>full clone and incremental fetch are supported: the bundle provider must
+decide on one of serveral organization schemes to minimize clietn downloads
+during incrementail fetches. But the git client can also choose whether to use
+bundles for either of these bundles.</p>
+</li>
+<li>
+<p>partial clone is supported: the bundle provider can choose to support full
+clones, partial clones, or both. The client can detect which bundles are
+appropriate for the repository&rsquo;s partial clone filter, if any.</p>
+</li>
+<li>
+<p>The bundle provider can use a single bundle (for clones only), or a list of
+bundles. When using a list of bundles, the provider can specify whether or not
+the client need all of the bundle URIs for a full clone, or if any one of the
+bundle URIs is sufficient. This allows the bundle provider to sue different
+URIs for different geographies.</p>
+</li>
+<li>
+<p>The bundle provider can organize the bundles using heuristics, such as
+creation tokens, to help the client prevent downloading bundles it does not
+need. When the bundle provider does not provide these heuristics the client
+can use optimizations to minimize how much of the data is downloaded.</p>
+</li>
+<li>
+<p>The bundle provider does not need to be associated with the git server. The
+client can choose to use the bundle provider without it being advertised by
+the git server.</p>
+</li>
+<li>
+<p>The client can choose to discover bundle providers that are advertised by the
+git server. this could happen during  <code>git clone</code>, during <code>git fetch</code>, both,
+or neither. The user can choose which combination works best for them.</p>
+</li>
+<li>
+<p>The client can choose to configure a bundle provider manually at any time. The
+client can also choose to specify  a bundle provider manually as a
+command-line option to <code>git clone</code>.</p>
+</li>
+</ul>
+<h4 id="server-design">Server Design</h4>
+<ul>
+<li>
+<p>protocol: HTTPS only now and expect a 200 returned code</p>
+</li>
+<li>
+<p>authentication: credential helper</p>
+</li>
+<li>
+<p>file parse: git attempts to parse the file as a bundle file of version 2 or
+higher. if the fileis not a bundle, then the file is parsed as a plain-text file
+using git&rsquo;s config parser. The key-value pairs in that config file are expected
+to describe a list of bundle URIs.</p>
+</li>
+</ul>
+<h4 id="bundle-lists">Bundle lists</h4>
+<p>Bundle list is a plain-text file in git config format containing these same
+key=value pairs. The pairs specify information about the bundles that the client
+can use to make decisions for which bundles to download and which to ignore.</p>
+<ul>
+<li>
+<p>bundle.version: The only current version number is 1</p>
+</li>
+<li>
+<p>bundle.mode: &ldquo;all&rdquo; or &ldquo;any&rdquo;</p>
+<p>** &ldquo;all&rdquo;: the client should expect to need all of the listed bundle URIs that match
+their repository&rsquo;s requirements.</p>
+<p>** &ldquo;any&rdquo;: the client should expect that any one of the bundle URIs that
+match their repository&rsquo;s requirements will suffice. Typically, the &ldquo;any&rdquo;
+option is used to list a number of different bundle servers localted in
+different geographies.</p>
+</li>
+<li>
+<p>bundle.heuristic (Optional): if this string valued key exists, then the bundle list is
+designed to work well with incremental <code>git fetch</code> command.</p>
+</li>
+</ul>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/stat-and-fstat/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">stat and fstat</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
