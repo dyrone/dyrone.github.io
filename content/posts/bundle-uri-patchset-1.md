@@ -94,3 +94,7 @@ can use to make decisions for which bundles to download and which to ignore.
 
 * bundle.heuristic (Optional): if this string valued key exists, then the bundle list is
   designed to work well with incremental `git fetch` command.
+
+The remaining keys include an `<id>` segment which is a server-designated
+name for each available bundle. The `<id>` must contain only alphanumeric
+and `-` characters.
