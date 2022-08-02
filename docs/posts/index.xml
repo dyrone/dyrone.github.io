@@ -6,7 +6,25 @@
     <description>Recent content in Posts on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Jul 2022 16:54:32 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Aug 2022 21:24:42 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k6 overview</title>
+      <link>https://dyrone.github.io/posts/k6-overview/</link>
+      <pubDate>Mon, 01 Aug 2022 21:24:42 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/k6-overview/</guid>
+      <description>Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop.</description>
+    </item>
+    
+    <item>
+      <title>page table</title>
+      <link>https://dyrone.github.io/posts/page-table/</link>
+      <pubDate>Thu, 28 Jul 2022 18:24:48 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/page-table/</guid>
+      <description>Sharing pages Page table is the brige of communitcating between virtual address space in process and physical address space in memory.</description>
+    </item>
+    
     <item>
       <title>[wip] About Bundle Uri Patchset 1</title>
       <link>https://dyrone.github.io/posts/bundle-uri-patchset-1/</link>

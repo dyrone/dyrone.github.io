@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>k6 overview - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="k6 overview" />
+<meta property="og:description" content="Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/k6/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-01T21:24:42+08:00" />
+<meta property="article:modified_time" content="2022-08-01T21:24:42+08:00" />
+
+
+		<meta itemprop="name" content="k6 overview">
+<meta itemprop="description" content="Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop."><meta itemprop="datePublished" content="2022-08-01T21:24:42+08:00" />
+<meta itemprop="dateModified" content="2022-08-01T21:24:42+08:00" />
+<meta itemprop="wordCount" content="1669">
+<meta itemprop="keywords" content="testing," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k6 overview"/>
+<meta name="twitter:description" content="Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">k6 overview</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-01T21:24:42&#43;08:00">2022-08-01</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#concepts">Concepts</a></li>
+    <li><a href="#test-life-cycle">Test life cycle</a>
+      <ul>
+        <li><a href="#init-stage">init stage</a></li>
+        <li><a href="#vu-stage">VU stage</a></li>
+        <li><a href="#setup-and-teardown-stages">setup and teardown stages</a></li>
+      </ul>
+    </li>
+    <li><a href="#running-k6">Running k6</a>
+      <ul>
+        <li><a href="#first-run">first run</a></li>
+        <li><a href="#options">options</a></li>
+        <li><a href="#execution-modes">Execution modes</a></li>
+      </ul>
+    </li>
+    <li><a href="#integrate-in-emacs">integrate in Emacs</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="concepts">Concepts</h2>
+<ul>
+<li>
+<p>virtual users (VUs):  VUs are essentially parallel while(true) loop.</p>
+</li>
+<li>
+<p>init context: use the default function, this function defines the entry point
+for your VUsi. Init code runs first and is called only once per VU. On the other
+hand, default code executes as many times as the test options set.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#75715e">// vu code: do things here...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h2 id="test-life-cycle">Test life cycle</h2>
+<p>In last section, we introduced the init context, here we will talk about the
+test life cycle.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 1. init code
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>() {
+  <span style="color:#75715e">// 2. setup code
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">data</span>) {
+  <span style="color:#75715e">// 3. VU code
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">teardown</span>(<span style="color:#a6e22e">data</span>) {
+  <span style="color:#75715e">// 4. teardown code
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Overview:</p>
+<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1659421018537-928345fb-3b75-416b-bc8f-498e1bbf6488.png?x-oss-process=image%2Fresize%2Cw_1349%2Climit_0" alt="overview" title="overview"></p>
+<h3 id="init-stage">init stage</h3>
+<p>The init stage is required. Separating the init stage from the VU stage removes
+irrelevant computation from VU code, which both improves k6 performance and
+makes test results more reliable.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// init context: importing modules
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Trend</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
+
+<span style="color:#75715e">// init context: define k6 options
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
+};
+
+<span style="color:#75715e">// init context: global variables
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">customTrend</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Trend</span>(<span style="color:#e6db74">&#39;oneCustomMetric&#39;</span>);
+
+<span style="color:#75715e">// init context: define custom function
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myCustomFunction</span>() {
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+
+</code></pre></div><h3 id="vu-stage">VU stage</h3>
+<p>The code inside <code>default()</code> function is VU code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#75715e">// do things here...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>VU code runs over and over through the test duration.</p>
+<p>VU code can make HTTP requests, emit metrics, and generally do everything you&rsquo;d
+expect a load test to do. The only exceptions are the jobs that happen in the
+init context.</p>
+<ul>
+<li>VU code does not load files from your local filesystem.</li>
+<li>VU code does not import any other modules.</li>
+</ul>
+<p>Again, instead of VU code, init code does these jobs.</p>
+<h3 id="setup-and-teardown-stages">setup and teardown stages</h3>
+<p>Like default, setup and teardown functions must be exported functions. But
+unlike the default function, k6 calls setup and teardown only once per test.</p>
+<p>setup is called at the beginning of the test, after the init stage but before
+the VU stage. teardown is called at the end of a test, after the VU stage
+(default function). You can call the full k6 API in the setup and teardown
+stages, unlike the init stage. For example, you can make HTTP requests:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io/get&#39;</span>);
+  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>() };
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">teardown</span>(<span style="color:#a6e22e">data</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>));
+}
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">data</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>));
+}
+
+
+</code></pre></div><p><img src="https://k6.io/docs/static/2c69d22ae34cc91f7514f63bd2a787ea/5d70e/lifecycle.png" alt="flow" title="flow"></p>
+<h2 id="running-k6">Running k6</h2>
+<h3 id="first-run">first run</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io&#39;</span>);
+  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
+}
+
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js
+</code></pre></div><h3 id="options">options</h3>
+<p>You can specifiy <code>--vus 10 and</code> <code>--duration 30s</code> similar way to run test each time,
+or you can include the options in your js file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
+};
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io&#39;</span>);
+  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
+}
+</code></pre></div><h4 id="stages-ramping-updown-vus">stages: ramping up/down VUs</h4>
+<p>You can ramp the number if VUs up and down during the test.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span>, <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+  {<span style="color:#a6e22e">duration</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">20</span>},
+  {<span style="color:#a6e22e">duration</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>},
+  {<span style="color:#a6e22e">duration</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>},
+  ]
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io/get&#39;</span>);
+  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {<span style="color:#e6db74">&#39;status was 200&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>});
+  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
+}
+
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">teardown</span>(<span style="color:#a6e22e">data</span>) {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;test done...&#39;</span>);
+}
+</code></pre></div><h4 id="scenarios">Scenarios</h4>
+<p>Benefits of using scenarios include:</p>
+<ul>
+<li>
+<p>Multiple scenarios can be declared in the same script, and each one can
+independently execute a different JavaScript function, which makes organizing
+tests easier and more flexible.</p>
+</li>
+<li>
+<p>Every scenario can use a distinct VU and iteration scheduling pattern, powered
+by a purpose-built <code>executor</code>. This enables modeling of advanced execution
+patterns which can better simulate real-world traffic.</p>
+</li>
+<li>
+<p>Scenarios are independent from each other and run in parallel, though they can
+be made to appear sequential by setting the startTime property of each
+carefully.</p>
+</li>
+<li>
+<p>Different environment variables and metric tags can be set per scenario.</p>
+</li>
+</ul>
+<p>For example:</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+
+export const options = {
+  scenarios: {
+    example_scenario: {
+      executor: 'shared-iterations',
+      startTime: '0s'
+    },
+    another_scenario: {
+      executor: 'shared-iterations',
+      startTime: '5s'
+    },
+  },
+};
+
+export default function () {
+  http.get('https://google.com/');
+}
+</code></pre><p>Executors are the workhorses for k6 execution. Each one schedules VUs and
+iterations differently, you will choose one depending on the type of traffic you
+want to model to test your services, they are:</p>
+<ul>
+<li>
+<p><strong>shared-iterations</strong>: A fixed amount of iterations are &ldquo;shared&rdquo; between a
+number of VUs.</p>
+</li>
+<li>
+<p><strong>per-vu-iterations</strong>: Each VU executes an exact number of iterations.</p>
+</li>
+<li>
+<p><strong>constant-vus</strong>: A fixed number of VUs execute as many iterations as possible
+for a specified amount of time.</p>
+</li>
+<li>
+<p><strong>ramping-vus</strong>: A variable number of VUs execute as many iterations as
+possible for a specified amount of time.</p>
+</li>
+<li>
+<p><strong>constant-arrival-rate</strong>: A fixed number of iterations are executed in a
+specified period of time.</p>
+</li>
+<li>
+<p><strong>ramping-arrival-rate</strong>: A variable number of iterations are
+executed in a specified period of time.</p>
+</li>
+<li>
+<p><strong>externally-controlled</strong>: Control and scale execution at runtime via k6&rsquo;s
+REST API or the CLI.</p>
+</li>
+</ul>
+<p>Common options for <code>scenario</code>:</p>
+<ul>
+<li>
+<p><strong>executor (required)</strong>: Unique executor name. See the list of possible values
+in the executors (last part).</p>
+</li>
+<li>
+<p><strong>startTime</strong>: Default set to &lsquo;0s&rsquo;. Time offset since the start of the test,
+at which point this scenario should begin execution.</p>
+</li>
+<li>
+<p><strong>gracefulStop</strong>: Default set to &rsquo;30s'. Time to wait for iterations to finish
+executing before stopping them forcefully. Read more about gracefully stopping
+a test run here.</p>
+</li>
+<li>
+<p><strong>exec</strong>: Default set to &lsquo;default&rsquo;. Name of exported JS function to execute.</p>
+</li>
+<li>
+<p><strong>env</strong>: default set to {}, Environment variables specific to this scenario.</p>
+</li>
+<li>
+<p>*<em>tags</em>: Default set to {}, tags specific to his scenario.</p>
+</li>
+</ul>
+<p>For example, the following script defines two minimal scenarios (1 VU, default
+duration):</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">
+import http from 'k6/http';
+
+export const options = {
+  scenarios: {
+    example_scenario: {
+      executor: 'shared-iterations',
+      startTime: '0s'
+    },
+    another_scenario: {
+      executor: 'shared-iterations',
+      startTime: '5s'
+    },
+  },
+};
+
+export default function () {
+  http.get('https://google.com/');
+}
+</code></pre><p>The output will be :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  |
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: .<span style="color:#ae81ff">\s</span>cenario_example.js
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span> scenarios, <span style="color:#ae81ff">2</span> max VUs, 10m35s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * example_scenario: <span style="color:#ae81ff">1</span> iterations shared among <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+           * another_scenario: <span style="color:#ae81ff">1</span> iterations shared among <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, startTime: 5s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>00m05.2s<span style="color:#f92672">)</span>, 0/2 VUs, <span style="color:#ae81ff">2</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+example_scenario ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.2s/10m0s  1/1 shared iters
+another_scenario ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.2s/10m0s  1/1 shared iters
+
+     data_received..................: <span style="color:#ae81ff">54</span> kB  <span style="color:#ae81ff">11</span> kB/s
+     data_sent......................: 2.5 kB <span style="color:#ae81ff">486</span> B/s
+     http_req_blocked...............: avg<span style="color:#f92672">=</span>53.45ms  min<span style="color:#f92672">=</span>46.56ms  med<span style="color:#f92672">=</span>48.42ms  max<span style="color:#f92672">=</span>70.4ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>64.25ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>67.32ms
+     http_req_connecting............: avg<span style="color:#f92672">=</span>19.95ms  min<span style="color:#f92672">=</span>18.62ms  med<span style="color:#f92672">=</span>19.93ms  max<span style="color:#f92672">=</span>21.3ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>21.26ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>21.28ms
+     http_req_duration..............: avg<span style="color:#f92672">=</span>46.16ms  min<span style="color:#f92672">=</span>25.82ms  med<span style="color:#f92672">=</span>45.6ms   max<span style="color:#f92672">=</span>67.6ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>65.63ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>66.61ms
+       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>46.16ms  min<span style="color:#f92672">=</span>25.82ms  med<span style="color:#f92672">=</span>45.6ms   max<span style="color:#f92672">=</span>67.6ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>65.63ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>66.61ms
+     http_req_failed................: 0.00%  ✓ <span style="color:#ae81ff">0</span>        ✗ <span style="color:#ae81ff">4</span>
+     http_req_receiving.............: avg<span style="color:#f92672">=</span>3.56ms   min<span style="color:#f92672">=</span>305.8µs  med<span style="color:#f92672">=</span>3.05ms   max<span style="color:#f92672">=</span>7.84ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>7.01ms   p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>7.43ms
+     http_req_sending...............: avg<span style="color:#f92672">=</span>132.85µs min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>531.4µs  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>371.98µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>451.68µs
+     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>32.68ms  min<span style="color:#f92672">=</span>27.63ms  med<span style="color:#f92672">=</span>27.99ms  max<span style="color:#f92672">=</span>47.09ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>41.43ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>44.26ms
+     http_req_waiting...............: avg<span style="color:#f92672">=</span>42.46ms  min<span style="color:#f92672">=</span>24.78ms  med<span style="color:#f92672">=</span>42.64ms  max<span style="color:#f92672">=</span>59.75ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>58.45ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>59.1ms
+     http_reqs......................: <span style="color:#ae81ff">4</span>      0.771306/s
+     iteration_duration.............: avg<span style="color:#f92672">=</span>199.23ms min<span style="color:#f92672">=</span>182.79ms med<span style="color:#f92672">=</span>199.23ms max<span style="color:#f92672">=</span>215.67ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>212.38ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>214.03ms
+     iterations.....................: <span style="color:#ae81ff">2</span>      0.385653/s
+     vus............................: <span style="color:#ae81ff">0</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+     vus_max........................: <span style="color:#ae81ff">2</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+
+</code></pre></div><h4 id="graceful-stop">Graceful stop</h4>
+<p>This option is available for all executors except <code>externally-controlled</code> and
+allows the user to specify a duration to wait before forcefully interrupting
+them. The default value is <code>30s</code>.</p>
+<p>For example:</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check, sleep } from 'k6';
+import http from 'k6/http';
+
+export const options = {
+  // k6 will return null as the body. The whole body will be ignored.
+  // This is the default when discardResponseBodies is set to true.
+  discardResponseBodies: true,
+  scenarios: {
+    contacts: {
+      // A fixed number of VUs execute as many iterations as possible for
+      // a specified amount of time.
+      executor: 'constant-vus',
+      vus: 100,
+      duration: '10s',
+      gracefulStop: '3s',
+    },
+  },
+};
+
+export default function () {
+  const delay = Math.floor(Math.random() * 5) + 1;
+  // this address support a customized delayed payload.
+  http.get(`https://httpbin.test.k6.io/delay/${delay}`);
+}
+
+// export default function () {
+//   const res = http.get('https://httpbin.test.k6.io/get');
+//   check(res, {'status was 200': (r) =&gt; r.status == 200});
+//   sleep(1);
+// }
+</code></pre><p>The ouput is like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">100</span> max VUs, 13s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * contacts: <span style="color:#ae81ff">100</span> looping VUs <span style="color:#66d9ef">for</span> 10s <span style="color:#f92672">(</span>gracefulStop: 3s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>13.0s<span style="color:#f92672">)</span>, 000/100 VUs, <span style="color:#ae81ff">304</span> complete and <span style="color:#ae81ff">27</span> interrupted iterations
+contacts ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">100</span> VUs  10s
+
+     data_received..................: <span style="color:#ae81ff">712</span> kB <span style="color:#ae81ff">55</span> kB/s
+     data_sent......................: <span style="color:#ae81ff">73</span> kB  5.6 kB/s
+     http_req_blocked...............: avg<span style="color:#f92672">=</span>334.76ms min<span style="color:#f92672">=</span>2µs   med<span style="color:#f92672">=</span>7µs   max<span style="color:#f92672">=</span>2.54s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>945.15ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>996.46ms
+     http_req_connecting............: avg<span style="color:#f92672">=</span>81.15ms  min<span style="color:#f92672">=</span>0s    med<span style="color:#f92672">=</span>0s    max<span style="color:#f92672">=</span>276.62ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>256ms    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>261.4ms 
+     http_req_duration..............: avg<span style="color:#f92672">=</span>3.16s    min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.24s max<span style="color:#f92672">=</span>5.29s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.25s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>5.26s   
+       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>3.16s    min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.24s max<span style="color:#f92672">=</span>5.29s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.25s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>5.26s   
+     http_req_failed................: 0.00%  ✓ <span style="color:#ae81ff">0</span>         ✗ <span style="color:#ae81ff">304</span>  
+     http_req_receiving.............: avg<span style="color:#f92672">=</span>94.97µs  min<span style="color:#f92672">=</span>28µs  med<span style="color:#f92672">=</span>87µs  max<span style="color:#f92672">=</span>1.02ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>121µs    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>132.69µs
+     http_req_sending...............: avg<span style="color:#f92672">=</span>36.02µs  min<span style="color:#f92672">=</span>12µs  med<span style="color:#f92672">=</span>33µs  max<span style="color:#f92672">=</span>495µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>46µs     p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>54.69µs 
+     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>192.62ms min<span style="color:#f92672">=</span>0s    med<span style="color:#f92672">=</span>0s    max<span style="color:#f92672">=</span>2.11s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>497.04ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>540.7ms 
+     http_req_waiting...............: avg<span style="color:#f92672">=</span>3.16s    min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.24s max<span style="color:#f92672">=</span>5.29s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.25s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>5.25s   
+     http_reqs......................: <span style="color:#ae81ff">304</span>    23.377036/s
+     iteration_duration.............: avg<span style="color:#f92672">=</span>3.5s     min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.25s max<span style="color:#f92672">=</span>7.79s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.27s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>6.1s    
+     iterations.....................: <span style="color:#ae81ff">304</span>    23.377036/s
+     vus............................: <span style="color:#ae81ff">27</span>     min<span style="color:#f92672">=</span><span style="color:#ae81ff">27</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
+     vus_max........................: <span style="color:#ae81ff">100</span>    min<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>     max<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
+</code></pre></div><p>Notice that <code>running (13.0s)</code>, even though the total test duration is 10s, the
+actual execution time was 13s because of <code>gracefulStop</code>, giving the VUs a 3s
+additional time to complete iterations in progress. 27 iterations are
+interrupted or did not complete within this window and was therefore
+interrupted.</p>
+<h3 id="execution-modes">Execution modes</h3>
+<ul>
+<li>
+<p><strong>Local</strong>: the test execution happens entirely on a single machine.</p>
+</li>
+<li>
+<p><strong>Distributed</strong>: the test execution is distributed across a K8s cluster.(I
+have&rsquo;t try it yet)</p>
+</li>
+<li>
+<p><strong>Cloud</strong>: the test execution happens on k6 clould.(I haven&rsquo;t try it yet)</p>
+</li>
+</ul>
+<h2 id="integrate-in-emacs">integrate in Emacs</h2>
+<p>Emacs supports automatic language server installation, so the first time you run
+`M-x lsp`` in a JavaScript file opened in it, you will be prompted for a
+language server to install. (Here I use jsts-ls lsp server)</p>
+<p>Then, everything will be done by Emacs and lsp server for you.</p>
+<blockquote>
+<p><a href="https://emacs-lsp.github.io/lsp-mode/tutorials/reactjs-tutorial/">https://emacs-lsp.github.io/lsp-mode/tutorials/reactjs-tutorial/</a></p>
+</blockquote>
+<p>Commanded to use VsCode directly (with autocompletion support):</p>
+<blockquote>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=k6.k6">https://marketplace.visualstudio.com/items?itemName=k6.k6</a></p>
+</blockquote>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/page-table/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">page table</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

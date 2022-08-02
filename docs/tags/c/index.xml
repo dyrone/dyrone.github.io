@@ -6,7 +6,16 @@
     <description>Recent content in c on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Jul 2022 23:11:16 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jul 2022 18:24:48 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>page table</title>
+      <link>https://dyrone.github.io/posts/page-table/</link>
+      <pubDate>Thu, 28 Jul 2022 18:24:48 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/page-table/</guid>
+      <description>Sharing pages Page table is the brige of communitcating between virtual address space in process and physical address space in memory.</description>
+    </item>
+    
     <item>
       <title>stat and fstat</title>
       <link>https://dyrone.github.io/posts/stat-and-fstat/</link>
