@@ -6,7 +6,16 @@
     <description>Recent content on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Aug 2022 21:24:42 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 16:07:59 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K6 Result Output</title>
+      <link>https://dyrone.github.io/posts/k6-result-output/</link>
+      <pubDate>Wed, 03 Aug 2022 16:07:59 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/k6-result-output/</guid>
+      <description>Output flow overview By default, k6 provides an end-of-test summary report.</description>
+    </item>
+    
     <item>
       <title>k6 overview</title>
       <link>https://dyrone.github.io/posts/k6-overview/</link>
