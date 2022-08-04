@@ -8,7 +8,7 @@
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="K6 Result Output" />
-<meta property="og:description" content="Output flow overview By default, k6 provides an end-of-test summary report." />
+<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://dyrone.github.io/posts/k6-result-output/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-03T16:07:59+08:00" />
@@ -16,13 +16,13 @@
 
 
 		<meta itemprop="name" content="K6 Result Output">
-<meta itemprop="description" content="Output flow overview By default, k6 provides an end-of-test summary report."><meta itemprop="datePublished" content="2022-08-03T16:07:59+08:00" />
+<meta itemprop="description" content="NOTICE: Base and excerpt from the official k6 documentation"><meta itemprop="datePublished" content="2022-08-03T16:07:59+08:00" />
 <meta itemprop="dateModified" content="2022-08-03T16:07:59+08:00" />
-<meta itemprop="wordCount" content="843">
+<meta itemprop="wordCount" content="1824">
 <meta itemprop="keywords" content="testing," />
 		<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="K6 Result Output"/>
-<meta name="twitter:description" content="Output flow overview By default, k6 provides an end-of-test summary report."/>
+<meta name="twitter:description" content="NOTICE: Base and excerpt from the official k6 documentation"/>
 
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -77,14 +77,28 @@
       <ul>
         <li><a href="#accessing-http-timing-from-a-script">Accessing HTTP timing from a script</a></li>
         <li><a href="#custom-metrics">Custom metrics</a></li>
-        <li><a href="#counter">Counter</a></li>
+        <li><a href="#counter-cumulative">Counter: cumulative</a></li>
+        <li><a href="#gause-keep-the-latest-value-only">Gause (keep the latest value only)</a></li>
+        <li><a href="#trend-collect-trend-statistics-minmaxavgpercentiles-for-a-series-of">Trend (collect trend statistics (min/max/avg/percentiles) for a series of</a></li>
+        <li><a href="#rate-keeps-track-of-the-percentage-of-values-in-a-series-that-are-non-zero">Rate (keeps track of the percentage of values in a series that are non-zero)</a></li>
+      </ul>
+    </li>
+    <li><a href="#checks">Checks</a>
+      <ul>
+        <li><a href="#check-http-response-code">Check HTTP response code</a></li>
+        <li><a href="#check-for-text-in-response-body">Check for text in response body</a></li>
+        <li><a href="#add-multiple-checks">Add multiple checks</a></li>
+        <li><a href="#failing-a-load-test-using-checks">Failing a load test using checks</a></li>
       </ul>
     </li>
   </ul>
 </nav>
 	</div>
 </div><div class="content post__content clearfix">
-			<h2 id="output-flow-overview">Output flow overview</h2>
+			<blockquote>
+<p>NOTICE: Base and excerpt from the official k6 documentation</p>
+</blockquote>
+<h2 id="output-flow-overview">Output flow overview</h2>
 <p><img src="https://k6.io/docs/static/dba3ddf4f3ab26e38c2bb8014a3f6910/e1d57/k6-results-diagram.png" alt="overview" title="overview"></p>
 <p>By default, k6 provides an end-of-test summary report. This report aggregates
 the test results, with information about all groups, checks, and thresholds in
@@ -248,32 +262,263 @@ default ✓ [======================================] 1 VUs  00m01.1s/10m0s  1/1 
      vus............................: 1     min=1      max=1
      vus_max........................: 1     min=1      max=1
      waiting_time...................: avg=273.466  min=273.466  med=273.466  max=273.466  p(90)=273.466  p(95)=273.466
-</code></pre><h3 id="counter">Counter</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import { Counter } from 'k6/metrics';
-export const options = {
-  discardResponseBodies: true,
-  scenarios: {
-    contacts: {
-      executor: 'constant-vus',
-      vus: 10,
-      duration: '10s',
-      gracefulStop: '3s',
-    },
-  },
-};
+</code></pre><h3 id="counter-cumulative">Counter: cumulative</h3>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Counter } from 'k6/metrics';
+
 const myCounter = new Counter('my_counter');
 
 export default function () {
-  const r = http.get('https://httpbin.test.k6.io');
+  myCounter.add(1);
+  myCounter.add(3);
   myCounter.add(2);
 }
-</code></pre><p>The omitted output might be :</p>
+</code></pre><p>The omitted output might be, <code>my_counter</code> value will be 6:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     data_received........: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
+     data_sent............: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s     
+     iteration_duration...: avg<span style="color:#f92672">=</span>39.81µs min<span style="color:#f92672">=</span>39.81µs med<span style="color:#f92672">=</span>39.81µs max<span style="color:#f92672">=</span>39.81µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>39.81µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>39.81µs
+     iterations...........: <span style="color:#ae81ff">1</span>   1233.045623/s
+     my_counter...........: <span style="color:#ae81ff">6</span>   7398.273736/s
+</code></pre></div><h3 id="gause-keep-the-latest-value-only">Gause (keep the latest value only)</h3>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Gauge } from 'k6/metrics';
+
+const myGauge = new Gauge('my_gauge');
+
+export default function () {
+  myGauge.add(3);
+  myGauge.add(1);
+  myGauge.add(2);
+}
+</code></pre><p>Output might be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run script.js
+
+  ...
+  iteration_duration...: avg<span style="color:#f92672">=</span>21.74µs min<span style="color:#f92672">=</span>21.74µs med<span style="color:#f92672">=</span>21.74µs max<span style="color:#f92672">=</span>21.74µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>21.74µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>21.74µs
+  iterations...........: <span style="color:#ae81ff">1</span>   1293.475322/s
+  my_gauge.............: <span style="color:#ae81ff">2</span>   min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>         max<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>
+</code></pre></div><h3 id="trend-collect-trend-statistics-minmaxavgpercentiles-for-a-series-of">Trend (collect trend statistics (min/max/avg/percentiles) for a series of</h3>
+<p>values)</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Trend } from 'k6/metrics';
+
+const myTrend = new Trend('my_trend');
+
+export default function () {
+  myTrend.add(1);
+  myTrend.add(2);
+}
+</code></pre><p>Ouput might like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js
+
+  ...
+  iteration_duration...: avg<span style="color:#f92672">=</span>20.78µs min<span style="color:#f92672">=</span>20.78µs med<span style="color:#f92672">=</span>20.78µs max<span style="color:#f92672">=</span>20.78µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>20.78µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>20.78µs
+  iterations...........: <span style="color:#ae81ff">1</span>   1217.544821/s
+  my_trend.............: avg<span style="color:#f92672">=</span>1.5     min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>       med<span style="color:#f92672">=</span>1.5     max<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>       p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>1.9     p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>1.95
+
+</code></pre></div><p>A trend metric holds a set of sample values, which it can output statistics
+about (min, max, average, median, or percentiles). By default, k6 prints
+average, min, max, median, 90th percentile, and 95th percentile.</p>
+<h3 id="rate-keeps-track-of-the-percentage-of-values-in-a-series-that-are-non-zero">Rate (keeps track of the percentage of values in a series that are non-zero)</h3>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Rate } from 'k6/metrics';
+
+const myRate = new Rate('my_rate');
+
+export default function () {
+  myRate.add(true);
+  myRate.add(true);
+  myRate.add(1);
+  myRate.add(0);
+}
+</code></pre><p>Output might be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">1</span> iterations <span style="color:#66d9ef">for</span> each of <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>00m00.0s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.0s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+
+     data_received........: <span style="color:#ae81ff">0</span> B    <span style="color:#ae81ff">0</span> B/s
+     data_sent............: <span style="color:#ae81ff">0</span> B    <span style="color:#ae81ff">0</span> B/s
+     iteration_duration...: avg<span style="color:#f92672">=</span>48.57µs min<span style="color:#f92672">=</span>48.57µs med<span style="color:#f92672">=</span>48.57µs max<span style="color:#f92672">=</span>48.57µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>48.57µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>48.57µs
+     iterations...........: <span style="color:#ae81ff">1</span>      1485.884101/s
+     my_rate..............: 75.00% ✓ <span style="color:#ae81ff">3</span>           ✗ <span style="color:#ae81ff">1</span>
+</code></pre></div><p>And the output might be:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">...
-     iterations.....................: <span style="color:#ae81ff">311</span>    29.711229/s
-     my_counter.....................: <span style="color:#ae81ff">311</span>    29.711229/s
-     vus............................: <span style="color:#ae81ff">10</span>     min<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
-     vus_max........................: <span style="color:#ae81ff">10</span>     min<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+     data_received........: <span style="color:#ae81ff">0</span> B    <span style="color:#ae81ff">0</span> B/s
+     data_sent............: <span style="color:#ae81ff">0</span> B    <span style="color:#ae81ff">0</span> B/s
+     iteration_duration...: avg<span style="color:#f92672">=</span>48.57µs min<span style="color:#f92672">=</span>48.57µs med<span style="color:#f92672">=</span>48.57µs max<span style="color:#f92672">=</span>48.57µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>48.57µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>48.57µs
+     iterations...........: <span style="color:#ae81ff">1</span>      1485.884101/s
+     my_rate..............: 75.00% ✓ <span style="color:#ae81ff">3</span>           ✗ <span style="color:#ae81ff">1</span>
+
+</code></pre></div><h2 id="checks">Checks</h2>
+<p>Checks are true/false criteria for your test runtime values.</p>
+<p>In practice, checks oftern evaluate whether the system under test responds with
+a certain value. A check may evaluate:</p>
+<ul>
+<li>That the system responds with a 200 status</li>
+<li>That a response body contains certain text</li>
+<li>That the response body is of a specified size</li>
+</ul>
+<h3 id="check-http-response-code">Check HTTP response code</h3>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check } from 'k6';
+import http from 'k6/http';
+
+export default function () {
+  const res = http.get('http://test.k6.io/');
+  check(res, {
+    'is status 200': (r) =&gt; r.status === 200,
+  });
+}
+</code></pre><p>The output might like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">1</span> iterations <span style="color:#66d9ef">for</span> each of <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>00m01.7s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m01.7s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+
+     ✓ is status <span style="color:#ae81ff">200</span>
+
+     checks.........................: 100.00% ✓ <span style="color:#ae81ff">1</span>        ✗ <span style="color:#ae81ff">0</span>  
+     data_received..................: <span style="color:#ae81ff">17</span> kB   <span style="color:#ae81ff">10</span> kB/s
+     ...
+</code></pre></div><h3 id="check-for-text-in-response-body">Check for text in response body</h3>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check } from 'k6';
+import http from 'k6/http';
+
+export default function () {
+  const res = http.get('http://test.k6.io/');
+  check(res, {
+    'verify homepage text': (r) =&gt;
+      r.body.includes('Collection of simple web-pages suitable for load testing'),
+  });
+}
+</code></pre><h3 id="add-multiple-checks">Add multiple checks</h3>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check } from 'k6';
+import http from 'k6/http';
+
+export default function () {
+  const res = http.get('http://test.k6.io/');
+  check(res, {
+    'is status 200': (r) =&gt; r.status === 200,
+    'body size is 11,105 bytes': (r) =&gt; r.body.length == 11105,
+  });
+}
+</code></pre><p>The output will be like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">running <span style="color:#f92672">(</span>00m01.4s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m01.4s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+
+     ✓ is status <span style="color:#ae81ff">200</span>
+     ✗ body size is 11,105 bytes
+      ↳  0% — ✓ <span style="color:#ae81ff">0</span> / ✗ <span style="color:#ae81ff">1</span>
+...
+</code></pre></div><h3 id="failing-a-load-test-using-checks">Failing a load test using checks</h3>
+<p>When a iteration failed, the test will continue running, if you want to stop the
+test procedure and exit, you can use <code>threshold</code>.</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  vus: 50,
+  duration: '10s',
+  thresholds: {
+    // the rate of successful checks should be higher than 90%
+    checks: ['rate&gt;0.9'],
+  },
+};
+
+export default function () {
+  const res = http.get('http://httpbin.test.k6.io');
+
+  check(res, {
+    'status is 500': (r) =&gt; r.status == 500,
+  });
+
+  sleep(1);
+}
+</code></pre><p>The output might be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">50</span> max VUs, 40s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">50</span> looping VUs <span style="color:#66d9ef">for</span> 10s <span style="color:#f92672">(</span>gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>11.5s<span style="color:#f92672">)</span>, 00/50 VUs, <span style="color:#ae81ff">349</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">50</span> VUs  10s
+
+     ✗ status is <span style="color:#ae81ff">500</span>
+      ↳  0% — ✓ <span style="color:#ae81ff">0</span> / ✗ <span style="color:#ae81ff">349</span>
+
+   ✗ checks.........................: 0.00%  ✓ <span style="color:#ae81ff">0</span>         ✗ <span style="color:#ae81ff">349</span> 
+     data_received..................: 3.8 MB <span style="color:#ae81ff">334</span> kB/s
+...
+</code></pre></div><p>Using <code>tags</code> for particular check or group checks, for example:</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  vus: 50,
+  duration: '10s',
+  thresholds: {
+    'checks{myTag:hola}': ['rate&gt;0.9'],
+  },
+};
+
+export default function () {
+  let res;
+
+  res = http.get('http://httpbin.test.k6.io');
+  check(res, {
+    'status is 500': (r) =&gt; r.status == 500,
+  });
+
+  res = http.get('http://httpbin.test.k6.io');
+  check(
+    res,
+    {
+      'status is 200': (r) =&gt; r.status == 200,
+    },
+    { myTag: 'hola' }
+  );
+
+  sleep(1);
+}
+</code></pre><p>Output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">running <span style="color:#f92672">(</span>11.2s<span style="color:#f92672">)</span>, 00/50 VUs, <span style="color:#ae81ff">250</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations                                                     
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">50</span> VUs  10s                                                            
+                                                                                                                          
+     ✗ status is <span style="color:#ae81ff">500</span>                                                                                                      
+      ↳  0% — ✓ <span style="color:#ae81ff">0</span> / ✗ <span style="color:#ae81ff">250</span>                                                                                                 
+     ✓ status is <span style="color:#ae81ff">200</span>                                                                                                      
+                                                                                                                          
+     checks.........................: 50.00%  ✓ <span style="color:#ae81ff">250</span>       ✗ <span style="color:#ae81ff">250</span>                                                           
+     ✓ <span style="color:#f92672">{</span> myTag:hola <span style="color:#f92672">}</span>...............: 100.00% ✓ <span style="color:#ae81ff">250</span>       ✗ <span style="color:#ae81ff">0</span>                                                             
+     data_received..................: 5.4 MB  <span style="color:#ae81ff">480</span> kB/s                                                                    
+     data_sent......................: <span style="color:#ae81ff">130</span> kB  <span style="color:#ae81ff">12</span> kB/s                                                                     
+     http_req_blocked...............: avg<span style="color:#f92672">=</span>54.33ms min<span style="color:#f92672">=</span>2µs      med<span style="color:#f92672">=</span>7µs      max<span style="color:#f92672">=</span>623.04ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>43.13ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>570.77ms    
+     http_req_connecting............: avg<span style="color:#f92672">=</span>22.22ms min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>251.35ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>19.96ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>219.92ms    
+     http_req_duration..............: avg<span style="color:#f92672">=</span>228.8ms min<span style="color:#f92672">=</span>198.66ms med<span style="color:#f92672">=</span>227.1ms  max<span style="color:#f92672">=</span>504.86ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>245.68ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>253.3ms     
+       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>228.8ms min<span style="color:#f92672">=</span>198.66ms med<span style="color:#f92672">=</span>227.1ms  max<span style="color:#f92672">=</span>504.86ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>245.68ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>253.3ms     
+     http_req_failed................: 0.00%   ✓ <span style="color:#ae81ff">0</span>         ✗ <span style="color:#ae81ff">1000</span>                                                          
+     http_req_receiving.............: avg<span style="color:#f92672">=</span>1.06ms  min<span style="color:#f92672">=</span>25µs     med<span style="color:#f92672">=</span>132µs    max<span style="color:#f92672">=</span>250.05ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>622.6µs  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>1.71ms      
+     http_req_sending...............: avg<span style="color:#f92672">=</span>33.21µs min<span style="color:#f92672">=</span>6µs      med<span style="color:#f92672">=</span>28µs     max<span style="color:#f92672">=</span>207µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>47.1µs   p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>72.04µs     
+     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>13.53ms min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>328.63ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s       p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>11.52ms     
+     http_req_waiting...............: avg<span style="color:#f92672">=</span>227.7ms min<span style="color:#f92672">=</span>198.54ms med<span style="color:#f92672">=</span>226.64ms max<span style="color:#f92672">=</span>426.7ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>245.22ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>252.71ms    
+     http_reqs......................: <span style="color:#ae81ff">1000</span>    89.379587/s                                                                 
+     iteration_duration.............: avg<span style="color:#f92672">=</span>2.13s   min<span style="color:#f92672">=</span>1.83s    med<span style="color:#f92672">=</span>1.91s    max<span style="color:#f92672">=</span>3.24s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>3.02s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>3.1s        
+     iterations.....................: <span style="color:#ae81ff">250</span>     22.344897/s
+     vus............................: <span style="color:#ae81ff">5</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>       max<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>
+     vus_max........................: <span style="color:#ae81ff">50</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>
 </code></pre></div>
 		</div>
 		<footer class="post__footer">
@@ -296,6 +541,12 @@ export default function () {
 		<a class="pager__link" href="/posts/k6-overview/" rel="prev">
 			<span class="pager__subtitle">«&thinsp;Previous</span>
 			<p class="pager__title">k6 overview</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/k6-options/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">K6 Options</p>
 		</a>
 	</div>
 </nav>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>K6 Options - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="K6 Options" />
+<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/k6-options/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-04T15:00:25+08:00" />
+<meta property="article:modified_time" content="2022-08-04T15:00:25+08:00" />
+
+
+		<meta itemprop="name" content="K6 Options">
+<meta itemprop="description" content="NOTICE: Base and excerpt from the official k6 documentation"><meta itemprop="datePublished" content="2022-08-04T15:00:25+08:00" />
+<meta itemprop="dateModified" content="2022-08-04T15:00:25+08:00" />
+<meta itemprop="wordCount" content="516">
+<meta itemprop="keywords" content="testing," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K6 Options"/>
+<meta name="twitter:description" content="NOTICE: Base and excerpt from the official k6 documentation"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">K6 Options</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-04T15:00:25&#43;08:00">2022-08-04</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#option-scopes">option scopes</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#set-options-in-the-script">Set options in the script</a></li>
+    <li><a href="#set-options-with-environment-variables">Set options with environment variables</a></li>
+    <li><a href="#set-options-from-k6-variables">Set options from k6 variables</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<blockquote>
+<p>NOTICE: Base and excerpt from the official k6 documentation</p>
+</blockquote>
+<h2 id="option-scopes">option scopes</h2>
+<ul>
+<li>In CLI flags</li>
+<li>In environment variables</li>
+<li>In script <code>options</code> object</li>
+</ul>
+<h2 id="order">Order</h2>
+<p><img src="https://k6.io/docs/static/cd2ffc633dd58c67e276922851216ab9/0e253/order-of-precedence.png" alt="order"></p>
+<ul>
+<li>First, k6 uses the option&rsquo;s default value.</li>
+<li>Next, k6 uses the options set by the &ndash;config flag.</li>
+<li>Then, k6 uses the script value (if set).</li>
+<li>After, k6 uses the environment variable (if set).</li>
+<li>Finally, k6 takes the value from the CLI flag (if set).</li>
+</ul>
+<p>The script <code>options</code> object is generally the best place to put your options. This
+provides automatic version control, allows for easy reuse, and lets you
+modularize your script.</p>
+<p>When you want to run a quick test, command-line flags are convenient. You can
+also use command-line flags to override files in your script (as determined by
+the order of precedence). For example, if your script file sets the test
+duration at 60 seconds, you could use a CLI flag to run a one-time shorter test.
+With a flag like &ndash;duration 30s, the test would be half as long but otherwise
+identical.</p>
+<h2 id="set-options-in-the-script">Set options in the script</h2>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+
+export const options = {
+  hosts: { 'test.k6.io': '1.2.3.4' },
+  stages: [
+    { duration: '1m', target: 10 },
+  ],
+  thresholds: { http_req_duration: ['avg&lt;100', 'p(95)&lt;200'] },
+  noConnectionReuse: true,
+  userAgent: 'MyK6UserAgentString/1.0',
+};
+
+export default function () {
+  http.get('http://test.k6.io/');
+}
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">10</span> max VUs, 1m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: Up to <span style="color:#ae81ff">10</span> looping VUs <span style="color:#66d9ef">for</span> 1m0s over <span style="color:#ae81ff">1</span> stages <span style="color:#f92672">(</span>gracefulRampDown: 30s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+WARN<span style="color:#f92672">[</span>0030<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0037<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0043<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0050<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0057<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0060<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0063<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0067<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0070<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0073<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0077<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0080<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0083<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0087<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+
+running <span style="color:#f92672">(</span>1m26.7s<span style="color:#f92672">)</span>, 00/10 VUs, <span style="color:#ae81ff">14</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> 00/10 VUs  1m0s
+
+     data_received..............: <span style="color:#ae81ff">0</span> B     <span style="color:#ae81ff">0</span> B/s
+     data_sent..................: <span style="color:#ae81ff">0</span> B     <span style="color:#ae81ff">0</span> B/s
+     http_req_blocked...........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_connecting........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+   ✓ http_req_duration..........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_failed............: 100.00% ✓ <span style="color:#ae81ff">14</span>       ✗ <span style="color:#ae81ff">0</span>   
+     http_req_receiving.........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_sending...........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_tls_handshaking...: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_waiting...........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_reqs..................: <span style="color:#ae81ff">14</span>      0.161529/s
+     iteration_duration.........: avg<span style="color:#f92672">=</span>30s min<span style="color:#f92672">=</span>30s med<span style="color:#f92672">=</span>30s max<span style="color:#f92672">=</span>30s p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>30s p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>30s
+     iterations.................: <span style="color:#ae81ff">14</span>      0.161529/s
+     vus........................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span> 
+     vus_max....................: <span style="color:#ae81ff">10</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>     max<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</code></pre></div><h2 id="set-options-with-environment-variables">Set options with environment variables</h2>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">K6_NO_CONNECTION_REUSE=true K6_USER_AGENT=&quot;MyK6UserAgentString/1.0&quot; k6 run script.js
+
+k6 run --no-connection-reuse --user-agent &quot;MyK6UserAgentString/1.0&quot; script.js
+</code></pre><h2 id="set-options-from-k6-variables">Set options from k6 variables</h2>
+<p>For example, you could define a variable for your user agent like this:</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+
+export const options = {
+  userAgent: __ENV.MY_USER_AGENT,
+};
+
+export default function () {
+  http.get('http://test.k6.io/');
+}
+</code></pre><p>Then execute:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js --env MY_USER_AGENT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span>
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/k6-result-output/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">K6 Result Output</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/k6-module/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">K6 Module</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

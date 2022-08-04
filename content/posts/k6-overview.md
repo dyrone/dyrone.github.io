@@ -6,6 +6,8 @@ tags:
     - "testing"
 ---
 
+> NOTICE: Base and excerpt from the official k6 documentation 
+
 ## Concepts 
 
 * virtual users (VUs):  VUs are essentially parallel while(true) loop.

@@ -6,14 +6,41 @@
     <description>Recent content on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Aug 2022 16:07:59 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Aug 2022 20:10:11 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K6 Tags and Groups</title>
+      <link>https://dyrone.github.io/posts/k6-tags-and-groups/</link>
+      <pubDate>Thu, 04 Aug 2022 20:10:11 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/k6-tags-and-groups/</guid>
+      <description>Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results.</description>
+    </item>
+    
+    <item>
+      <title>K6 Module</title>
+      <link>https://dyrone.github.io/posts/k6-module/</link>
+      <pubDate>Thu, 04 Aug 2022 19:52:08 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/k6-module/</guid>
+      <description>Modules There are three types of modules:</description>
+    </item>
+    
+    <item>
+      <title>K6 Options</title>
+      <link>https://dyrone.github.io/posts/k6-options/</link>
+      <pubDate>Thu, 04 Aug 2022 15:00:25 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/k6-options/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+    </item>
+    
     <item>
       <title>K6 Result Output</title>
       <link>https://dyrone.github.io/posts/k6-result-output/</link>
       <pubDate>Wed, 03 Aug 2022 16:07:59 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/k6-result-output/</guid>
-      <description>Output flow overview By default, k6 provides an end-of-test summary report.</description>
+      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
     </item>
     
     <item>
@@ -22,7 +49,7 @@
       <pubDate>Mon, 01 Aug 2022 21:24:42 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/k6-overview/</guid>
-      <description>Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop.</description>
+      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
     </item>
     
     <item>
