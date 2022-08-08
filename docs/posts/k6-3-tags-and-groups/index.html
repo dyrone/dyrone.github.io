@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>k6 series 3 - tags and groups - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="k6 series 3 - tags and groups" />
+<meta property="og:description" content="Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/k6-3-tags-and-groups/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-04T20:10:11+08:00" />
+<meta property="article:modified_time" content="2022-08-04T20:10:11+08:00" />
+
+
+		<meta itemprop="name" content="k6 series 3 - tags and groups">
+<meta itemprop="description" content="Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results."><meta itemprop="datePublished" content="2022-08-04T20:10:11+08:00" />
+<meta itemprop="dateModified" content="2022-08-04T20:10:11+08:00" />
+<meta itemprop="wordCount" content="1083">
+<meta itemprop="keywords" content="testing," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k6 series 3 - tags and groups"/>
+<meta name="twitter:description" content="Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">k6 series 3 - tags and groups</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-04T20:10:11&#43;08:00">2022-08-04</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#tags">Tags</a>
+      <ul>
+        <li><a href="#system-tags">System tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#test-wide-tags">Test-wide tags</a>
+      <ul>
+        <li><a href="#user-defined-tags">User-defined tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#groups">Groups</a></li>
+    <li><a href="#code-defined-tags-and-nested-groups">Code-defined tags and nested groups</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="overview">Overview</h2>
+<p>k6 provides two scripting APIs to help you visualize, sort, and filter your test
+results.</p>
+<ul>
+<li>
+<p>Tags categorize your checks, thresholds, custom metrics, and requests for
+in-depth filtering.</p>
+</li>
+<li>
+<p>Groups apply tags to the script&rsquo;s functions.</p>
+</li>
+</ul>
+<h2 id="tags">Tags</h2>
+<p>k6 provides two types of tags:</p>
+<ul>
+<li>System tags are tags that k6 automatically assigns.</li>
+<li>User-defined tags are tags that you add when you write your script.</li>
+</ul>
+<h3 id="system-tags">System tags</h3>
+<ul>
+<li><strong>proto</strong>: the name of the protocol used (e.g. HTTP/1.1)</li>
+<li><strong>subproto</strong>: the subprotocol name (used by websockets)</li>
+<li><strong>status</strong>: the HTTP status code (e.g. 200, 404, etc.)</li>
+<li><strong>method</strong>: the HTTP method name (e.g. GET, POST, etc.) or the RPC method name for gRPC</li>
+<li><strong>url</strong>: the HTTP request URL</li>
+<li><strong>name</strong>: the HTTP request name <a href="https://k6.io/docs/using-k6/http-requests/#url-grouping" title="What's 'name'?">What&rsquo;s &lsquo;name&rsquo;?</a></li>
+<li><strong>group</strong>: the full group path, see the preceding explanation for details
+about its value</li>
+<li><strong>check</strong>: the Check name</li>
+<li><strong>error</strong>: a string with a non-HTTP error message (e.g. network or DNS error)</li>
+<li><strong>error_code</strong>**: A number specifying an error types; a list of current error
+codes can be found at the <a href="https://k6.io/docs/javascript-api/error-codes/">Error Codes</a> page</li>
+<li>tls_**version**: the TLS version</li>
+<li><strong>scenario</strong>: the name of the scenario where the metric was emitted</li>
+<li><strong>service</strong>: the RPC service name for gRPC</li>
+<li><strong>expected_response</strong>**: true or false based on the responseCallback; by default</li>
+</ul>
+<h2 id="test-wide-tags">Test-wide tags</h2>
+<p>Besides attaching tags to requests, checks, and custom metrics, you can set
+test-wide tags across all metrics. You can set these tags in two ways:</p>
+<ul>
+<li>
+<p>In the CLI, using one or more &ndash;tag NAME=VALUE flags</p>
+</li>
+<li>
+<p>In the script itself:</p>
+</li>
+</ul>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
+  tags: {
+    name: 'value',
+  },
+};
+</code></pre><h3 id="user-defined-tags">User-defined tags</h3>
+<p>You can define your own tags to categorize k6 entities based on your test logic.
+You can tag the following entities:</p>
+<ul>
+<li>requests</li>
+<li>checks</li>
+<li>thresholds</li>
+<li>custom metrics</li>
+</ul>
+<p>There is an example:</p>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+import { Trend } from 'k6/metrics';
+import { check } from 'k6';
+
+
+export const options = {
+  scenarios: {
+    dyrone: {
+      executor: 'constant-vus',
+      vus: 1,
+      duration: '1s',
+    }
+  }
+}
+
+const myTrend = new Trend('my_trend');
+
+export default function () {
+  // Add tag to request metric data
+  const res = http.get('http://httpbin.test.k6.io/', {
+    tags: {
+      my_tag: &quot;I'm a tag&quot;,
+    },
+  });
+
+  const timeoutRes = http.get('http://1.2.3.4/', {
+    tags: {
+      my_tag: &quot;I'm a connectTimeout tag&quot;,
+    },
+    timeout: &quot;3s&quot;
+  });
+
+  // Add tag to check
+  check(res, { 'status is 200': (r) =&gt; r.status === 200 }, { my_tag: &quot;I'm a tag&quot; });
+
+  // Add tag to custom metric
+  myTrend.add(res.timings.connecting, { my_tag: &quot;I'm a tag&quot; });
+}
+</code></pre><p>The output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 31s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * dyrone: <span style="color:#ae81ff">1</span> looping VUs <span style="color:#66d9ef">for</span> 1s <span style="color:#f92672">(</span>gracefulStop: 30s<span style="color:#f92672">)</span>
+
+WARN<span style="color:#f92672">[</span>0004<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://1.2.3.4/\&#34;: request timeout&#34;</span>
+
+running <span style="color:#f92672">(</span>04.3s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+dyrone ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  1s
+
+     ✓ status is <span style="color:#ae81ff">200</span>
+
+     checks.........................: 100.00% ✓ <span style="color:#ae81ff">1</span>        ✗ <span style="color:#ae81ff">0</span>  
+     data_received..................: <span style="color:#ae81ff">16</span> kB   3.7 kB/s
+     data_sent......................: <span style="color:#ae81ff">575</span> B   <span style="color:#ae81ff">135</span> B/s
+     http_req_blocked...............: avg<span style="color:#f92672">=</span>278.91ms min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>375.84ms max<span style="color:#f92672">=</span>460.88ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>443.87ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>452.37ms
+     http_req_connecting............: avg<span style="color:#f92672">=</span>139.94ms min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>197.24ms max<span style="color:#f92672">=</span>222.59ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>217.52ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>220.06ms
+     http_req_duration..............: avg<span style="color:#f92672">=</span>142.42ms min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>196.92ms max<span style="color:#f92672">=</span>230.34ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>223.66ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>227ms   
+       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>213.63ms min<span style="color:#f92672">=</span>196.92ms med<span style="color:#f92672">=</span>213.63ms max<span style="color:#f92672">=</span>230.34ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>227ms    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>228.67ms
+     http_req_failed................: 33.33%  ✓ <span style="color:#ae81ff">1</span>        ✗ <span style="color:#ae81ff">2</span>  
+     http_req_receiving.............: avg<span style="color:#f92672">=</span>549.99µs min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>109µs    max<span style="color:#f92672">=</span>1.54ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>1.25ms   p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>1.39ms  
+     http_req_sending...............: avg<span style="color:#f92672">=</span>82.33µs  min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>39µs     max<span style="color:#f92672">=</span>208µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>174.2µs  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>191.09µs
+     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>79.39ms  min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>238.19ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>190.55ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>214.37ms
+     http_req_waiting...............: avg<span style="color:#f92672">=</span>141.79ms min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>196.61ms max<span style="color:#f92672">=</span>228.76ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>222.33ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>225.54ms
+     http_reqs......................: <span style="color:#ae81ff">3</span>       0.702815/s
+     iteration_duration.............: avg<span style="color:#f92672">=</span>4.26s    min<span style="color:#f92672">=</span>4.26s    med<span style="color:#f92672">=</span>4.26s    max<span style="color:#f92672">=</span>4.26s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>4.26s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>4.26s   
+     iterations.....................: <span style="color:#ae81ff">1</span>       0.234272/s
+     my_trend.......................: avg<span style="color:#f92672">=</span>111.299  min<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>        med<span style="color:#f92672">=</span>111.299  max<span style="color:#f92672">=</span>222.598  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>200.3382 p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>211.4681
+     vus............................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+     vus_max........................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</code></pre></div><h2 id="groups">Groups</h2>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+import exec from 'k6/execution';
+import { group } from 'k6';
+
+export default function () {
+  group('visit product listing page', function () {
+    // ...
+  });
+  group('add several products to the shopping cart', function () {
+    // ...
+  });
+  group('visit login page', function () {
+    // ...
+  });
+  group('authenticate', function () {
+    // ...
+  });
+  group('checkout process', function () {
+    // ...
+  });
+}
+</code></pre><p>The output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">1</span> iterations <span style="color:#66d9ef">for</span> each of <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>00m00.0s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.0s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+
+     █ visit product listing page
+
+     █ add several products to the shopping cart
+
+     █ visit login page
+
+     █ authenticate
+
+     █ checkout process
+
+     data_received........: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
+     data_sent............: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
+     group_duration.......: avg<span style="color:#f92672">=</span>541ns    min<span style="color:#f92672">=</span>197ns    med<span style="color:#f92672">=</span>262ns    max<span style="color:#f92672">=</span>1.68µs   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>1.13µs   p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>1.41µs  
+     iteration_duration...: avg<span style="color:#f92672">=</span>138.58µs min<span style="color:#f92672">=</span>138.58µs med<span style="color:#f92672">=</span>138.58µs max<span style="color:#f92672">=</span>138.58µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>138.58µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>138.58µs
+     iterations...........: <span style="color:#ae81ff">1</span>   705.716302/s
+</code></pre></div><h2 id="code-defined-tags-and-nested-groups">Code-defined tags and nested groups</h2>
+<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+import exec from 'k6/execution';
+import { group } from 'k6';
+
+export const options = {
+  thresholds: {
+    'http_reqs{container_group:main}': ['count==3'],
+    'http_req_duration{container_group:main}': ['max&lt;1000'],
+  },
+};
+
+export default function () {
+  exec.vu.tags.containerGroup = 'main';
+
+  group('main', function () {
+    http.get('https://test.k6.io');
+    group('sub', function () {
+      http.get('https://httpbin.test.k6.io/anything');
+    });
+    http.get('https://test-api.k6.io');
+  });
+
+  delete exec.vu.tags.containerGroup;
+
+  http.get('https://httpbin.test.k6.io/delay/3');
+}
+</code></pre><p>The output might like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  pt-samples git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k6 run  pt-1-0001-stages.ts
+
+          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">1</span> iterations <span style="color:#66d9ef">for</span> each of <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+running <span style="color:#f92672">(</span>00m02.8s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m02.8s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+
+     █ main
+
+       █ sub
+
+     data_received..................: <span style="color:#ae81ff">44</span> kB  <span style="color:#ae81ff">16</span> kB/s
+     data_sent......................: 1.3 kB <span style="color:#ae81ff">487</span> B/s
+     group_duration.................: avg<span style="color:#f92672">=</span>1.79s    min<span style="color:#f92672">=</span>820.77ms med<span style="color:#f92672">=</span>1.79s    max<span style="color:#f92672">=</span>2.76s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>2.56s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>2.66s   
+     http_req_blocked...............: avg<span style="color:#f92672">=</span>685.71ms min<span style="color:#f92672">=</span>604.44ms med<span style="color:#f92672">=</span>720.5ms  max<span style="color:#f92672">=</span>732.19ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>729.85ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>731.02ms
+     http_req_connecting............: avg<span style="color:#f92672">=</span>235.17ms min<span style="color:#f92672">=</span>211.68ms med<span style="color:#f92672">=</span>228.33ms max<span style="color:#f92672">=</span>265.5ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>258.06ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>261.78ms
+     http_req_duration..............: avg<span style="color:#f92672">=</span>235.54ms min<span style="color:#f92672">=</span>216.25ms med<span style="color:#f92672">=</span>235.5ms  max<span style="color:#f92672">=</span>254.85ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>250.98ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>252.91ms
+     ✓ <span style="color:#f92672">{</span> container_group:main <span style="color:#f92672">}</span>.....: avg<span style="color:#f92672">=</span>0s       min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>0s       p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s       p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s      
+       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>235.54ms min<span style="color:#f92672">=</span>216.25ms med<span style="color:#f92672">=</span>235.5ms  max<span style="color:#f92672">=</span>254.85ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>250.98ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>252.91ms
+     http_req_failed................: 0.00%  ✓ <span style="color:#ae81ff">0</span>        ✗ <span style="color:#ae81ff">3</span>  
+     http_req_receiving.............: avg<span style="color:#f92672">=</span>140.66µs min<span style="color:#f92672">=</span>114µs    med<span style="color:#f92672">=</span>149µs    max<span style="color:#f92672">=</span>159µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>157µs    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>158µs   
+     http_req_sending...............: avg<span style="color:#f92672">=</span>63µs     min<span style="color:#f92672">=</span>36µs     med<span style="color:#f92672">=</span>53µs     max<span style="color:#f92672">=</span>100µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>90.6µs   p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>95.3µs  
+     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>268.53ms min<span style="color:#f92672">=</span>219.61ms med<span style="color:#f92672">=</span>263.88ms max<span style="color:#f92672">=</span>322.1ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>310.46ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>316.28ms
+     http_req_waiting...............: avg<span style="color:#f92672">=</span>235.33ms min<span style="color:#f92672">=</span>216.1ms  med<span style="color:#f92672">=</span>235.3ms  max<span style="color:#f92672">=</span>254.59ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>250.73ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>252.66ms
+     http_reqs......................: <span style="color:#ae81ff">3</span>      1.084494/s
+     ✗ <span style="color:#f92672">{</span> container_group:main <span style="color:#f92672">}</span>.....: <span style="color:#ae81ff">0</span>      0/s
+     iteration_duration.............: avg<span style="color:#f92672">=</span>2.76s    min<span style="color:#f92672">=</span>2.76s    med<span style="color:#f92672">=</span>2.76s    max<span style="color:#f92672">=</span>2.76s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>2.76s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>2.76s   
+     iterations.....................: <span style="color:#ae81ff">1</span>      0.361498/s
+     vus............................: <span style="color:#ae81ff">1</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+     vus_max........................: <span style="color:#ae81ff">1</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/k6-module/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">K6 Module</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/k6-5-ramping-vus/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">k6 series 5 - Ramping Vus</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

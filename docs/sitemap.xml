@@ -3,24 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dyrone.github.io/</loc>
-    <lastmod>2022-08-04T19:52:08+08:00</lastmod>
+    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/k6-6-execute-command/</loc>
+    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/</loc>
+    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/tags/</loc>
+    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/tags/testing/</loc>
+    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/k6-5-ramping-vus/</loc>
+    <lastmod>2022-08-08T21:06:58+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/k6-3-tags-and-groups/</loc>
+    <lastmod>2022-08-04T20:10:11+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/k6-module/</loc>
     <lastmod>2022-08-04T19:52:08+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/</loc>
-    <lastmod>2022-08-04T19:52:08+08:00</lastmod>
+    <loc>https://dyrone.github.io/posts/k6-4-options/</loc>
+    <lastmod>2022-08-04T15:00:25+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/</loc>
-    <lastmod>2022-08-04T19:52:08+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/tags/testing/</loc>
-    <lastmod>2022-08-04T19:52:08+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/posts/k6-result-output/</loc>
+    <loc>https://dyrone.github.io/posts/k6-2-result-output/</loc>
     <lastmod>2022-08-03T16:07:59+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-overview/</loc>
+    <loc>https://dyrone.github.io/posts/k6-1-overview/</loc>
     <lastmod>2022-08-01T21:24:42+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/c/</loc>
@@ -91,8 +103,6 @@
   </url><url>
     <loc>https://dyrone.github.io/tags/introduce/</loc>
     <lastmod>2022-01-01T15:34:15+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/posts/k6-options/</loc>
   </url><url>
     <loc>https://dyrone.github.io/categories/</loc>
   </url>
