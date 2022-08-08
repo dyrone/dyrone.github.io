@@ -1,5 +1,5 @@
 ---
-title: "K6 Result Output"
+title: "k6 series [2] - result output"
 date: 2022-08-03T16:07:59+08:00
 draft: false
 tags:
@@ -506,3 +506,37 @@ default ✓ [======================================] 50 VUs  10s
      vus............................: 5       min=5       max=50
      vus_max........................: 50      min=50      max=50
 ```
+
+## External output
+
+If you need more data than what is condensed in the end-of-test summary, you can
+integrate and visualize k6 metrics on other platforms.
+
+```shell 
+$ k6 run \
+--out json=test.json \
+--out influxdb=http://localhost:8086/k6
+```
+
+
+The avaliable built-in outputs are:
+
+* [Amazon
+  CloudWatch](https://k6.io/docs/results-visualization/amazon-cloudwatch/)
+* Apache Kafka (deprecated). using
+  [extension](https://github.com/grafana/xk6-output-kafka) instead
+* [Cloud (k6's saas service)](https://k6.io/docs/results-visualization/cloud/)
+* [CSV](https://k6.io/docs/results-visualization/csv)
+* [Datadog](https://k6.io/docs/results-visualization/datadog)
+* [Grafana Cloud /
+  Prometheus](https://k6.io/docs/results-visualization/grafana-cloud/), read
+  more in [turning data into understandable insights with k6 load testing](https://medium.com/@rody.bothe/turning-data-into-understandable-insights-with-k6-load-testing-fa24e326e221)
+* [InfluxDB](https://k6.io/docs/results-visualization/influxdb-+-grafana/)
+* [JSON](https://k6.io/docs/results-visualization/json/)
+* Netdata
+* New Relic
+* [Prometheus](https://k6.io/docs/results-visualization/prometheus/)
+* [TimescaleDB](https://k6.io/docs/results-visualization/timescaledb/), read
+  more in [Store k6 metrics in TimescaleDB and visualize with
+  Grafana](https://k6.io/blog/store-k6-metrics-in-timescaledb-and-visualize-with-grafana/)
+* StatsD
