@@ -8,16 +8,16 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 08 Aug 2022 22:44:24 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>k6 series 6 - Execute Command</title>
+      <title>k6 series [6] - Execute Command</title>
       <link>https://dyrone.github.io/posts/k6-6-execute-command/</link>
       <pubDate>Mon, 08 Aug 2022 22:44:24 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/k6-6-execute-command/</guid>
-      <description>install xk6 https://github.</description>
+      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
     </item>
     
     <item>
-      <title>k6 series 5 - Ramping Vus</title>
+      <title>k6 series [5] - Ramping Vus</title>
       <link>https://dyrone.github.io/posts/k6-5-ramping-vus/</link>
       <pubDate>Mon, 08 Aug 2022 21:06:58 +0800</pubDate>
       
@@ -26,25 +26,16 @@
     </item>
     
     <item>
-      <title>k6 series 3 - tags and groups</title>
+      <title>k6 series [3] - Tags And Groups</title>
       <link>https://dyrone.github.io/posts/k6-3-tags-and-groups/</link>
       <pubDate>Thu, 04 Aug 2022 20:10:11 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/k6-3-tags-and-groups/</guid>
-      <description>Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results.</description>
+      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
     </item>
     
     <item>
-      <title>K6 Module</title>
-      <link>https://dyrone.github.io/posts/k6-module/</link>
-      <pubDate>Thu, 04 Aug 2022 19:52:08 +0800</pubDate>
-      
-      <guid>https://dyrone.github.io/posts/k6-module/</guid>
-      <description>Modules There are three types of modules:</description>
-    </item>
-    
-    <item>
-      <title>k6 series 5 - options</title>
+      <title>k6 series [4] - Options</title>
       <link>https://dyrone.github.io/posts/k6-4-options/</link>
       <pubDate>Thu, 04 Aug 2022 15:00:25 +0800</pubDate>
       
@@ -53,7 +44,7 @@
     </item>
     
     <item>
-      <title>k6 series [2] - result output</title>
+      <title>k6 series [2] - Result Output</title>
       <link>https://dyrone.github.io/posts/k6-2-result-output/</link>
       <pubDate>Wed, 03 Aug 2022 16:07:59 +0800</pubDate>
       
@@ -62,7 +53,7 @@
     </item>
     
     <item>
-      <title>k6 series [1] - overview</title>
+      <title>k6 series [1] - Overview</title>
       <link>https://dyrone.github.io/posts/k6-1-overview/</link>
       <pubDate>Mon, 01 Aug 2022 21:24:42 +0800</pubDate>
       

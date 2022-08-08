@@ -1,5 +1,5 @@
 ---
-title: "k6 series 5 - Ramping Vus"
+title: "k6 series [5] - Ramping Vus"
 date: 2022-08-08T21:06:58+08:00
 draft: false
 tags: 

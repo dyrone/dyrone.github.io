@@ -1,11 +1,12 @@
 ---
-title: "k6 series 6 - Execute Command"
+title: "k6 series [6] - Execute Command"
 date: 2022-08-08T22:44:24+08:00
 draft: false 
 tags: 
     - "testing"
 ---
 
+> NOTICE: Base and excerpt from the official k6 documentation 
 ## install xk6
 
 https://github.com/grafana/xk6

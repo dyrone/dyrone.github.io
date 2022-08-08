@@ -1,11 +1,12 @@
 ---
-title: "k6 series 3 - tags and groups"
+title: "k6 series [3] - Tags And Groups"
 date: 2022-08-04T20:10:11+08:00
 draft: false 
 tags:
     - "testing"
 ---
 
+> NOTICE: Base and excerpt from the official k6 documentation 
 ## Overview 
 
 k6 provides two scripting APIs to help you visualize, sort, and filter your test

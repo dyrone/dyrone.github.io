@@ -1,11 +1,12 @@
 ---
-title: "K6 Module"
-date: 2022-08-04T19:52:08+08:00
+title: "k6 series [7] - Module"
+date: 2022-08-08T23:52:08+08:00
 draft: false
 tags:
     - "testing"
 ---
 
+> NOTICE: Base and excerpt from the official k6 documentation 
 
 ## Modules 
 

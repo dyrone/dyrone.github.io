@@ -1,5 +1,5 @@
 ---
-title: "k6 series [2] - result output"
+title: "k6 series [2] - Result Output"
 date: 2022-08-03T16:07:59+08:00
 draft: false
 tags:

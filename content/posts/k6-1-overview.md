@@ -1,5 +1,5 @@
 ---
-title: "k6 series [1] - overview"
+title: "k6 series [1] - Overview"
 date: 2022-08-01T21:24:42+08:00
 draft: false 
 tags:

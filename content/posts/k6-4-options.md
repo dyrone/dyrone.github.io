@@ -1,5 +1,5 @@
 ---
-title: "k6 series 5 - options"
+title: "k6 series [4] - Options"
 date: 2022-08-04T15:00:25+08:00
 draft: false
 tags:
