@@ -8,6 +8,21 @@ tags:
 
 > NOTICE: Base and excerpt from the official k6 documentation 
 
+## Install
+
+
+```shell
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+```
+
+* mac :
+
+```shell
+brew install k6
+```
+
+More install supporst in https://k6.io/docs/getting-started/installation/
+
 ## Concepts 
 
 * virtual users (VUs):  VUs are essentially parallel while(true) loop.

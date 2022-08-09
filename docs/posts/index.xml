@@ -6,7 +6,16 @@
     <description>Recent content in Posts on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Aug 2022 22:44:24 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Aug 2022 23:52:08 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k6 series [7] - Module</title>
+      <link>https://dyrone.github.io/posts/k6-7-module/</link>
+      <pubDate>Mon, 08 Aug 2022 23:52:08 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/k6-7-module/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+    </item>
+    
     <item>
       <title>k6 series [6] - Execute Command</title>
       <link>https://dyrone.github.io/posts/k6-6-execute-command/</link>

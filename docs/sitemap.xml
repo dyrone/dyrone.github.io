@@ -3,18 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://dyrone.github.io/</loc>
-    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+    <lastmod>2022-08-08T23:52:08+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-6-execute-command/</loc>
-    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+    <loc>https://dyrone.github.io/posts/k6-7-module/</loc>
+    <lastmod>2022-08-08T23:52:08+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/</loc>
-    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+    <lastmod>2022-08-08T23:52:08+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/</loc>
-    <lastmod>2022-08-08T22:44:24+08:00</lastmod>
+    <lastmod>2022-08-08T23:52:08+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/testing/</loc>
+    <lastmod>2022-08-08T23:52:08+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/k6-6-execute-command/</loc>
     <lastmod>2022-08-08T22:44:24+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/k6-5-ramping-vus/</loc>
