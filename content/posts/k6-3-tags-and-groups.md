@@ -36,12 +36,12 @@ k6 provides two types of tags:
   about its value
 * **check**: the Check name
 * **error**: a string with a non-HTTP error message (e.g. network or DNS error)
-* **error_code****: A number specifying an error types; a list of current error
+* **error_code**: A number specifying an error types; a list of current error
   codes can be found at the [Error Codes](https://k6.io/docs/javascript-api/error-codes/) page
-* tls_**version**: the TLS version
+* **tls_version**: the TLS version
 * **scenario**: the name of the scenario where the metric was emitted
 * **service**: the RPC service name for gRPC
-* **expected_response****: true or false based on the responseCallback; by default
+* **expected_response**: true or false based on the responseCallback; by default
 
 
 ## Test-wide tags
@@ -53,7 +53,7 @@ test-wide tags across all metrics. You can set these tags in two ways:
 
 * In the script itself:
 
-```jsts
+```js
 export const options = {
   tags: {
     name: 'value',
@@ -74,7 +74,7 @@ You can tag the following entities:
 
 There is an example:
 
-```jsts
+```js
 import http from 'k6/http';
 import { Trend } from 'k6/metrics';
 import { check } from 'k6';
@@ -161,7 +161,7 @@ dyrone ✓ [======================================] 1 VUs  1s
 
 ## Groups
 
-```jsts
+```js
 import http from 'k6/http';
 import exec from 'k6/execution';
 import { group } from 'k6';
@@ -224,7 +224,7 @@ default ✓ [======================================] 1 VUs  00m00.0s/10m0s  1/1 
 
 ## Code-defined tags and nested groups
 
-```jsts
+```js
 import http from 'k6/http';
 import exec from 'k6/execution';
 import { group } from 'k6';

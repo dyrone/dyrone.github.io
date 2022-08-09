@@ -160,22 +160,22 @@ duration at 60 seconds, you could use a CLI flag to run a one-time shorter test.
 With a flag like &ndash;duration 30s, the test would be half as long but otherwise
 identical.</p>
 <h2 id="set-options-in-the-script">Set options in the script</h2>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export const options = {
-  hosts: { 'test.k6.io': '1.2.3.4' },
-  stages: [
-    { duration: '1m', target: 10 },
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">hosts</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;test.k6.io&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1.2.3.4&#39;</span> },
+  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> },
   ],
-  thresholds: { http_req_duration: ['avg&lt;100', 'p(95)&lt;200'] },
-  noConnectionReuse: true,
-  userAgent: 'MyK6UserAgentString/1.0',
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">http_req_duration</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;avg&lt;100&#39;</span>, <span style="color:#e6db74">&#39;p(95)&lt;200&#39;</span>] },
+  <span style="color:#a6e22e">noConnectionReuse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">userAgent</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;MyK6UserAgentString/1.0&#39;</span>,
 };
 
-export default function () {
-  http.get('http://test.k6.io/');
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
 }
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
   scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">10</span> max VUs, 1m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
            * default: Up to <span style="color:#ae81ff">10</span> looping VUs <span style="color:#66d9ef">for</span> 1m0s over <span style="color:#ae81ff">1</span> stages <span style="color:#f92672">(</span>gracefulRampDown: 30s, gracefulStop: 30s<span style="color:#f92672">)</span>
 
@@ -213,21 +213,21 @@ default ✓ <span style="color:#f92672">[======================================]
      vus........................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span> 
      vus_max....................: <span style="color:#ae81ff">10</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>     max<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
 </code></pre></div><h2 id="set-options-with-environment-variables">Set options with environment variables</h2>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">K6_NO_CONNECTION_REUSE=true K6_USER_AGENT=&quot;MyK6UserAgentString/1.0&quot; k6 run script.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">K6_NO_CONNECTION_REUSE</span><span style="color:#f92672">=</span><span style="color:#66d9ef">true</span> <span style="color:#a6e22e">K6_USER_AGENT</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;MyK6UserAgentString/1.0&#34;</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
 
-k6 run --no-connection-reuse --user-agent &quot;MyK6UserAgentString/1.0&quot; script.js
-</code></pre><h2 id="set-options-from-k6-variables">Set options from k6 variables</h2>
+<span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">connection</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reuse</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">user</span><span style="color:#f92672">-</span><span style="color:#a6e22e">agent</span> <span style="color:#e6db74">&#34;MyK6UserAgentString/1.0&#34;</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+</code></pre></div><h2 id="set-options-from-k6-variables">Set options from k6 variables</h2>
 <p>For example, you could define a variable for your user agent like this:</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export const options = {
-  userAgent: __ENV.MY_USER_AGENT,
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">userAgent</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">__</span><span style="color:#a6e22e">ENV</span>.<span style="color:#a6e22e">MY_USER_AGENT</span>,
 };
 
-export default function () {
-  http.get('http://test.k6.io/');
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
 }
-</code></pre><p>Then execute:</p>
+</code></pre></div><p>Then execute:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js --env MY_USER_AGENT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span>
 </code></pre></div><h2 id="options-reference">Options reference</h2>
 <p>Import ones I prefer are:</p>
@@ -240,10 +240,10 @@ request is done and a slot opens. Available in both the k6 run and the k6 cloud
 commands.</p>
 <pre tabindex="0"><code>ENV         CLI        CODE     DEFAULT
 K6_BATCH	--batch	batch	20
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  batch: 15,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">batch</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">15</span>,
 };
-</code></pre><h2 id="batch-per-host">Batch per host</h2>
+</code></pre></div><h2 id="batch-per-host">Batch per host</h2>
 <p>The maximum number of simultaneous/parallel connections for the same hostname
 that an http.batch() call in a VU can make. If you have a batch() call that
 you&rsquo;ve given 20 URLs to the same hostname and &ndash;batch-per-host is set to 5, then
@@ -252,35 +252,35 @@ them as soon as a previous request is done and a slot opens. This will not run
 more request in parallel then the value of batch.</p>
 <pre tabindex="0"><code>ENV         CLI        CODE     DEFAULT
 K6_BATCH_PER_HOST	--batch-per-host	batchPerHost	6
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  batchPerHost: 5,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">batchPerHost</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>,
 };
-</code></pre><h2 id="vus">VUs</h2>
+</code></pre></div><h2 id="vus">VUs</h2>
 <p>An integer value specifying the number of VUs to run concurrently, used together with the iterations or duration options. If you&rsquo;d like more control look at the stages option or scenarios.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_VUS	--vus, -u	vus	1
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  vus: 10,
-  duration: '1h',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1h&#39;</span>,
 };
-</code></pre><h2 id="blacklist-ip">Blacklist IP</h2>
+</code></pre></div><h2 id="blacklist-ip">Blacklist IP</h2>
 <p>Blacklist IP ranges from being called. Available in k6 run and k6 cloud commands.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_BLACKLIST_IPS	--blacklist-ip	blacklistIPs	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  blacklistIPs: ['10.0.0.0/8'],
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">blacklistIPs</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;10.0.0.0/8&#39;</span>],
 };
-</code></pre><h2 id="block-hostnames">Block hostnames</h2>
+</code></pre></div><h2 id="block-hostnames">Block hostnames</h2>
 <p>Blocks hostnames based on a list glob match strings. The pattern matching string
 can have a single * at the beginning such as *.example.com that will match
 anything before that such as test.example.com and test.test.example.com.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_BLOCK_HOSTNAMES	--block-hostnames	blockHostnames	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  blockHostnames: ['test.k6.io', '*.example.com'],
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">blockHostnames</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;test.k6.io&#39;</span>, <span style="color:#e6db74">&#39;*.example.com&#39;</span>],
 };
-</code></pre><h2 id="config">Config</h2>
+</code></pre></div><h2 id="config">Config</h2>
 <p>Specify the config file in JSON format. If the config file is not specified, k6
 looks for <strong>config.json</strong> in the <strong>loadimpact/k6</strong> directory inside the regular
 directory for configuration files on the operating system. Default config
@@ -306,10 +306,10 @@ to set responseType to text or binary.</p>
 on the testing machine, and probably producing more reliable test results.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_DISCARD_RESPONSE_BODIES	--discard-response-bodies	discardResponseBodies	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  discardResponseBodies: true,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">discardResponseBodies</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 };
-</code></pre><h2 id="dns">DNS</h2>
+</code></pre></div><h2 id="dns">DNS</h2>
 <p>This is a composite option that provides control of DNS resolution behavior with
 configuration for cache expiration (TTL), IP selection strategy and IP version
 preference. The TTL field in the DNS record is currently not read by k6, so the
@@ -343,14 +343,14 @@ K6_DNS	--dns	dns	ttl=5m,select=random,policy=preferIPv4
 </ul>
 <p>Here are some configuration examples:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">K6_DNS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ttl=5m,select=random,policy=preferIPv4&#34;</span> k6 cloud script.js
-</code></pre></div><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  dns: {
-    ttl: '1m',
-    select: 'roundRobin',
-    policy: 'any',
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">dns</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">ttl</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1m&#39;</span>,
+    <span style="color:#a6e22e">select</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;roundRobin&#39;</span>,
+    <span style="color:#a6e22e">policy</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;any&#39;</span>,
   },
 };
-</code></pre><h2 id="duration">Duration</h2>
+</code></pre></div><h2 id="duration">Duration</h2>
 <p>A string specifying the total duration a test run should be run for. During this
 time each VU will execute the script in a loop.</p>
 <p>Together with the <code>vus option</code>, duration is a shortcut for a single <code>scenario</code>
@@ -358,11 +358,11 @@ with a <code>constant VUs executor</code>.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_DURATION	--duration, -d	duration	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  vus: 100,
-  duration: '3m',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3m&#39;</span>,
 };
-</code></pre><h2 id="execution-segment">Execution Segment</h2>
+</code></pre></div><h2 id="execution-segment">Execution Segment</h2>
 <p>These options specify how to partition the test run and which segment to run. If
 defined, k6 will scale the number of VUs and iterations to be run for that
 segment, which is useful in distributed execution. Available in k6 run and k6
@@ -391,22 +391,22 @@ routed.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 N/A	N/A	hosts	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  hosts: {
-    'test.k6.io': '1.2.3.4',
-    'test.k6.io:443': '1.2.3.4:8443',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">hosts</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#39;test.k6.io&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1.2.3.4&#39;</span>,
+    <span style="color:#e6db74">&#39;test.k6.io:443&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1.2.3.4:8443&#39;</span>,
   },
 };
-</code></pre><p>With the above code any request made to test.k6.io will be redirected to 1.2.3.4 without changing it port unless it&rsquo;s port is 443 which will be redirected to port 8443.</p>
+</code></pre></div><p>With the above code any request made to test.k6.io will be redirected to 1.2.3.4 without changing it port unless it&rsquo;s port is 443 which will be redirected to port 8443.</p>
 <h2 id="http-debug">HTTP debug</h2>
 <p>Log all HTTP requests and responses. Excludes body by default, to include body use &ndash;http-debug=full.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_HTTP_DEBUG	--http-debug,--http-debug=full	httpDebug	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  httpDebug: 'full',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">httpDebug</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;full&#39;</span>,
 };
-</code></pre><h2 id="include-system-env-vars">Include system env vars</h2>
+</code></pre></div><h2 id="include-system-env-vars">Include system env vars</h2>
 <p>Pass the real system environment variables to the runtime.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
@@ -439,20 +439,20 @@ will complete a specific, fixed number of iterations, use the <code>per-VU itera
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_ITERATIONS	--iterations, -i	iterations
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  vus: 10,
-  iterations: 100,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#a6e22e">iterations</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>,
 };
-</code></pre><h2 id="linger">Linger</h2>
+</code></pre></div><h2 id="linger">Linger</h2>
 <p>A boolean, true or false, specifying whether the k6 process should linger around
 after test run completion.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_LINGER	--linger, -l	linger	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  linger: true,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">linger</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 };
-</code></pre><h2 id="local-ips">Local ips</h2>
+</code></pre></div><h2 id="local-ips">Local ips</h2>
 <p>This option can be used for splitting the network traffic from k6 between
 multiple network cards, thus potentially increasing the available network
 throughput. For example, if you have 2 NICs, you can run k6 with
@@ -487,10 +487,10 @@ request and erroring out.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_MAX_REDIRECTS	--max-redirects	maxRedirects	10
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  maxRedirects: 10,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">maxRedirects</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
 };
-</code></pre><h2 id="minimum-iteration-duration">Minimum iteration duration</h2>
+</code></pre></div><h2 id="minimum-iteration-duration">Minimum iteration duration</h2>
 <p>Specifies the minimum duration of every single execution (i.e. iteration) of the
 default function. Any iterations that are shorter than this value will cause
 that VU to sleep for the remainder of the time until the specified minimum
@@ -498,66 +498,66 @@ duration is reached.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_MIN_ITERATION_DURATION	--min-iteration-duration	minIterationDuration	0 (disabled)
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  minIterationDuration: '10s',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">minIterationDuration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
 };
-</code></pre><h2 id="no-connection-reuse">No connection reuse</h2>
+</code></pre></div><h2 id="no-connection-reuse">No connection reuse</h2>
 <p>A boolean, true or false, specifying whether k6 should disable keep-alive
 connections.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_NO_CONNECTION_REUSE	--no-connection-reuse	noConnectionReuse	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  noConnectionReuse: true,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">noConnectionReuse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 };
-</code></pre><h2 id="no-cookies-reset">No cookies reset</h2>
+</code></pre></div><h2 id="no-cookies-reset">No cookies reset</h2>
 <p>This disables the default behavior of resetting the cookie jar after each VU
 iteration. If it&rsquo;s enabled, saved cookies will be persisted across VU
 iterations.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_NO_COOKIES_RESET	N/A	noCookiesReset	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  noCookiesReset: true,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">noCookiesReset</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 };
-</code></pre><h2 id="no-summary">No summary</h2>
+</code></pre></div><h2 id="no-summary">No summary</h2>
 <p>Disables end-of-test summary generation, including calls to <code>handleSummary()</code>
 and <code>--summary-export</code></p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_NO_SUMMARY	--no-summary	N/A	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">$ k6 run --no-summary ~/script.js
-</code></pre><h2 id="no-setup-and-no-teardown">No setup and no teardown</h2>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">summary</span> <span style="color:#f92672">~</span><span style="color:#960050;background-color:#1e0010">/script.js</span>
+</code></pre></div><h2 id="no-setup-and-no-teardown">No setup and no teardown</h2>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_NO_SETUP	--no-setup	N/A	false
 K6_NO_TEARDOWN	--no-teardown	N/A	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">$ k6 run --no-setup script.js
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">$ k6 run --no-teardown script.js
-</code></pre><h2 id="no-thresholds">No thresholds</h2>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">setup</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">teardown</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+</code></pre></div><h2 id="no-thresholds">No thresholds</h2>
 <p>Disables threshold execution.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_NO_THRESHOLDS	--no-thresholds	N/A	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">$ k6 run --no-thresholds ~/script.js
-</code></pre><h2 id="no-vu-connection-reuse">No VU connection reuse</h2>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">thresholds</span> <span style="color:#f92672">~</span><span style="color:#960050;background-color:#1e0010">/script.js</span>
+</code></pre></div><h2 id="no-vu-connection-reuse">No VU connection reuse</h2>
 <p>A boolean, true or false, specifying whether k6 should reuse TCP connections
 between iterations of a VU.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_NO_VU_CONNECTION_REUSE	--no-vu-connection-reuse	noVUConnectionReuse	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  noVUConnectionReuse: true,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">noVUConnectionReuse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 };
-</code></pre><h2 id="paused">Paused</h2>
+</code></pre></div><h2 id="paused">Paused</h2>
 <p>A boolean, true or false, specifying whether the test should start in a paused state. To resume a paused state you&rsquo;d use the <code>k6 resume</code> command.</p>
 <pre tabindex="0"><code>NV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_PAUSED	--paused, -p	paused	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  paused: true,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">paused</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
 };
-</code></pre><p>When paused:</p>
+</code></pre></div><p>When paused:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  pt-samples git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k6 run  pt-1-0001-stages.ts -p
 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
@@ -596,8 +596,8 @@ N/A	--quiet, -q	N/A	false
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_OUT	--out, -o	N/A	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">$ k6 run --out influxdb=http://localhost:8086/k6 script.js
-</code></pre><h2 id="rps">RPS</h2>
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">out</span> <span style="color:#a6e22e">influxdb</span><span style="color:#f92672">=</span><span style="color:#a6e22e">http</span><span style="color:#f92672">:</span><span style="color:#75715e">//localhost:8086/k6 script.js
+</span></code></pre></div><h2 id="rps">RPS</h2>
 <p>The maximum number of requests to make per second, in total across all VUs.</p>
 <blockquote>
 <p>This option is discouraged The &ndash;rps option has caveats and is difficult to
@@ -610,51 +610,51 @@ of this option.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_RPS	--rps	rps	0 (unlimited)
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  rps: 500,
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">rps</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>,
 };
-</code></pre><h1 id="scenario">Scenario</h1>
+</code></pre></div><h1 id="scenario">Scenario</h1>
 <p>Define one or more execution patterns, with various VU and iteration scheduling
 settings, running different exported functions (besides default!), using
 different environment variables, tags, and more.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 N/A	N/A	scenarios	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  scenarios: {
-    my_api_scenario: {
-      // arbitrary scenario name
-      executor: 'ramping-vus',
-      startVUs: 0,
-      stages: [
-        { duration: '5s', target: 100 },
-        { duration: '5s', target: 0 },
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">my_api_scenario</span><span style="color:#f92672">:</span> {
+      <span style="color:#75715e">// arbitrary scenario name
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ramping-vus&#39;</span>,
+      <span style="color:#a6e22e">startVUs</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+      <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+        { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span> },
+        { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> },
       ],
-      gracefulRampDown: '10s',
-      env: { MYVAR: 'example' },
-      tags: { my_tag: 'example' },
+      <span style="color:#a6e22e">gracefulRampDown</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
+      <span style="color:#a6e22e">env</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">MYVAR</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;example&#39;</span> },
+      <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">my_tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;example&#39;</span> },
     },
   },
 };
-</code></pre><h2 id="setup-timeout">Setup timeout</h2>
+</code></pre></div><h2 id="setup-timeout">Setup timeout</h2>
 <p>Specify how long the <code>setup()</code> function is allow to run before it&rsquo;s terminated
 and the test fails.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_SETUP_TIMEOUT	N/A	setupTimeout	&quot;60s&quot;
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  setupTimeout: '30s',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">setupTimeout</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
 };
-</code></pre><h2 id="teardown-timeout">Teardown timeout</h2>
+</code></pre></div><h2 id="teardown-timeout">Teardown timeout</h2>
 <p>Specify how long the <code>teardown()</code> function is allowed to run before it&rsquo;s
 terminated and the test fails.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_TEARDOWN_TIMEOUT	N/A	teardownTimeout	&quot;60s&quot;
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  teardownTimeout: '30s',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">teardownTimeout</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
 };
-</code></pre><h2 id="stages">Stages</h2>
+</code></pre></div><h2 id="stages">Stages</h2>
 <p>A list of VU { target: &hellip;, duration: &hellip; } objects that specify the target
 number of VUs to ramp up or down to for a specific period.</p>
 <p>It is a shortcut option for a single <code>scenario</code> with a <code>ramping VUs executor</code>.
@@ -663,21 +663,21 @@ option of the executor.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_STAGES	--stage &lt;duration&gt;:&lt;target&gt;, -s &lt;duration&gt;:&lt;target&gt;	stages	Based on vus and duration.
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">// The following config would have k6 ramping up from 1 to 10 VUs for 3 minutes,
-// then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs
-// over the next 10 minutes before finally ramping down to 0 VUs for another
-// 3 minutes.
-
-export const options = {
-  stages: [
-    { duration: '3m', target: 10 },
-    { duration: '5m', target: 10 },
-    { duration: '10m', target: 35 },
-    { duration: '3m', target: 0 },
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// The following config would have k6 ramping up from 1 to 10 VUs for 3 minutes,
+</span><span style="color:#75715e">// then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs
+</span><span style="color:#75715e">// over the next 10 minutes before finally ramping down to 0 VUs for another
+</span><span style="color:#75715e">// 3 minutes.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> },
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> },
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">35</span> },
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> },
   ],
 };
 
-</code></pre><h2 id="supply-environment-variables">Supply environment variables</h2>
+</code></pre></div><h2 id="supply-environment-variables">Supply environment variables</h2>
 <p>Add/override an `environment variable`` with VAR=valuein a k6 script. Available
 in k6 run and k6 cloud commands.</p>
 <p>To make the system environment variables available in the k6 script via
@@ -700,10 +700,10 @@ tags as an array from the JS scripts or as a comma-separated list via the CLI.</
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_SYSTEM_TAGS	--system-tags	systemTags	proto,subproto,status,method,url,name,group,check,error,error_code,tls_version,scenario,service,expected_response
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  systemTags: ['status', 'method', 'url'],
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">systemTags</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;status&#39;</span>, <span style="color:#e6db74">&#39;method&#39;</span>, <span style="color:#e6db74">&#39;url&#39;</span>],
 };
-</code></pre><h2 id="summary-time-unit">Summary time unit</h2>
+</code></pre></div><h2 id="summary-time-unit">Summary time unit</h2>
 <p>Define which time unit will be used for all time values in the end-of-test
 summary. Possible values are <code>s</code> (seconds), <code>ms</code> (milliseconds) and us
 (microseconds). If no value is specified, k6 will use mixed time units, choosing
@@ -711,10 +711,10 @@ the most appropriate unit for each value.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_SUMMARY_TIME_UNIT	--summary-time-unit	summaryTimeUnit	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  summaryTimeUnit: 'ms',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">summaryTimeUnit</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ms&#39;</span>,
 };
-</code></pre><h2 id="summary-trend-stats">Summary trend stats</h2>
+</code></pre></div><h2 id="summary-trend-stats">Summary trend stats</h2>
 <p>Define which stats for <a href="https://k6.io/docs/javascript-api/k6-metrics/trend/">Trend
 metrics</a> (e.g. response
 times, group/iteration durations, etc.) will be shown in the end-of-test
@@ -726,10 +726,10 @@ handleSummary() callback.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_SUMMARY_TREND_STATS	--summary-trend-stats	summaryTrendStats	avg,min,med,max,p(90),p(95)
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(95)', 'p(99)', 'p(99.99)', 'count'],
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">summaryTrendStats</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;avg&#39;</span>, <span style="color:#e6db74">&#39;min&#39;</span>, <span style="color:#e6db74">&#39;med&#39;</span>, <span style="color:#e6db74">&#39;max&#39;</span>, <span style="color:#e6db74">&#39;p(95)&#39;</span>, <span style="color:#e6db74">&#39;p(99)&#39;</span>, <span style="color:#e6db74">&#39;p(99.99)&#39;</span>, <span style="color:#e6db74">&#39;count&#39;</span>],
 };
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --summary-trend-stats<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;avg,min,med,max,p(90),p(99.9),p(99.99),count&#34;</span> ./script.js
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --summary-trend-stats<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;avg,min,med,max,p(90),p(99.9),p(99.99),count&#34;</span> ./script.js
 </code></pre></div><h2 id="tags">tags</h2>
 <p>Specify tags that should be set test wide across all metrics. If a tag with the
 same name has been specified on a request, check or custom metrics it will have
@@ -737,12 +737,12 @@ precedence over a test wide tag.</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 N/A	--tag NAME=VALUE	tags	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  tags: {
-    name: 'value',
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;value&#39;</span>,
   },
 };
-</code></pre><h2 id="thresholds">Thresholds</h2>
+</code></pre></div><h2 id="thresholds">Thresholds</h2>
 <p>A collection of threshold specifications to configure under what condition(s) a
 test is considered successful or not, when it has passed or failed, based on
 metric data. To learn more, have a look at the
@@ -750,38 +750,38 @@ metric data. To learn more, have a look at the
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 N/A	N/A	thresholds	null
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  thresholds: {
-    'http_req_duration': ['avg&lt;100', 'p(95)&lt;200'],
-    'http_req_connecting{cdnAsset:true}': ['p(95)&lt;100'],
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#39;http_req_duration&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;avg&lt;100&#39;</span>, <span style="color:#e6db74">&#39;p(95)&lt;200&#39;</span>],
+    <span style="color:#e6db74">&#39;http_req_connecting{cdnAsset:true}&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;p(95)&lt;100&#39;</span>],
   },
 };
-</code></pre><h2 id="throw">Throw</h2>
+</code></pre></div><h2 id="throw">Throw</h2>
 <p>A boolean, true or false, specifying whether k6 should throw exceptions when certain errors occur, or if it should just log them with a warning. Behaviors that currently depend on this option:</p>
 <pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
 
 K6_THROW	--throw, -w	throw	false
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import exec from 'k6/execution';
-import { group } from 'k6';
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">exec</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/execution&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">group</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
 
-export const options = {
-  vus: 2,
-  iterations: 10,
-  throw: true,
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,
+  <span style="color:#a6e22e">iterations</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#66d9ef">throw</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
  };
 
-export default function () {
-  exec.vu.tags.test = 'main';
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">vu</span>.<span style="color:#a6e22e">tags</span>.<span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;main&#39;</span>;
 
-  group('main', function () {
-    http.get('https://test.k6.io1');
-    http.get('https://test.k6.io');
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;main&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io1&#39;</span>);
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io&#39;</span>);
   });
 
-  delete exec.vu.tags.test;
+  <span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">vu</span>.<span style="color:#a6e22e">tags</span>.<span style="color:#a6e22e">test</span>;
 }
-</code></pre><p>before :</p>
+</code></pre></div><p>before :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">WARN<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;https://test.k6.io1\&#34;: lookup test.k6.io1: no such host&#34;</span>
 WARN<span style="color:#f92672">[</span>0003<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;https://test.k6.io1\&#34;: lookup test.k6.io1: no such host&#34;</span>
 

@@ -21,20 +21,20 @@ There are three types of modules:
 These modules are provided through the k6 core, and gives access to the
 functionality built into k6.
 
-```jsts
+```js
 import http from 'k6/http';
 ```
 
 ## Local filesystem modules
 
-```jsts
+```js
 // helpers.js
 export function printHello(){
     console.log("hello");
 }
 ```
 
-```jsts
+```js
 import http from 'k6/http';
 import { printHello } from './helpers.js'
 
@@ -75,7 +75,7 @@ any publicly accessible web server. The imported modules will be downloaded and
 executed at runtime, making it extremely important to make sure the code is
 legit and trusted before including it in a test script.
 
-```jsts
+```js
 import { randomString } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 
 export default function () {

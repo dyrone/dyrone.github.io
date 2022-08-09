@@ -37,7 +37,7 @@ identical.
 
 ## Set options in the script
 
-```jsts
+```js
 import http from 'k6/http';
 
 export const options = {
@@ -97,7 +97,7 @@ default ✓ [======================================] 00/10 VUs  1m0s
 
 ## Set options with environment variables
 
-```jsts
+```js
 K6_NO_CONNECTION_REUSE=true K6_USER_AGENT="MyK6UserAgentString/1.0" k6 run script.js
 
 k6 run --no-connection-reuse --user-agent "MyK6UserAgentString/1.0" script.js
@@ -107,7 +107,7 @@ k6 run --no-connection-reuse --user-agent "MyK6UserAgentString/1.0" script.js
 
 For example, you could define a variable for your user agent like this:
 
-```jsts
+```js
 import http from 'k6/http';
 
 export const options = {
@@ -142,7 +142,7 @@ ENV         CLI        CODE     DEFAULT
 K6_BATCH	--batch	batch	20
 ```
 
-```jsts
+```js
 export const options = {
   batch: 15,
 };
@@ -161,7 +161,7 @@ ENV         CLI        CODE     DEFAULT
 K6_BATCH_PER_HOST	--batch-per-host	batchPerHost	6
 ```
 
-```jsts
+```js
 export const options = {
   batchPerHost: 5,
 };
@@ -177,7 +177,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_VUS	--vus, -u	vus	1
 ```
 
-```jsts
+```js
 export const options = {
   vus: 10,
   duration: '1h',
@@ -193,7 +193,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_BLACKLIST_IPS	--blacklist-ip	blacklistIPs	null
 ```
 
-```jsts
+```js
 export const options = {
   blacklistIPs: ['10.0.0.0/8'],
 };
@@ -210,7 +210,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_BLOCK_HOSTNAMES	--block-hostnames	blockHostnames	null
 ```
 
-```jsts
+```js
 export const options = {
   blockHostnames: ['test.k6.io', '*.example.com'],
 };
@@ -260,7 +260,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_DISCARD_RESPONSE_BODIES	--discard-response-bodies	discardResponseBodies	false
 ```
 
-```jsts
+```js
 export const options = {
   discardResponseBodies: true,
 };
@@ -311,7 +311,7 @@ Here are some configuration examples:
 K6_DNS="ttl=5m,select=random,policy=preferIPv4" k6 cloud script.js
 ```
 
-```jsts
+```js
 export const options = {
   dns: {
     ttl: '1m',
@@ -335,7 +335,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_DURATION	--duration, -d	duration	null
 ```
 
-```jsts
+```js
 export const options = {
   vus: 100,
   duration: '3m',
@@ -382,7 +382,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 N/A	N/A	hosts	null
 ```
 
-```jsts
+```js
 export const options = {
   hosts: {
     'test.k6.io': '1.2.3.4',
@@ -403,7 +403,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_HTTP_DEBUG	--http-debug,--http-debug=full	httpDebug	false
 ```
 
-```jsts
+```js
 export const options = {
   httpDebug: 'full',
 };
@@ -465,7 +465,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_ITERATIONS	--iterations, -i	iterations
 ```
 
-```jsts
+```js
 export const options = {
   vus: 10,
   iterations: 100,
@@ -483,7 +483,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_LINGER	--linger, -l	linger	false
 ```
 
-```jsts
+```js
 export const options = {
   linger: true,
 };
@@ -546,7 +546,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_MAX_REDIRECTS	--max-redirects	maxRedirects	10
 ```
 
-```jsts
+```js
 export const options = {
   maxRedirects: 10,
 };
@@ -565,7 +565,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_MIN_ITERATION_DURATION	--min-iteration-duration	minIterationDuration	0 (disabled)
 ```
 
-```jsts
+```js
 export const options = {
   minIterationDuration: '10s',
 };
@@ -582,7 +582,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_NO_CONNECTION_REUSE	--no-connection-reuse	noConnectionReuse	false
 ```
 
-```jsts
+```js
 export const options = {
   noConnectionReuse: true,
 };
@@ -600,7 +600,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_NO_COOKIES_RESET	N/A	noCookiesReset	false
 ```
 
-```jsts
+```js
 export const options = {
   noCookiesReset: true,
 };
@@ -617,7 +617,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_NO_SUMMARY	--no-summary	N/A	false
 ```
 
-```jsts
+```js
 $ k6 run --no-summary ~/script.js
 ```
 
@@ -630,11 +630,11 @@ K6_NO_SETUP	--no-setup	N/A	false
 K6_NO_TEARDOWN	--no-teardown	N/A	false
 ```
 
-```jsts
+```js
 $ k6 run --no-setup script.js
 ```
 
-```jsts
+```js
 $ k6 run --no-teardown script.js
 ```
 
@@ -648,7 +648,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_NO_THRESHOLDS	--no-thresholds	N/A	false
 ```
 
-```jsts
+```js
 $ k6 run --no-thresholds ~/script.js
 ```
 
@@ -663,7 +663,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_NO_VU_CONNECTION_REUSE	--no-vu-connection-reuse	noVUConnectionReuse	false
 ```
 
-```jsts
+```js
 export const options = {
   noVUConnectionReuse: true,
 };
@@ -678,7 +678,7 @@ NV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_PAUSED	--paused, -p	paused	false
 ```
 
-```jsts
+```js
 export const options = {
   paused: true,
 };
@@ -744,7 +744,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_OUT	--out, -o	N/A	null
 ```
 
-```jsts
+```js
 $ k6 run --out influxdb=http://localhost:8086/k6 script.js
 ```
 
@@ -766,7 +766,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_RPS	--rps	rps	0 (unlimited)
 ```
 
-```jsts
+```js
 export const options = {
   rps: 500,
 };
@@ -784,7 +784,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 N/A	N/A	scenarios	null
 ```
 
-```jsts
+```js
 export const options = {
   scenarios: {
     my_api_scenario: {
@@ -814,7 +814,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_SETUP_TIMEOUT	N/A	setupTimeout	"60s"
 ```
 
-```jsts
+```js
 export const options = {
   setupTimeout: '30s',
 };
@@ -831,7 +831,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_TEARDOWN_TIMEOUT	N/A	teardownTimeout	"60s"
 ```
 
-```jsts
+```js
 export const options = {
   teardownTimeout: '30s',
 };
@@ -853,7 +853,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_STAGES	--stage <duration>:<target>, -s <duration>:<target>	stages	Based on vus and duration.
 ```
 
-```jsts
+```js
 // The following config would have k6 ramping up from 1 to 10 VUs for 3 minutes,
 // then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs
 // over the next 10 minutes before finally ramping down to 0 VUs for another
@@ -909,7 +909,7 @@ K6_SYSTEM_TAGS	--system-tags	systemTags	proto,subproto,status,method,url,name,gr
 ```
 
 
-```jsts
+```js
 export const options = {
   systemTags: ['status', 'method', 'url'],
 };
@@ -928,7 +928,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_SUMMARY_TIME_UNIT	--summary-time-unit	summaryTimeUnit	null
 ```
 
-```jsts
+```js
 export const options = {
   summaryTimeUnit: 'ms',
 };
@@ -952,7 +952,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 K6_SUMMARY_TREND_STATS	--summary-trend-stats	summaryTrendStats	avg,min,med,max,p(90),p(95)
 ```
 
-```jsts
+```js
 export const options = {
   summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(95)', 'p(99)', 'p(99.99)', 'count'],
 };
@@ -974,7 +974,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 N/A	--tag NAME=VALUE	tags	null
 ```
 
-```jsts
+```js
 export const options = {
   tags: {
     name: 'value',
@@ -997,7 +997,7 @@ ENV	CLI	CODE / CONFIG FILE	DEFAULT
 N/A	N/A	thresholds	null
 ```
 
-```jsts
+```js
 export const options = {
   thresholds: {
     'http_req_duration': ['avg<100', 'p(95)<200'],
@@ -1017,7 +1017,7 @@ K6_THROW	--throw, -w	throw	false
 ```
 
 
-```jsts
+```js
 import http from 'k6/http';
 import exec from 'k6/execution';
 import { group } from 'k6';

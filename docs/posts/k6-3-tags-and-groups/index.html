@@ -120,12 +120,12 @@ in-depth filtering.</p>
 about its value</li>
 <li><strong>check</strong>: the Check name</li>
 <li><strong>error</strong>: a string with a non-HTTP error message (e.g. network or DNS error)</li>
-<li><strong>error_code</strong>**: A number specifying an error types; a list of current error
+<li><strong>error_code</strong>: A number specifying an error types; a list of current error
 codes can be found at the <a href="https://k6.io/docs/javascript-api/error-codes/">Error Codes</a> page</li>
-<li>tls_**version**: the TLS version</li>
+<li><strong>tls_version</strong>: the TLS version</li>
 <li><strong>scenario</strong>: the name of the scenario where the metric was emitted</li>
 <li><strong>service</strong>: the RPC service name for gRPC</li>
-<li><strong>expected_response</strong>**: true or false based on the responseCallback; by default</li>
+<li><strong>expected_response</strong>: true or false based on the responseCallback; by default</li>
 </ul>
 <h2 id="test-wide-tags">Test-wide tags</h2>
 <p>Besides attaching tags to requests, checks, and custom metrics, you can set
@@ -138,12 +138,12 @@ test-wide tags across all metrics. You can set these tags in two ways:</p>
 <p>In the script itself:</p>
 </li>
 </ul>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">export const options = {
-  tags: {
-    name: 'value',
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;value&#39;</span>,
   },
 };
-</code></pre><h3 id="user-defined-tags">User-defined tags</h3>
+</code></pre></div><h3 id="user-defined-tags">User-defined tags</h3>
 <p>You can define your own tags to categorize k6 entities based on your test logic.
 You can tag the following entities:</p>
 <ul>
@@ -153,45 +153,45 @@ You can tag the following entities:</p>
 <li>custom metrics</li>
 </ul>
 <p>There is an example:</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import { Trend } from 'k6/metrics';
-import { check } from 'k6';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Trend</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
 
 
-export const options = {
-  scenarios: {
-    dyrone: {
-      executor: 'constant-vus',
-      vus: 1,
-      duration: '1s',
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">dyrone</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;constant-vus&#39;</span>,
+      <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+      <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1s&#39;</span>,
     }
   }
 }
 
-const myTrend = new Trend('my_trend');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myTrend</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Trend</span>(<span style="color:#e6db74">&#39;my_trend&#39;</span>);
 
-export default function () {
-  // Add tag to request metric data
-  const res = http.get('http://httpbin.test.k6.io/', {
-    tags: {
-      my_tag: &quot;I'm a tag&quot;,
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#75715e">// Add tag to request metric data
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.test.k6.io/&#39;</span>, {
+    <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">my_tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;I&#39;m a tag&#34;</span>,
     },
   });
 
-  const timeoutRes = http.get('http://1.2.3.4/', {
-    tags: {
-      my_tag: &quot;I'm a connectTimeout tag&quot;,
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeoutRes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://1.2.3.4/&#39;</span>, {
+    <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">my_tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;I&#39;m a connectTimeout tag&#34;</span>,
     },
-    timeout: &quot;3s&quot;
+    <span style="color:#a6e22e">timeout</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;3s&#34;</span>
   });
 
-  // Add tag to check
-  check(res, { 'status is 200': (r) =&gt; r.status === 200 }, { my_tag: &quot;I'm a tag&quot; });
+  <span style="color:#75715e">// Add tag to check
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, { <span style="color:#e6db74">&#39;status is 200&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span> }, { <span style="color:#a6e22e">my_tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;I&#39;m a tag&#34;</span> });
 
-  // Add tag to custom metric
-  myTrend.add(res.timings.connecting, { my_tag: &quot;I'm a tag&quot; });
+  <span style="color:#75715e">// Add tag to custom metric
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">myTrend</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">timings</span>.<span style="color:#a6e22e">connecting</span>, { <span style="color:#a6e22e">my_tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;I&#39;m a tag&#34;</span> });
 }
-</code></pre><p>The output:</p>
+</code></pre></div><p>The output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
           /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
      /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
@@ -232,28 +232,28 @@ dyrone ✓ <span style="color:#f92672">[======================================]<
      vus............................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
      vus_max........................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </code></pre></div><h2 id="groups">Groups</h2>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import exec from 'k6/execution';
-import { group } from 'k6';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">exec</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/execution&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">group</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
 
-export default function () {
-  group('visit product listing page', function () {
-    // ...
-  });
-  group('add several products to the shopping cart', function () {
-    // ...
-  });
-  group('visit login page', function () {
-    // ...
-  });
-  group('authenticate', function () {
-    // ...
-  });
-  group('checkout process', function () {
-    // ...
-  });
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;visit product listing page&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  });
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;add several products to the shopping cart&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  });
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;visit login page&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  });
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;authenticate&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  });
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;checkout process&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  });
 }
-</code></pre><p>The output:</p>
+</code></pre></div><p>The output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
      /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
     /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
@@ -287,33 +287,33 @@ default ✓ <span style="color:#f92672">[======================================]
      iteration_duration...: avg<span style="color:#f92672">=</span>138.58µs min<span style="color:#f92672">=</span>138.58µs med<span style="color:#f92672">=</span>138.58µs max<span style="color:#f92672">=</span>138.58µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>138.58µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>138.58µs
      iterations...........: <span style="color:#ae81ff">1</span>   705.716302/s
 </code></pre></div><h2 id="code-defined-tags-and-nested-groups">Code-defined tags and nested groups</h2>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import exec from 'k6/execution';
-import { group } from 'k6';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">exec</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/execution&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">group</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
 
-export const options = {
-  thresholds: {
-    'http_reqs{container_group:main}': ['count==3'],
-    'http_req_duration{container_group:main}': ['max&lt;1000'],
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#39;http_reqs{container_group:main}&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;count==3&#39;</span>],
+    <span style="color:#e6db74">&#39;http_req_duration{container_group:main}&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;max&lt;1000&#39;</span>],
   },
 };
 
-export default function () {
-  exec.vu.tags.containerGroup = 'main';
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">vu</span>.<span style="color:#a6e22e">tags</span>.<span style="color:#a6e22e">containerGroup</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;main&#39;</span>;
 
-  group('main', function () {
-    http.get('https://test.k6.io');
-    group('sub', function () {
-      http.get('https://httpbin.test.k6.io/anything');
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;main&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io&#39;</span>);
+    <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;sub&#39;</span>, <span style="color:#66d9ef">function</span> () {
+      <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io/anything&#39;</span>);
     });
-    http.get('https://test-api.k6.io');
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test-api.k6.io&#39;</span>);
   });
 
-  delete exec.vu.tags.containerGroup;
+  <span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">vu</span>.<span style="color:#a6e22e">tags</span>.<span style="color:#a6e22e">containerGroup</span>;
 
-  http.get('https://httpbin.test.k6.io/delay/3');
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io/delay/3&#39;</span>);
 }
-</code></pre><p>The output might like:</p>
+</code></pre></div><p>The output might like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  pt-samples git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k6 run  pt-1-0001-stages.ts
 
           /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   

@@ -91,19 +91,19 @@
 <h2 id="builtin-modules">Builtin modules</h2>
 <p>These modules are provided through the k6 core, and gives access to the
 functionality built into k6.</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-</code></pre><h2 id="local-filesystem-modules">Local filesystem modules</h2>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">// helpers.js
-export function printHello(){
-    console.log(&quot;hello&quot;);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+</code></pre></div><h2 id="local-filesystem-modules">Local filesystem modules</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// helpers.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printHello</span>(){
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;hello&#34;</span>);
 }
-</code></pre><pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import { printHello } from './helpers.js'
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">printHello</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./helpers.js&#39;</span>
 
-export default function () {
-  printHello();
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">printHello</span>();
 }
-</code></pre><p>The output might like:</p>
+</code></pre></div><p>The output might like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
     /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
    /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
@@ -130,12 +130,12 @@ default ✓ <span style="color:#f92672">[======================================]
 any publicly accessible web server. The imported modules will be downloaded and
 executed at runtime, making it extremely important to make sure the code is
 legit and trusted before including it in a test script.</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { randomString } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">randomString</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;https://jslib.k6.io/k6-utils/1.2.0/index.js&#39;</span>;
 
-export default function () {
-  console.log(randomString(6));
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">randomString</span>(<span style="color:#ae81ff">6</span>));
 }
-</code></pre><p>The output will be like on my env:</p>
+</code></pre></div><p>The output will be like on my env:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">         /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
      /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
     /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 

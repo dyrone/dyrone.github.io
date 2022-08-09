@@ -122,7 +122,7 @@ But you could also stream to another program, like Prometheus.</p>
 <p><strong>vus</strong>: Current number of active virtual users</p>
 </li>
 <li>
-<p>**<strong>vus_max</strong>: Max possible number of virtual users (VU resources are pre-allocated,
+<p><strong>vus_max</strong>: Max possible number of virtual users (VU resources are pre-allocated,
 ensuring performance will not be affected when scaling up the load level)</p>
 </li>
 </ul>
@@ -201,95 +201,95 @@ setResponseCallback.</p>
 <h3 id="accessing-http-timing-from-a-script">Accessing HTTP timing from a script</h3>
 <p>To access the timing information from an individual HTTP request, the
 <code>Response.timings</code> object provides the time spent on the various phases in ms:</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export default function () {
-  const res = http.get('http://httpbin.test.k6.io');
-  console.log('Response time was ' + String(res.timings.duration) + ' ms');
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.test.k6.io&#39;</span>);
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Response time was &#39;</span> <span style="color:#f92672">+</span> String(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">timings</span>.<span style="color:#a6e22e">duration</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; ms&#39;</span>);
 }
-</code></pre><p>The output will be liking:</p>
+</code></pre></div><p>The output will be liking:</p>
 <pre tabindex="0"><code>k6 run script.js
 
   INFO[0001] Response time was 337.962473 ms               source=console
 </code></pre><h3 id="custom-metrics">Custom metrics</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import { Trend } from 'k6/metrics';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Trend</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
 
-const myTrend = new Trend('waiting_time');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myTrend</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Trend</span>(<span style="color:#e6db74">&#39;waiting_time&#39;</span>);
 
-export default function () {
-  const r = http.get('https://httpbin.test.k6.io');
-  myTrend.add(r.timings.waiting);
-  console.log(myTrend.name); // waiting_time
-}
-</code></pre><p>The preceding code creates a Trend metric called waiting_time. In the code, it&rsquo;s
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io&#39;</span>);
+  <span style="color:#a6e22e">myTrend</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">timings</span>.<span style="color:#a6e22e">waiting</span>);
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">myTrend</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// waiting_time
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>The preceding code creates a Trend metric called waiting_time. In the code, it&rsquo;s
 referred to with the variable name myTrend.</p>
 <p>Custom metrics are reported at the end of a test. Here&rsquo;s how the output might
 look:</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">➜  pt-samples git:(master) ✗ k6 run pt-1-0001-stages.ts
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">➜</span>  <span style="color:#a6e22e">pt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">samples</span> <span style="color:#a6e22e">git</span><span style="color:#f92672">:</span>(<span style="color:#a6e22e">master</span>) <span style="color:#960050;background-color:#1e0010">✗</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">pt</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0001</span><span style="color:#f92672">-</span><span style="color:#a6e22e">stages</span>.<span style="color:#a6e22e">ts</span>
 
-          /\      |‾‾| /‾‾/   /‾‾/   
-     /\  /  \     |  |/  /   /  /    
-    /  \/    \    |     (   /   ‾‾\  
-   /          \   |  |\  \ |  (‾)  | 
-  / __________ \  |__| \__\ \_____/ .io
+          <span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">\</span>      <span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">‾‾</span><span style="color:#f92672">|</span> <span style="color:#e6db74">/‾‾/</span>   <span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">‾‾</span><span style="color:#f92672">/</span>   
+     <span style="color:#e6db74">/\  /</span>  <span style="color:#960050;background-color:#1e0010">\</span>     <span style="color:#f92672">|</span>  <span style="color:#f92672">|</span><span style="color:#e6db74">/  /</span>   <span style="color:#f92672">/</span>  <span style="color:#960050;background-color:#1e0010">/    </span>
+    <span style="color:#e6db74">/  \/    \    |     (   /</span>   <span style="color:#960050;background-color:#1e0010">‾‾\</span>  
+   <span style="color:#f92672">/</span>          <span style="color:#960050;background-color:#1e0010">\</span>   <span style="color:#f92672">|</span>  <span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">\</span>  <span style="color:#960050;background-color:#1e0010">\</span> <span style="color:#f92672">|</span>  (<span style="color:#960050;background-color:#1e0010">‾</span>)  <span style="color:#f92672">|</span> 
+  <span style="color:#e6db74">/ __________ \  |__| \__\ \_____/</span> .<span style="color:#a6e22e">io</span>
 
-  execution: local
-     script: pt-1-0001-stages.ts
-     output: -
+  <span style="color:#a6e22e">execution</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">local</span>
+     <span style="color:#a6e22e">script</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pt</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0001</span><span style="color:#f92672">-</span><span style="color:#a6e22e">stages</span>.<span style="color:#a6e22e">ts</span>
+     <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> <span style="color:#f92672">-</span>
 
-  scenarios: (100.00%) 1 scenario, 1 max VUs, 10m30s max duration (incl. graceful stop):
-           * default: 1 iterations for each of 1 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> (<span style="color:#ae81ff">100.00</span><span style="color:#f92672">%</span>) <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">scenario</span>, <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">max</span> <span style="color:#a6e22e">VUs</span>, <span style="color:#ae81ff">10</span><span style="color:#a6e22e">m30s</span> <span style="color:#a6e22e">max</span> <span style="color:#a6e22e">duration</span> (<span style="color:#a6e22e">incl</span>. <span style="color:#a6e22e">graceful</span> <span style="color:#a6e22e">stop</span>)<span style="color:#f92672">:</span>
+           <span style="color:#f92672">*</span> <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">iterations</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">each</span> <span style="color:#66d9ef">of</span> <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">VUs</span> (<span style="color:#a6e22e">maxDuration</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#a6e22e">m0s</span>, <span style="color:#a6e22e">gracefulStop</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">30</span><span style="color:#a6e22e">s</span>)
 
-INFO[0001] waiting_time                                  source=console
+<span style="color:#a6e22e">INFO</span>[<span style="color:#ae81ff">0001</span>] <span style="color:#a6e22e">waiting_time</span>                                  <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#a6e22e">console</span>
 
-running (00m01.1s), 0/1 VUs, 1 complete and 0 interrupted iterations
-default ✓ [======================================] 1 VUs  00m01.1s/10m0s  1/1 iters, 1 per VU
+<span style="color:#a6e22e">running</span> (<span style="color:#ae81ff">00</span><span style="color:#a6e22e">m01</span>.<span style="color:#ae81ff">1</span><span style="color:#a6e22e">s</span>), <span style="color:#ae81ff">0</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1</span> <span style="color:#a6e22e">VUs</span>, <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">complete</span> <span style="color:#a6e22e">and</span> <span style="color:#ae81ff">0</span> <span style="color:#a6e22e">interrupted</span> <span style="color:#a6e22e">iterations</span>
+<span style="color:#66d9ef">default</span> <span style="color:#960050;background-color:#1e0010">✓</span> [<span style="color:#f92672">======================================</span>] <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">VUs</span>  <span style="color:#ae81ff">00</span><span style="color:#a6e22e">m01</span>.<span style="color:#ae81ff">1</span><span style="color:#a6e22e">s</span><span style="color:#f92672">/</span><span style="color:#ae81ff">10</span><span style="color:#a6e22e">m0s</span>  <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1</span> <span style="color:#a6e22e">iters</span>, <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">per</span> <span style="color:#a6e22e">VU</span>
 
-     data_received..................: 15 kB 14 kB/s
-     data_sent......................: 454 B 424 B/s
-     http_req_blocked...............: avg=794.56ms min=794.56ms med=794.56ms max=794.56ms p(90)=794.56ms p(95)=794.56ms
-     http_req_connecting............: avg=251.49ms min=251.49ms med=251.49ms max=251.49ms p(90)=251.49ms p(95)=251.49ms
-     http_req_duration..............: avg=274.07ms min=274.07ms med=274.07ms max=274.07ms p(90)=274.07ms p(95)=274.07ms
-       { expected_response:true }...: avg=274.07ms min=274.07ms med=274.07ms max=274.07ms p(90)=274.07ms p(95)=274.07ms
-     http_req_failed................: 0.00% ✓ 0        ✗ 1  
-     http_req_receiving.............: avg=506µs    min=506µs    med=506µs    max=506µs    p(90)=506µs    p(95)=506µs   
-     http_req_sending...............: avg=99µs     min=99µs     med=99µs     max=99µs     p(90)=99µs     p(95)=99µs    
-     http_req_tls_handshaking.......: avg=341.23ms min=341.23ms med=341.23ms max=341.23ms p(90)=341.23ms p(95)=341.23ms
-     http_req_waiting...............: avg=273.46ms min=273.46ms med=273.46ms max=273.46ms p(90)=273.46ms p(95)=273.46ms
-     http_reqs......................: 1     0.933729/s
-     iteration_duration.............: avg=1.06s    min=1.06s    med=1.06s    max=1.06s    p(90)=1.06s    p(95)=1.06s   
-     iterations.....................: 1     0.933729/s
-     vus............................: 1     min=1      max=1
-     vus_max........................: 1     min=1      max=1
-     waiting_time...................: avg=273.466  min=273.466  med=273.466  max=273.466  p(90)=273.466  p(95)=273.466
-</code></pre><h3 id="counter-cumulative">Counter: cumulative</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Counter } from 'k6/metrics';
+     <span style="color:#a6e22e">data_received</span>..................<span style="color:#f92672">:</span> <span style="color:#ae81ff">15</span> <span style="color:#a6e22e">kB</span> <span style="color:#ae81ff">14</span> <span style="color:#a6e22e">kB</span><span style="color:#f92672">/</span><span style="color:#a6e22e">s</span>
+     <span style="color:#a6e22e">data_sent</span>......................<span style="color:#f92672">:</span> <span style="color:#ae81ff">454</span> <span style="color:#a6e22e">B</span> <span style="color:#ae81ff">424</span> <span style="color:#a6e22e">B</span><span style="color:#f92672">/</span><span style="color:#a6e22e">s</span>
+     <span style="color:#a6e22e">http_req_blocked</span>...............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">794.56</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">794.56</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">794.56</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">794.56</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">794.56</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">794.56</span><span style="color:#a6e22e">ms</span>
+     <span style="color:#a6e22e">http_req_connecting</span>............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">251.49</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">251.49</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">251.49</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">251.49</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">251.49</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">251.49</span><span style="color:#a6e22e">ms</span>
+     <span style="color:#a6e22e">http_req_duration</span>..............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span>
+       { <span style="color:#a6e22e">expected_response</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span> }...<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">274.07</span><span style="color:#a6e22e">ms</span>
+     <span style="color:#a6e22e">http_req_failed</span>................<span style="color:#f92672">:</span> <span style="color:#ae81ff">0.00</span><span style="color:#f92672">%</span> <span style="color:#960050;background-color:#1e0010">✓</span> <span style="color:#ae81ff">0</span>        <span style="color:#960050;background-color:#1e0010">✗</span> <span style="color:#ae81ff">1</span>  
+     <span style="color:#a6e22e">http_req_receiving</span>.............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">506</span><span style="color:#a6e22e">µs</span>    <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">506</span><span style="color:#a6e22e">µs</span>    <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">506</span><span style="color:#a6e22e">µs</span>    <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">506</span><span style="color:#a6e22e">µs</span>    <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">506</span><span style="color:#a6e22e">µs</span>    <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">506</span><span style="color:#a6e22e">µs</span>   
+     <span style="color:#a6e22e">http_req_sending</span>...............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">99</span><span style="color:#a6e22e">µs</span>     <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">99</span><span style="color:#a6e22e">µs</span>     <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">99</span><span style="color:#a6e22e">µs</span>     <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">99</span><span style="color:#a6e22e">µs</span>     <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">99</span><span style="color:#a6e22e">µs</span>     <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">99</span><span style="color:#a6e22e">µs</span>    
+     <span style="color:#a6e22e">http_req_tls_handshaking</span>.......<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">341.23</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">341.23</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">341.23</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">341.23</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">341.23</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">341.23</span><span style="color:#a6e22e">ms</span>
+     <span style="color:#a6e22e">http_req_waiting</span>...............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.46</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.46</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.46</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.46</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">273.46</span><span style="color:#a6e22e">ms</span> <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">273.46</span><span style="color:#a6e22e">ms</span>
+     <span style="color:#a6e22e">http_reqs</span>......................<span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0.933729</span><span style="color:#f92672">/</span><span style="color:#a6e22e">s</span>
+     <span style="color:#a6e22e">iteration_duration</span>.............<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1.06</span><span style="color:#a6e22e">s</span>    <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1.06</span><span style="color:#a6e22e">s</span>    <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1.06</span><span style="color:#a6e22e">s</span>    <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1.06</span><span style="color:#a6e22e">s</span>    <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">1.06</span><span style="color:#a6e22e">s</span>    <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">1.06</span><span style="color:#a6e22e">s</span>   
+     <span style="color:#a6e22e">iterations</span>.....................<span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">0.933729</span><span style="color:#f92672">/</span><span style="color:#a6e22e">s</span>
+     <span style="color:#a6e22e">vus</span>............................<span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>     <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+     <span style="color:#a6e22e">vus_max</span>........................<span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>     <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+     <span style="color:#a6e22e">waiting_time</span>...................<span style="color:#f92672">:</span> <span style="color:#a6e22e">avg</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.466</span>  <span style="color:#a6e22e">min</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.466</span>  <span style="color:#a6e22e">med</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.466</span>  <span style="color:#a6e22e">max</span><span style="color:#f92672">=</span><span style="color:#ae81ff">273.466</span>  <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">90</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">273.466</span>  <span style="color:#a6e22e">p</span>(<span style="color:#ae81ff">95</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">273.466</span>
+</code></pre></div><h3 id="counter-cumulative">Counter: cumulative</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Counter</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
 
-const myCounter = new Counter('my_counter');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myCounter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Counter</span>(<span style="color:#e6db74">&#39;my_counter&#39;</span>);
 
-export default function () {
-  myCounter.add(1);
-  myCounter.add(3);
-  myCounter.add(2);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">myCounter</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">1</span>);
+  <span style="color:#a6e22e">myCounter</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">3</span>);
+  <span style="color:#a6e22e">myCounter</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">2</span>);
 }
-</code></pre><p>The omitted output might be, <code>my_counter</code> value will be 6:</p>
+</code></pre></div><p>The omitted output might be, <code>my_counter</code> value will be 6:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     data_received........: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
      data_sent............: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s     
      iteration_duration...: avg<span style="color:#f92672">=</span>39.81µs min<span style="color:#f92672">=</span>39.81µs med<span style="color:#f92672">=</span>39.81µs max<span style="color:#f92672">=</span>39.81µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>39.81µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>39.81µs
      iterations...........: <span style="color:#ae81ff">1</span>   1233.045623/s
      my_counter...........: <span style="color:#ae81ff">6</span>   7398.273736/s
 </code></pre></div><h3 id="gause-keep-the-latest-value-only">Gause (keep the latest value only)</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Gauge } from 'k6/metrics';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Gauge</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
 
-const myGauge = new Gauge('my_gauge');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myGauge</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Gauge</span>(<span style="color:#e6db74">&#39;my_gauge&#39;</span>);
 
-export default function () {
-  myGauge.add(3);
-  myGauge.add(1);
-  myGauge.add(2);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">myGauge</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">3</span>);
+  <span style="color:#a6e22e">myGauge</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">1</span>);
+  <span style="color:#a6e22e">myGauge</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">2</span>);
 }
-</code></pre><p>Output might be:</p>
+</code></pre></div><p>Output might be:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run script.js
 
   ...
@@ -298,15 +298,15 @@ export default function () {
   my_gauge.............: <span style="color:#ae81ff">2</span>   min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>         max<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>
 </code></pre></div><h3 id="trend-collect-trend-statistics-minmaxavgpercentiles-for-a-series-of">Trend (collect trend statistics (min/max/avg/percentiles) for a series of</h3>
 <p>values)</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Trend } from 'k6/metrics';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Trend</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
 
-const myTrend = new Trend('my_trend');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myTrend</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Trend</span>(<span style="color:#e6db74">&#39;my_trend&#39;</span>);
 
-export default function () {
-  myTrend.add(1);
-  myTrend.add(2);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">myTrend</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">1</span>);
+  <span style="color:#a6e22e">myTrend</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">2</span>);
 }
-</code></pre><p>Ouput might like:</p>
+</code></pre></div><p>Ouput might like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js
 
   ...
@@ -318,17 +318,17 @@ export default function () {
 about (min, max, average, median, or percentiles). By default, k6 prints
 average, min, max, median, 90th percentile, and 95th percentile.</p>
 <h3 id="rate-keeps-track-of-the-percentage-of-values-in-a-series-that-are-non-zero">Rate (keeps track of the percentage of values in a series that are non-zero)</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { Rate } from 'k6/metrics';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Rate</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
 
-const myRate = new Rate('my_rate');
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myRate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Rate</span>(<span style="color:#e6db74">&#39;my_rate&#39;</span>);
 
-export default function () {
-  myRate.add(true);
-  myRate.add(true);
-  myRate.add(1);
-  myRate.add(0);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">myRate</span>.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">true</span>);
+  <span style="color:#a6e22e">myRate</span>.<span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">true</span>);
+  <span style="color:#a6e22e">myRate</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">1</span>);
+  <span style="color:#a6e22e">myRate</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">0</span>);
 }
-</code></pre><p>Output might be:</p>
+</code></pre></div><p>Output might be:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  execution: local
      script: pt-1-0001-stages.ts
      output: -
@@ -363,16 +363,16 @@ a certain value. A check may evaluate:</p>
 <li>That the response body is of a specified size</li>
 </ul>
 <h3 id="check-http-response-code">Check HTTP response code</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check } from 'k6';
-import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export default function () {
-  const res = http.get('http://test.k6.io/');
-  check(res, {
-    'is status 200': (r) =&gt; r.status === 200,
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
+  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {
+    <span style="color:#e6db74">&#39;is status 200&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>,
   });
 }
-</code></pre><p>The output might like:</p>
+</code></pre></div><p>The output might like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
      /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
     /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
@@ -396,28 +396,28 @@ default ✓ <span style="color:#f92672">[======================================]
      data_received..................: <span style="color:#ae81ff">17</span> kB   <span style="color:#ae81ff">10</span> kB/s
      ...
 </code></pre></div><h3 id="check-for-text-in-response-body">Check for text in response body</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check } from 'k6';
-import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export default function () {
-  const res = http.get('http://test.k6.io/');
-  check(res, {
-    'verify homepage text': (r) =&gt;
-      r.body.includes('Collection of simple web-pages suitable for load testing'),
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
+  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {
+    <span style="color:#e6db74">&#39;verify homepage text&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt;
+      <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">includes</span>(<span style="color:#e6db74">&#39;Collection of simple web-pages suitable for load testing&#39;</span>),
   });
 }
-</code></pre><h3 id="add-multiple-checks">Add multiple checks</h3>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check } from 'k6';
-import http from 'k6/http';
+</code></pre></div><h3 id="add-multiple-checks">Add multiple checks</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export default function () {
-  const res = http.get('http://test.k6.io/');
-  check(res, {
-    'is status 200': (r) =&gt; r.status === 200,
-    'body size is 11,105 bytes': (r) =&gt; r.body.length == 11105,
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
+  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {
+    <span style="color:#e6db74">&#39;is status 200&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>,
+    <span style="color:#e6db74">&#39;body size is 11,105 bytes&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">11105</span>,
   });
 }
-</code></pre><p>The output will be like:</p>
+</code></pre></div><p>The output will be like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">running <span style="color:#f92672">(</span>00m01.4s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
 default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m01.4s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
 
@@ -428,28 +428,28 @@ default ✓ <span style="color:#f92672">[======================================]
 </code></pre></div><h3 id="failing-a-load-test-using-checks">Failing a load test using checks</h3>
 <p>When a iteration failed, the test will continue running, if you want to stop the
 test procedure and exit, you can use <code>threshold</code>.</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import { check, sleep } from 'k6';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span>, <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
 
-export const options = {
-  vus: 50,
-  duration: '10s',
-  thresholds: {
-    // the rate of successful checks should be higher than 90%
-    checks: ['rate&gt;0.9'],
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">50</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> {
+    <span style="color:#75715e">// the rate of successful checks should be higher than 90%
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">checks</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;rate&gt;0.9&#39;</span>],
   },
 };
 
-export default function () {
-  const res = http.get('http://httpbin.test.k6.io');
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.test.k6.io&#39;</span>);
 
-  check(res, {
-    'status is 500': (r) =&gt; r.status == 500,
+  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {
+    <span style="color:#e6db74">&#39;status is 500&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">500</span>,
   });
 
-  sleep(1);
+  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
 }
-</code></pre><p>The output might be:</p>
+</code></pre></div><p>The output might be:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">50</span> max VUs, 40s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
            * default: <span style="color:#ae81ff">50</span> looping VUs <span style="color:#66d9ef">for</span> 10s <span style="color:#f92672">(</span>gracefulStop: 30s<span style="color:#f92672">)</span>
 
@@ -464,37 +464,37 @@ default ✓ <span style="color:#f92672">[======================================]
      data_received..................: 3.8 MB <span style="color:#ae81ff">334</span> kB/s
 ...
 </code></pre></div><p>Using <code>tags</code> for particular check or group checks, for example:</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import http from 'k6/http';
-import { check, sleep } from 'k6';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span>, <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
 
-export const options = {
-  vus: 50,
-  duration: '10s',
-  thresholds: {
-    'checks{myTag:hola}': ['rate&gt;0.9'],
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">50</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#39;checks{myTag:hola}&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;rate&gt;0.9&#39;</span>],
   },
 };
 
-export default function () {
-  let res;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">res</span>;
 
-  res = http.get('http://httpbin.test.k6.io');
-  check(res, {
-    'status is 500': (r) =&gt; r.status == 500,
+  <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.test.k6.io&#39;</span>);
+  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {
+    <span style="color:#e6db74">&#39;status is 500&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">500</span>,
   });
 
-  res = http.get('http://httpbin.test.k6.io');
-  check(
-    res,
+  <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://httpbin.test.k6.io&#39;</span>);
+  <span style="color:#a6e22e">check</span>(
+    <span style="color:#a6e22e">res</span>,
     {
-      'status is 200': (r) =&gt; r.status == 200,
+      <span style="color:#e6db74">&#39;status is 200&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>,
     },
-    { myTag: 'hola' }
+    { <span style="color:#a6e22e">myTag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hola&#39;</span> }
   );
 
-  sleep(1);
+  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
 }
-</code></pre><p>Output:</p>
+</code></pre></div><p>Output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">running <span style="color:#f92672">(</span>11.2s<span style="color:#f92672">)</span>, 00/50 VUs, <span style="color:#ae81ff">250</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations                                                     
 default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">50</span> VUs  10s                                                            
                                                                                                                           

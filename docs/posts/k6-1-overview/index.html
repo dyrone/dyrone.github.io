@@ -335,31 +335,31 @@ a test run here.</p>
 <p><strong>env</strong>: default set to {}, Environment variables specific to this scenario.</p>
 </li>
 <li>
-<p>*<em>tags</em>: Default set to {}, tags specific to his scenario.</p>
+<p><strong>tags</strong>: Default set to {}, tags specific to his scenario.</p>
 </li>
 </ul>
 <p>For example, the following script defines two minimal scenarios (1 VU, default
 duration):</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">
-import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export const options = {
-  scenarios: {
-    example_scenario: {
-      executor: 'shared-iterations',
-      startTime: '0s'
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">example_scenario</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;shared-iterations&#39;</span>,
+      <span style="color:#a6e22e">startTime</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;0s&#39;</span>
     },
-    another_scenario: {
-      executor: 'shared-iterations',
-      startTime: '5s'
+    <span style="color:#a6e22e">another_scenario</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;shared-iterations&#39;</span>,
+      <span style="color:#a6e22e">startTime</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>
     },
   },
 };
 
-export default function () {
-  http.get('https://google.com/');
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://google.com/&#39;</span>);
 }
-</code></pre><p>The output will be :</p>
+</code></pre></div><p>The output will be :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/
      /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /
     /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\
@@ -401,37 +401,37 @@ another_scenario ✓ <span style="color:#f92672">[==============================
 allows the user to specify a duration to wait before forcefully interrupting
 them. The default value is <code>30s</code>.</p>
 <p>For example:</p>
-<pre tabindex="0"><code class="language-jsts" data-lang="jsts">import { check, sleep } from 'k6';
-import http from 'k6/http';
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span>, <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 
-export const options = {
-  // k6 will return null as the body. The whole body will be ignored.
-  // This is the default when discardResponseBodies is set to true.
-  discardResponseBodies: true,
-  scenarios: {
-    contacts: {
-      // A fixed number of VUs execute as many iterations as possible for
-      // a specified amount of time.
-      executor: 'constant-vus',
-      vus: 100,
-      duration: '10s',
-      gracefulStop: '3s',
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#75715e">// k6 will return null as the body. The whole body will be ignored.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// This is the default when discardResponseBodies is set to true.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">discardResponseBodies</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">contacts</span><span style="color:#f92672">:</span> {
+      <span style="color:#75715e">// A fixed number of VUs execute as many iterations as possible for
+</span><span style="color:#75715e"></span>      <span style="color:#75715e">// a specified amount of time.
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;constant-vus&#39;</span>,
+      <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>,
+      <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
+      <span style="color:#a6e22e">gracefulStop</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3s&#39;</span>,
     },
   },
 };
 
-export default function () {
-  const delay = Math.floor(Math.random() * 5) + 1;
-  // this address support a customized delayed payload.
-  http.get(`https://httpbin.test.k6.io/delay/${delay}`);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#75715e">// this address support a customized delayed payload.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">`https://httpbin.test.k6.io/delay/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">delay</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
 }
 
-// export default function () {
-//   const res = http.get('https://httpbin.test.k6.io/get');
-//   check(res, {'status was 200': (r) =&gt; r.status == 200});
-//   sleep(1);
-// }
-</code></pre><p>The ouput is like:</p>
+<span style="color:#75715e">// export default function () {
+</span><span style="color:#75715e">//   const res = http.get(&#39;https://httpbin.test.k6.io/get&#39;);
+</span><span style="color:#75715e">//   check(res, {&#39;status was 200&#39;: (r) =&gt; r.status == 200});
+</span><span style="color:#75715e">//   sleep(1);
+</span><span style="color:#75715e">// }
+</span></code></pre></div><p>The ouput is like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
      /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
     /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
@@ -486,7 +486,7 @@ have&rsquo;t try it yet)</p>
 <h2 id="integrate-in-emacs">integrate in Emacs</h2>
 <p>Emacs supports automatic language server installation, so the first time you run
 `M-x lsp`` in a JavaScript file opened in it, you will be prompted for a
-language server to install. (Here I use jsts-ls lsp server)</p>
+language server to install. (Here I use ts lsp server)</p>
 <p>Then, everything will be done by Emacs and lsp server for you.</p>
 <blockquote>
 <p><a href="https://emacs-lsp.github.io/lsp-mode/tutorials/reactjs-tutorial/">https://emacs-lsp.github.io/lsp-mode/tutorials/reactjs-tutorial/</a></p>

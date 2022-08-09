@@ -37,7 +37,7 @@ It includes three kinds of test result information:
 
 * **vus**: Current number of active virtual users
 
-* ****vus_max**: Max possible number of virtual users (VU resources are pre-allocated,
+* **vus_max**: Max possible number of virtual users (VU resources are pre-allocated,
   ensuring performance will not be affected when scaling up the load level)
 
 > For example, if we specify the VUs option is 20, the `vus_max` will always be
@@ -98,7 +98,7 @@ It includes three kinds of test result information:
 To access the timing information from an individual HTTP request, the
 `Response.timings` object provides the time spent on the various phases in ms:
 
-```jsts
+```js
 import http from 'k6/http';
 
 export default function () {
@@ -108,7 +108,7 @@ export default function () {
 ```
 
 The output will be liking:
-```
+```js
 k6 run script.js
 
   INFO[0001] Response time was 337.962473 ms               source=console
@@ -116,7 +116,7 @@ k6 run script.js
 
 ### Custom metrics
 
-```jsts
+```js
 import http from 'k6/http';
 import { Trend } from 'k6/metrics';
 
@@ -134,7 +134,7 @@ referred to with the variable name myTrend.
 Custom metrics are reported at the end of a test. Here's how the output might
 look:
 
-```jsts
+```js
 ➜  pt-samples git:(master) ✗ k6 run pt-1-0001-stages.ts
 
           /\      |‾‾| /‾‾/   /‾‾/   
@@ -176,7 +176,7 @@ default ✓ [======================================] 1 VUs  00m01.1s/10m0s  1/1 
 
 ### Counter: cumulative
 
-```jsts
+```js
 import { Counter } from 'k6/metrics';
 
 const myCounter = new Counter('my_counter');
@@ -200,7 +200,7 @@ The omitted output might be, `my_counter` value will be 6:
 
 ### Gause (keep the latest value only)
 
-```jsts
+```js
 import { Gauge } from 'k6/metrics';
 
 const myGauge = new Gauge('my_gauge');
@@ -225,7 +225,7 @@ $ k6 run script.js
 ### Trend (collect trend statistics (min/max/avg/percentiles) for a series of
 values)
 
-```jsts
+```js
 import { Trend } from 'k6/metrics';
 
 const myTrend = new Trend('my_trend');
@@ -255,7 +255,7 @@ average, min, max, median, 90th percentile, and 95th percentile.
 
 ### Rate (keeps track of the percentage of values in a series that are non-zero)
 
-```jsts
+```js
 import { Rate } from 'k6/metrics';
 
 const myRate = new Rate('my_rate');
@@ -315,7 +315,7 @@ a certain value. A check may evaluate:
 
 ### Check HTTP response code
 
-```jsts
+```js
 import { check } from 'k6';
 import http from 'k6/http';
 
@@ -356,7 +356,7 @@ default ✓ [======================================] 1 VUs  00m01.7s/10m0s  1/1 
 
 ### Check for text in response body
 
-```jsts
+```js
 import { check } from 'k6';
 import http from 'k6/http';
 
@@ -370,7 +370,7 @@ export default function () {
 ```
 ### Add multiple checks
 
-```jsts
+```js
 import { check } from 'k6';
 import http from 'k6/http';
 
@@ -400,7 +400,7 @@ default ✓ [======================================] 1 VUs  00m01.4s/10m0s  1/1 
 When a iteration failed, the test will continue running, if you want to stop the
 test procedure and exit, you can use `threshold`.
 
-```jsts
+```js
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
@@ -444,7 +444,7 @@ default ✓ [======================================] 50 VUs  10s
 
 Using `tags` for particular check or group checks, for example:
 
-```jsts
+```js
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 

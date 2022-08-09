@@ -76,7 +76,7 @@ function from the k6-jslib-utils library. It returns a zero-based number equal
 to the position in the shortcut stages array or in the executor's stages array.
 
 
-```jsts
+```js
 import { getCurrentStageIndex } from 'https://jslib.k6.io/k6-utils/1.3.0/index.js';
 
 export const options = {

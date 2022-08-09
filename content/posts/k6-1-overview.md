@@ -287,12 +287,12 @@ Common options for `scenario`:
 
 * **env**: default set to {}, Environment variables specific to this scenario.
 
-* **tags*: Default set to {}, tags specific to his scenario.
+* **tags**: Default set to {}, tags specific to his scenario.
 
 For example, the following script defines two minimal scenarios (1 VU, default
 duration):
 
-```jsts
+```js
 
 import http from 'k6/http';
 
@@ -362,7 +362,7 @@ them. The default value is `30s`.
 
 For example:
 
-```jsts
+```js
 import { check, sleep } from 'k6';
 import http from 'k6/http';
 
@@ -451,11 +451,11 @@ interrupted.
 
 Emacs supports automatic language server installation, so the first time you run
 `M-x lsp`` in a JavaScript file opened in it, you will be prompted for a
-language server to install. (Here I use jsts-ls lsp server)
+language server to install. (Here I use ts lsp server)
 
 Then, everything will be done by Emacs and lsp server for you.
 
 > https://emacs-lsp.github.io/lsp-mode/tutorials/reactjs-tutorial/
 
-Commanded to use VsCode directly (with autocompletion support): 
+Commanded to use VsCode directly (with autocompletion support):
 > https://marketplace.visualstudio.com/items?itemName=k6.k6
