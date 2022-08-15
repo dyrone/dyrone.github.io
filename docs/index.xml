@@ -80,15 +80,6 @@
     </item>
     
     <item>
-      <title>[wip] About Bundle Uri Patchset 1</title>
-      <link>https://dyrone.github.io/posts/bundle-uri-patchset-1/</link>
-      <pubDate>Tue, 26 Jul 2022 16:54:32 +0800</pubDate>
-      
-      <guid>https://dyrone.github.io/posts/bundle-uri-patchset-1/</guid>
-      <description>Original patchset address https://lore.</description>
-    </item>
-    
-    <item>
       <title>stat and fstat</title>
       <link>https://dyrone.github.io/posts/stat-and-fstat/</link>
       <pubDate>Sun, 24 Jul 2022 23:11:16 +0800</pubDate>
@@ -117,10 +108,10 @@
     
     <item>
       <title>Sed Part[3]-&#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
-      <link>https://dyrone.github.io/posts/sed-3/</link>
+      <link>https://dyrone.github.io/posts/sed-3-gnu-bsd/</link>
       <pubDate>Sun, 10 Jul 2022 23:55:52 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-3/</guid>
+      <guid>https://dyrone.github.io/posts/sed-3-gnu-bsd/</guid>
       <description>Why exists two seds?</description>
     </item>
     
@@ -144,19 +135,19 @@
     
     <item>
       <title>Sed Section[2] - Exit Code In Sed</title>
-      <link>https://dyrone.github.io/posts/sed-2/</link>
+      <link>https://dyrone.github.io/posts/sed-2-exit-code/</link>
       <pubDate>Sun, 03 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-2/</guid>
+      <guid>https://dyrone.github.io/posts/sed-2-exit-code/</guid>
       <description>In this article, we will talk about the exit code when executing sed command.</description>
     </item>
     
     <item>
       <title>Sed Section[1] - Basic Usage</title>
-      <link>https://dyrone.github.io/posts/sed-1/</link>
+      <link>https://dyrone.github.io/posts/sed-1-basic-usage/</link>
       <pubDate>Fri, 01 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-1/</guid>
+      <guid>https://dyrone.github.io/posts/sed-1-basic-usage/</guid>
       <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.</description>
     </item>
     

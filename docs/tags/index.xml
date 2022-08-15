@@ -26,15 +26,6 @@
     </item>
     
     <item>
-      <title>git</title>
-      <link>https://dyrone.github.io/tags/git/</link>
-      <pubDate>Tue, 26 Jul 2022 16:54:32 +0800</pubDate>
-      
-      <guid>https://dyrone.github.io/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>errno</title>
       <link>https://dyrone.github.io/tags/errno/</link>
       <pubDate>Thu, 14 Jul 2022 22:44:37 +0800</pubDate>
@@ -76,6 +67,15 @@
       <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
       
       <guid>https://dyrone.github.io/tags/chinese/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://dyrone.github.io/tags/git/</link>
+      <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/tags/git/</guid>
       <description></description>
     </item>
     

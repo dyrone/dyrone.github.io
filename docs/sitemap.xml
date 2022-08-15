@@ -41,12 +41,6 @@
     <loc>https://dyrone.github.io/posts/page-table/</loc>
     <lastmod>2022-07-28T18:24:48+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/bundle-uri-patchset-1/</loc>
-    <lastmod>2022-07-26T16:54:32+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/tags/git/</loc>
-    <lastmod>2022-07-26T16:54:32+08:00</lastmod>
-  </url><url>
     <loc>https://dyrone.github.io/posts/stat-and-fstat/</loc>
     <lastmod>2022-07-24T23:11:16+08:00</lastmod>
   </url><url>
@@ -62,7 +56,7 @@
     <loc>https://dyrone.github.io/tags/sed/</loc>
     <lastmod>2022-07-10T23:55:52+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-3/</loc>
+    <loc>https://dyrone.github.io/posts/sed-3-gnu-bsd/</loc>
     <lastmod>2022-07-10T23:55:52+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/libc/</loc>
@@ -77,16 +71,19 @@
     <loc>https://dyrone.github.io/tags/tools/</loc>
     <lastmod>2022-07-05T20:56:48+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-2/</loc>
+    <loc>https://dyrone.github.io/posts/sed-2-exit-code/</loc>
     <lastmod>2022-07-03T17:00:04+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-1/</loc>
+    <loc>https://dyrone.github.io/posts/sed-1-basic-usage/</loc>
     <lastmod>2022-07-01T17:00:04+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/git-basic-ref-and-object/</loc>
     <lastmod>2022-06-21T19:06:02+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/chinese/</loc>
+    <lastmod>2022-06-21T19:06:02+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/tags/git/</loc>
     <lastmod>2022-06-21T19:06:02+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/git-multi-points/</loc>

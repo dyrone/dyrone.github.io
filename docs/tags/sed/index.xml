@@ -9,28 +9,28 @@
     <lastBuildDate>Sun, 10 Jul 2022 23:55:52 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/sed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sed Part[3]-&#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
-      <link>https://dyrone.github.io/posts/sed-3/</link>
+      <link>https://dyrone.github.io/posts/sed-3-gnu-bsd/</link>
       <pubDate>Sun, 10 Jul 2022 23:55:52 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-3/</guid>
+      <guid>https://dyrone.github.io/posts/sed-3-gnu-bsd/</guid>
       <description>Why exists two seds?</description>
     </item>
     
     <item>
       <title>Sed Section[2] - Exit Code In Sed</title>
-      <link>https://dyrone.github.io/posts/sed-2/</link>
+      <link>https://dyrone.github.io/posts/sed-2-exit-code/</link>
       <pubDate>Sun, 03 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-2/</guid>
+      <guid>https://dyrone.github.io/posts/sed-2-exit-code/</guid>
       <description>In this article, we will talk about the exit code when executing sed command.</description>
     </item>
     
     <item>
       <title>Sed Section[1] - Basic Usage</title>
-      <link>https://dyrone.github.io/posts/sed-1/</link>
+      <link>https://dyrone.github.io/posts/sed-1-basic-usage/</link>
       <pubDate>Fri, 01 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-1/</guid>
+      <guid>https://dyrone.github.io/posts/sed-1-basic-usage/</guid>
       <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.</description>
     </item>
     

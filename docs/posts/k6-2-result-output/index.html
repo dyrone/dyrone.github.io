@@ -208,10 +208,10 @@ setResponseCallback.</p>
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Response time was &#39;</span> <span style="color:#f92672">+</span> String(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">timings</span>.<span style="color:#a6e22e">duration</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; ms&#39;</span>);
 }
 </code></pre></div><p>The output will be liking:</p>
-<pre tabindex="0"><code>k6 run script.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
 
-  INFO[0001] Response time was 337.962473 ms               source=console
-</code></pre><h3 id="custom-metrics">Custom metrics</h3>
+  <span style="color:#a6e22e">INFO</span>[<span style="color:#ae81ff">0001</span>] <span style="color:#a6e22e">Response</span> <span style="color:#a6e22e">time</span> <span style="color:#a6e22e">was</span> <span style="color:#ae81ff">337.962473</span> <span style="color:#a6e22e">ms</span>               <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span><span style="color:#a6e22e">console</span>
+</code></pre></div><h3 id="custom-metrics">Custom metrics</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Trend</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
 
