@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>About Git Multi Points Representation - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="About Git Multi Points Representation" />
+<meta property="og:description" content="If we read the &lsquo;git-rev-list." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/git-multi-points/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-12T15:56:16+08:00" />
+<meta property="article:modified_time" content="2022-06-12T15:56:16+08:00" />
+
+
+		<meta itemprop="name" content="About Git Multi Points Representation">
+<meta itemprop="description" content="If we read the &lsquo;git-rev-list."><meta itemprop="datePublished" content="2022-06-12T15:56:16+08:00" />
+<meta itemprop="dateModified" content="2022-06-12T15:56:16+08:00" />
+<meta itemprop="wordCount" content="2246">
+<meta itemprop="keywords" content="git," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="About Git Multi Points Representation"/>
+<meta name="twitter:description" content="If we read the &lsquo;git-rev-list."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">About Git Multi Points Representation</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-06-12T15:56:16&#43;08:00">2022-06-12</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#two-points-notation-">Two Points Notation: &ldquo;..&rdquo;</a>
+      <ul>
+        <li><a href="#without-merge-commit">Without Merge commit</a></li>
+        <li><a href="#with-merge-commit">With Merge commit</a></li>
+        <li><a href="#diverged-no-merge-base">Diverged (No Merge Base)</a></li>
+      </ul>
+    </li>
+    <li><a href="#three-points-notation-">Three Points Notation: &ldquo;&hellip;&rdquo;</a>
+      <ul>
+        <li><a href="#merge-base">Merge Base</a></li>
+        <li><a href="#three-points-notation">three points notation</a></li>
+      </ul>
+    </li>
+    <li><a href="#multi-points-in-git-log">Multi Points In <code>git log</code></a>
+      <ul>
+        <li><a href="#without-merge-base">Without Merge Base</a></li>
+        <li><a href="#with-merge-base">With Merge Base</a></li>
+        <li><a href="#with-multiple-merge-base">With Multiple Merge Base</a></li>
+      </ul>
+    </li>
+    <li><a href="#multi-points-in-git-diff">Multi-Points In <code>git diff</code></a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<p>If we read the <a href="https://github.com/git/git/blob/8168d5e9c23ed44ae3d604f392320d66556453c9/Documentation/git-rev-list.txt">&lsquo;git-rev-list.txt&rsquo;</a> in git project on github or in <code>git rev-list --help</code> output. You can find there are some the related description about multi points in git.</p>
+<p>The multiple points notation in <code>git rev-list</code> intents to select a range of commits on the repository commit graph.</p>
+<h2 id="two-points-notation-">Two Points Notation: &ldquo;..&rdquo;</h2>
+<blockquote>
+<p>A special notation <code>&lt;commit1&gt;..&lt;commit2&gt;</code> can be used as a short-hand for <code>^'&lt;commit1&gt;' &lt;commit2&gt;</code>. For example, either of the following may be used interchangeably:</p>
+<p>$ git rev-list origin..HEAD</p>
+<p>$ git rev-list HEAD ^origin</p>
+</blockquote>
+<h3 id="without-merge-commit">Without Merge commit</h3>
+<p>The notation &ldquo;<!-- raw HTML omitted -->..<!-- raw HTML omitted -->&rdquo; means we want all the commits from commit2 but expect to exclude all the commits from commit1. For example, we have a commit-graph in the following way:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">* 388c28e <span style="color:#f92672">(</span>HEAD -&gt; master<span style="color:#f92672">)</span> master-commit-C
+| * 0f0623d <span style="color:#f92672">(</span>topic-1<span style="color:#f92672">)</span> topic-1-commit-X
+|/  
+* 0880fe7 master-commit-B
+* 9161dc7 master-commit-A
+</code></pre></div><p>If we execute <code>git rev-list master..topic-1</code>, the print out result will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list master..topic-1
+0f0623d237999ce6fb661f62ab6e6ce0e28abc17
+</code></pre></div><p>Oppositely, if we execute <code>git rev-list topic-1..master</code>, the print out result will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git rev-list topic-1..master
+388c28e27bbf91da99fc04c44da7badc11fd3976
+</code></pre></div><h3 id="with-merge-commit">With Merge commit</h3>
+<p>Now, let&rsquo;s make the scenario a little more complicated. We create a new branch named <code>topic-2</code> and make some new commits to it and then we will actually create a new commit on master too. Then we merge <code>topic-1</code> into <code>master</code>, the commit graph now will look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">*   06e3ed6 <span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> Merge branch <span style="color:#e6db74">&#39;topic-1&#39;</span>
+|<span style="color:#ae81ff">\ </span> 
+| * 0f0623d <span style="color:#f92672">(</span>HEAD -&gt; topic-1<span style="color:#f92672">)</span> topic-1-commit-X
+* | ac7af40 master-commit-D
+| | * 154fbae <span style="color:#f92672">(</span>topic-2<span style="color:#f92672">)</span> topic-2-commit-Y
+| | * 28c5a85 topic-2-commit-X
+| |/  
+|/|   
+* | 388c28e master-commit-C
+|/  
+* 0880fe7 master-commit-B
+* 9161dc7 master-commit-A
+</code></pre></div><p>Now let&rsquo;s find out the results of execting <code>git rev-list</code> on these three branches by using the two points notation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list topic-1..master
+06e3ed6efc9f2d5d1aa025e1bccb4b4dd13fce7e
+ac7af405fee6bb53896790e9bc8e2e4006adaac8
+388c28e27bbf91da99fc04c44da7badc11fd3976
+</code></pre></div><p>First, commits on <code>master</code> are : 9161dc7 0880fe7 388c28e ac7af40 0f0623d 06e3ed6
+Secondly, commits on <code>topic-1</code> are : 9161dc7 0880fe7 0f0623d</p>
+<p>So, the result of &ldquo;want all commits on master but not on topic-1&rdquo; is: 06e3ed6 ,ac7af40 and 388c28e.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list master..topic-1
+
+</code></pre></div><p>The <code>master</code> contains all the commits which are on <code>topic-1</code>. So the second command will return nothing.</p>
+<h3 id="diverged-no-merge-base">Diverged (No Merge Base)</h3>
+<p>Now let&rsquo;s see a case where the two commits are diverged from each other.</p>
+<p>We can use <code>git-hash-object</code> <code>git write-tree</code> <code>git commit-tree</code> to create a new commit without any parents commits, and point to the new commit by creating a new branch which names as <code>diverge</code>,then let&rsquo;s look at the commit graph now:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log --all --graph --oneline --topo-order
+* 9def6a4 <span style="color:#f92672">(</span>diverge<span style="color:#f92672">)</span> Diverged commit X
+*   06e3ed6 <span style="color:#f92672">(</span>HEAD -&gt; master<span style="color:#f92672">)</span> Merge branch <span style="color:#e6db74">&#39;topic-1&#39;</span>
+|<span style="color:#ae81ff">\ </span> 
+| * 0f0623d <span style="color:#f92672">(</span>topic-1<span style="color:#f92672">)</span> topic-1-commit-X
+* | ac7af40 master-commit-D
+| | * 154fbae <span style="color:#f92672">(</span>topic-2<span style="color:#f92672">)</span> topic-2-commit-Y
+| | * 28c5a85 topic-2-commit-X
+| |/  
+|/|   
+* | 388c28e master-commit-C
+|/  
+* 0880fe7 master-commit-B
+* 9161dc7 master-commit-A
+</code></pre></div><p>Actually the commit graph is not so clear on <code>diverge</code>, there are no explicit mark or tip on diverged commit and only exists a &ldquo;TAB&rdquo; on the merge commit, so I think this brings a little ambugious meanings, so we can change the command a little bit like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log --all --graph --pretty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%h %s%n&#34;</span>
+* 9def6a4 Diverged commit X
+  
+*   06e3ed6 Merge branch <span style="color:#e6db74">&#39;topic-1&#39;</span>
+|<span style="color:#ae81ff">\ </span> 
+| | 
+| * 0f0623d topic-1-commit-X
+| | 
+* | ac7af40 master-commit-D
+| | 
+| | * 154fbae topic-2-commit-Y
+| | | 
+| | * 28c5a85 topic-2-commit-X
+| |/  
+|/|   
+| |   
+* | 388c28e master-commit-C
+|/  
+|   
+* 0880fe7 master-commit-B
+| 
+* 9161dc7 master-commit-A
+</code></pre></div><p>Now we use <code>--pretty=&quot;%h %s%n&quot;</code> to add a LR on each line, we can find out that there are no connected line between <code>9def6a4</code> and <code>06e3ed6</code>, that&rsquo;s what the diverged commit looks like on commit graph output.</p>
+<p>We can execute <code>git merge-base</code> to check the merge base of two commits, and we can find out that there are no outputs on the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git merge-base master diverge
+<span style="color:#75715e"># nothing print</span>
+</code></pre></div><p>This also means that the two commits are diverged, it&rsquo;s another representation of no merge bases in git.</p>
+<p>Futhermore, we can go on executing <code>git rev-list</code> on the two diverged commits to see the result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list diverge..master
+06e3ed6efc9f2d5d1aa025e1bccb4b4dd13fce7e
+ac7af405fee6bb53896790e9bc8e2e4006adaac8
+388c28e27bbf91da99fc04c44da7badc11fd3976
+0f0623d237999ce6fb661f62ab6e6ce0e28abc17
+0880fe76f27cb85258a12f7952233f67cb9b0381
+9161dc74e09a248d281cca962cdb42f87bfd0ffb
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list master..diverge
+9def6a4ffdc6cbacb13c3e75c21178288d98f861
+</code></pre></div><p>The result of <code>git rev-list</code> on the two diverge commits is the whole commits on the other side of the commit, the result is in line with our expectations.</p>
+<h2 id="three-points-notation-">Three Points Notation: &ldquo;&hellip;&rdquo;</h2>
+<p>The three points notation is used to represent a range of commits too, in <code>git-rev-list.txt</code> it is described as:</p>
+<blockquote>
+<p>Another special notation is &ldquo;<!-- raw HTML omitted -->&hellip;<!-- raw HTML omitted -->&rdquo; which is useful for merges. The resulting set of commits is the symmetric difference between the two operands. The following two commands are equivalent:</p>
+<pre><code>   $ git rev-list A B --not $(git merge-base --all A B)
+   $ git rev-list A...B
+</code></pre>
+<p><code>rev-list</code> is a very essential Git command, since it provides the ability to build and traverse commit ancestry graphs. For this reason, it has a lot of different options that enables it to be used by commands as different as git bisect and git repack.</p>
+</blockquote>
+<h3 id="merge-base">Merge Base</h3>
+<p>A merge-base is the common ancestors of two commits, two commits may have more than one common ancestors, it&rsquo;s called as a criss-cross merge.</p>
+<p>Some of the content below is taken from the documentation <code>git-merge-base.txt</code>. First example, given commit A and B, the merge base will be <code>1</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">                    o---o---o---B
+                   /
+           ---o---1---o---o---o---A
+</code></pre></div><p>Second example, first compute M as the virtual merge commit of B and C, then the merge-base of A and M will be <code>1</code>. Commit 2 is also a common ancestor between A and M, but 1 is a better common ancestor, because 2 is an ancestor of 1. Hence, 2 is not a merge base.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">                  o---o---o---o---C
+                 /
+                /   o---o---o---B
+               /   /
+           ---2---1---o---o---o---A
+
+                  o---o---o---o---o
+                 /                 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>                /   o---o---o---o---M
+               /   /
+           ---2---1---o---o---o---A
+</code></pre></div><p>If we execute <code>git merge-base --octopus A B C</code>, the result will be <code>2</code>, because <code>2</code> is the best common ancestor of all commits.About more information about octopus merge, I found an article[https://www.freblogg.com/git-octopus-merge] from google, maybe helpful.</p>
+<p>Third example:</p>
+<p>Let&rsquo;s back to the merge-base, a more complex example is <code>criss-cross merge</code>, here can be more than one best common ancestor for two commits:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">           ---1---o---A
+               <span style="color:#ae81ff">\ </span>/
+                X
+               / <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>           ---2---o---o---B
+</code></pre></div><p>Both 1 and 2 are merge-bases of A and B. Neither one is better than the other (both are best merge bases).When the &ndash;all option is not given, it is unspecified which best one is output.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log  --graph --pretty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%h %s%n&#34;</span> criss-cross-1 criss-cross-2
+* <span style="color:#ae81ff">2375853</span> criss-cross-commit-Y
+| 
+*   1594ff3 Merge branch <span style="color:#e6db74">&#39;criss-cross-1&#39;</span> into criss-cross-2
+|<span style="color:#ae81ff">\ </span> 
+| | 
+| | * f6c42b8 criss-cross-commit-X
+| | | 
+| | * 77fb920 Merge commit <span style="color:#e6db74">&#39;3e872dd&#39;</span> into criss-cross-1
+| |/| 
+| |/  
+|/|   
+| |   
+* | 3e872dd criss-cross-commit-B
+| | 
+| * e400d1e criss-cross-commit-A
+|/  
+|   
+* 9def6a4 Diverged commit X
+</code></pre></div><p>We made a scenario about <code>criss-cross</code> like above. both <code>2375853</code> and <code>f6c42b8</code> has two merge-bases. Then we should add <code>--all</code> options to get the two best merge-bases:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git merge-base --all criss-cross-1 criss-cross-2
+3e872dd196652b779ddeba757add1273c45cfe53
+e400d1e4cedfa0e0a64e533a5067cd8d7863f323
+</code></pre></div><h3 id="three-points-notation">three points notation</h3>
+<p>If you take a look at the relate well-written description in &lsquo;git-rev-list.txt&rsquo;, you can see that the three points notation is used to represent a range of commits too, they remove the commits by merge-base and the commits under the merge-base, then give us the left commits which is meaningful for merges:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Another special notation is <span style="color:#e6db74">&#34;&lt;commit1&gt;...&lt;commit2&gt;&#34;</span> which is useful <span style="color:#66d9ef">for</span> merges. The resulting set of commits is the symmetric difference between the two operands. The following two commands are equivalent:
+
+	$ git rev-list A B --not <span style="color:#66d9ef">$(</span>git merge-base --all A B<span style="color:#66d9ef">)</span>
+    $ git rev-list A...B
+</code></pre></div><p>The whole graph now looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$git log  --graph --pretty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%h %s%n&#34;</span> --all
+* <span style="color:#ae81ff">2375853</span> criss-cross-commit-Y
+| 
+*   1594ff3 Merge branch <span style="color:#e6db74">&#39;criss-cross-1&#39;</span> into criss-cross-2
+|<span style="color:#ae81ff">\ </span> 
+| | 
+| | * f6c42b8 criss-cross-commit-X
+| | | 
+| | * 77fb920 Merge commit <span style="color:#e6db74">&#39;3e872dd&#39;</span> into criss-cross-1
+| |/| 
+| |/  
+|/|   
+| |   
+* | 3e872dd criss-cross-commit-B
+| | 
+| * e400d1e criss-cross-commit-A
+|/  
+|   
+* 9def6a4 Diverged commit X
+  
+*   06e3ed6 Merge branch <span style="color:#e6db74">&#39;topic-1&#39;</span>
+|<span style="color:#ae81ff">\ </span> 
+| | 
+| * 0f0623d topic-1-commit-X
+| | 
+* | ac7af40 master-commit-D
+| | 
+| | * 154fbae topic-2-commit-Y
+| | | 
+| | * 28c5a85 topic-2-commit-X
+| |/  
+|/|   
+| |   
+* | 388c28e master-commit-C
+|/  
+|   
+* 0880fe7 master-commit-B
+| 
+* 9161dc7 master-commit-A
+</code></pre></div><p>We choose <code>388c28e</code> and <code>0f0623d</code> as commit range ,they have one best merge-base as their parent, the result is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list 388c28e...0f0623d
+388c28e27bbf91da99fc04c44da7badc11fd3976
+0f0623d237999ce6fb661f62ab6e6ce0e28abc17
+</code></pre></div><p>Another scenario is for two diverged branches, they have no merge-base, so three points notation will return all the commits on the two branches:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$git rev-list 9def6a4...06e3ed6
+9def6a4ffdc6cbacb13c3e75c21178288d98f861
+06e3ed6efc9f2d5d1aa025e1bccb4b4dd13fce7e
+ac7af405fee6bb53896790e9bc8e2e4006adaac8
+388c28e27bbf91da99fc04c44da7badc11fd3976
+0f0623d237999ce6fb661f62ab6e6ce0e28abc17
+0880fe76f27cb85258a12f7952233f67cb9b0381
+9161dc74e09a248d281cca962cdb42f87bfd0ffb
+</code></pre></div><p>Last scenario is for two branches and they are on criss-cross merge, which means they have multi merge-bases.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$git rev-list criss-cross-1...criss-cross-2
+2375853c6b478aefed0316182e7dd4f235f3a674
+f6c42b8760affa7c3796554d1dd59cd5ece44fb3
+77fb920c1559fa7d6564ee6b42dc4a12fa5d199b
+1594ff34beaba8081885f51659233bb7a5840fb
+</code></pre></div><h2 id="multi-points-in-git-log">Multi Points In <code>git log</code></h2>
+<p>The whole graph has been no changes. After the last paragraph, we made <code>master</code> and topic branches to test the multi-points notation firstly, then we use diverged branch and criss-cross branches to test the multi-merge-base. But how will <code>git log</code> will perform with multi-points?</p>
+<h3 id="without-merge-base">Without Merge Base</h3>
+<p>Thirdly, we choose <code>9def6a4</code> and <code>06e3ed6</code> as the commit range, they are diverged for each other, the result is still consistent with <code>git rev-list</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log --oneline 9def6a4..06e3ed6
+06e3ed6 <span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> Merge branch <span style="color:#e6db74">&#39;topic-1&#39;</span>
+ac7af40 master-commit-D
+388c28e master-commit-C
+0f0623d <span style="color:#f92672">(</span>topic-1<span style="color:#f92672">)</span> topic-1-commit-X
+0880fe7 master-commit-B
+9161dc7 master-commit-A
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$git log --oneline 06e3ed6..9def6a4
+9def6a4 <span style="color:#f92672">(</span>diverge<span style="color:#f92672">)</span> Diverged commit X
+</code></pre></div><h3 id="with-merge-base">With Merge Base</h3>
+<p>Firstly, we choose <code>388c28e</code> and <code>0f0623d</code> as the commit range, and the merge base of them is &ldquo;0880fe7&rdquo;, the performance of <code>git log</code> in two-points notation are as the consistent meaning with <code>git rev-list</code>.</p>
+<pre tabindex="0"><code>$ git log 388c28e..0f0623d --oneline
+0f0623d (topic-1) topic-1-commit-X
+$ git log 0f0623d..388c28e --oneline
+388c28e master-commit-C
+</code></pre><p>Secondly, we choose <code>06e3ed6</code> and <code>0f0623d</code> as the commit range, the result is still consistent with <code>git rev-list</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log --oneline 0f0623d..06e3ed6
+06e3ed6 <span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> Merge branch <span style="color:#e6db74">&#39;topic-1&#39;</span>
+ac7af40 master-commit-D
+388c28e master-commit-C
+
+$ git log --oneline 06e3ed6..0f0623d
+<span style="color:#75715e"># nothing output</span>
+</code></pre></div><h3 id="with-multiple-merge-base">With Multiple Merge Base</h3>
+<p>Next, we use criss-cross branches to test the multi-merge-base in <code>git log</code>, from the output result we can get the meaning is still consistent with <code>git rev-list</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>tenglong.tl@code-infra-dev-cbj.ea134 /home/tenglong.tl/test/dyrone_graph<span style="color:#f92672">]</span>
+$ git log --oneline criss-cross-1..criss-cross-2
+<span style="color:#ae81ff">2375853</span> <span style="color:#f92672">(</span>HEAD -&gt; criss-cross-2<span style="color:#f92672">)</span> criss-cross-commit-Y
+1594ff3 Merge branch <span style="color:#e6db74">&#39;criss-cross-1&#39;</span> into criss-cross-2
+
+<span style="color:#f92672">[</span>tenglong.tl@code-infra-dev-cbj.ea134 /home/tenglong.tl/test/dyrone_graph<span style="color:#f92672">]</span>
+$ git log --oneline criss-cross-2..criss-cross-1
+f6c42b8 <span style="color:#f92672">(</span>criss-cross-1<span style="color:#f92672">)</span> criss-cross-commit-X
+77fb920 Merge commit <span style="color:#e6db74">&#39;3e872dd&#39;</span> into criss-cross-1
+</code></pre></div><h2 id="multi-points-in-git-diff">Multi-Points In <code>git diff</code></h2>
+<p>We already know that <code>git log</code> will perform the same effects with multi-points, but how will <code>git diff</code> perform with multi-points?</p>
+<p>Actually, <code>git diff</code> will perform the totally different results as before: here are some partial documentation content from &lsquo;git-diff.txt&rsquo;</p>
+<blockquote>
+<p>git diff [<!-- raw HTML omitted -->] <!-- raw HTML omitted --> <!-- raw HTML omitted --> [&ndash;] [<!-- raw HTML omitted -->&hellip;]
+This is to view the changes between two arbitrary <!-- raw HTML omitted -->.</p>
+<p>git diff [<!-- raw HTML omitted -->] <!-- raw HTML omitted -->..<!-- raw HTML omitted --> [&ndash;] [<!-- raw HTML omitted -->&hellip;]
+This is synonymous to the previous form. If <!-- raw HTML omitted --> on one side is omitted, it will have the same effect as using HEAD instead.</p>
+<p>git diff [<!-- raw HTML omitted -->] <!-- raw HTML omitted -->&hellip;<!-- raw HTML omitted --> [&ndash;] [<!-- raw HTML omitted -->&hellip;]
+This form is to view the changes on the branch containing and up to the second <!-- raw HTML omitted -->, starting at a common ancestor of both <!-- raw HTML omitted -->. &ldquo;git diff A&hellip;B&rdquo; is equivalent to &ldquo;git diff $(git-merge-base A B) B&rdquo;. You can omit any one of <!-- raw HTML omitted -->, which has the same effect as using HEAD instead.</p>
+</blockquote>
+<p>In conclusion, the multi points notation in <code>git diff</code> represents:</p>
+<ul>
+<li>
+<p><code>commit_A commit_B</code> and <code>commit_A..commit_B</code> are identical, they means just the changes between the two commits themself (work tree, files).</p>
+</li>
+<li>
+<p><code>commit_A...commit_B</code> means only want to show the diff of the latter side commit, it performs as a similar way with <code>commit_A..commitB</code> in <code>git log</code> and <code>git rev-list</code>.</p>
+</li>
+</ul>
+<p>For example,<code>388c28e</code> and <code>0f0623d</code> they have the same merge-base, after we use <code>git diff</code> to view the changes between them, we can see the difference between <code>git log</code> and <code>git diff</code> in multi-points notation.</p>
+<p>Changes in <code>388c28e</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git show 388c28e --text
+commit 388c28e27bbf91da99fc04c44da7badc11fd3976
+Author: Teng Long &lt;dyroneteng@gmail.com&gt;
+Date:   Tue Jun <span style="color:#ae81ff">14</span> 14:47:18 <span style="color:#ae81ff">2022</span> +0800
+
+    master-commit-C
+    
+    Signed-off-by: Teng Long &lt;dyroneteng@gmail.com&gt;
+
+diff --git a/5.txt b/5.txt
+new file mode <span style="color:#ae81ff">100644</span>
+index 0000000..d961fa4
+--- /dev/null
++++ b/5.txt
+@@ -0,0 +1 @@
++232323
+</code></pre></div><p>Changes in <code>0f0623d</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git show 0f0623d --text
+commit 0f0623d237999ce6fb661f62ab6e6ce0e28abc17 <span style="color:#f92672">(</span>topic-1<span style="color:#f92672">)</span>
+Author: Teng Long &lt;dyroneteng@gmail.com&gt;
+Date:   Tue Jun <span style="color:#ae81ff">14</span> 14:46:25 <span style="color:#ae81ff">2022</span> +0800
+
+    topic-1-commit-X
+    
+    Signed-off-by: Teng Long &lt;dyroneteng@gmail.com&gt;
+
+diff --git a/3.txt b/3.txt
+index 55bd0ac..80e9add <span style="color:#ae81ff">100644</span>
+--- a/3.txt
++++ b/3.txt
+@@ -1 +1,2 @@
+ <span style="color:#ae81ff">333</span>
++4343
+</code></pre></div><p>Two multi points with <code>388c28e</code> and <code>0f0623d</code> when executing <code>git rev-list</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git rev-list 388c28e..0f0623d
+0f0623d237999ce6fb661f62ab6e6ce0e28abc17
+
+$ git diff 388c28e..0f0623d
+diff --git a/3.txt b/3.txt
+index 55bd0ac..80e9add <span style="color:#ae81ff">100644</span>
+--- a/3.txt
++++ b/3.txt
+@@ -1 +1,2 @@
+ <span style="color:#ae81ff">333</span>
++4343
+diff --git a/5.txt b/5.txt
+deleted file mode <span style="color:#ae81ff">100644</span>
+index d961fa4..0000000
+--- a/5.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-232323
+</code></pre></div><p>Three multi points with <code>388c28e</code> and <code>0f0623d</code> when executing <code>git rev-list</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git diff 388c28e...0f0623d
+diff --git a/3.txt b/3.txt
+index 55bd0ac..80e9add <span style="color:#ae81ff">100644</span>
+--- a/3.txt
++++ b/3.txt
+@@ -1 +1,2 @@
+ <span style="color:#ae81ff">333</span>
++4343
+diff --git a/5.txt b/5.txt
+deleted file mode <span style="color:#ae81ff">100644</span>
+index d961fa4..0000000
+--- a/5.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-232323
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>We introduced and explained the use of <code>multi points notation</code> in Git, which stands for consistency in <code>git rev-list</code> and <code>git log</code>. <code>git diff</code>, however, is inconsistent in meaning, and there may be some ambiguity in the global expression of git commits range meanings, which I suspect is intended to ensure backward compatibility with earlier diff implementations.</p>
+<p>Thank you for reading this article, if you get some places you want to improve or I&rsquo;m wrong, please feel free to contact me.</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/acceptance_test/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Why Acceptance Testing is so important to us(Chinese)?</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/git-basic-ref-and-object/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">About Git Objects and References</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

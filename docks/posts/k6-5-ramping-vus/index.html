@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>k6 series [5] - Ramping Vus - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="k6 series [5] - Ramping Vus" />
+<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/k6-5-ramping-vus/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-08T21:06:58+08:00" />
+<meta property="article:modified_time" content="2022-08-08T21:06:58+08:00" />
+
+
+		<meta itemprop="name" content="k6 series [5] - Ramping Vus">
+<meta itemprop="description" content="NOTICE: Base and excerpt from the official k6 documentation"><meta itemprop="datePublished" content="2022-08-08T21:06:58+08:00" />
+<meta itemprop="dateModified" content="2022-08-08T21:06:58+08:00" />
+<meta itemprop="wordCount" content="329">
+<meta itemprop="keywords" content="testing," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k6 series [5] - Ramping Vus"/>
+<meta name="twitter:description" content="NOTICE: Base and excerpt from the official k6 documentation"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">k6 series [5] - Ramping Vus</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-08T21:06:58&#43;08:00">2022-08-08</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#options">Options</a></li>
+    <li><a href="#when">When</a></li>
+    <li><a href="#example">Example</a></li>
+    <li><a href="#get-the-stage-index">Get the stage index</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<blockquote>
+<p>NOTICE: Base and excerpt from the official k6 documentation</p>
+</blockquote>
+<p>A variable number of VUs execute as many iterations as possible for a specified
+amount of time. This executor is equivalent to the global stages option.</p>
+<h2 id="options">Options</h2>
+<pre tabindex="0"><code>OPTION	TYPE	DESCRIPTION	DEFAULT
+
+stages(required)	array	Array of objects that specify the target number of VUs to ramp up or down to.	[]
+
+startVUs	integer	Number of VUs to run at test start.	1
+
+gracefulRampDown	string	Time to wait for an already started iteration to finish before stopping it during a ramp down.
+</code></pre><h2 id="when">When</h2>
+<p>This executor is a good fit if you need VUs to ramp up or down during specific
+periods of time.</p>
+<h2 id="example">Example</h2>
+<pre tabindex="0"><code>import http from 'k6/http';
+import { sleep } from 'k6';
+
+export const options = {
+  discardResponseBodies: true,
+  scenarios: {
+    contacts: {
+      executor: 'ramping-vus',
+      startVUs: 0,
+      stages: [
+        { duration: '20s', target: 10 },
+        { duration: '10s', target: 0 },
+      ],
+      gracefulRampDown: '0s',
+    },
+  },
+};
+
+export default function () {
+  http.get('https://test.k6.io/contacts.php');
+  // We're injecting a processing pause for illustrative purposes only!
+  // Each iteration will be ~515ms, therefore ~2 iterations/second per VU maximum throughput.
+  sleep(0.5);
+}
+</code></pre><blockquote>
+<p>Note the setting of gracefulRampDown to 0 seconds, which could cause some
+iterations to be interrupted during the ramp down stage.</p>
+</blockquote>
+<p>In this example, we&rsquo;ll run a two-stage test, ramping up from 0 to 10 VUs over 20
+seconds, then down to 0 VUs over 10 seconds.</p>
+<p><img src="https://k6.io/docs/static/ad4a4ec4534d20df652e008b48943375/b8e6a/ramping-vus.png" alt="ramping" title="ramping"></p>
+<h2 id="get-the-stage-index">Get the stage index</h2>
+<p>To get the current running stage index, use the getCurrentStageIndex helper
+function from the k6-jslib-utils library. It returns a zero-based number equal
+to the position in the shortcut stages array or in the executor&rsquo;s stages array.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">getCurrentStageIndex</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;https://jslib.k6.io/k6-utils/1.3.0/index.js&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span> },
+    { <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">50</span>, <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1m&#39;</span> },
+    { <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span> },
+  ],
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">getCurrentStageIndex</span>() <span style="color:#f92672">===</span> <span style="color:#ae81ff">1</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Running the second stage where the expected target is 50&#39;</span>);
+  }
+}
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/k6-3-tags-and-groups/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">k6 series [3] - Tags And Groups</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/k6-6-execute-command/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">k6 series [6] - Execute Command</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

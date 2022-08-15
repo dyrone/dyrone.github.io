@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Git pack and index - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Git pack and index" />
+<meta property="og:description" content="`This article is written in Chinese." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/git-midx/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-07T14:44:25+08:00" />
+<meta property="article:modified_time" content="2022-03-07T14:44:25+08:00" />
+
+
+		<meta itemprop="name" content="Git pack and index">
+<meta itemprop="description" content="`This article is written in Chinese."><meta itemprop="datePublished" content="2022-03-07T14:44:25+08:00" />
+<meta itemprop="dateModified" content="2022-03-07T14:44:25+08:00" />
+<meta itemprop="wordCount" content="778">
+<meta itemprop="keywords" content="git,chinese," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git pack and index"/>
+<meta name="twitter:description" content="`This article is written in Chinese."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Git pack and index</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-03-07T14:44:25&#43;08:00">2022-03-07</time></div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>`This article is written in Chinese. `</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>About pack and index file in git.</p>
+</div>
+<div class="sect1">
+<h2 id="_1_git_packfile_介绍">1. git packfile 介绍</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>首先我们要了解的事， Git中使用 <code>对象</code> 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 <code>分法</code> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>将Git对象分类为 <strong>4</strong> 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.</p>
+</li>
+<li>
+<p>在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 <strong>5</strong> 种对象(wiki中的packfile的说明).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>如果希望了解Git的4种基本对象和为什么他们基于 <code>快照</code> 的存储策略，我之前写过一篇 <a href="https://mp.weixin.qq.com/s/UTETcreecYfotJzlR1fAkw">《15分钟了解Git对象》</a>。</p>
+</div>
+<div class="paragraph">
+<p>现在我们回过来继续看packfile.</p>
+</div>
+<div class="paragraph">
+<p>Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。</p>
+</div>
+<div class="paragraph">
+<p>Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 <code>delta</code> 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_pack的文件的存储格式">2. pack的文件的存储格式</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>关于packfile的存储格式, git-scm中有比较详细的文档 <a href="https://git-scm.com/docs/pack-format#_pack_pack_files_have_the_following_format">英文介绍</a>, 我在这里画了一个图，其中主要包含三个部分： 文件头， 包含的对象的存储内容和文件尾， 我们依次来看下它们的结构:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../../images/packfile.png" alt="Packfile Format" width="512" height="512"/></span></p>
+</div>
+<div class="sect2">
+<h3 id="_2_1_header_和_trailer">2.1 HEADER 和 TRAILER</h3>
+<div class="paragraph">
+<p>HEADER由三部分构成。</p>
+</div>
+<div class="sect3">
+<h4 id="_2_1_1_packfile文件签名">2.1.1 packfile文件签名</h4>
+<div class="paragraph">
+<p>用来存放&#34;PACK&#34;的字面量（50 41 43 4b），共4 bytes。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_1_2_packfile版本">2.1.2 packfile版本</h4>
+<div class="paragraph">
+<p>目前默认采用v2版本(00 00 00 02)，共4 bytes</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_1_3_packfile中的对象数量">2.1.3 packfile中的对象数量</h4>
+<div class="paragraph">
+<p>对象数量: &lt;num_objects&gt;，共4 bytes。</p>
+</div>
+<div class="paragraph">
+<p>TRAILER pack文件的checksum（20 bytes）。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_2_data部分">2.2 DATA部分</h3>
+<div class="paragraph">
+<p>按照pack-order存储各个对象，其中非delta对象和delta对象的存储格式有所差异。</p>
+</div>
+<div class="sect3">
+<h4 id="_2_2_1_size_data_encoding">2.2.1 size data encoding</h4>
+<div class="paragraph">
+<p>这部分数据采用&lt;size-data-encoding&gt;的方式存储，bigendian，每一个size chunk为 1byte, 第一个chunk比较特殊还负责保存对象的类型信息:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">size-data-encoding head:</div>
+<div class="literalblock">
+<div class="content">
+<pre>   &lt;MSB&gt;       &lt;type&gt;     &lt;size-tail&gt;
+|&lt;-1 bit-&gt;|&lt;-- 3 bits--&gt;|&lt;---4 bits---&gt;|</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">MSB (Most Significant Bit):</div>
+<div class="literalblock">
+<div class="content">
+<pre>if 0 : 结束位的size data encoding
+if 1 : 继续扫描下一个字节的size data encoding</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">object type:</div>
+<div class="literalblock">
+<div class="content">
+<pre>OBJ_COMMIT (001)
+OBJ_TREE (010)
+OBJ_BLOB (011)
+OBJ_TAG (100)
+OBJ_OFS_DELTA (110)
+OBJ_REF_DELTA (111)</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">size-tail:</div>
+<div class="literalblock">
+<div class="content">
+<pre>用于保存size的后4位</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">size-data-chunk-mid(end)(optional)</div>
+<div class="literalblock">
+<div class="content">
+<pre>   &lt;MSB&gt;             &lt;size-mid&gt;
+|&lt;-1 bit-&gt;|&lt;---------- 7 bits----------&gt;|</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">故按照图中第一个对象(假定为非delta对象)的size为：</div>
+<div class="literalblock">
+<div class="content">
+<pre>size = (C &lt;&lt; 11) | (B &lt;&lt; 7) | (C &lt;&lt; 4)</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>得知了对象的size之后， 便可以继续获取数据的data了。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_2_2_delta对象存储上的差别">2.2.2 delta对象存储上的差别</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">delta对象要稍微复杂一些， packfile中支持存储两种类型的delta对象:</div>
+<div class="literalblock">
+<div class="content">
+<pre>OBJ_REF_DELTA： 存储base object name（20 bytes）, delta object可能与base object不在同一个pack中时
+OBJ_OFS_DELTA： 存储delta object相对base object的 offset 偏移量， 从而可以得知base object的存储位置。delta object与base object必定在同一个pack中。</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>delta数据是从base object基础上重新构造对象的一套指令序列（instruments）。如果base object同样是一个delta，则必须首先将其还原为普通对象， 就这样递归往复直到base object不是delta对象为止， 这样就还原出了完整的对象。目前支持的指令有两个:一个用于从源对象复制字节范围，另一个用于插入嵌入到指令本身的新数据。</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>也许你会问， 这篇文章究竟要介绍什么？</p>
+</div>
+<div class="paragraph">
+<p>是的，这篇文章希望讲述git multiple packs index的内容，所以目前为止， 我说了很多pack的内容，这点上似乎无法偷懒。 但也许我该就此打住， 因为Delta的存储和计算牵扯出另外非常多的内容， 再用另一篇单独的BLOG中讲解（同时我也需要再一次确认很多其中的细节）， 当然也可以先参考 <a href="https://git-scm.com/docs/pack-format#_deltified_representation">git-scm文档</a> 的内容先睹为快。</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_pack_index">3. pack-index</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>pack-index在在文件命名上， 它的名字是`pack-name.idx`， 其中pack-name是pack文件的名字, name是pack文件checksum的SHA1编码 。pack文件则是`pack-name.pack`命名，通过文件名将index和pack文件联系在一起， 并可通过文件名和实际存储的checksum进行校验。</p>
+</div>
+<div class="paragraph">
+<p>下面是我本地测试仓库中的一个一个样例：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">[tenglong.tl@code-infra-dev-cbj.ea134 /home/tenglong.tl/test/pack-test.git/.git/objects/pack]
+$ll
+total 24
+-r--r--r-- 1 tenglong.tl users 1156 Feb 18 16:17 pack-5861a641a77e5fa0637b6426615c834424012140.idx
+-r--r--r-- 1 tenglong.tl users  262 Feb 18 16:17 pack-5861a641a77e5fa0637b6426615c834424012140.pack
+-r--r--r-- 1 tenglong.tl users 1156 Feb 16 14:52 pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.idx
+-r--r--r-- 1 tenglong.tl users  210 Feb 16 14:52 pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack
+-r--r--r-- 1 tenglong.tl users 1156 Feb 18 16:17 pack-f81aa0c5662aa3f1b084f63f80d7417b5f41b74d.idx
+-r--r--r-- 1 tenglong.tl users  293 Feb 18 16:17 pack-f81aa0c5662aa3f1b084f63f80d7417b5f41b74d.pack</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>pack索引文件的的作用是， 根据object名称创建到pack文件中存储位置（offset）的映射， 在时间复杂度为O(logN)的情况下，快速获取对象的存储内容。</p>
+</div>
+<div class="sect2">
+<h3 id="_3_1_pack_index文件格式">3.1 pack-index文件格式</h3>
+<div class="paragraph">
+<p>pack index文件存在两个版本， 目前默认按照v2进行存储，我们也将针对v2进行介绍.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pack_index_v2文件格式">pack-index v2文件格式</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../../images/packindex.png" alt="Packfile Format" width="512" height="512"/></span></p>
+</div>
+<div class="paragraph">
+<p>v2的文件存储格式分为以下几个部分：</p>
+</div>
+<div class="sect3">
+<h4 id="_3_1_1_header">3.1.1 HEADER</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>v2版本idx文件的签名信息： &#34;\377tOc&#34; 占 4 bytes</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>git使用了这样一个魔法值 来表示这是一个v2 版本的pack-index文件，可以看出这是一个8进制表示，如果用10进制则为255tOc。 因为v1版本是直接从fanout区开始存储
+&gt;（fanout后面会介绍）， 而该魔法值明显是一个非法的fanout[0]的取值。 这样就可以防止低版本的git， 错误的处理v2版本的pack idx文件。</p>
+</div>
+</blockquote>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>idx文件的版本号： 目前默认为2， 占4 bytes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_1_2_fanout">3.1.2 FANOUT</h4>
+<div class="paragraph">
+<p>FANOUT扇区表用来存储每个object的存储位置， 每个扇区占用的空间是4个字节。 根据objectname的第一个字节进行划分扇区，因为最多只有0~255（00-ff）个object，所以fanout的长度为256*4=1024个字节。</p>
+</div>
+<div class="paragraph">
+<p>扇区的索引从0开始， 即fanout[0]表示扇区0的开始位置， fanout[1]表示扇区1的开始位置， fanout[255]表示扇区255的开始位置。 fanout[0]代表了objectname第一个字节的值为 <code>00</code> 的object的数量， fanout[1]代表了objectname第一个字节的值为 <code>00~01</code> 的object的存储数量， 所以进而fanout[255]代表了该index中索引对象的总数。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_1_3_objectname_list">3.1.3 objectname_list</h4>
+<div class="paragraph">
+<p>objectname_list部分负责存储所有的对象的名称列表， 存储顺序为字典顺序。 这样的存储的目的是可以通过二分查找的方式快速定位到对象的在objectname_list中的的position。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_1_4_crc校验区">3.1.4 CRC校验区</h4>
+<div class="paragraph">
+<p>存储CRC信息的好处是，当我们直接从一个pack中copy数据到另一个pack中，我们可以少校验一次CRC直接copy。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_1_5_offsets区">3.1.5 offsets区</h4>
+<div class="paragraph">
+<p>offsets区存储了object对应在pack中的存储偏移量， 其顺序与objectname_list中的顺序一致。 故，只要在objectname_list中查询到了某个对象在列表中的positon，那么就可以直接通过offsets[positon]获取对象在pack中的存储偏移量。</p>
+</div>
+<div class="paragraph">
+<p>每一个offset占用4 bytes， 存储的格式为：</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>   &lt;MSB&gt;             &lt;offset&gt;
+|&lt;-1 bit-&gt;|&lt;---------- 31 bits----------&gt;|</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>MSB负责标记该offset是否是一个large offset，这是因为在pack中offset的值是有可能大于2^31的， 所以可以通过MSB来判断是否是large offset。</p>
+</div>
+<div class="paragraph">
+<p>即， 当MSB为1， 那么代表该offset按照large offset的格式处理， offset指向的是在当前index文件中large offsets区偏移量，改偏移量所代表的值为实际指向pack中的offset。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_1_6_large_offsetsoptional">3.1.6 large offsets(optional)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>只有当对应非pack文件 &gt; 2G时， index文件中才会生成large offsets（这是因为排除了MSB，offset最大值为2^31-1， 因此大于2G的文件， 则需要使用large offsets）</p>
+</li>
+<li>
+<p>每个large offset存储占用8 bytes。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_1_7_trailer">3.1.7 TRAILER</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>pack文件的checksum， 占20 bytes</p>
+</li>
+<li>
+<p>index文件的checksum，占20bytes。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_结合pack文件和index文件的一个实际的栗子">结合pack文件和index文件的一个实际的栗子🌰</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_首先我们创建一个包含3个对象的pack文件">首先，我们创建一个包含3个对象的pack文件</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">---
+[tenglong.tl@code-infra-dev-cbj.ea134 /home/tenglong.tl/test/pack-test.git/.git/objects/pack]
+$git verify-pack --verbose  pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack
+30cc51a63a6b2726d32abab23e1877a72868edea commit 173 123 12
+d00491fd7e5bb6fa28c517a0bb32b8b506539d4d blob   2 11 135
+38fd29697b220f7e4ca15b044c3222eefe5afdc1 tree   33 44 146
+non delta: 3 objects
+pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack: ok
+---</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_verify_pack_verbose_命令介绍">&#34;git verify-pack --verbose&#34; 命令介绍</h3>
+<div class="paragraph">
+<p>我们使用`git verify-pack --verbose`可以查看pack文件中对象的名称、类型和偏移量等信息，这将很好的帮助我们去debug packfile。</p>
+</div>
+<div class="paragraph">
+<p>可以看到pack文件中有3个对象， 分别为commit、blob和tree， 其输出内容的format如下：</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>&lt;objectname&gt; &lt;objecttype&gt; &lt;objectsize&gt; &lt;objectsize_in_packfile&gt; &lt;objectoffset&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>对delta对象 输出的format略有不同:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>&lt;objectname&gt; &lt;objecttype&gt; &lt;objectsize&gt; &lt;objectsize_in_packfile&gt; &lt;objectoffset&gt; &lt;delta-chain-length&gt; &lt;base_objectname&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>我们当前没有delta，所以例子中均为第一种format表示</code>， 我们可以看到包`pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack`中</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_使用hexdump命令查看pack文件">使用hexdump命令查看pack文件</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">---
+$cat pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack | hexdump -C
+00000000  50 41 43 4b 00 00 00 02  00 00 00 03 9d 0a 78 9c  |PACK..........x.|
+00000010  9d cb 3d 0a c3 30 0c 40  e1 dd a7 d0 5e 28 b2 ac  |..=..0.@....^(..|
+00000020  fc 18 4a e9 01 32 f6 02  8e 2d a7 81 3a 06 a3 0e  |..J..2...-..:...|
+00000030  bd 7d 3c f4 04 5d de f0  c1 d3 26 02 6e ce 89 fc  |.}&lt;..]....&amp;.n...|
+00000040  e8 a7 95 08 f3 24 1c 83  1d 56 64 8e 8e 88 44 b2  |.....$...Vd...D.|
+00000050  0c 21 a7 68 4d f8 e8 ab  36 78 ca b1 c1 52 7b 6e  |.!.hM...6x...R{n|
+00000060  e9 db ea 21 da e1 b1 95  b0 bf af b1 96 3b d8 91  |...!.........;..|
+00000070  d9 7b 76 ec e1 82 33 a2  e9 5a 76 55 f9 e7 fd cd  |.{v...3..ZvU....|
+00000080  60 cd 09 4a b0 34 fb 32  78 9c 33 e4 02 00 00 6e  |`..J.4.2x.3....n|
+00000090  00 3c a1 02 78 9c 33 34  30 30 33 31 51 30 d4 2b  |.&lt;..x.340031Q0.+|
+000000a0  a9 28 61 b8 c0 32 f1 6f  5d f4 b6 5f 1a 47 c5 17  |.(a..2.o].._.G..|
+000000b0  ec 36 da b1 95 2d 78 ae  2f 00 c2 8c 0d 3b bb e4  |.6...-x./....;..|
+000000c0  7e a2 6b b1 24 a4 9b bb  93 aa eb f0 67 c7 97 18  |~.k.$.......g...|
+000000d0  43 c4                                             |C.|
+000000d2
+---</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_结合git_verify_pack_verbose_分析_pack文件">结合`git verify-pack --verbose` 分析 pack文件</h3>
+<div class="paragraph">
+<p>因为pack中首先存储的是12 bytes的文件头， 所以对于pack中第一个对象的offset， 其实是固定为 <code>12(0x0c)</code>.</p>
+</div>
+<div class="paragraph">
+<p>故 我们从offset的第12个位置开始读起， 格式为&lt;size-data-encoding&gt;:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>9d: [1] [001] [1101]</code>  为第一个 size encoding byte, type为001(commit) , 并且msb = 1 ⇒ continue读区下一个 byte, tail size为 <code>1101</code></p>
+</li>
+<li>
+<p><code>0a: [0] [000] [1010]</code> 为第二个size encoding byte， msb =0 ⇒ stop, head size = 00001010 &lt;&lt; 4 = 10100000</p>
+</li>
+<li>
+<p>故 <code>object size</code> = (10100000 | 1101) = 10101101 = <code>173(digit)</code>, 注意此大小为对象解压后的大小而非在pack中存储的大小</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>以此类推，123bytes之后为第二个对象 ：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>32: [0] [011] [0010]</code> , msb =0, type 011(blob), 因为msb = 0 ⇒ stop size = 0010 , size 为 2</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>最后index+pack的存储和索引方式，可以参考下图：</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../../images/index-pack.png" alt="Packfile Format" width="512" height="512"/></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_最后">最后</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>但是写着写着， 这部分单独写了一篇文章， 目前先写到这里，后续该文档应该会大概率更新（补充index部分的文件内容分析），随后是多包索引之类的内容放到另外一篇blog中。</p>
+</div>
+<div class="paragraph">
+<p>如果有一些文字错误或者技术性错误， 欢迎指出。</p>
+</div>
+</div>
+</div>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/chinese/" rel="tag">chinese</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/introduce/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">About me</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/acceptance_test/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Why Acceptance Testing is so important to us(Chinese)?</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

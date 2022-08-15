@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>k6 series [4] - Options - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="k6 series [4] - Options" />
+<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/k6-4-options/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-04T15:00:25+08:00" />
+<meta property="article:modified_time" content="2022-08-04T15:00:25+08:00" />
+
+
+		<meta itemprop="name" content="k6 series [4] - Options">
+<meta itemprop="description" content="NOTICE: Base and excerpt from the official k6 documentation"><meta itemprop="datePublished" content="2022-08-04T15:00:25+08:00" />
+<meta itemprop="dateModified" content="2022-08-04T15:00:25+08:00" />
+<meta itemprop="wordCount" content="4333">
+<meta itemprop="keywords" content="testing," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k6 series [4] - Options"/>
+<meta name="twitter:description" content="NOTICE: Base and excerpt from the official k6 documentation"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">k6 series [4] - Options</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-04T15:00:25&#43;08:00">2022-08-04</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#option-scopes">option scopes</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#set-options-in-the-script">Set options in the script</a></li>
+    <li><a href="#set-options-with-environment-variables">Set options with environment variables</a></li>
+    <li><a href="#set-options-from-k6-variables">Set options from k6 variables</a></li>
+    <li><a href="#options-reference">Options reference</a>
+      <ul>
+        <li><a href="#batch">Batch</a></li>
+      </ul>
+    </li>
+    <li><a href="#batch-per-host">Batch per host</a></li>
+    <li><a href="#vus">VUs</a></li>
+    <li><a href="#blacklist-ip">Blacklist IP</a></li>
+    <li><a href="#block-hostnames">Block hostnames</a></li>
+    <li><a href="#config">Config</a></li>
+    <li><a href="#console-output">Console output</a></li>
+    <li><a href="#discard-response-bodies">Discard response bodies</a></li>
+    <li><a href="#dns">DNS</a></li>
+    <li><a href="#duration">Duration</a></li>
+    <li><a href="#execution-segment">Execution Segment</a>
+      <ul>
+        <li><a href="#hosts">Hosts</a></li>
+      </ul>
+    </li>
+    <li><a href="#http-debug">HTTP debug</a></li>
+    <li><a href="#include-system-env-vars">Include system env vars</a></li>
+    <li><a href="#insecure-skip-tls-verify">Insecure skip TLS verify</a></li>
+    <li><a href="#iterations">Iterations</a></li>
+    <li><a href="#linger">Linger</a></li>
+    <li><a href="#local-ips">Local ips</a></li>
+    <li><a href="#log-output">Log output</a></li>
+    <li><a href="#max-redirects">Max redirects</a></li>
+    <li><a href="#minimum-iteration-duration">Minimum iteration duration</a></li>
+    <li><a href="#no-connection-reuse">No connection reuse</a></li>
+    <li><a href="#no-cookies-reset">No cookies reset</a></li>
+    <li><a href="#no-summary">No summary</a></li>
+    <li><a href="#no-setup-and-no-teardown">No setup and no teardown</a></li>
+    <li><a href="#no-thresholds">No thresholds</a></li>
+    <li><a href="#no-vu-connection-reuse">No VU connection reuse</a></li>
+    <li><a href="#paused">Paused</a></li>
+    <li><a href="#quiet">Quiet</a></li>
+    <li><a href="#result-output">Result output</a></li>
+    <li><a href="#rps">RPS</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#setup-timeout">Setup timeout</a></li>
+    <li><a href="#teardown-timeout">Teardown timeout</a></li>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#supply-environment-variables">Supply environment variables</a></li>
+    <li><a href="#system-tags">System tags</a></li>
+    <li><a href="#summary-time-unit">Summary time unit</a></li>
+    <li><a href="#summary-trend-stats">Summary trend stats</a></li>
+    <li><a href="#tags">tags</a></li>
+    <li><a href="#thresholds">Thresholds</a></li>
+    <li><a href="#throw">Throw</a></li>
+    <li><a href="#user-agent">User agent</a></li>
+    <li><a href="#verbose">Verbose</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<blockquote>
+<p>NOTICE: Base and excerpt from the official k6 documentation</p>
+</blockquote>
+<h2 id="option-scopes">option scopes</h2>
+<ul>
+<li>In CLI flags</li>
+<li>In environment variables</li>
+<li>In script <code>options</code> object</li>
+</ul>
+<h2 id="order">Order</h2>
+<p><img src="https://k6.io/docs/static/cd2ffc633dd58c67e276922851216ab9/0e253/order-of-precedence.png" alt="order"></p>
+<ul>
+<li>First, k6 uses the option&rsquo;s default value.</li>
+<li>Next, k6 uses the options set by the &ndash;config flag.</li>
+<li>Then, k6 uses the script value (if set).</li>
+<li>After, k6 uses the environment variable (if set).</li>
+<li>Finally, k6 takes the value from the CLI flag (if set).</li>
+</ul>
+<p>The script <code>options</code> object is generally the best place to put your options. This
+provides automatic version control, allows for easy reuse, and lets you
+modularize your script.</p>
+<p>When you want to run a quick test, command-line flags are convenient. You can
+also use command-line flags to override files in your script (as determined by
+the order of precedence). For example, if your script file sets the test
+duration at 60 seconds, you could use a CLI flag to run a one-time shorter test.
+With a flag like &ndash;duration 30s, the test would be half as long but otherwise
+identical.</p>
+<h2 id="set-options-in-the-script">Set options in the script</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">hosts</span><span style="color:#f92672">:</span> { <span style="color:#e6db74">&#39;test.k6.io&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1.2.3.4&#39;</span> },
+  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> },
+  ],
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">http_req_duration</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;avg&lt;100&#39;</span>, <span style="color:#e6db74">&#39;p(95)&lt;200&#39;</span>] },
+  <span style="color:#a6e22e">noConnectionReuse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">userAgent</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;MyK6UserAgentString/1.0&#39;</span>,
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">10</span> max VUs, 1m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: Up to <span style="color:#ae81ff">10</span> looping VUs <span style="color:#66d9ef">for</span> 1m0s over <span style="color:#ae81ff">1</span> stages <span style="color:#f92672">(</span>gracefulRampDown: 30s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+WARN<span style="color:#f92672">[</span>0030<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0037<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0043<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0050<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0057<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0060<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0063<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0067<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0070<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0073<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0077<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0080<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0083<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+WARN<span style="color:#f92672">[</span>0087<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;http://test.k6.io/\&#34;: dial: i/o timeout&#34;</span>
+
+running <span style="color:#f92672">(</span>1m26.7s<span style="color:#f92672">)</span>, 00/10 VUs, <span style="color:#ae81ff">14</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> 00/10 VUs  1m0s
+
+     data_received..............: <span style="color:#ae81ff">0</span> B     <span style="color:#ae81ff">0</span> B/s
+     data_sent..................: <span style="color:#ae81ff">0</span> B     <span style="color:#ae81ff">0</span> B/s
+     http_req_blocked...........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_connecting........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+   ✓ http_req_duration..........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_failed............: 100.00% ✓ <span style="color:#ae81ff">14</span>       ✗ <span style="color:#ae81ff">0</span>   
+     http_req_receiving.........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_sending...........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_tls_handshaking...: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_req_waiting...........: avg<span style="color:#f92672">=</span>0s  min<span style="color:#f92672">=</span>0s  med<span style="color:#f92672">=</span>0s  max<span style="color:#f92672">=</span>0s  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>0s  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>0s 
+     http_reqs..................: <span style="color:#ae81ff">14</span>      0.161529/s
+     iteration_duration.........: avg<span style="color:#f92672">=</span>30s min<span style="color:#f92672">=</span>30s med<span style="color:#f92672">=</span>30s max<span style="color:#f92672">=</span>30s p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>30s p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>30s
+     iterations.................: <span style="color:#ae81ff">14</span>      0.161529/s
+     vus........................: <span style="color:#ae81ff">1</span>       min<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span> 
+     vus_max....................: <span style="color:#ae81ff">10</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>     max<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+</code></pre></div><h2 id="set-options-with-environment-variables">Set options with environment variables</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">K6_NO_CONNECTION_REUSE</span><span style="color:#f92672">=</span><span style="color:#66d9ef">true</span> <span style="color:#a6e22e">K6_USER_AGENT</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;MyK6UserAgentString/1.0&#34;</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+
+<span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">connection</span><span style="color:#f92672">-</span><span style="color:#a6e22e">reuse</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">user</span><span style="color:#f92672">-</span><span style="color:#a6e22e">agent</span> <span style="color:#e6db74">&#34;MyK6UserAgentString/1.0&#34;</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+</code></pre></div><h2 id="set-options-from-k6-variables">Set options from k6 variables</h2>
+<p>For example, you could define a variable for your user agent like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">userAgent</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">__</span><span style="color:#a6e22e">ENV</span>.<span style="color:#a6e22e">MY_USER_AGENT</span>,
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io/&#39;</span>);
+}
+</code></pre></div><p>Then execute:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js --env MY_USER_AGENT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello&#34;</span>
+</code></pre></div><h2 id="options-reference">Options reference</h2>
+<p>Import ones I prefer are:</p>
+<h3 id="batch">Batch</h3>
+<p>The maximum number of simultaneous/parallel connections in total that an
+http.batch() call in a VU can make. If you have a batch() call that you&rsquo;ve given
+20 URLs to and &ndash;batch is set to 15, then the VU will make 15 requests right
+away in parallel and queue the rest, executing them as soon as a previous
+request is done and a slot opens. Available in both the k6 run and the k6 cloud
+commands.</p>
+<pre tabindex="0"><code>ENV         CLI        CODE     DEFAULT
+K6_BATCH	--batch	batch	20
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">batch</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">15</span>,
+};
+</code></pre></div><h2 id="batch-per-host">Batch per host</h2>
+<p>The maximum number of simultaneous/parallel connections for the same hostname
+that an http.batch() call in a VU can make. If you have a batch() call that
+you&rsquo;ve given 20 URLs to the same hostname and &ndash;batch-per-host is set to 5, then
+the VU will make 5 requests right away in parallel and queue the rest, executing
+them as soon as a previous request is done and a slot opens. This will not run
+more request in parallel then the value of batch.</p>
+<pre tabindex="0"><code>ENV         CLI        CODE     DEFAULT
+K6_BATCH_PER_HOST	--batch-per-host	batchPerHost	6
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">batchPerHost</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>,
+};
+</code></pre></div><h2 id="vus">VUs</h2>
+<p>An integer value specifying the number of VUs to run concurrently, used together with the iterations or duration options. If you&rsquo;d like more control look at the stages option or scenarios.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_VUS	--vus, -u	vus	1
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1h&#39;</span>,
+};
+</code></pre></div><h2 id="blacklist-ip">Blacklist IP</h2>
+<p>Blacklist IP ranges from being called. Available in k6 run and k6 cloud commands.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+K6_BLACKLIST_IPS	--blacklist-ip	blacklistIPs	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">blacklistIPs</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;10.0.0.0/8&#39;</span>],
+};
+</code></pre></div><h2 id="block-hostnames">Block hostnames</h2>
+<p>Blocks hostnames based on a list glob match strings. The pattern matching string
+can have a single * at the beginning such as *.example.com that will match
+anything before that such as test.example.com and test.test.example.com.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+K6_BLOCK_HOSTNAMES	--block-hostnames	blockHostnames	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">blockHostnames</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;test.k6.io&#39;</span>, <span style="color:#e6db74">&#39;*.example.com&#39;</span>],
+};
+</code></pre></div><h2 id="config">Config</h2>
+<p>Specify the config file in JSON format. If the config file is not specified, k6
+looks for <strong>config.json</strong> in the <strong>loadimpact/k6</strong> directory inside the regular
+directory for configuration files on the operating system. Default config
+locations on different operating systems are as follows:</p>
+<ul>
+<li>Unix-based: ${HOME}/.config/loadimpact/k6/config.json</li>
+<li>macOS: ${HOME}/Library/Application Support/loadimpact/k6/config.json</li>
+<li>Windows: %AppData%/loadimpact/k6/config.json</li>
+</ul>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+N/A	--config &lt;path&gt;, -c &lt;path&gt;	N/A	null
+</code></pre><h2 id="console-output">Console output</h2>
+<p>Redirects logs logged by console methods to the provided output file.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+K6_CONSOLE_OUTPUT	--console-output	N/A	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --console-output <span style="color:#e6db74">&#34;loadtest.log&#34;</span> script.js
+</code></pre></div><h2 id="discard-response-bodies">Discard response bodies</h2>
+<p>Specify if response bodies should be discarded by changing the default value of
+responseType to none for all HTTP requests. Highly recommended to be set to true
+and then only for the requests where the response body is needed for scripting
+to set responseType to text or binary.</p>
+<p>Lessens the amount of memory required and the amount of GC - reducing the load
+on the testing machine, and probably producing more reliable test results.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+K6_DISCARD_RESPONSE_BODIES	--discard-response-bodies	discardResponseBodies	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">discardResponseBodies</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+};
+</code></pre></div><h2 id="dns">DNS</h2>
+<p>This is a composite option that provides control of DNS resolution behavior with
+configuration for cache expiration (TTL), IP selection strategy and IP version
+preference. The TTL field in the DNS record is currently not read by k6, so the
+ttl option allows manual control over this behavior, albeit as a fixed value for
+the duration of the test run.</p>
+<p>Note that DNS resolution is done only on new HTTP connections, and by default k6
+will try to reuse connections if HTTP keep-alive is supported. To force a
+certain DNS behavior consider enabling the <strong>noConnectionReuse</strong> option in your
+tests.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+K6_DNS	--dns	dns	ttl=5m,select=random,policy=preferIPv4
+</code></pre><p>Possible <code>ttl</code> values are:</p>
+<ul>
+<li>0: no caching at all - each request will trigger a new DNS lookup.</li>
+<li>inf: cache any resolved IPs for the duration of the test run.</li>
+<li>any time duration like 60s, 5m30s, 10m, 2h, etc.; if no unit is specified (e.g. ttl=3000), k6 assumes milliseconds.</li>
+</ul>
+<p>Possible <code>select</code> values are:</p>
+<ul>
+<li>first: always pick the first resolved IP.</li>
+<li>random: pick a random IP for every new connection.</li>
+<li>roundRobin: iterate sequentially over the resolved IPs.</li>
+</ul>
+<p>Possible <code>policy</code> values are:</p>
+<ul>
+<li>preferIPv4: use IPv4 addresses if available, otherwise fall back to IPv6.</li>
+<li>preferIPv6: use IPv6 addresses if available, otherwise fall back to IPv4.</li>
+<li>onlyIPv4: only use IPv4 addresses, ignore any IPv6 ones.</li>
+<li>onlyIPv6: only use IPv6 addresses, ignore any IPv4 ones.</li>
+<li>any: no preference, use all addresses.</li>
+</ul>
+<p>Here are some configuration examples:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">K6_DNS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ttl=5m,select=random,policy=preferIPv4&#34;</span> k6 cloud script.js
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">dns</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">ttl</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1m&#39;</span>,
+    <span style="color:#a6e22e">select</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;roundRobin&#39;</span>,
+    <span style="color:#a6e22e">policy</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;any&#39;</span>,
+  },
+};
+</code></pre></div><h2 id="duration">Duration</h2>
+<p>A string specifying the total duration a test run should be run for. During this
+time each VU will execute the script in a loop.</p>
+<p>Together with the <code>vus option</code>, duration is a shortcut for a single <code>scenario</code>
+with a <code>constant VUs executor</code>.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_DURATION	--duration, -d	duration	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>,
+  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3m&#39;</span>,
+};
+</code></pre></div><h2 id="execution-segment">Execution Segment</h2>
+<p>These options specify how to partition the test run and which segment to run. If
+defined, k6 will scale the number of VUs and iterations to be run for that
+segment, which is useful in distributed execution. Available in k6 run and k6
+cloud commands.</p>
+<p>For example, to run 25% of a test, you would specify <code>--execution-segment</code>
+&lsquo;25%&rsquo;, which would be equivalent to <code>--execution-segment</code> &lsquo;0:1/4&rsquo;, i.e. run the
+first 1/4 of the test. To ensure that each instance executes a specific segment,
+also specify the full segment sequence, e.g. <code>--execution-segment-sequence</code>
+&lsquo;0,1/4,1/2,1&rsquo;. This way one instance could run with <code>--execution-segment</code>
+&lsquo;0:1/4&rsquo;, another with <code>--execution-segment</code> &lsquo;1/4:1/2&rsquo;, etc. and there would be
+no overlap between them.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	--execution-segment	executionSegment	&quot;0:1&quot;
+N/A	--execution-segment-sequence	executionSegmentSequence	&quot;0,1&quot;
+</code></pre><h3 id="hosts">Hosts</h3>
+<p>An object with overrides to DNS resolution, similar to what you can do with
+/etc/hosts on Linux/Unix or C:\Windows\System32\drivers\etc\hosts on
+Windows. For instance, you could set up an override which routes all requests
+for test.k6.io to 1.2.3.4.</p>
+<p>You can also redirect only from certain ports or to certain ports.</p>
+<blockquote>
+<p>This does not modify the actual HTTP Host header, but rather where it will be
+routed.</p>
+</blockquote>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	N/A	hosts	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">hosts</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#39;test.k6.io&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1.2.3.4&#39;</span>,
+    <span style="color:#e6db74">&#39;test.k6.io:443&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;1.2.3.4:8443&#39;</span>,
+  },
+};
+</code></pre></div><p>With the above code any request made to test.k6.io will be redirected to 1.2.3.4 without changing it port unless it&rsquo;s port is 443 which will be redirected to port 8443.</p>
+<h2 id="http-debug">HTTP debug</h2>
+<p>Log all HTTP requests and responses. Excludes body by default, to include body use &ndash;http-debug=full.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_HTTP_DEBUG	--http-debug,--http-debug=full	httpDebug	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">httpDebug</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;full&#39;</span>,
+};
+</code></pre></div><h2 id="include-system-env-vars">Include system env vars</h2>
+<p>Pass the real system environment variables to the runtime.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	--include-system-env-vars	N/A	true for k6 run, but false for all other commands to prevent inadvertent sensitive data leaks.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --include-system-env-vars ~/script.js
+</code></pre></div><h2 id="insecure-skip-tls-verify">Insecure skip TLS verify</h2>
+<p>A boolean, true or false. When this option is enabled (set to true), all of the
+verifications that would otherwise be done to establish trust in a server
+provided TLS certificate will be ignored. This only applies to connections
+created by VU code, such as http requests.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_INSECURE_SKIP_TLS_VERIFY	--insecure-skip-tls-verify insecureSkipTLSVerify	false
+</code></pre><h2 id="iterations">Iterations</h2>
+<p>An integer value, specifying the total number of iterations of the default
+function to execute in the test run, as opposed to specifying a duration of time
+during which the script would run in a loop.</p>
+<p>Together with the <code>vus</code> option, iterations is a shortcut for a single <code>scenario</code>
+with a <code>shared iterations executor</code>.</p>
+<p>By default, the maximum duration of a shared-iterations scenario is 10 minutes.
+You can adjust that time via the maxDuration option of the scenario, or by also
+specifying the duration global shortcut option.</p>
+<p><strong>Note that iterations aren&rsquo;t fairly distributed with this option, and a VU that
+executes faster will complete more iterations than others.</strong></p>
+<p>Each VU will try to complete as many iterations as possible,
+<a href="https://en.wikipedia.org/wiki/Work_stealing">&ldquo;stealing&rdquo;</a> them from the total
+number of iterations for the test. So, depending on iteration times, some VUs
+may complete more iterations than others. If you want guarantees that every VU
+will complete a specific, fixed number of iterations, use the <code>per-VU iterations executor</code>.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_ITERATIONS	--iterations, -i	iterations
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#a6e22e">iterations</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>,
+};
+</code></pre></div><h2 id="linger">Linger</h2>
+<p>A boolean, true or false, specifying whether the k6 process should linger around
+after test run completion.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_LINGER	--linger, -l	linger	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">linger</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+};
+</code></pre></div><h2 id="local-ips">Local ips</h2>
+<p>This option can be used for splitting the network traffic from k6 between
+multiple network cards, thus potentially increasing the available network
+throughput. For example, if you have 2 NICs, you can run k6 with
+<code>--local-ips=&quot;&lt;IP-from-first-NIC&gt;,&lt;IP-from-second-NIC&gt;&quot;</code> to balance the traffic
+equally between them - half of the VUs will use the first IP and the other half
+will use the second.</p>
+<p>This can scale to any number of NICs, and you can repeat some local IPs to give
+them more traffic. For example, <code>--local-ips=&quot;&lt;IP1&gt;,&lt;IP2&gt;,&lt;IP3&gt;,&lt;IP3&gt;&quot;</code> will
+split VUs between 3 different source IPs in a <code>25%:25%:50%</code> ratio.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_LOCAL_IPS	--local-ips	N/A	N/A
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --local-ips<span style="color:#f92672">=</span>192.168.20.12-192.168.20.15,192.168.10.0/27 script.js
+</code></pre></div><h2 id="log-output">Log output</h2>
+<p>This option specifies where to send logs to and another configuration connected
+to it.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_LOG_OUTPUT	--log-output	N/A	stderr
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --log-output<span style="color:#f92672">=</span>stdout script.js
+</code></pre></div><p>Possible values are:</p>
+<ul>
+<li>none - disable</li>
+<li>stdout - send to the standard output</li>
+<li>stderr - send to the standard error output (this is the default)</li>
+<li>loki - send logs to a loki server</li>
+<li>file - write logs to a file</li>
+</ul>
+<h2 id="max-redirects">Max redirects</h2>
+<p>The maximum number of HTTP redirects that k6 will follow before giving up on a
+request and erroring out.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_MAX_REDIRECTS	--max-redirects	maxRedirects	10
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">maxRedirects</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+};
+</code></pre></div><h2 id="minimum-iteration-duration">Minimum iteration duration</h2>
+<p>Specifies the minimum duration of every single execution (i.e. iteration) of the
+default function. Any iterations that are shorter than this value will cause
+that VU to sleep for the remainder of the time until the specified minimum
+duration is reached.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_MIN_ITERATION_DURATION	--min-iteration-duration	minIterationDuration	0 (disabled)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">minIterationDuration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
+};
+</code></pre></div><h2 id="no-connection-reuse">No connection reuse</h2>
+<p>A boolean, true or false, specifying whether k6 should disable keep-alive
+connections.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_NO_CONNECTION_REUSE	--no-connection-reuse	noConnectionReuse	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">noConnectionReuse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+};
+</code></pre></div><h2 id="no-cookies-reset">No cookies reset</h2>
+<p>This disables the default behavior of resetting the cookie jar after each VU
+iteration. If it&rsquo;s enabled, saved cookies will be persisted across VU
+iterations.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_NO_COOKIES_RESET	N/A	noCookiesReset	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">noCookiesReset</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+};
+</code></pre></div><h2 id="no-summary">No summary</h2>
+<p>Disables end-of-test summary generation, including calls to <code>handleSummary()</code>
+and <code>--summary-export</code></p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_NO_SUMMARY	--no-summary	N/A	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">summary</span> <span style="color:#f92672">~</span><span style="color:#960050;background-color:#1e0010">/script.js</span>
+</code></pre></div><h2 id="no-setup-and-no-teardown">No setup and no teardown</h2>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_NO_SETUP	--no-setup	N/A	false
+K6_NO_TEARDOWN	--no-teardown	N/A	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">setup</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">teardown</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">js</span>
+</code></pre></div><h2 id="no-thresholds">No thresholds</h2>
+<p>Disables threshold execution.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_NO_THRESHOLDS	--no-thresholds	N/A	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">no</span><span style="color:#f92672">-</span><span style="color:#a6e22e">thresholds</span> <span style="color:#f92672">~</span><span style="color:#960050;background-color:#1e0010">/script.js</span>
+</code></pre></div><h2 id="no-vu-connection-reuse">No VU connection reuse</h2>
+<p>A boolean, true or false, specifying whether k6 should reuse TCP connections
+between iterations of a VU.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_NO_VU_CONNECTION_REUSE	--no-vu-connection-reuse	noVUConnectionReuse	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">noVUConnectionReuse</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+};
+</code></pre></div><h2 id="paused">Paused</h2>
+<p>A boolean, true or false, specifying whether the test should start in a paused state. To resume a paused state you&rsquo;d use the <code>k6 resume</code> command.</p>
+<pre tabindex="0"><code>NV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_PAUSED	--paused, -p	paused	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">paused</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+};
+</code></pre></div><p>When paused:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  pt-samples git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k6 run  pt-1-0001-stages.ts -p
+<span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">2</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">10</span> iterations shared among <span style="color:#ae81ff">2</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+
+Run       <span style="color:#f92672">[======================================]</span> paused
+default   <span style="color:#f92672">[</span>--------------------------------------<span style="color:#f92672">]</span>
+</code></pre></div><p>When resumed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  pt-samples git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k6 resume
+status: <span style="color:#ae81ff">4</span>
+paused: <span style="color:#e6db74">&#34;false&#34;</span>
+vus: <span style="color:#e6db74">&#34;0&#34;</span>
+vus-max: <span style="color:#e6db74">&#34;2&#34;</span>
+stopped: false
+running: false
+tainted: false
+</code></pre></div><h2 id="quiet">Quiet</h2>
+<p>A boolean, true or false, that disables the progress update bar on the console output.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	--quiet, -q	N/A	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run script.js -d 20s --quiet
+</code></pre></div><h2 id="result-output">Result output</h2>
+<p>Specify the results output.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_OUT	--out, -o	N/A	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">k6</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">out</span> <span style="color:#a6e22e">influxdb</span><span style="color:#f92672">=</span><span style="color:#a6e22e">http</span><span style="color:#f92672">:</span><span style="color:#75715e">//localhost:8086/k6 script.js
+</span></code></pre></div><h2 id="rps">RPS</h2>
+<p>The maximum number of requests to make per second, in total across all VUs.</p>
+<blockquote>
+<p>This option is discouraged The &ndash;rps option has caveats and is difficult to
+use correctly.</p>
+<p>For example, in the cloud or distributed execution, this option affects every
+k6 instance independently. That is, it is not sharded like VUs are. We
+strongly recommend the arrival-rate executors to simulate constant RPS instead
+of this option.</p>
+</blockquote>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_RPS	--rps	rps	0 (unlimited)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">rps</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">500</span>,
+};
+</code></pre></div><h1 id="scenario">Scenario</h1>
+<p>Define one or more execution patterns, with various VU and iteration scheduling
+settings, running different exported functions (besides default!), using
+different environment variables, tags, and more.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	N/A	scenarios	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">my_api_scenario</span><span style="color:#f92672">:</span> {
+      <span style="color:#75715e">// arbitrary scenario name
+</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ramping-vus&#39;</span>,
+      <span style="color:#a6e22e">startVUs</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+      <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+        { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span> },
+        { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> },
+      ],
+      <span style="color:#a6e22e">gracefulRampDown</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
+      <span style="color:#a6e22e">env</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">MYVAR</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;example&#39;</span> },
+      <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">my_tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;example&#39;</span> },
+    },
+  },
+};
+</code></pre></div><h2 id="setup-timeout">Setup timeout</h2>
+<p>Specify how long the <code>setup()</code> function is allow to run before it&rsquo;s terminated
+and the test fails.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_SETUP_TIMEOUT	N/A	setupTimeout	&quot;60s&quot;
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">setupTimeout</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
+};
+</code></pre></div><h2 id="teardown-timeout">Teardown timeout</h2>
+<p>Specify how long the <code>teardown()</code> function is allowed to run before it&rsquo;s
+terminated and the test fails.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_TEARDOWN_TIMEOUT	N/A	teardownTimeout	&quot;60s&quot;
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">teardownTimeout</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
+};
+</code></pre></div><h2 id="stages">Stages</h2>
+<p>A list of VU { target: &hellip;, duration: &hellip; } objects that specify the target
+number of VUs to ramp up or down to for a specific period.</p>
+<p>It is a shortcut option for a single <code>scenario</code> with a <code>ramping VUs executor</code>.
+If used together with the <code>VUs</code> option, the vus value is used as the startVUs
+option of the executor.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_STAGES	--stage &lt;duration&gt;:&lt;target&gt;, -s &lt;duration&gt;:&lt;target&gt;	stages	Based on vus and duration.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// The following config would have k6 ramping up from 1 to 10 VUs for 3 minutes,
+</span><span style="color:#75715e">// then staying flat at 10 VUs for 5 minutes, then ramping up from 10 to 35 VUs
+</span><span style="color:#75715e">// over the next 10 minutes before finally ramping down to 0 VUs for another
+</span><span style="color:#75715e">// 3 minutes.
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> },
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> },
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">35</span> },
+    { <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3m&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> },
+  ],
+};
+
+</code></pre></div><h2 id="supply-environment-variables">Supply environment variables</h2>
+<p>Add/override an `environment variable`` with VAR=valuein a k6 script. Available
+in k6 run and k6 cloud commands.</p>
+<p>To make the system environment variables available in the k6 script via
+<code>__ENV``, use the </code>&ndash;include-system-env-vars` option.</p>
+<blockquote>
+<p>The <code>-e</code> flag does not configure options This flag just provides variables to
+the script, which the script can use or ignore. For example, -e
+K6_ITERATIONS=120 does not configure the script iterations.</p>
+<p>Compare this behavior with K6_ITERATIONS=120 k6 run script.js, which does set
+iterations.</p>
+</blockquote>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	--env, -e	N/A	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run -e FOO<span style="color:#f92672">=</span>bar ~/script.js
+</code></pre></div><h2 id="system-tags">System tags</h2>
+<p>Specify which system tags will be in the collected metrics. Some collectors like
+the cloud one may require that certain system tags be used. You can specify the
+tags as an array from the JS scripts or as a comma-separated list via the CLI.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_SYSTEM_TAGS	--system-tags	systemTags	proto,subproto,status,method,url,name,group,check,error,error_code,tls_version,scenario,service,expected_response
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">systemTags</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;status&#39;</span>, <span style="color:#e6db74">&#39;method&#39;</span>, <span style="color:#e6db74">&#39;url&#39;</span>],
+};
+</code></pre></div><h2 id="summary-time-unit">Summary time unit</h2>
+<p>Define which time unit will be used for all time values in the end-of-test
+summary. Possible values are <code>s</code> (seconds), <code>ms</code> (milliseconds) and us
+(microseconds). If no value is specified, k6 will use mixed time units, choosing
+the most appropriate unit for each value.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_SUMMARY_TIME_UNIT	--summary-time-unit	summaryTimeUnit	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">summaryTimeUnit</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ms&#39;</span>,
+};
+</code></pre></div><h2 id="summary-trend-stats">Summary trend stats</h2>
+<p>Define which stats for <a href="https://k6.io/docs/javascript-api/k6-metrics/trend/">Trend
+metrics</a> (e.g. response
+times, group/iteration durations, etc.) will be shown in the end-of-test
+summary. Possible values include avg (average), med (median), min, max, count,
+as well as arbitrary percentile values (e.g. p(95), p(99), p(99.99), etc.).</p>
+<p>For further summary customization and exporting the summary in various formats
+(e.g. JSON, JUnit/XUnit/etc. XML, HTML, .txt, etc.), refer to the new
+handleSummary() callback.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_SUMMARY_TREND_STATS	--summary-trend-stats	summaryTrendStats	avg,min,med,max,p(90),p(95)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">summaryTrendStats</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;avg&#39;</span>, <span style="color:#e6db74">&#39;min&#39;</span>, <span style="color:#e6db74">&#39;med&#39;</span>, <span style="color:#e6db74">&#39;max&#39;</span>, <span style="color:#e6db74">&#39;p(95)&#39;</span>, <span style="color:#e6db74">&#39;p(99)&#39;</span>, <span style="color:#e6db74">&#39;p(99.99)&#39;</span>, <span style="color:#e6db74">&#39;count&#39;</span>],
+};
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ k6 run --summary-trend-stats<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;avg,min,med,max,p(90),p(99.9),p(99.99),count&#34;</span> ./script.js
+</code></pre></div><h2 id="tags">tags</h2>
+<p>Specify tags that should be set test wide across all metrics. If a tag with the
+same name has been specified on a request, check or custom metrics it will have
+precedence over a test wide tag.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	--tag NAME=VALUE	tags	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">tags</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;value&#39;</span>,
+  },
+};
+</code></pre></div><h2 id="thresholds">Thresholds</h2>
+<p>A collection of threshold specifications to configure under what condition(s) a
+test is considered successful or not, when it has passed or failed, based on
+metric data. To learn more, have a look at the
+<a href="https://k6.io/docs/using-k6/thresholds">Thresholds</a> documentation.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	N/A	thresholds	null
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">thresholds</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#39;http_req_duration&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;avg&lt;100&#39;</span>, <span style="color:#e6db74">&#39;p(95)&lt;200&#39;</span>],
+    <span style="color:#e6db74">&#39;http_req_connecting{cdnAsset:true}&#39;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;p(95)&lt;100&#39;</span>],
+  },
+};
+</code></pre></div><h2 id="throw">Throw</h2>
+<p>A boolean, true or false, specifying whether k6 should throw exceptions when certain errors occur, or if it should just log them with a warning. Behaviors that currently depend on this option:</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+K6_THROW	--throw, -w	throw	false
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">exec</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/execution&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">group</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,
+  <span style="color:#a6e22e">iterations</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
+  <span style="color:#66d9ef">throw</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+ };
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
+  <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">vu</span>.<span style="color:#a6e22e">tags</span>.<span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;main&#39;</span>;
+
+  <span style="color:#a6e22e">group</span>(<span style="color:#e6db74">&#39;main&#39;</span>, <span style="color:#66d9ef">function</span> () {
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io1&#39;</span>);
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io&#39;</span>);
+  });
+
+  <span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">vu</span>.<span style="color:#a6e22e">tags</span>.<span style="color:#a6e22e">test</span>;
+}
+</code></pre></div><p>before :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">WARN<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;https://test.k6.io1\&#34;: lookup test.k6.io1: no such host&#34;</span>
+WARN<span style="color:#f92672">[</span>0003<span style="color:#f92672">]</span> Request Failed                                error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Get \&#34;https://test.k6.io1\&#34;: lookup test.k6.io1: no such host&#34;</span>
+
+running <span style="color:#f92672">(</span>00m03.1s<span style="color:#f92672">)</span>, 0/2 VUs, <span style="color:#ae81ff">10</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">2</span> VUs  00m03.1s/10m0s  10/10 shared iters
+
+     █ main
+
+     data_received..................: <span style="color:#ae81ff">126</span> kB <span style="color:#ae81ff">41</span> kB/s
+     data_sent......................: 1.7 kB <span style="color:#ae81ff">538</span> B/s
+</code></pre></div><p>after:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ERRO<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> GoError: Get <span style="color:#e6db74">&#34;https://test.k6.io1&#34;</span>: lookup test.k6.io1: no such host
+        at go.k6.io/k6/js/modules/k6/http.<span style="color:#f92672">(</span>*RootModule<span style="color:#f92672">)</span>.NewModuleInstance.func2 <span style="color:#f92672">(</span>native<span style="color:#f92672">)</span>
+        at file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts:15:4<span style="color:#f92672">(</span>5<span style="color:#f92672">)</span>
+        at go.k6.io/k6/js/modules/k6.<span style="color:#f92672">(</span>*K6<span style="color:#f92672">)</span>.Group-fm <span style="color:#f92672">(</span>native<span style="color:#f92672">)</span>
+        at file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts:14:2<span style="color:#f92672">(</span>11<span style="color:#f92672">)</span>
+        at native  executor<span style="color:#f92672">=</span>shared-iterations scenario<span style="color:#f92672">=</span>default source<span style="color:#f92672">=</span>stacktrace
+
+running <span style="color:#f92672">(</span>00m00.0s<span style="color:#f92672">)</span>, 0/2 VUs, <span style="color:#ae81ff">10</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">2</span> VUs  00m00.0s/10m0s  10/10 shared iters
+
+     █ main
+
+     data_received..............: <span style="color:#ae81ff">0</span> B     <span style="color:#ae81ff">0</span> B/s
+     data_sent..................: <span style="color:#ae81ff">0</span> B     <span style="color:#ae81ff">0</span> B/s
+</code></pre></div><h2 id="user-agent">User agent</h2>
+<p>A string specifying the user-agent string to use in <strong>User-Agent</strong> headers when
+sending HTTP requests. If you pass an empty string, no User-Agent header is
+sent. Available in k6 run and k6 cloud commands</p>
+<h2 id="verbose">Verbose</h2>
+<p>A boolean specifying whether verbose logging is enabled.</p>
+<pre tabindex="0"><code>ENV	CLI	CODE / CONFIG FILE	DEFAULT
+
+N/A	--verbose, -v	N/A	false
+</code></pre><p>The verbose output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  pt-samples git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ k6 run  pt-1-0001-stages.ts -v
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Logger format: TEXT                          
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> k6 version: v0.38.3 <span style="color:#f92672">((</span>devel<span style="color:#f92672">)</span>, go1.18.2, darwin/amd64<span style="color:#f92672">)</span> 
+
+          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
+     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
+    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
+   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
+  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Resolving and reading test <span style="color:#e6db74">&#39;pt-1-0001-stages.ts&#39;</span>... 
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Loading...                                    moduleSpecifier<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts&#34;</span> originalModuleSpecifier<span style="color:#f92672">=</span>pt-1-0001-stages.ts
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> <span style="color:#e6db74">&#39;pt-1-0001-stages.ts&#39;</span> resolved to <span style="color:#e6db74">&#39;file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts&#39;</span> and successfully loaded <span style="color:#ae81ff">311</span> bytes! 
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Gathering k6 runtime options...              
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initializing k6 runner <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;pt-1-0001-stages.ts&#39;</span> <span style="color:#f92672">(</span>file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts<span style="color:#f92672">)</span>... 
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Detecting test type <span style="color:#66d9ef">for</span>...                    test_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts&#34;</span>
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Trying to load as a JS test...                test_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file:///Users/tenglong.tl/Works/Projects/test-toolkit/test/pt-samples/pt-1-0001-stages.ts&#34;</span>
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Babel: Transformed                            t<span style="color:#f92672">=</span>64.869053ms
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Runner successfully initialized!             
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Parsing CLI flags...                         
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Consolidating config layers...               
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Parsing thresholds and validating config...  
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initializing the execution scheduler...      
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Starting <span style="color:#ae81ff">1</span> outputs...                         component<span style="color:#f92672">=</span>output-manager
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Starting...                                   component<span style="color:#f92672">=</span>metrics-engine-ingester
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Started!                                      component<span style="color:#f92672">=</span>metrics-engine-ingester
+  execution: local
+     script: pt-1-0001-stages.ts
+     output: -
+
+  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">2</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
+           * default: <span style="color:#ae81ff">10</span> iterations shared among <span style="color:#ae81ff">2</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Starting the REST API server on localhost:6565 
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initialization starting...                    component<span style="color:#f92672">=</span>engine
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Starting emission of VUs and VUsMax metrics... 
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Start of initialization                       executorsCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> neededVUs<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> phase<span style="color:#f92672">=</span>local-execution-scheduler-init
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initialized VU <span style="color:#75715e">#1                             phase=local-execution-scheduler-init</span>
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initialized VU <span style="color:#75715e">#2                             phase=local-execution-scheduler-init</span>
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Finished initializing needed VUs, start initializing executors...  phase<span style="color:#f92672">=</span>local-execution-scheduler-init
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initialized executor default                  phase<span style="color:#f92672">=</span>local-execution-scheduler-init
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Initialization completed                      phase<span style="color:#f92672">=</span>local-execution-scheduler-init
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Execution scheduler starting...               component<span style="color:#f92672">=</span>engine
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Start of test run                             executorsCount<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> phase<span style="color:#f92672">=</span>local-execution-scheduler-run
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Running setup<span style="color:#f92672">()</span>                               phase<span style="color:#f92672">=</span>local-execution-scheduler-run
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Metrics processing started...                 component<span style="color:#f92672">=</span>engine
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Start all executors...                        phase<span style="color:#f92672">=</span>local-execution-scheduler-run
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Starting executor                             executor<span style="color:#f92672">=</span>default startTime<span style="color:#f92672">=</span>0s type<span style="color:#f92672">=</span>shared-iterations
+DEBU<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Starting executor run...                      executor<span style="color:#f92672">=</span>shared-iterations iterations<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> maxDuration<span style="color:#f92672">=</span>10m0s scenario<span style="color:#f92672">=</span>default type<span style="color:#f92672">=</span>shared-iterations vus<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Executor finished successfully                executor<span style="color:#f92672">=</span>default startTime<span style="color:#f92672">=</span>0s type<span style="color:#f92672">=</span>shared-iterations
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Running teardown<span style="color:#f92672">()</span>                            phase<span style="color:#f92672">=</span>local-execution-scheduler-run
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Regular duration is <span style="color:#66d9ef">done</span>, waiting <span style="color:#66d9ef">for</span> iterations to gracefully finish  executor<span style="color:#f92672">=</span>shared-iterations gracefulStop<span style="color:#f92672">=</span>30s scenario<span style="color:#f92672">=</span>default
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Metrics emission of VUs and VUsMax metrics stopped 
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Execution scheduler terminated                component<span style="color:#f92672">=</span>engine error<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;nil&gt;&#34;</span>
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Processing metrics and thresholds after the test run has ended...  component<span style="color:#f92672">=</span>engine
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Stopping...                                   component<span style="color:#f92672">=</span>metrics-engine-ingester
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> run: execution scheduler terminated           component<span style="color:#f92672">=</span>engine
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Stopped!                                      component<span style="color:#f92672">=</span>metrics-engine-ingester
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Engine run terminated cleanly                
+
+running <span style="color:#f92672">(</span>00m01.7s<span style="color:#f92672">)</span>, 0/2 VUs, <span style="color:#ae81ff">10</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✗ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">2</span> VUs  00m01.6s/10m0s  10/10 shared iters
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Engine: Thresholds terminated                 component<span style="color:#f92672">=</span>engine
+
+running <span style="color:#f92672">(</span>00m01.7s<span style="color:#f92672">)</span>, 0/2 VUs, <span style="color:#ae81ff">10</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
+default ✗ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">2</span> VUs  00m01.6s/10m0s  10/10 shared iters
+
+     █ main
+
+     data_received..................: <span style="color:#ae81ff">126</span> kB <span style="color:#ae81ff">76</span> kB/s
+     data_sent......................: 1.7 kB 1.0 kB/s
+     group_duration.................: avg<span style="color:#f92672">=</span>329.46ms min<span style="color:#f92672">=</span>218.79ms med<span style="color:#f92672">=</span>219.6ms  max<span style="color:#f92672">=</span>769.38ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>766.71ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>768.04ms
+     http_req_blocked...............: avg<span style="color:#f92672">=</span>110.01ms min<span style="color:#f92672">=</span>1µs      med<span style="color:#f92672">=</span>2.5µs    max<span style="color:#f92672">=</span>552.24ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>548.29ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>550.27ms
+     http_req_connecting............: avg<span style="color:#f92672">=</span>42.66ms  min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>213.42ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>213.25ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>213.34ms
+     http_req_duration..............: avg<span style="color:#f92672">=</span>219.47ms min<span style="color:#f92672">=</span>216.69ms med<span style="color:#f92672">=</span>219.26ms max<span style="color:#f92672">=</span>222.97ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>221.54ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>222.25ms
+       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>219.47ms min<span style="color:#f92672">=</span>216.69ms med<span style="color:#f92672">=</span>219.26ms max<span style="color:#f92672">=</span>222.97ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>221.54ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>222.25ms
+     http_req_failed................: 0.00%  ✓ <span style="color:#ae81ff">0</span>      ✗ <span style="color:#ae81ff">10</span> 
+     http_req_receiving.............: avg<span style="color:#f92672">=</span>127.7µs  min<span style="color:#f92672">=</span>60µs     med<span style="color:#f92672">=</span>99µs     max<span style="color:#f92672">=</span>432µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>154.79µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>293.39µs
+     http_req_sending...............: avg<span style="color:#f92672">=</span>24.9µs   min<span style="color:#f92672">=</span>7µs      med<span style="color:#f92672">=</span>16.5µs   max<span style="color:#f92672">=</span>78µs     p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>40.19µs  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>59.09µs 
+     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>66.65ms  min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>335.27ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>331.64ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>333.46ms
+     http_req_waiting...............: avg<span style="color:#f92672">=</span>219.32ms min<span style="color:#f92672">=</span>216.56ms med<span style="color:#f92672">=</span>219.17ms max<span style="color:#f92672">=</span>222.85ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>221.42ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>222.13ms
+     http_reqs......................: <span style="color:#ae81ff">10</span>     6.0535/s
+     iteration_duration.............: avg<span style="color:#f92672">=</span>329.6ms  min<span style="color:#f92672">=</span>218.86ms med<span style="color:#f92672">=</span>219.71ms max<span style="color:#f92672">=</span>769.47ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>767.28ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>768.38ms
+     iterations.....................: <span style="color:#ae81ff">10</span>     6.0535/s
+     vus............................: <span style="color:#ae81ff">2</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>    max<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+     vus_max........................: <span style="color:#ae81ff">2</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>    max<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Waiting <span style="color:#66d9ef">for</span> engine processes to finish...    
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Metrics processing winding down...            component<span style="color:#f92672">=</span>engine
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Everything has finished, exiting k6!         
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Stopping <span style="color:#ae81ff">1</span> outputs...                         component<span style="color:#f92672">=</span>output-manager
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Stopping...                                   component<span style="color:#f92672">=</span>metrics-engine-ingester
+DEBU<span style="color:#f92672">[</span>0002<span style="color:#f92672">]</span> Stopped!                                      component<span style="color:#f92672">=</span>metrics-engine-ingester
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/k6-2-result-output/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">k6 series [2] - Result Output</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/k6-3-tags-and-groups/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">k6 series [3] - Tags And Groups</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

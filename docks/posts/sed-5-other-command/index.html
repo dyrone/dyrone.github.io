@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Sed 5 Other Command - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Sed 5 Other Command" />
+<meta property="og:description" content="Command # The following example show to use sed to comment the options will affect the final result:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/sed-5-other-command/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-15T11:56:21+08:00" />
+<meta property="article:modified_time" content="2022-08-15T11:56:21+08:00" />
+
+
+		<meta itemprop="name" content="Sed 5 Other Command">
+<meta itemprop="description" content="Command # The following example show to use sed to comment the options will affect the final result:"><meta itemprop="datePublished" content="2022-08-15T11:56:21+08:00" />
+<meta itemprop="dateModified" content="2022-08-15T11:56:21+08:00" />
+<meta itemprop="wordCount" content="621">
+<meta itemprop="keywords" content="linux,sed," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sed 5 Other Command"/>
+<meta name="twitter:description" content="Command # The following example show to use sed to comment the options will affect the final result:"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Sed 5 Other Command</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-15T11:56:21&#43;08:00">2022-08-15</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#command-">Command <strong>#</strong></a></li>
+    <li><a href="#command-q">Command <strong>q</strong></a></li>
+    <li><a href="#command-d">Command <strong>d</strong></a></li>
+    <li><a href="#command-p">Command <strong>p</strong></a></li>
+    <li><a href="#command-n">Command <strong>n</strong></a>
+      <ul>
+        <li><a href="#-commands-">{ commands }</a></li>
+        <li><a href="#command-ysource-charsdest-chars">Command <strong>y/source-chars/dest-chars/</strong></a></li>
+        <li><a href="#command-a-and-a">Command <strong>a</strong> and *<em>a*</em></a></li>
+        <li><a href="#command-i-and-i">Command <strong>i</strong> and *<em>i*</em></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="command-">Command <strong>#</strong></h2>
+<p>The following example show to use sed to comment the options will affect the
+final result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ echo <span style="color:#e6db74">&#39;ls&#39;</span> |gsed <span style="color:#e6db74">&#39;s/ls/ls #-a/e&#39;</span>
+README.md
+archetypes
+config.toml
+content
+data
+docs
+layouts
+resources
+static
+test
+themes
+➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ echo <span style="color:#e6db74">&#39;ls&#39;</span> |gsed <span style="color:#e6db74">&#39;s/ls/ls -a/e&#39;</span> 
+.
+..
+.git
+.gitignore
+.gitmodules
+README.md
+archetypes
+config.toml
+content
+data
+docs
+layouts
+resources
+static
+test
+themes
+</code></pre></div><p>or we could append the comments after each print out:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> |gsed <span style="color:#e6db74">&#39;a# do a respectively print out &#39;</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#75715e"># do a respectively print out </span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#75715e"># do a respectively print out </span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#75715e"># do a respectively print out </span>
+</code></pre></div><h2 id="command-q">Command <strong>q</strong></h2>
+<blockquote>
+<p>This command accepts only one address</p>
+</blockquote>
+<p>Exit sed without processing any more commands or input.The ability to return an
+exit code from the sed script is a GNU sed extension.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> |gsed 2q3
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ echo $?
+<span style="color:#ae81ff">3</span>
+</code></pre></div><h2 id="command-d">Command <strong>d</strong></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> |gsed 2d                               
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">3</span>
+</code></pre></div><h2 id="command-p">Command <strong>p</strong></h2>
+<p>Print out the pattern space (to the standard output). This command is usually only used in conjunction with the -n command-line option.
+Example: print only the second input line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> | gsed 2p
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">3</span>
+➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> | gsed -n  2p
+<span style="color:#ae81ff">2</span>
+</code></pre></div><h2 id="command-n">Command <strong>n</strong></h2>
+<blockquote>
+<p>This command is useful to skip lines (e.g. process every Nth line).</p>
+</blockquote>
+<p>If auto-print is not disabled, print the pattern space, then, regardless,
+replace the pattern space with the next line of input. If there is no more input
+then sed exits without processing any more commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ seq <span style="color:#ae81ff">6</span> | sed <span style="color:#e6db74">&#39;n;n;s/./x/&#39;</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+x
+<span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">5</span>
+x
+</code></pre></div><blockquote>
+<p>GNU sed provides an extension address syntax of first~step to achieve the same
+result:</p>
+</blockquote>
+<pre tabindex="0"><code>$ seq 6 | sed '0~3s/./x/'
+1
+2
+x
+4
+5
+x
+</code></pre><h3 id="-commands-">{ commands }</h3>
+<p>A group of commands may be enclosed between { and } characters. This is particularly useful when you want a group of commands to be triggered by a single address (or address-range) match.</p>
+<p>Example: perform substitution then print the second input line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ seq <span style="color:#ae81ff">3</span> | sed -n <span style="color:#e6db74">&#39;2{s/2/X/ ; p}&#39;</span> X
+</code></pre></div><h3 id="command-ysource-charsdest-chars">Command <strong>y/source-chars/dest-chars/</strong></h3>
+<p>Transliterate any characters in the pattern space which match any of the
+source-chars with the corresponding character in dest-chars.</p>
+<p>Example: transliterate ‘a-j’ into ‘0-9’:</p>
+<pre tabindex="0"><code>$ echo hello world | sed 'y/abcdefghij/0123456789/'
+74llo worl3
+</code></pre><p>(The / characters may be uniformly replaced by any other single character within
+any given y command.) Instances of the / (or whatever other character is used in
+its stead), , or newlines can appear in the source-chars or dest-chars lists,
+provide that each instance is escaped by a . The source-chars and dest-chars
+lists must contain the same number of characters (after de-escaping). See the tr
+command from GNU coreutils for similar functionality.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ echo -n <span style="color:#e6db74">&#39;hello worldx&#39;</span> | gsed <span style="color:#e6db74">&#39;y/abcdefghijx/0123456789\n/&#39;</span>
+74llo worl3
+➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ 
+</code></pre></div><h3 id="command-a-and-a">Command <strong>a</strong> and *<em>a*</em></h3>
+<p>Appending text after a line. This is a GNU extension to the standard a com-
+mand - see below for details. Example: Add the word ‘hello’ after the second
+line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> | gsed <span style="color:#e6db74">&#39;2a hello&#39;</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+hello
+<span style="color:#ae81ff">3</span>
+</code></pre></div><p>The command resume after the last line without a <code>\</code> ‘world’ in following
+example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  blogs git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ seq <span style="color:#ae81ff">3</span> | sed <span style="color:#e6db74">&#39;2a\
+</span><span style="color:#e6db74">pipe quote&gt; hello\
+</span><span style="color:#e6db74">pipe quote&gt; world
+</span><span style="color:#e6db74">pipe quote&gt; 3s/./X/&#39;</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+hello
+world
+X
+</code></pre></div><h3 id="command-i-and-i">Command <strong>i</strong> and *<em>i*</em></h3>
+<p>insert text before a line. This is a GNU extension to the standard i command -
+see below for details. Example: Insert the word ‘hello’ before the second line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ seq <span style="color:#ae81ff">3</span> | sed <span style="color:#e6db74">&#39;2i hello&#39;</span>
+<span style="color:#ae81ff">1</span>
+hello
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">3</span>
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/linux/" rel="tag">linux</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/sed/" rel="tag">sed</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/k6-7-module/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">k6 series [7] - Module</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
