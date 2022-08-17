@@ -8,12 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Sed 5 Other Command</title>
+      <title>[WIP]Sed  [5] The other Commands</title>
       <link>https://dyrone.github.io/posts/sed-5-other-command/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
       <guid>https://dyrone.github.io/posts/sed-5-other-command/</guid>
       <description>Command # The following example show to use sed to comment the options will affect the final result:</description>
+    </item>
+    
+    <item>
+      <title>Sed [4] - The &#39;s&#39; Commands</title>
+      <link>https://dyrone.github.io/posts/sed-4-s-command/</link>
+      <pubDate>Sat, 13 Aug 2022 13:22:26 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/sed-4-s-command/</guid>
+      <description>Sed command-line execution format sed OPTIONS.</description>
     </item>
     
   </channel>

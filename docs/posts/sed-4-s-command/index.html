@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Sed [4] - The &#39;s&#39; Commands - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Sed [4] - The &#39;s&#39; Commands" />
+<meta property="og:description" content="Sed command-line execution format sed OPTIONS." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/sed-4-s-command/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-13T13:22:26+08:00" />
+<meta property="article:modified_time" content="2022-08-13T13:22:26+08:00" />
+
+
+		<meta itemprop="name" content="Sed [4] - The &#39;s&#39; Commands">
+<meta itemprop="description" content="Sed command-line execution format sed OPTIONS."><meta itemprop="datePublished" content="2022-08-13T13:22:26+08:00" />
+<meta itemprop="dateModified" content="2022-08-13T13:22:26+08:00" />
+<meta itemprop="wordCount" content="955">
+<meta itemprop="keywords" content="sed,linux," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sed [4] - The &#39;s&#39; Commands"/>
+<meta name="twitter:description" content="Sed command-line execution format sed OPTIONS."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Sed [4] - The &#39;s&#39; Commands</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-13T13:22:26&#43;08:00">2022-08-13</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#sed-command-line-execution-format">Sed command-line execution format</a></li>
+    <li><a href="#script">SCRIPT</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="sed-command-line-execution-format">Sed command-line execution format</h2>
+<pre tabindex="0"><code>sed OPTIONS... [SCRIPT] [INPUTFILE...]
+</code></pre><p>Here the command-line format contains:</p>
+<ul>
+<li>
+<p><code>OPTIONS</code>: the command-line options</p>
+</li>
+<li>
+<p><code>[SCRIPT]</code>: the rules we want to deal with the inputstream</p>
+</li>
+<li>
+<p><code>[INPUTFILE]</code>: the FD we want to output to, by default it&rsquo;s <code>stdout</code></p>
+</li>
+</ul>
+<h2 id="script">SCRIPT</h2>
+<p>Sed script constructs by three parts:</p>
+<pre tabindex="0"><code>[addr]X[options]
+```
+
+* `addr`: an optional line address.
+
+* `X`: a single letter **sed command**, be noticeable that the sed command here
+  is not the same as **sed command-line command**.
+
+* `options` used for some **sed** commands.
+
+The following example deletes lines 30 to 35 in the input. 30,35 is an address range. d is the delete command:
+
+```shell
+sed ’30,35d’ input.txt &gt; output.txt
+```
+
+
+Exit with 42 if fould a line starting with 'foo':
+
+```shell
+sed ’/^foo/q42’ input.txt &gt; output.txt
+```
+## Multiple sed commands in script 
+
+Sed command can be separated by semicolons(`;`) or newline(ASCII 10).
+
+The following example performs two sed commands: using `d` command to delete the
+mapping lines by given regular expression, using `s` to replace all the
+occurrence of 'hello' to 'world'.
+
+```shell
+sed ’/^foo/d ; s/hello/world/’ input.txt &gt; output.txt
+```
+
+## Multiple sed scripts in cmd-line execution
+
+Another way is to specify multiple sed scripts by `-e` or `-f`:
+
+```shell
+sed -e ’/^foo/d’ -e ’s/hello/world/’ input.txt &gt; output.txt
+```
+
+Or： 
+
+```shell
+echo ’/^foo/d’ &gt; script.sed
+echo ’s/hello/world/’ &gt;&gt; script.sed
+sed -f script.sed input.txt &gt; output.txt
+```
+
+Or:
+
+```shell
+
+echo ’s/hello/world/’ &gt; script2.sed
+sed -e ’/^foo/d’ -f script2.sed input.txt &gt; output.txt
+```
+
+## The `s` command
+
+
+The `s` command almost the most frequently used one in `sed` world. The syntax
+of the `s` command is :
+
+```
+s/regexp/replacement/flags
+```
+
+
+### replacement 
+
+* **\n**: **n** is a number from 1 to 9, which refer to the portion of the
+  match which is contained between the `nth` \( and its matching\). 
+
+* **&amp;**: reference the whole matched portion of the pattern space.
+
+* **case replacements**:
+
+    * `\L`: Turn the replacement to lowercase until a \U or \E is found
+    * `\l` Turn the next character to lowercase
+    * `\U` Turn the replacement to uppercase until a \L or \E is found
+    * `\u` Turn the next character to uppercase
+    * `\E` Stop case conversion started by \L or \U
+
+For example, the following script will replace 'a-b-' to 'axxB':
+
+```
+s/\(b\?\)-/x\u\1/g
+```
+
+The following script will replace 'a-b-' to 'aXBx':
+
+```
+s/\(b\?\)-/\u\1x/g
+```
+
+The following script will replace 'a-b-' to 'axBx':
+```
+s/\(b\?\)-/\u\1\Ex/g
+```
+&gt; ESCAPE: To include a literal `\`, `&amp;`, newline in replacement, be sure to
+
+&gt; precede the desired literal char with a `\`.
+
+
+### flags
+
+#### Flag **g**
+
+&gt; propergate from one occurrence of the regex to anot
+
+
+#### Flag **&lt;number&gt;**
+
+&gt; Only replace the numberth match of the regexp. interaction in s command Note:
+&gt; the posix standard does not specify what should happen when you mix the g and
+&gt; number modifiers, and currently there is no widely agreed upon meaning across
+&gt; sed implementations. For GNU sed, the interaction is defined to be: ignore
+&gt; matches before the numberth, and then match and replace all matches from the
+&gt; numberth on.
+
+```shell
+echo -n 'aabbcc' | gsed 's/\(a\)/x/2'
+axbbcc
+```
+
+#### Flag **p**
+
+&gt; If the substitution was made, then print the new pattern space.
+
+```shell
+➜  blogs git:(master) ✗ echo -n 'aabbcc' | gsed 's/\(a\)/x/2p'
+axbbcc
+axbbcc
+➜  blogs git:(master) ✗ echo -n 'aabbcc' | gsed 's/\(x\)/x/2p'
+aabbcc
+```
+
+#### Flag: **w**
+
+```shell
+➜  blogs git:(master) ✗ echo  'aabbcc' | gsed 's/\(x\)/x/w/dev/stderr'
+aabbcc
+```
+
+If the substitution was made, then write out the result to the named file. As a
+GNU sed extension, two special values of filename are supported: /dev/stderr,
+which writes the result to the standard error, and /dev/stdout, which writes 3
+to the standard output.
+
+### Flag **e**
+
+This command allows one to pipe input from a shell command into pattern space.
+If a substitution was made, the command that is found in pattern space is
+executed and pattern space is replaced with its output. A trailing newline is
+suppressed; results are undefined if the command to be executed contains a nul
+character. This is a GNU sed extension.
+
+```shell
+➜  blogs git:(master) ✗ echo 'ls' |gsed 's/ls/ls -l\n/e'
+total 16
+-rw-r--r--   1 tenglong.tl  staff   242  7 31 23:15 README.md
+drwxr-xr-x   3 tenglong.tl  staff    96  3  7 14:37 archetypes
+-rw-r--r--   1 tenglong.tl  staff  3647  6 15 21:27 config.toml
+drwxr-xr-x   4 tenglong.tl  staff   128  3  7 17:35 content
+drwxr-xr-x   2 tenglong.tl  staff    64  3  7 14:37 data
+drwxr-xr-x  16 tenglong.tl  staff   512  8  9 18:56 docs
+drwxr-xr-x   2 tenglong.tl  staff    64  3  7 14:37 layouts
+drwxr-xr-x   3 tenglong.tl  staff    96  3  7 14:44 resources
+drwxr-xr-x   2 tenglong.tl  staff    64  3  7 14:37 static
+drwxr-xr-x   3 tenglong.tl  staff    96  7  6 12:14 test
+drwxr-xr-x   3 tenglong.tl  staff    96  3  7 15:44 themes
+```
+
+The suppressed newline:
+
+```shell
+echo -n 'ls' |gsed 's/ls/\n/e'
+# no newline is printed
+```
+
+#### Flag **I** and **i**
+
+
+The I modifier to regular-expression matching is a GNU extension which makes sed
+match regexp in a case-insensitive manner.
+
+```shell
+➜  blogs git:(master) ✗ echo -n 'LS' |gsed 's/ls/printf dyrone/ei'
+dyrone
+➜  blogs git:(master) ✗ echo -n 'LS' |gsed 's/ls/printf dyrone/e'
+LS
+```
+
+#### Flag **M** and **m**
+
+The M modifier to regular-expression matching is a GNU sed extension which
+directs GNU sed to match the regular expression in multi-line mode. The mod-
+ifier causes ^ and $ to match respectively (in addition to the normal behavior)
+the empty string after a newline, and the empty string before a newline. There
+are special character sequences (\‘ and \’) which always match the beginning or
+the end of the buffer. In addition, the period character does not match a
+new-line character in multi-line mode.
+</code></pre>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/sed/" rel="tag">sed</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/linux/" rel="tag">linux</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/k6-7-module/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">k6 series [7] - Module</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/sed-5-other-command/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">[WIP]Sed  [5] The other Commands</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

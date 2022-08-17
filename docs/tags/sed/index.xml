@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/sed/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Sed 5 Other Command</title>
+      <title>[WIP]Sed  [5] The other Commands</title>
       <link>https://dyrone.github.io/posts/sed-5-other-command/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
@@ -17,7 +17,16 @@
     </item>
     
     <item>
-      <title>Sed Part[3]-&#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
+      <title>Sed [4] - The &#39;s&#39; Commands</title>
+      <link>https://dyrone.github.io/posts/sed-4-s-command/</link>
+      <pubDate>Sat, 13 Aug 2022 13:22:26 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/sed-4-s-command/</guid>
+      <description>Sed command-line execution format sed OPTIONS.</description>
+    </item>
+    
+    <item>
+      <title>Sed Part[3] - &#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
       <link>https://dyrone.github.io/posts/sed-3-gnu-bsd/</link>
       <pubDate>Sun, 10 Jul 2022 23:55:52 +0800</pubDate>
       
@@ -26,7 +35,7 @@
     </item>
     
     <item>
-      <title>Sed Section[2] - Exit Code In Sed</title>
+      <title>Sed [2] - Exit Code In Sed</title>
       <link>https://dyrone.github.io/posts/sed-2-exit-code/</link>
       <pubDate>Sun, 03 Jul 2022 17:00:04 +0800</pubDate>
       
@@ -35,7 +44,7 @@
     </item>
     
     <item>
-      <title>Sed Section[1] - Basic Usage</title>
+      <title>Sed [1] - Basic Usage</title>
       <link>https://dyrone.github.io/posts/sed-1-basic-usage/</link>
       <pubDate>Fri, 01 Jul 2022 17:00:04 +0800</pubDate>
       

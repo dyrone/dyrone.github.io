@@ -1,5 +1,5 @@
 ---
-title: "Sed Part[3]-'GNU sed' and 'BSD sed'"
+title: "Sed Part[3] - 'GNU sed' and 'BSD sed'"
 date: 2022-07-10T23:55:52+08:00
 tags:
     - "sed"

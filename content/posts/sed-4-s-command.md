@@ -1,7 +1,7 @@
 ---
-title: "Sed [4] The 's' Commands"
+title: "Sed [4] - The 's' Commands"
 date: 2022-08-13T13:22:26+08:00
-draft: true
+draft: false 
 tags:
     - "sed"
     - "linux"
