@@ -2,22 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dyrone.github.io/posts/sed-5-other-command/</loc>
-    <lastmod>2022-08-15T11:56:21+08:00</lastmod>
+    <loc>https://dyrone.github.io/tags/c/</loc>
+    <lastmod>2022-08-24T21:44:24+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/</loc>
+    <lastmod>2022-08-24T21:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/tags/git/</loc>
+    <lastmod>2022-08-24T21:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/git-remote-helper/</loc>
+    <lastmod>2022-08-24T21:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/</loc>
+    <lastmod>2022-08-24T21:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/tags/</loc>
+    <lastmod>2022-08-24T21:44:24+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/sed-5-other-command/</loc>
     <lastmod>2022-08-15T11:56:21+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/linux/</loc>
     <lastmod>2022-08-15T11:56:21+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/</loc>
-    <lastmod>2022-08-15T11:56:21+08:00</lastmod>
-  </url><url>
     <loc>https://dyrone.github.io/tags/sed/</loc>
-    <lastmod>2022-08-15T11:56:21+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/tags/</loc>
     <lastmod>2022-08-15T11:56:21+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/sed-4-s-command/</loc>
@@ -46,9 +55,6 @@
   </url><url>
     <loc>https://dyrone.github.io/posts/k6-1-overview/</loc>
     <lastmod>2022-08-01T21:24:42+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/tags/c/</loc>
-    <lastmod>2022-07-28T18:24:48+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/page-table/</loc>
     <lastmod>2022-07-28T18:24:48+08:00</lastmod>
@@ -90,9 +96,6 @@
     <lastmod>2022-06-21T19:06:02+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/chinese/</loc>
-    <lastmod>2022-06-21T19:06:02+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/tags/git/</loc>
     <lastmod>2022-06-21T19:06:02+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/posts/git-multi-points/</loc>

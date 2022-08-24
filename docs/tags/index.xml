@@ -6,7 +6,25 @@
     <description>Recent content in Tags on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Aug 2022 21:44:24 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>c</title>
+      <link>https://dyrone.github.io/tags/c/</link>
+      <pubDate>Wed, 24 Aug 2022 21:44:24 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/tags/c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://dyrone.github.io/tags/git/</link>
+      <pubDate>Wed, 24 Aug 2022 21:44:24 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>linux</title>
       <link>https://dyrone.github.io/tags/linux/</link>
@@ -31,15 +49,6 @@
       <pubDate>Mon, 08 Aug 2022 23:52:08 +0800</pubDate>
       
       <guid>https://dyrone.github.io/tags/testing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>c</title>
-      <link>https://dyrone.github.io/tags/c/</link>
-      <pubDate>Thu, 28 Jul 2022 18:24:48 +0800</pubDate>
-      
-      <guid>https://dyrone.github.io/tags/c/</guid>
       <description></description>
     </item>
     
@@ -76,15 +85,6 @@
       <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
       
       <guid>https://dyrone.github.io/tags/chinese/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://dyrone.github.io/tags/git/</link>
-      <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
-      
-      <guid>https://dyrone.github.io/tags/git/</guid>
       <description></description>
     </item>
     

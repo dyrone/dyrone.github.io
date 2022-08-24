@@ -6,7 +6,16 @@
     <description>Recent content in c on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Jul 2022 18:24:48 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Aug 2022 21:44:24 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git Remote-helper</title>
+      <link>https://dyrone.github.io/posts/git-remote-helper/</link>
+      <pubDate>Wed, 24 Aug 2022 21:44:24 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-remote-helper/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>page table</title>
       <link>https://dyrone.github.io/posts/page-table/</link>
