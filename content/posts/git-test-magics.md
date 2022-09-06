@@ -15,8 +15,13 @@ The extension functions of git locates in `git/t/test-lib-functions.sh`. If you
 want to find some functions already defined to use, that's it.
 
 
-## Trick Test Function
+## Tricky Test Function
 
 ### test_path_is_missing
 
+## Tricky Test Envs
+
+### TEST_NO_CREATE_REPO
+
+Whether to init the trash dir as a git repository.
 
