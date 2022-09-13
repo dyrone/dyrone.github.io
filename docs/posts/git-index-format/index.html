@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Git Index Format - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Git Index Format" />
+<meta property="og:description" content="what&rsquo;s index acting in git?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/git-index-format/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-13T19:19:59+08:00" />
+<meta property="article:modified_time" content="2022-09-13T19:19:59+08:00" />
+
+
+		<meta itemprop="name" content="Git Index Format">
+<meta itemprop="description" content="what&rsquo;s index acting in git?"><meta itemprop="datePublished" content="2022-09-13T19:19:59+08:00" />
+<meta itemprop="dateModified" content="2022-09-13T19:19:59+08:00" />
+<meta itemprop="wordCount" content="2165">
+<meta itemprop="keywords" content="git,c," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git Index Format"/>
+<meta name="twitter:description" content="what&rsquo;s index acting in git?"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Git Index Format</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-09-13T19:19:59&#43;08:00">2022-09-13</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#whats-index-acting-in-git">what&rsquo;s index acting in git?</a></li>
+    <li><a href="#init-test-repo">init test repo</a></li>
+    <li><a href="#structure-of-the-index-file">structure of the &ldquo;index&rdquo; file</a></li>
+    <li><a href="#understand-the-index-file-content">Understand the &ldquo;index&rdquo; file content</a></li>
+    <li><a href="#extensions">Extensions</a>
+      <ul>
+        <li><a href="#cache-tree-extension">Cache Tree Extension</a></li>
+        <li><a href="#why">Why</a></li>
+        <li><a href="#tree-extension-data-structure">TREE extension data structure:</a></li>
+        <li><a href="#after-the-add">After the &ldquo;add&rdquo;</a></li>
+        <li><a href="#after-the-commit">After the &ldquo;commit&rdquo;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="whats-index-acting-in-git">what&rsquo;s index acting in git?</h2>
+<ul>
+<li>to reproduce a single and global tree(or root-tree).</li>
+<li>to fast recognize between the tree in index and the tree in workspace.</li>
+<li>to recognize and supply merge conflicts info between different tree objects,
+allowing each pathname to be associated with sufficient information about the
+trees involved that you can create a three-way merge between them.</li>
+</ul>
+<h2 id="init-test-repo">init test repo</h2>
+<p>Init a repo which has a blob as &ldquo;1.txt&rdquo; in workspace:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ pwd
+/Users/tenglong.tl/Downloads/dyroneteng
+➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ ls
+1.txt
+</code></pre></div><p>Read the blob object:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> pwd
+/Users/tenglong.tl/Downloads/dyroneteng/.git/objects/d0
+➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ls
+0491fd7e5bb6fa28c517a0bb32b8b506539d4d
+➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -p d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
+<span style="color:#ae81ff">1</span>
+➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -t d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
+blob
+</code></pre></div><h2 id="structure-of-the-index-file">structure of the &ldquo;index&rdquo; file</h2>
+<ul>
+<li>HEADER: 12 bytes header data</li>
+<li>Entries: a number of sorted index entries (asc by &ldquo;name&rdquo;)</li>
+<li>Extensions: with signature(If the first byte is &lsquo;A&rsquo;..&lsquo;Z&rsquo; the extension is
+optional and can be ignored.), size of extension, extension data</li>
+<li>Hash Checksum: 20 bytes checksum data</li>
+</ul>
+<h2 id="understand-the-index-file-content">Understand the &ldquo;index&rdquo; file content</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat index  | hexdump -C
+<span style="color:#ae81ff">00000000</span>  <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  |DIRC........c.a.|
+<span style="color:#ae81ff">00000010</span>  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">07</span>  |.Ps.c.a..Ps.....|
+<span style="color:#ae81ff">00000020</span>  <span style="color:#ae81ff">06</span> ef <span style="color:#ae81ff">71</span> d3 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  |..q.............|
+<span style="color:#ae81ff">00000030</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span> d0 <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">91</span> fd  7e 5b b6 fa <span style="color:#ae81ff">28</span> c5 <span style="color:#ae81ff">17</span> a0  |........~<span style="color:#f92672">[</span>..<span style="color:#f92672">(</span>...|
+<span style="color:#ae81ff">00000040</span>  bb <span style="color:#ae81ff">32</span> b8 b5 <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">53</span> 9d 4d  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">31</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span>  |.2...S.M..1.txt.|
+<span style="color:#ae81ff">00000050</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">84</span> <span style="color:#ae81ff">08</span> b0 <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">87</span> <span style="color:#ae81ff">16</span> de c9 d4 7c 4e ac  |.......<span style="color:#f92672">)</span>.....|N.|
+<span style="color:#ae81ff">00000060</span>  ec <span style="color:#ae81ff">96</span> 7d d1 6e <span style="color:#ae81ff">95</span> <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">22</span>                           |..<span style="color:#f92672">}</span>.n.P<span style="color:#e6db74">&#34;|
+</span><span style="color:#e6db74">00000068
+</span></code></pre></div><p>Let&rsquo;s try to understand the content with each part.</p>
+<blockquote>
+<p><a href="https://git-scm.com/docs/index-format">https://git-scm.com/docs/index-format</a></p>
+</blockquote>
+<ul>
+<li>44 49 52 43: signature is { &lsquo;D&rsquo;, &lsquo;I&rsquo;, &lsquo;R&rsquo;, &lsquo;C&rsquo; } (stands for &ldquo;dircache&rdquo;)</li>
+<li>00 00 00 02: version number. 2, 3 and 4 are supported.</li>
+<li>00 00 00 01: number of the indexed entries in current &ldquo;index&rdquo;.</li>
+<li>63 18 61 d6: ctime(the seconds part) of the entry. digit(63 18 61 d6) = 1662542294 and we could
+show the ctime by gstat when you on macOS.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span>  gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ctime: %Z&#34;</span> 1.txt
+ctime: 1662542294%
+</code></pre></div><ul>
+<li>
+<p>0a 50 73 12: the nanosecond fractions part of ctime</p>
+</li>
+<li>
+<p>63 18 61 d6: mtime(the seconds part) of the entry. digit(63 18 61 d6) =
+1662542294 and we could show the mtime by gstat when you on macOS.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mtime: %Y&#34;</span> ../1.txt 
+mtime: 1662542294% 
+</code></pre></div><ul>
+<li>
+<p>0a 50 73 12: the nanosecond fractions part of mtime</p>
+</li>
+<li>
+<p>01 00 00 07: the dev info</p>
+</li>
+<li>
+<p>06 ef 71 d3: the inode number. digit(06 ef 71 d3) = 116355539</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ino: %i&#34;</span> 1.txt
+ino: 116355539%
+</code></pre></div><ul>
+<li>00 00 81 a4: the unix permission. Only 0755 and 0644 are valid for regular
+files. Symbolic links and gitlinks have value 0 in this field.</li>
+</ul>
+<p>hex(81 a4) = 100644 in octal</p>
+<ul>
+<li>00 00 01 f5: uid of the file</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uid: %u&#34;</span> 1.txt
+uid: 501%
+</code></pre></div><ul>
+<li>00 00 00 14: gid of the file</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gid: %g&#34;</span> 1.txt
+gid: 20%
+</code></pre></div><ul>
+<li>
+<p>00 00 00 02: file size.</p>
+</li>
+<li>
+<p>d0 04 91 fd | 7e 5b b6 fa | 28 c5 17 a0 | bb 32 b8 b5 | 06 53 9d 4d: obj name.</p>
+</li>
+<li>
+<p>00 05: 16-bit &ldquo;flags&rdquo;. 00 05 = 0000 0000 0000 0101</p>
+<ul>
+<li>1-bit assume-valid flag</li>
+<li>1-bit extended flag (must be zero in version 2)</li>
+<li>2-bit stage (during merge)</li>
+<li>12-bit name length if the length is less than 0xFFF; otherwise 0xFFF is
+stored in this field. here the lengh is &ldquo;5&rdquo;.</li>
+</ul>
+</li>
+<li>
+<p>31 2e 74 78 74: entry path name. relative to top level directory (without
+leading slash). &lsquo;/&rsquo; is used as path separator. The special path components
+&ldquo;.&rdquo;, &ldquo;..&rdquo; and &ldquo;.git&rdquo; (without quotes) are disallowed. Trailing slash is also
+disallowed. &ldquo;31 2e 74 78 74&rdquo; in Ascii means &ldquo;1.txt&rdquo;.</p>
+</li>
+<li>
+<p>00: byte as necessary fpr pading (1-8 nul bytes) while keeping the name
+NUL-terminated.</p>
+</li>
+<li>
+<p>84 08 b0 29 87 16 de c9 d4 7c 4e ac ec 96 7d d1 6e 95 50 22: 20 bytes checksum</p>
+</li>
+</ul>
+<h2 id="extensions">Extensions</h2>
+<h3 id="cache-tree-extension">Cache Tree Extension</h3>
+<p>When we execute &ldquo;git commit&rdquo;, the changes in stage(cache, index, they are the
+same thing) will be packaged as a commit. Then, the &ldquo;index&rdquo; file will be like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat index | hexdump -C
+<span style="color:#ae81ff">00000000</span>  <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  |DIRC........c.a.|
+<span style="color:#ae81ff">00000010</span>  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">07</span>  |.Ps.c.a..Ps.....|
+<span style="color:#ae81ff">00000020</span>  <span style="color:#ae81ff">06</span> ef <span style="color:#ae81ff">71</span> d3 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  |..q.............|
+<span style="color:#ae81ff">00000030</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span> d0 <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">91</span> fd  7e 5b b6 fa <span style="color:#ae81ff">28</span> c5 <span style="color:#ae81ff">17</span> a0  |........~<span style="color:#f92672">[</span>..<span style="color:#f92672">(</span>...|
+<span style="color:#ae81ff">00000040</span>  bb <span style="color:#ae81ff">32</span> b8 b5 <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">53</span> 9d 4d  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">31</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span>  |.2...S.M..1.txt.|
+<span style="color:#ae81ff">00000050</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">19</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span>  |....TREE.....1 0|
+<span style="color:#ae81ff">00000060</span>  0a <span style="color:#ae81ff">38</span> fd <span style="color:#ae81ff">29</span> <span style="color:#ae81ff">69</span> 7b <span style="color:#ae81ff">22</span> 0f  7e 4c a1 5b <span style="color:#ae81ff">04</span> 4c <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">22</span>  |.8.<span style="color:#f92672">)</span>i<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;.~L.[.L2&#34;</span>|
+<span style="color:#ae81ff">00000070</span>  ee fe 5a fd c1 7b <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">30</span>  <span style="color:#ae81ff">32</span> fd 1b <span style="color:#ae81ff">69</span> c3 d5 6a da  |..Z..<span style="color:#f92672">{</span>R02..i..j.|
+<span style="color:#ae81ff">00000080</span>  c7 <span style="color:#ae81ff">00</span> 8e 7b <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">95</span> <span style="color:#ae81ff">34</span> bd  f3                       |...<span style="color:#f92672">{</span>..4..|
+<span style="color:#ae81ff">00000089</span>
+</code></pre></div><p>Actually, the data before &ldquo;00 05 31 2e 74 78 74 00&rdquo; is as same as we did the
+&ldquo;git commit&rdquo; before. So, let&rsquo;s focus on the left parts. Here, it introduces a
+new data region: TREE extension.</p>
+<h3 id="why">Why</h3>
+<ul>
+<li>
+<p>&ldquo;index&rdquo; does not record entries for directories, only record the pathnames.</p>
+</li>
+<li>
+<p>extension data stores an recursive tree structure that describes the trees
+already exist (completely match sections of the cache entries) in ODB</p>
+<ul>
+<li>
+<p>so for a new commit we could only computing the trees that are &ldquo;new&rdquo; to that
+commit, but not to compute the trees by checking each file entry..</p>
+</li>
+<li>
+<p>for comparing the index to another tree, if the tree comparison demonstrates
+euqality, the tree can be skipped, or if there is no cached tree infos in
+index, it will be slow for comparing each file entry.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>although the extension tracks the full directory structurem but generally
+smaller than the full cache entry list.</p>
+</li>
+<li>
+<p>when a path is updated in index, all it&rsquo;s related parent trees (nodes in
+recursive tree structure) will mark as invalid by using &ldquo;-1&rdquo; as the number of
+cache entries. Invalid nodes still store a span of index entries, allowing Git
+to focus its efforts when reconstructing a full cache tree.</p>
+</li>
+</ul>
+<blockquote>
+<p>More info at: <a href="https://git-scm.com/docs/index-format#_cache_tree">https://git-scm.com/docs/index-format#_cache_tree</a></p>
+</blockquote>
+<ul>
+<li>checksum: 7b 52 30  32 fd 1b 69 c3 d5 6a da c7 00 8e 7b 01 95 34 bd  f3</li>
+</ul>
+<h3 id="tree-extension-data-structure">TREE extension data structure:</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">00</span>
+<span style="color:#ae81ff">31</span>
+<span style="color:#ae81ff">20</span>
+<span style="color:#ae81ff">30</span>
+0a
+<span style="color:#ae81ff">38</span> fd <span style="color:#ae81ff">29</span> <span style="color:#ae81ff">69</span> 7b <span style="color:#ae81ff">22</span> 0f 7e 4c a1 5b <span style="color:#ae81ff">04</span> 4c <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">22</span> ee fe 5a fd c1
+</code></pre></div><p>Struture of the recursive tree currently(we just &ldquo;add&rdquo;, but not &ldquo;commit&rdquo; yet):</p>
+<ul>
+<li>NUL-terminated path component (relative to its parent directory);</li>
+</ul>
+<blockquote>
+<p>In current case, we have one file locates in root dir, there is no parent
+directories here, so will be directly stored as NUL(00) here.</p>
+</blockquote>
+<ul>
+<li>ASCII decimal number of entries in the index that is covered by the tree this
+entry represents (entry_count);</li>
+</ul>
+<blockquote>
+<p>here is &ldquo;31&rdquo; in hex represents &ldquo;1&rdquo; in Ascii, we only have 1 path entry under
+the root dir that is &ldquo;1.txt&rdquo;.</p>
+</blockquote>
+<ul>
+<li>A space (ASCII 32);</li>
+</ul>
+<blockquote>
+<p>20 in hex represents SPACE in ASCII.</p>
+</blockquote>
+<ul>
+<li>ASCII decimal number that represents the number of subtrees this tree has;</li>
+</ul>
+<blockquote>
+<p>here is &ldquo;30&rdquo; in hex represents &ldquo;0&rdquo; in Ascii, we do not have a tree(dir), so
+we do not have any subtrees under it as also.</p>
+</blockquote>
+<ul>
+<li>A newline (ASCII 10);</li>
+</ul>
+<blockquote>
+<p>as &ldquo;0a&rdquo;.</p>
+</blockquote>
+<ul>
+<li>Object name for the object that would result from writing this span of index
+as a tree.</li>
+</ul>
+<blockquote>
+<p>as the left 20 bytes.</p>
+</blockquote>
+<h3 id="after-the-add">After the &ldquo;add&rdquo;</h3>
+<p>Next step, we add the new directories and files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> tree
+.
+├── 1.txt
+└── parent
+    ├── p.txt
+    └── son
+        └── s.txt
+
+</code></pre></div><p>Print out the index content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat index  | hexdump -C
+<span style="color:#ae81ff">00000000</span>  <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">03</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  |DIRC........c.a.|
+<span style="color:#ae81ff">00000010</span>  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">07</span>  |.Ps.c.a..Ps.....|
+<span style="color:#ae81ff">00000020</span>  <span style="color:#ae81ff">06</span> ef <span style="color:#ae81ff">71</span> d3 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  |..q.............|
+<span style="color:#ae81ff">00000030</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span> d0 <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">91</span> fd  7e 5b b6 fa <span style="color:#ae81ff">28</span> c5 <span style="color:#ae81ff">17</span> a0  |........~<span style="color:#f92672">[</span>..<span style="color:#f92672">(</span>...|
+<span style="color:#ae81ff">00000040</span>  bb <span style="color:#ae81ff">32</span> b8 b5 <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">53</span> 9d 4d  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">31</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span>  |.2...S.M..1.txt.|
+<span style="color:#ae81ff">00000050</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 2b  <span style="color:#ae81ff">30</span> 8d <span style="color:#ae81ff">15</span> 3c <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 2b  |....c<span style="color:#e6db74">&#34;.+0..&lt;c&#34;</span>.+|
+<span style="color:#ae81ff">00000060</span>  <span style="color:#ae81ff">30</span> 8d <span style="color:#ae81ff">15</span> 3c <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">08</span>  <span style="color:#ae81ff">06</span> fa ed <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  |0..&lt;.......e....|
+<span style="color:#ae81ff">00000070</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">06</span> f7 c6 dd <span style="color:#ae81ff">01</span>  |................|
+<span style="color:#ae81ff">00000080</span>  <span style="color:#ae81ff">64</span> fe 0e b4 fd e7 <span style="color:#ae81ff">67</span> f9  e7 <span style="color:#ae81ff">31</span> a6 c8 ad e0 b6 9f  |d.....g..1......|
+<span style="color:#ae81ff">00000090</span>  <span style="color:#ae81ff">00</span> 0c <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">65</span> 6e <span style="color:#ae81ff">74</span>  2f <span style="color:#ae81ff">70</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span>  |..parent/p.txt..|
+000000a0  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 <span style="color:#ae81ff">37</span>  2e <span style="color:#ae81ff">30</span> 7a <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 <span style="color:#ae81ff">37</span>  |....c<span style="color:#e6db74">&#34;.7.0zxc&#34;</span>.7|
+000000b0  2e <span style="color:#ae81ff">30</span> 7a <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">08</span>  <span style="color:#ae81ff">06</span> fa ed 8e <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  |.0zx............|
+000000c0  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> c7 dc <span style="color:#ae81ff">98</span> 9f  |................|
+000000d0  <span style="color:#ae81ff">80</span> <span style="color:#ae81ff">44</span> a4 fc f1 <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">41</span>  <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">98</span> e1 <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">94</span> e1 ac 7e  |.D...caAI..F...~|
+000000e0  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">65</span> 6e <span style="color:#ae81ff">74</span>  2f <span style="color:#ae81ff">73</span> 6f 6e 2f <span style="color:#ae81ff">73</span> 2e <span style="color:#ae81ff">74</span>  |..parent/son/s.t|
+000000f0  <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 2d <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span>  |xt..TREE.....-1 |
+<span style="color:#ae81ff">00000100</span>  <span style="color:#ae81ff">30</span> 0a <span style="color:#ae81ff">88</span> b9 <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">96</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">81</span>  1f 2e ef df a4 d3 ac f0  |0...I.B.........|
+<span style="color:#ae81ff">00000110</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">56</span> 7f cb 1a <span style="color:#ae81ff">38</span>                                 |.V...8|
+<span style="color:#ae81ff">00000116</span>
+</code></pre></div><p>Let&rsquo;s focus on the part after the TREE extension signature:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 2d <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span>  |xt..TREE.....-1 |
+<span style="color:#ae81ff">00000100</span>  <span style="color:#ae81ff">30</span> 0a <span style="color:#ae81ff">88</span> b9 <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">96</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">81</span>  1f 2e ef df a4 d3 ac f0  |0...I.B.........|
+<span style="color:#ae81ff">00000110</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">56</span> 7f cb 1a <span style="color:#ae81ff">38</span>                                 |.V...8|
+<span style="color:#ae81ff">00000116</span>
+</code></pre></div><ul>
+<li>00 00 00 06: data size 6</li>
+<li>00 2d 31 20 30 0a</li>
+</ul>
+<p>We only &ldquo;git-add&rdquo; the related filepaths but not &ldquo;git-commit&rdquo;, so the new file
+entries are written to the INDEX, but the TREE extension data will not.</p>
+<h3 id="after-the-commit">After the &ldquo;commit&rdquo;</h3>
+<p>Let&rsquo;s cut the part before TREE extension signature and the
+tailing checksum part.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span>  |xt..TREE...T.3 1|
+<span style="color:#ae81ff">00000100</span>  0a dc 2f b0 3f <span style="color:#ae81ff">28</span> 4b 1f  f6 <span style="color:#ae81ff">21</span> 2e <span style="color:#ae81ff">99</span> 9e 3e d6 4d  |../.?<span style="color:#f92672">(</span>K..!...&gt;.M|
+<span style="color:#ae81ff">00000110</span>  ac <span style="color:#ae81ff">56</span> 5c 6f <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">72</span>  <span style="color:#ae81ff">65</span> 6e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span> 0a  |.V<span style="color:#ae81ff">\o</span>9parent.2 1.|
+<span style="color:#ae81ff">00000120</span>  8b e9 ba e5 9d fe <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">49</span>  <span style="color:#ae81ff">61</span> f1 <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">04</span> f0 8c <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">77</span>  |......aIa.1...2w|
+<span style="color:#ae81ff">00000130</span>  <span style="color:#ae81ff">33</span> e0 <span style="color:#ae81ff">54</span> 5f <span style="color:#ae81ff">73</span> 6f 6e <span style="color:#ae81ff">00</span>  <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span> 0a e4 6d <span style="color:#ae81ff">15</span> 1e  |3.T_son.1 0..m..|
+<span style="color:#ae81ff">00000140</span>  5b bb d1 <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">21</span> d0 c3 ba  <span style="color:#ae81ff">67</span> <span style="color:#ae81ff">03</span> b2 d2 .. .. .. ..  |<span style="color:#f92672">[</span>..x!...g...b.Z.|
+<span style="color:#ae81ff">00000150</span>  .. .. .. .. .. .. .. ..  .. .. .. .. .. .. .. ..  |.X....@...&gt;..U..|
+<span style="color:#ae81ff">00000160</span>  .. .. .. .. 
+</code></pre></div><ul>
+<li>
+<p>00 00 00 54 : TREE extension data size 84 (54 in hex)</p>
+</li>
+<li>
+<p>00 33 20 31 :</p>
+<ul>
+<li>00 : NUL-terminated path component</li>
+<li>33: ASCII decimal number of entries in the index that is covered by the tree
+this entry represents (entry_count). Here is 3, there are 3 entries under
+root tree dir.</li>
+<li>20: SPACE</li>
+<li>31: ASCII decimal number that represents the number of subtrees this tree
+has. Here is 1 subtree, it&rsquo;s &ldquo;parent&rdquo;.</li>
+</ul>
+</li>
+<li>
+<p>0a: NEW LINE</p>
+</li>
+<li>
+<p>dc 2f b0 3f | 28 4b 1f f6 | 21 2e 99 9e | 3e d6 4d ac | 56 5c 6f 39: the root
+tree.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  objects git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -p dc2fb03f284b1ff6212e999e3ed64dac565c6f39
+<span style="color:#ae81ff">100644</span> blob d00491fd7e5bb6fa28c517a0bb32b8b506539d4d    1.txt
+<span style="color:#ae81ff">040000</span> tree 8be9bae59dfe614961f13104f08c327733e0545f    parent
+</code></pre></div><ul>
+<li>
+<p>70 61 72  65 6e 74 00: NUL-terminated path component. Here is &ldquo;parent&rdquo;.</p>
+</li>
+<li>
+<p>32 20 31 0a :</p>
+<ul>
+<li>32: Here is 2. There are 2 entries under parent dir.</li>
+<li>20: SPACE</li>
+<li>31: Here is 1. There is 1 subtree, it&rsquo;s &ldquo;son&rdquo;.</li>
+<li>0a: NEW LINE</li>
+</ul>
+</li>
+<li>
+<p>8b e9 ba e5 9d fe 61 49 61 f1 31 04 f0 8c 32 77 33 e0 54 5f: tree as &ldquo;parent&rdquo;
+dir.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  8b git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -p 8be9bae59dfe614961f13104f08c327733e0545f
+<span style="color:#ae81ff">100644</span> blob f7c6dd0164fe0eb4fde767f9e731a6c8ade0b69f    p.txt
+<span style="color:#ae81ff">040000</span> tree e46d151e5bbbd17821d0c3ba6703b2d262f75a01    son
+</code></pre></div><ul>
+<li>73 6f 6e 00:  NUL-terminated path component. Here is &ldquo;son&rdquo;.</li>
+<li>31 20 30 0a:
+<ul>
+<li>31: Here is 1. There is 1 entry under son dir.</li>
+<li>20: SPACE</li>
+<li>30: 0. There are no subtrees under son dir.</li>
+<li>0a: NEW LINE</li>
+</ul>
+</li>
+<li>e4 6d 15 1e .. : tree as &ldquo;son&rdquo; dir.</li>
+</ul>
+<blockquote>
+<p>To be continued&hellip;</p>
+</blockquote>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/c/" rel="tag">c</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/git-remote-helper/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Git Remote-helper</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
