@@ -77,10 +77,6 @@
     <li><a href="#extensions">Extensions</a>
       <ul>
         <li><a href="#cache-tree-extension">Cache Tree Extension</a></li>
-        <li><a href="#why">Why</a></li>
-        <li><a href="#tree-extension-data-structure">TREE extension data structure:</a></li>
-        <li><a href="#after-the-add">After the &ldquo;add&rdquo;</a></li>
-        <li><a href="#after-the-commit">After the &ldquo;commit&rdquo;</a></li>
       </ul>
     </li>
   </ul>
@@ -229,7 +225,7 @@ same thing) will be packaged as a commit. Then, the &ldquo;index&rdquo; file wil
 </code></pre></div><p>Actually, the data before &ldquo;00 05 31 2e 74 78 74 00&rdquo; is as same as we did the
 &ldquo;git commit&rdquo; before. So, let&rsquo;s focus on the left parts. Here, it introduces a
 new data region: TREE extension.</p>
-<h3 id="why">Why</h3>
+<h4 id="why">Why</h4>
 <ul>
 <li>
 <p>&ldquo;index&rdquo; does not record entries for directories, only record the pathnames.</p>
@@ -266,7 +262,7 @@ to focus its efforts when reconstructing a full cache tree.</p>
 <ul>
 <li>checksum: 7b 52 30  32 fd 1b 69 c3 d5 6a da c7 00 8e 7b 01 95 34 bd  f3</li>
 </ul>
-<h3 id="tree-extension-data-structure">TREE extension data structure:</h3>
+<h4 id="tree-extension-data-structure">TREE extension data structure:</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">00</span>
 <span style="color:#ae81ff">31</span>
 <span style="color:#ae81ff">20</span>
@@ -315,7 +311,7 @@ as a tree.</li>
 <blockquote>
 <p>as the left 20 bytes.</p>
 </blockquote>
-<h3 id="after-the-add">After the &ldquo;add&rdquo;</h3>
+<h4 id="after-the-add">After the &ldquo;add&rdquo;</h4>
 <p>Next step, we add the new directories and files.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> tree
 .
@@ -357,7 +353,7 @@ as a tree.</li>
 </ul>
 <p>We only &ldquo;git-add&rdquo; the related filepaths but not &ldquo;git-commit&rdquo;, so the new file
 entries are written to the INDEX, but the TREE extension data will not.</p>
-<h3 id="after-the-commit">After the &ldquo;commit&rdquo;</h3>
+<h4 id="after-the-commit">After the &ldquo;commit&rdquo;</h4>
 <p>Let&rsquo;s cut the part before TREE extension signature and the
 tailing checksum part.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span>  |xt..TREE...T.3 1|

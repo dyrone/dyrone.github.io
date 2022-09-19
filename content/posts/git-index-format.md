@@ -161,7 +161,7 @@ Actually, the data before "00 05 31 2e 74 78 74 00" is as same as we did the
 "git commit" before. So, let's focus on the left parts. Here, it introduces a
 new data region: TREE extension.
 
-### Why 
+#### Why 
 
 * "index" does not record entries for directories, only record the pathnames.
 * extension data stores an recursive tree structure that describes the trees
@@ -186,7 +186,7 @@ new data region: TREE extension.
 
 * checksum: 7b 52 30  32 fd 1b 69 c3 d5 6a da c7 00 8e 7b 01 95 34 bd  f3
 
-### TREE extension data structure:
+#### TREE extension data structure:
 
 ```bash
 00
@@ -228,7 +228,7 @@ Struture of the recursive tree currently(we just "add", but not "commit" yet):
 
 > as the left 20 bytes.
 
-### After the "add" 
+#### After the "add" 
 
 Next step, we add the new directories and files.
 
@@ -284,7 +284,7 @@ We only "git-add" the related filepaths but not "git-commit", so the new file
 entries are written to the INDEX, but the TREE extension data will not.
 
 
-### After the "commit"
+#### After the "commit"
 
 Let's cut the part before TREE extension signature and the
 tailing checksum part.
