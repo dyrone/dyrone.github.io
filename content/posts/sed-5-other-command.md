@@ -1,7 +1,7 @@
 ---
 title: "[WIP]Sed  [5] The other Commands"
 date: 2022-08-15T11:56:21+08:00
-draft: false
+draft: 
 tags: 
     - "linux"
     - "sed"
@@ -9,7 +9,7 @@ tags:
 
 
 
-## Command **#**
+## Command 
 
 
 The following example show to use sed to comment the options will affect the
