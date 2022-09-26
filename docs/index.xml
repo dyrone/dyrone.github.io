@@ -6,7 +6,25 @@
     <description>Recent content on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Sep 2022 19:19:59 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Sep 2022 15:39:04 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git CRLF processing and &#39;git add --renormalize&#39;</title>
+      <link>https://dyrone.github.io/posts/git-crlf/</link>
+      <pubDate>Tue, 27 Sep 2022 15:39:04 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-crlf/</guid>
+      <description>git config core.</description>
+    </item>
+    
+    <item>
+      <title>About &#39;git add&#39;</title>
+      <link>https://dyrone.github.io/posts/git-add/</link>
+      <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-add/</guid>
+      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later.</description>
+    </item>
+    
     <item>
       <title>Git Index Format</title>
       <link>https://dyrone.github.io/posts/git-index-format/</link>
