@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Git Notes(to be continued...) - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Git Notes(to be continued...)" />
+<meta property="og:description" content="Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/git-notes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-06T19:02:07+08:00" />
+<meta property="article:modified_time" content="2022-10-06T19:02:07+08:00" />
+
+
+		<meta itemprop="name" content="Git Notes(to be continued...)">
+<meta itemprop="description" content="Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。"><meta itemprop="datePublished" content="2022-10-06T19:02:07+08:00" />
+<meta itemprop="dateModified" content="2022-10-06T19:02:07+08:00" />
+<meta itemprop="wordCount" content="709">
+<meta itemprop="keywords" content="git," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git Notes(to be continued...)"/>
+<meta name="twitter:description" content="Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Git Notes(to be continued...)</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-10-06T19:02:07&#43;08:00">2022-10-06</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#quick-start">Quick start</a></li>
+    <li><a href="#notes-的存储方式">&ldquo;notes&rdquo; 的存储方式</a></li>
+    <li><a href="#在commits之外的对象上的存储">在commits之外的对象上的存储</a></li>
+    <li><a href="#notes存储上的哈希化路径">notes存储上的哈希化路径</a></li>
+    <li><a href="#其他的子命令">其他的子命令</a>
+      <ul>
+        <li><a href="#list">list</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="quick-start">Quick start</h2>
+<p>下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://review.opendev.org/openstack/tripleo-quickstart
+</code></pre></div><p>Openstack 相关的仓库大多使用 git-notes来保存commit自身包含信息之外的其他信息。</p>
+<p>Gerrit 使用特殊的引用 <code>refs/notes/review</code>来记录&quot;notes&quot;，默认情况下，clone的仓库
+中是不会包含该引用的，但是我们可以通过<code>git fetch</code> 子命令将其获取到本地。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git fetch origin refs/notes/review:refs/notes/review
+</code></pre></div><p>然后, 我们可以执行<code>git log --notes=refs/notes/review --no-merge</code>帮助显示非merge
+节点提交的&quot;notes&quot;：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">commit dc26b849018e3d5f2ecfe625fca7264877fe75ae <span style="color:#f92672">(</span>HEAD -&gt; master, origin/master, origin/HEAD<span style="color:#f92672">)</span>
+Author: PranaliD &lt;pdeore@redhat.com&gt;
+Date:   Wed Sep <span style="color:#ae81ff">28</span> 11:20:43 <span style="color:#ae81ff">2022</span> +0530
+
+    <span style="color:#f92672">[</span>CS8<span style="color:#f92672">][</span>Train<span style="color:#f92672">]</span> Exclude container-selinux-2:2.189.0
+    
+    Similar to wallaby<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>, latest container-selinux-2:2.189.0 needs
+    to be excluded <span style="color:#66d9ef">for</span> train as well.
+    
+    Related-Bug: <span style="color:#75715e">#1990810</span>
+    <span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: https://review.opendev.org/c/openstack/tripleo-quickstart/+/859213
+    
+    Change-Id: I56d3c199b89997238c50638c9813900a26a3dadb
+
+Notes <span style="color:#f92672">(</span>review<span style="color:#f92672">)</span>:
+    Code-Review+2: yatin &lt;ykarel@redhat.com&gt;
+    Code-Review+2: chandan kumar &lt;chkumar@redhat.com&gt;
+    Workflow+1: chandan kumar &lt;chkumar@redhat.com&gt;
+    Verified+1: RDO Third Party CI &lt;dmsimard+rdothirdparty@redhat.com&gt;
+    Verified+2: Zuul
+    Submitted-by: Zuul
+    Submitted-at: Wed, <span style="color:#ae81ff">28</span> Sep <span style="color:#ae81ff">2022</span> 12:58:46 +0000
+    Reviewed-on: https://review.opendev.org/c/openstack/tripleo-quickstart/+/859516
+    Project: openstack/tripleo-quickstart
+    Branch: refs/heads/master
+
+commit 61973b67be2a5bf91815aadf7bb99f50a100eed7
+Author: Chandan Kumar <span style="color:#f92672">(</span>raukadah<span style="color:#f92672">)</span> &lt;chkumar@redhat.com&gt;
+Date:   Mon Sep <span style="color:#ae81ff">26</span> 11:36:10 <span style="color:#ae81ff">2022</span> +0530
+
+    <span style="color:#f92672">[</span>CS8<span style="color:#f92672">][</span>Wallaby<span style="color:#f92672">]</span> Exclude container-selinux-2:2.189.0
+    
+    Latest version of udica<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> requires container-selinux.
+    In ffu upgrade job, during container-selinux installation,
+    It gives following error:
+    <span style="color:#e6db74">```</span>
+    package container-selinux-2:2.189.0-1.module_el8.7.0+1217+ea57d1f1.noarch
+    conflicts with udica &lt; 0.2.6-1 provided by udica-0.2.4-1.module_el8.7.0+1217+ea57d1f1.noarch
+    <span style="color:#e6db74">```</span>
+    Excluding latest container-selinux-2:2.189.0 fixes the issue
+    as it works with existing udica-0.2.4-1.module_el8.
+    
+    <span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>. https://koji.mbox.centos.org/koji/buildinfo?buildID<span style="color:#f92672">=</span><span style="color:#ae81ff">22871</span>
+    
+    Related-Bug: <span style="color:#75715e">#1990810</span>
+    
+    Signed-off-by: Chandan Kumar <span style="color:#f92672">(</span>raukadah<span style="color:#f92672">)</span> &lt;chkumar@redhat.com&gt;
+    Change-Id: Ied21dbba59dbfe174036d2301ab9543c924c1de5
+
+Notes <span style="color:#f92672">(</span>review<span style="color:#f92672">)</span>:
+    Code-Review+1: Ananya &lt;anbanerj@redhat.com&gt;
+    Code-Review+2: Sandeep Yadav &lt;sandyada@redhat.com&gt;
+    Code-Review+2: Marios Andreou &lt;marios@redhat.com&gt;
+    Code-Review+2: Cedric Jeanneret &lt;cjeanner@redhat.com&gt;
+    Verified+1: RDO Third Party CI &lt;dmsimard+rdothirdparty@redhat.com&gt;
+    Verified+2: Zuul
+    Workflow+1: Cedric Jeanneret &lt;cjeanner@redhat.com&gt;
+    Submitted-by: Zuul
+    Submitted-at: Mon, <span style="color:#ae81ff">26</span> Sep <span style="color:#ae81ff">2022</span> 15:29:34 +0000
+    Reviewed-on: https://review.opendev.org/c/openstack/tripleo-quickstart/+/859213
+    Project: openstack/tripleo-quickstart
+    Branch: refs/heads/master
+
+...
+...
+omits the older commits outputs
+</code></pre></div><p>关于上面的输出内容，有一些点需要一些解释:</p>
+<p><code>Notes（review）：</code>是&quot;notes&quot;的标记，表示接下来的信息是&quot;notes&quot;，而不是
+&ldquo;commit-message&rdquo;。实际上, 虽然&quot;notes&quot;的能力是git实现的，但是该仓库的注释并不是由
+git命令直接生成，而是由 Gerrit Review Notes 插件提供的(JGit)，并且内容和内容格式根据用
+户需要定制，它包括批准审查的审查人，测试是否通过如果经过验证以及谁得分，甚至是有
+关 Codereview 的一些信息系统、存储库和分支等。</p>
+<h2 id="notes-的存储方式">&ldquo;notes&rdquo; 的存储方式</h2>
+<p>现在，我们通过 gerrit 使用演示对notes有了一个大致的认识，下一步，我们将尝试从头
+开始研究其实现。</p>
+<p>我们首先创建一个空仓库，随后创建第一个提交：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  Downloads git init git-notes-test
+Initialized empty Git repository in /Users/tenglong.tl/Downloads/git-notes-test/.git/
+➜  Downloads cd git-notes-test
+➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> echo &gt; 1.txt <span style="color:#f92672">&amp;&amp;</span> git add 1.txt <span style="color:#f92672">&amp;&amp;</span> git commit -m <span style="color:#e6db74">&#34;First Commit&#34;</span>
+ <span style="color:#ae81ff">1</span> file changed, <span style="color:#ae81ff">1</span> insertion<span style="color:#f92672">(</span>+<span style="color:#f92672">)</span>
+ create mode <span style="color:#ae81ff">100644</span> 1.txt
+➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ git --no-pager log
+commit 7e5ad57b724ecdd911154302b84d5cfba05f8a05 <span style="color:#f92672">(</span>HEAD -&gt; master<span style="color:#f92672">)</span>
+Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Sat Oct <span style="color:#ae81ff">8</span> 20:28:01 <span style="color:#ae81ff">2022</span> +0800
+
+    First Commit
+</code></pre></div><p>这里面没有太多的惊喜，下一步我们尝试直接执行&quot;git notes add&quot;，并解释其效果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git notes add
+</code></pre></div><p>该命令用于对某个commit添加&quot;notes&quot;, 执行之后，终端会出现一个编辑器（默认行为），
+我选择在其中添加一些 Gerrit 可能会添加的一些信息（事实上可以写其他你喜好的信息）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    Code-Review+2: John Trowbridge &lt;trown@redhat.com&gt;
+    Workflow+1: John Trowbridge &lt;trown@redhat.com&gt;
+    Verified+2: Jenkins
+    Submitted-by: Jenkins
+    Submitted-at: Fri, <span style="color:#ae81ff">01</span> Apr <span style="color:#ae81ff">2016</span> 15:17:54 +0000
+    Reviewed-on: https://review.openstack.org/300547
+    Project: openstack/tripleo-quickstart
+    Branch: refs/heads/master
+</code></pre></div><p>接下来， 我们执行<code>git --no-pager log</code> 命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git --no-pager log
+commit 7e5ad57b724ecdd911154302b84d5cfba05f8a05 <span style="color:#f92672">(</span>HEAD -&gt; master<span style="color:#f92672">)</span>
+Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Sat Oct <span style="color:#ae81ff">8</span> 20:28:01 <span style="color:#ae81ff">2022</span> +0800
+
+    First Commit
+
+Notes:
+    Code-Review+2: John Trowbridge &lt;trown@redhat.com&gt;
+    Workflow+1: John Trowbridge &lt;trown@redhat.com&gt;
+    Verified+2: Jenkins
+    Submitted-by: Jenkins
+    Submitted-at: Fri, <span style="color:#ae81ff">01</span> Apr <span style="color:#ae81ff">2016</span> 15:17:54 +0000
+    Reviewed-on: https://review.openstack.org/300547
+    Project: openstack/tripleo-quickstart
+    Branch: refs/heads/master
+</code></pre></div><p>输出显示了我们刚刚为第一个提交添加的&quot;notes&quot;，有意思的事，我们没有指定为哪个提交，
+git按照习惯性的方式，选择了<code>HEAD</code>，即<code>7e5ad57b724ecdd911154302b84d5cfba05f8a05</code>.</p>
+<p>如果添加之后发现需要修改已经添加的部分，该怎么办？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git notes add -f
+Overwriting existing notes <span style="color:#66d9ef">for</span> object 7e5ad57b724ecdd911154302b84d5cfba05f8a05
+</code></pre></div><p>可以使用 <code>-f</code> 选项来强制更新某个对象的&quot;notes&quot;。输出表明了一条很关键的输出信息，
+那就是刚刚更新覆盖了commit的&quot;notes&quot;， 而不是创建一个新的commit。而这，其实是
+&ldquo;git-notes&rdquo; 的重要作用和设计目的之一，西面的输出内容证明了&quot;notes&quot;修改之后，commit
+本身并没有重新生成，即<code>7e5ad57b724ecdd911154302b84d5cfba05f8a05</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">commit 7e5ad57b724ecdd911154302b84d5cfba05f8a05 <span style="color:#f92672">(</span>HEAD -&gt; master<span style="color:#f92672">)</span>
+Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Sat Oct <span style="color:#ae81ff">8</span> 20:28:01 <span style="color:#ae81ff">2022</span> +0800
+
+    First Commit
+
+Notes:
+    Code-Review+2: John Trowbridge &lt;trown@redhat.com&gt;
+    Workflow+1: John Trowbridge &lt;trown@redhat.com&gt;
+    Verified+2: Jenkins
+    Submitted-by: Jenkins
+    Submitted-at: Fri, <span style="color:#ae81ff">01</span> Apr <span style="color:#ae81ff">2016</span> 15:17:54 +0000
+    Reviewed-on: https://review.openstack.org/300547
+    Project: openstack/tripleo-quickstart
+    Branch: refs/heads/master
+    What-to-add: what we added
+</code></pre></div><p>下一部分, 让我们关注notes是如何存储的。因为commit中不存在修改，那么为了做到看起
+来存储额外的信息，势必需要建立commit到notes之间的关联关系，这样我们才能根据一个
+commit来搜索其notes的内容，这其中git使用了一种特殊的 ref 来存储笔记的关系。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git show-ref
+7e5ad57b724ecdd911154302b84d5cfba05f8a05 refs/heads/master
+899773d07250dfc83da9e14c45bd05976af0b124 refs/notes/commits
+</code></pre></div><p>当我们添加notes之后，会产生一个新的ref为<code>refs/notes/commits</code>(默认且可配)， 该ref
+的commit为<code>899773d07250dfc83da9e14c45bd05976af0b124</code>。 紧接着，我们尝试分析这个
+commit存储的内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git ls-tree -r  899773d07250dfc83da9e14c45bd05976af0b124
+<span style="color:#ae81ff">100644</span> blob 0c92279bea1cfd75646ca487bb22bb7d5588251e    7e5ad57b724ecdd911154302b84d5cfba05f8a05
+</code></pre></div><p><code>0c92279bea1cfd75646ca487bb22bb7d5588251e</code>是一个blob对象，存储了文件
+<code>7e5ad57b724ecdd911154302b84d5cfba05f8a05</code>, 实际上，这个文件名正是我们创建的第一
+个commit，这就是&quot;notes&quot;和commit关联的方式。</p>
+<p><code>refs/notes/commits</code>这个引用，通过提交历史的方式，记录了notes的更新历史，而且只
+要不是我们人工干预，这个历史讲永远是线性的而不会产生分叉。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git --no-pager log 899773d07250dfc83da9e14c45bd05976af0b124
+commit 899773d07250dfc83da9e14c45bd05976af0b124
+Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Mon Oct <span style="color:#ae81ff">10</span> 18:46:15 <span style="color:#ae81ff">2022</span> +0800
+
+    Notes added by <span style="color:#e6db74">&#39;git notes add&#39;</span>
+
+commit d49c657d9d0d4be1fb160cb9738c82053c0c9112
+Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Sat Oct <span style="color:#ae81ff">8</span> 21:09:50 <span style="color:#ae81ff">2022</span> +0800
+
+    Notes added by <span style="color:#e6db74">&#39;git notes add&#39;</span>
+</code></pre></div><p>根提交是针对我们的第一个<code>git notes add</code>，而提示提交是针对我们的第二个<code>git notes add -f</code>操作进行强制更新。下面的输出信息展示了二者之间的改动差异:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">commit 899773d07250dfc83da9e14c45bd05976af0b124
+Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
+Date:   Mon Oct <span style="color:#ae81ff">10</span> 18:46:15 <span style="color:#ae81ff">2022</span> +0800
+
+    Notes added by <span style="color:#e6db74">&#39;git notes add&#39;</span>
+
+diff --git a/7e5ad57b724ecdd911154302b84d5cfba05f8a05 b/7e5ad57b724ecdd911154302b84d5cfba05f8a05
+index a0ef3e5..0c92279 <span style="color:#ae81ff">100644</span>
+--- a/7e5ad57b724ecdd911154302b84d5cfba05f8a05
++++ b/7e5ad57b724ecdd911154302b84d5cfba05f8a05
+@@ -6,3 +6,4 @@ Submitted-at: Fri, <span style="color:#ae81ff">01</span> Apr <span style="color:#ae81ff">2016</span> 15:17:54 +0000
+ Reviewed-on: https://review.openstack.org/300547
+ Project: openstack/tripleo-quickstart
+ Branch: refs/heads/master
++What-to-add: what we added
+</code></pre></div><h2 id="在commits之外的对象上的存储">在commits之外的对象上的存储</h2>
+<p>Notes 同样可以作用于其他对象之上， 例如：标签。</p>
+<pre tabindex="0"><code>➜  git-notes-test git:(master) git tag -a -m &quot;test commit&quot;
+➜  git-notes-test git:(master) git --no-pager tag
+v1.0
+➜  git-notes-test git:(master) git show-ref --tags
+769baa18c813add6d99d85bbb7e0ab7b7c19e491 refs/tags/v1.0
+➜  git-notes-test git:(master) git notes add 769baa18c813add6d99d85bbb7e0ab7b7c19e491
+➜  git-notes-test git:(master) git --no-pager notes show 769baa18c813add6d99d85bbb7e0ab7b7c19e49
+Add-notes-on-tag: added
+</code></pre><p>随后可以执行ls-tree， 查看存储情况：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git ls-tree refs/notes/commits
+<span style="color:#ae81ff">100644</span> blob 1daee75c5d07890f8a86869aa4b2553f60554b31    769baa18c813add6d99d85bbb7e0ab7b7c19e491
+<span style="color:#ae81ff">100644</span> blob 0c92279bea1cfd75646ca487bb22bb7d5588251e    7e5ad57b724ecdd911154302b84d5cfba05f8a05
+</code></pre></div><p>git 之所以可以这样做是因为SHA的不可变性，我们需要使用&quot;git notes show&quot; 去查看标签
+的notes信息，如果使用git show， 则不会显示，因为git show只会展示commit的notes，
+而不会展示标签的notes。</p>
+<h2 id="notes存储上的哈希化路径">notes存储上的哈希化路径</h2>
+<p>当refs/notes/commits下存储的文件过多的时候，将对查询性能造成影响，所以notes存储
+上也支持哈希化的路径，提升查询效率。</p>
+<h2 id="其他的子命令">其他的子命令</h2>
+<h3 id="list">list</h3>
+<p>list 子命令可以查询某个ref上的notes信息，格式为<!-- raw HTML omitted -->， 如果没有指定ref则
+列出所有notes信息，格式为<!-- raw HTML omitted --> <!-- raw HTML omitted -->。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git notes list master
+0c92279bea1cfd75646ca487bb22bb7d5588251e
+➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git notes list v1.0
+1daee75c5d07890f8a86869aa4b2553f60554b31
+➜  git-notes-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git notes list
+1daee75c5d07890f8a86869aa4b2553f60554b31 769baa18c813add6d99d85bbb7e0ab7b7c19e491
+0c92279bea1cfd75646ca487bb22bb7d5588251e 7e5ad57b724ecdd911154302b84d5cfba05f8a05
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/git-crlf/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Git CRLF processing and &#39;git add --renormalize&#39;</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

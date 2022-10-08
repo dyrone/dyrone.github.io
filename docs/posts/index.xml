@@ -6,7 +6,16 @@
     <description>Recent content in Posts on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Sep 2022 15:39:04 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Oct 2022 19:02:07 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git Notes(to be continued...)</title>
+      <link>https://dyrone.github.io/posts/git-notes/</link>
+      <pubDate>Thu, 06 Oct 2022 19:02:07 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-notes/</guid>
+      <description>Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。</description>
+    </item>
+    
     <item>
       <title>Git CRLF processing and &#39;git add --renormalize&#39;</title>
       <link>https://dyrone.github.io/posts/git-crlf/</link>
