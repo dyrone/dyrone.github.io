@@ -6,7 +6,16 @@
     <description>Recent content in c on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Sep 2022 15:39:04 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Oct 2022 16:00:10 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gdb Journey</title>
+      <link>https://dyrone.github.io/posts/gdb-journey-chapter-1/</link>
+      <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/gdb-journey-chapter-1/</guid>
+      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包</description>
+    </item>
+    
     <item>
       <title>Git CRLF processing and &#39;git add --renormalize&#39;</title>
       <link>https://dyrone.github.io/posts/git-crlf/</link>

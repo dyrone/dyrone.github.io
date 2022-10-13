@@ -1,13 +1,17 @@
 ---
-title: "Gdb Journey Chapter 1"
-date: 2022-06-24T11:10:10+08:00
-draft: true
+title: "Gdb Journey"
+date: 2022-10-13T16:00:10+08:00
+draft: false 
+tags: 
+    - tools
+    - debugging
+    - c
 ---
 
+## Use m4 for a test
 
-# Use m4 for a test
-
-如果发现没有debug详细信息，根据gdb的提示，可以使用`debuginfo-install`安装对应的依赖包
+如果发现没有debug详细信息，根据gdb的提示，可以使用`debuginfo-install`安装对应的
+依赖包
 
 > DESCRIPTION
 >        debuginfo-install is a program which installs the RPMs needed to
@@ -18,20 +22,21 @@ draft: true
 > 
 > From: https://man7.org/linux/man-pages/man1/debuginfo-install.1.html
 
-
-
 ```shell
 $ debuginfo-install m4-1.4.16-10.1.alios7.x86_64
 ```
 
-
-# GDB 指定执行参数
+## GDB 指定执行参数
 
 ```shell
 gdb --args git ls-tree HEAD
 ```
 
-# 在Git中查看构建调试参数
+更多的参数和用法可以参考GDB Cheat Sheet.
+
+> https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf
+
+## 在Git中查看构建调试参数
 
 在git源码中的Makefile中定义了CFLAG的相关参数：
 
@@ -106,8 +111,7 @@ BASIC_LDFLAGS =
 /config.mak.append
 ```
 
-我们可以通过修改config.mak的方式进行扩展，而不修改原有的make文件
-
+我们可以通过修改config.mak的方式进行扩展，而不修改原有的make文件。
 
 在我的开发机器上，重新构建git后，例如执行`gdb --args git ls-tree HEAD` 仍旧在GDB中存在如下警告信息：
 
@@ -199,6 +203,76 @@ $6 = (struct tree *) 0xa36630
 $7 = (struct tree **) 0x7fffffffdde0
 ```
 
-# 相关资料
+## 相关资料
 
 > https://gist.github.com/phil-blain/17c67740bd26e66f4851fe0c07230ea4
+> https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf
+
+## FAQ
+
+在使用GDB的过程中，特别是使用Mac GDB的过程中，可能会遇到诸多的问题，下面的链接可
+能会对你产生帮助:
+
+### please check gdb is codesigned - see taskgated(8)
+
+```shell
+(gdb) run
+Starting program: /Users/lurongming/test/cpptest/main
+Unable to find Mach task port for process-id 33242: (os/kern) failure (0x5).
+(please check gdb is codesigned - see taskgated(8))
+```
+
+> https://blog.csdn.net/LU_ZHAO/article/details/104803399
+
+### On macOS 10.12 (Sierra) and later
+
+> https://sourceware.org/gdb/wiki/BuildingOnDarwin
+
+### Hangs after executing "run" and prompt "[New Thread 0x2503 of process 10191]" 
+
+https://timnash.co.uk/getting-gdb-to-semi-reliably-work-on-mojave-macos/
+
+### My own way on macOS(currently solve all the FAQs)
+
+```shell
+➜  git-notes-test git:(tl/test) ✗ sudo gdb --args git notes
+Password:
+GNU gdb (GDB) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-apple-darwin19.6.0".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from git...
+(gdb) run
+Starting program: /usr/local/bin/git notes
+[New Thread 0x2603 of process 11838]
+[New Thread 0x1b03 of process 11838]
+warning: unhandled dyld version (16)
+1daee75c5d07890f8a86869aa4b2553f60554b31 769baa18c813add6d99d85bbb7e0ab7b7c19e491
+0c92279bea1cfd75646ca487bb22bb7d5588251e 7e5ad57b724ecdd911154302b84d5cfba05f8a05
+214bc686ea9a9082763989a36830524c505e5feb ab4cc15ab20a5e14b330204de4c3d05ca1205f27
+[Inferior 1 (process 11838) exited normally]
+(gdb) exit
+➜  git-notes-test git:(tl/test) ✗ cat ~/.gdbinit 
+set startup-with-shell off
+➜  git-notes-test git:(tl/test) ✗ sudo DevToolsSecurity -disable
+
+Developer mode is already disabled.
+➜  git-notes-test git:(tl/test) ✗ 
+```
+
+* I select to add "sudo" when executing gdb, due to isolate all the permission
+  problems.
+* I disable the developer mode by `sudo DevToolsSecurity -disable`.
+* I add `set startup-with-shell off` into `~/.gdbinit` make sure the zsh could
+  not affect the gdb initialization.

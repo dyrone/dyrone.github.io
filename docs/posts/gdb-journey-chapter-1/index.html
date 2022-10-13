@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Gdb Journey - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Gdb Journey" />
+<meta property="og:description" content="Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/gdb-journey-chapter-1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-13T16:00:10+08:00" />
+<meta property="article:modified_time" content="2022-10-13T16:00:10+08:00" />
+
+
+		<meta itemprop="name" content="Gdb Journey">
+<meta itemprop="description" content="Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包"><meta itemprop="datePublished" content="2022-10-13T16:00:10+08:00" />
+<meta itemprop="dateModified" content="2022-10-13T16:00:10+08:00" />
+<meta itemprop="wordCount" content="904">
+<meta itemprop="keywords" content="tools,debugging,c," />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gdb Journey"/>
+<meta name="twitter:description" content="Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包"/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Gdb Journey</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-10-13T16:00:10&#43;08:00">2022-10-13</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#use-m4-for-a-test">Use m4 for a test</a></li>
+    <li><a href="#gdb-指定执行参数">GDB 指定执行参数</a></li>
+    <li><a href="#在git中查看构建调试参数">在Git中查看构建调试参数</a></li>
+    <li><a href="#相关资料">相关资料</a></li>
+    <li><a href="#faq">FAQ</a>
+      <ul>
+        <li><a href="#please-check-gdb-is-codesigned---see-taskgated8">please check gdb is codesigned - see taskgated(8)</a></li>
+        <li><a href="#on-macos-1012-sierra-and-later">On macOS 10.12 (Sierra) and later</a></li>
+        <li><a href="#hangs-after-executing-run-and-prompt-new-thread-0x2503-of-process-10191">Hangs after executing &ldquo;run&rdquo; and prompt &ldquo;[New Thread 0x2503 of process 10191]&rdquo;</a></li>
+        <li><a href="#my-own-way-on-macoscurrently-solve-all-the-faqs">My own way on macOS(currently solve all the FAQs)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="use-m4-for-a-test">Use m4 for a test</h2>
+<p>如果发现没有debug详细信息，根据gdb的提示，可以使用<code>debuginfo-install</code>安装对应的
+依赖包</p>
+<blockquote>
+<p>DESCRIPTION
+debuginfo-install is a program which installs the RPMs needed to
+debug the specified package.  The package argument can be a
+wildcard, but will only match installed packages.  debuginfo-
+install will then enable any debuginfo repositories, and install
+the relevant debuginfo rpm.</p>
+<p>From: <a href="https://man7.org/linux/man-pages/man1/debuginfo-install.1.html">https://man7.org/linux/man-pages/man1/debuginfo-install.1.html</a></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ debuginfo-install m4-1.4.16-10.1.alios7.x86_64
+</code></pre></div><h2 id="gdb-指定执行参数">GDB 指定执行参数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gdb --args git ls-tree HEAD
+</code></pre></div><p>更多的参数和用法可以参考GDB Cheat Sheet.</p>
+<blockquote>
+<p><a href="https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf</a></p>
+</blockquote>
+<h2 id="在git中查看构建调试参数">在Git中查看构建调试参数</h2>
+<p>在git源码中的Makefile中定义了CFLAG的相关参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#75715e"># Set CFLAGS, LDFLAGS and other *FLAGS variables. These might be                                                                                   
+</span><span style="color:#75715e"># tweaked by config.* below as well as the command-line, both of                                                                                       
+</span><span style="color:#75715e"># which&#39;ll override these defaults.                                                       
+</span><span style="color:#75715e"># Older versions of GCC may require adding &#34;-std=gnu99&#34; at the end.                                                                                       
+</span><span style="color:#75715e"></span>CFLAGS <span style="color:#f92672">=</span> -g -O2 -Wall
+LDFLAGS <span style="color:#f92672">=</span>
+CC_LD_DYNPATH <span style="color:#f92672">=</span> -Wl,-rpath,
+BASIC_CFLAGS <span style="color:#f92672">=</span> -I.
+BASIC_LDFLAGS <span style="color:#f92672">=</span>
+</code></pre></div><p>其中 <code>-g</code> 让编译器编译时生成调试信息，<code>-O2</code> 让编译器编译时使用最优的编译选项，<code>-Wall</code> 让编译器编译时生成警告信息。</p>
+<p>关于 <code>-g</code> 与其相关等级的进一步说明：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+       -glevel
+       -ggdblevel
+       -gstabslevel
+       -gxcofflevel
+       -gvmslevel
+           Request debugging information and also use level to specify
+           how much information.  The default level is 2.
+
+           Level <span style="color:#ae81ff">0</span> produces no debug information at all.  Thus, -g0
+           negates -g.
+
+           Level <span style="color:#ae81ff">1</span> produces minimal information, enough <span style="color:#66d9ef">for</span> making
+           backtraces in parts of the program that you don<span style="color:#960050;background-color:#1e0010">&#39;</span>t plan to
+           debug.  This includes descriptions of functions and external
+           variables, and line number tables, but no information about
+           local variables.
+
+           Level <span style="color:#ae81ff">3</span> includes extra information, such as all the macro
+           definitions present in the program.  Some debuggers support
+           macro expansion when you use -g3.
+
+           If you use multiple -g options, with or without level
+           numbers, the last such option is the one that is effective.
+
+           -gdwarf does not accept a concatenated debug level, to avoid
+           confusion with -gdwarf-level.  Instead use an additional
+           -glevel option to change the debug level <span style="color:#66d9ef">for</span> DWARF.
+</code></pre></div><blockquote>
+<p>From: <a href="https://man7.org/linux/man-pages/man1/gcc.1.html">https://man7.org/linux/man-pages/man1/gcc.1.html</a></p>
+</blockquote>
+<p>其中 <code>-O2</code> 代表了优化等级，git中默认选择 O2 等级，为了更好的debug， 我们可以改为<code>-O0</code>, 从而可以让debug信息更丰富和明确。</p>
+<pre tabindex="0"><code class="language-adoc" data-lang="adoc">-O0
+
+    Reduce compilation time and make debugging produce the expected results. 
+    This is the default.
+</code></pre><blockquote>
+<p>From: <a href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html">https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html</a></p>
+</blockquote>
+<p>我们可以查看git的<code>.gitignore文件</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/config.mak
+/autom4te.cache
+/config.cache
+/config.log
+/config.status
+/config.mak.autogen
+/config.mak.append
+</code></pre></div><p>我们可以通过修改config.mak的方式进行扩展，而不修改原有的make文件。</p>
+<p>在我的开发机器上，重新构建git后，例如执行<code>gdb --args git ls-tree HEAD</code> 仍旧在GDB中存在如下警告信息：</p>
+<blockquote>
+<p>Reading symbols from /home/tenglong.tl/repos/git/git&hellip;Dwarf Error: wrong version in compilation unit header (is 5, should be 2, 3, or 4) [in module /home</p>
+<p>(no debugging symbols found)&hellip;done.</p>
+</blockquote>
+<pre tabindex="0"><code>
+出现这种情况的原因通常是GDB的版本过老，对于`-g3`产生的调试信息无法正确识别，我们选择升级`gdb`的版本即可： 
+
+```shell
+
+$sudo yum upgrade gdb
+Last metadata expiration check: 3:09:55 ago on Fri 24 Jun 2022 11:08:04 AM CST.
+Dependencies resolved.
+...
+New leaves:
+  gdb.x86_64
+
+Installed:
+  gdb-headless.x86_64 8.2-6.5.alios7                                                                                                                      
+
+Upgraded:
+  gdb.x86_64 8.2-6.5.alios7                                                                                                                               
+
+Complete!
+</code></pre><p>再次执行<code>gdb --args git ls-tree HEAD</code>， symbol已经可以正确读取：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ gdb --args git ls-tree HEAD
+GNU gdb <span style="color:#f92672">(</span>GDB<span style="color:#f92672">)</span> Red Hat Enterprise Linux 8.2-6.5.alios7
+Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> <span style="color:#ae81ff">2018</span> Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version <span style="color:#ae81ff">3</span> or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type <span style="color:#e6db74">&#34;show copying&#34;</span> and <span style="color:#e6db74">&#34;show warranty&#34;</span> <span style="color:#66d9ef">for</span> details.
+This GDB was configured as <span style="color:#e6db74">&#34;x86_64-redhat-linux-gnu&#34;</span>.
+Type <span style="color:#e6db74">&#34;show configuration&#34;</span> <span style="color:#66d9ef">for</span> configuration details.
+For bug reporting instructions, please see:
+&lt;http://www.gnu.org/software/gdb/bugs/&gt;.
+Find the GDB manual and other documentation resources online at:
+    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+
+For help, type <span style="color:#e6db74">&#34;help&#34;</span>.
+Type <span style="color:#e6db74">&#34;apropos word&#34;</span> to search <span style="color:#66d9ef">for</span> commands related to <span style="color:#e6db74">&#34;word&#34;</span>...
+Reading symbols from git...done.
+</code></pre></div><p>随后我们尝试在git ls-tree的入口方法 &ldquo;cmd_ls_tree()&rdquo; 添加断点， 然后通过<code>step</code>命令进行单步调试，可以看到调试信息如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> b cmd_ls_tree
+Breakpoint <span style="color:#ae81ff">1</span> at 0x479b71: file builtin/ls-tree.c, line 333.
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> run
+Starting program: /home/tenglong.tl/repos/git/git ls-tree HEAD
+<span style="color:#f92672">[</span>Thread debugging using libthread_db enabled<span style="color:#f92672">]</span>
+Using host libthread_db library <span style="color:#e6db74">&#34;/lib64/libthread_db.so.1&#34;</span>.
+
+Breakpoint 1, cmd_ls_tree <span style="color:#f92672">(</span>argc<span style="color:#f92672">=</span>2, argv<span style="color:#f92672">=</span>0x7fffffffe190, prefix<span style="color:#f92672">=</span>0x0<span style="color:#f92672">)</span> at builtin/ls-tree.c:333
+<span style="color:#ae81ff">333</span>             int i, full_tree <span style="color:#f92672">=</span> 0;
+Missing separate debuginfos, use: debuginfo-install zlib-1.2.7-16.2.alios7.x86_64
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> s
+<span style="color:#ae81ff">334</span>             read_tree_fn_t fn <span style="color:#f92672">=</span> NULL;
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> 
+<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> 0:
+</code></pre></div><p>我们可以使用<code>backtrace</code>(<code>bt</code>) 查看调用栈，可以看到调用栈如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> backtrace
+<span style="color:#75715e">#0  cmd_ls_tree (argc=2, argv=0x7fffffffe190, prefix=0x0) at builtin/ls-tree.c:334</span>
+<span style="color:#75715e">#1  0x0000000000406a8a in run_builtin (p=0x9dbd88 &lt;commands+1512&gt;, argc=2, argv=0x7fffffffe190) at git.c:466</span>
+<span style="color:#75715e">#2  0x0000000000406e65 in handle_builtin (argc=2, argv=0x7fffffffe190) at git.c:720</span>
+<span style="color:#75715e">#3  0x000000000040709c in run_argv (argcp=0x7fffffffe02c, argv=0x7fffffffe020) at git.c:787</span>
+<span style="color:#75715e">#4  0x0000000000407579 in cmd_main (argc=2, argv=0x7fffffffe190) at git.c:920</span>
+<span style="color:#75715e">#5  0x00000000004ea8e1 in main (argc=3, argv=0x7fffffffe188) at common-main.c:5</span>
+</code></pre></div><p>可以使用<code>print</code>(<code>p</code>) 来查看变量的值，可以看到如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> print tree
+$6 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>struct tree *<span style="color:#f92672">)</span> 0xa36630
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> print &amp;tree
+$7 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>struct tree **<span style="color:#f92672">)</span> 0x7fffffffdde0
+</code></pre></div><h2 id="相关资料">相关资料</h2>
+<blockquote>
+<p><a href="https://gist.github.com/phil-blain/17c67740bd26e66f4851fe0c07230ea4">https://gist.github.com/phil-blain/17c67740bd26e66f4851fe0c07230ea4</a>
+<a href="https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf</a></p>
+</blockquote>
+<h2 id="faq">FAQ</h2>
+<p>在使用GDB的过程中，特别是使用Mac GDB的过程中，可能会遇到诸多的问题，下面的链接可
+能会对你产生帮助:</p>
+<h3 id="please-check-gdb-is-codesigned---see-taskgated8">please check gdb is codesigned - see taskgated(8)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> run
+Starting program: /Users/lurongming/test/cpptest/main
+Unable to find Mach task port <span style="color:#66d9ef">for</span> process-id 33242: <span style="color:#f92672">(</span>os/kern<span style="color:#f92672">)</span> failure <span style="color:#f92672">(</span>0x5<span style="color:#f92672">)</span>.
+<span style="color:#f92672">(</span>please check gdb is codesigned - see taskgated<span style="color:#f92672">(</span>8<span style="color:#f92672">))</span>
+</code></pre></div><blockquote>
+<p><a href="https://blog.csdn.net/LU_ZHAO/article/details/104803399">https://blog.csdn.net/LU_ZHAO/article/details/104803399</a></p>
+</blockquote>
+<h3 id="on-macos-1012-sierra-and-later">On macOS 10.12 (Sierra) and later</h3>
+<blockquote>
+<p><a href="https://sourceware.org/gdb/wiki/BuildingOnDarwin">https://sourceware.org/gdb/wiki/BuildingOnDarwin</a></p>
+</blockquote>
+<h3 id="hangs-after-executing-run-and-prompt-new-thread-0x2503-of-process-10191">Hangs after executing &ldquo;run&rdquo; and prompt &ldquo;[New Thread 0x2503 of process 10191]&rdquo;</h3>
+<p><a href="https://timnash.co.uk/getting-gdb-to-semi-reliably-work-on-mojave-macos/">https://timnash.co.uk/getting-gdb-to-semi-reliably-work-on-mojave-macos/</a></p>
+<h3 id="my-own-way-on-macoscurrently-solve-all-the-faqs">My own way on macOS(currently solve all the FAQs)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  git-notes-test git:<span style="color:#f92672">(</span>tl/test<span style="color:#f92672">)</span> ✗ sudo gdb --args git notes
+Password:
+GNU gdb <span style="color:#f92672">(</span>GDB<span style="color:#f92672">)</span> 12.1
+Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> <span style="color:#ae81ff">2022</span> Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version <span style="color:#ae81ff">3</span> or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type <span style="color:#e6db74">&#34;show copying&#34;</span> and <span style="color:#e6db74">&#34;show warranty&#34;</span> <span style="color:#66d9ef">for</span> details.
+This GDB was configured as <span style="color:#e6db74">&#34;x86_64-apple-darwin19.6.0&#34;</span>.
+Type <span style="color:#e6db74">&#34;show configuration&#34;</span> <span style="color:#66d9ef">for</span> configuration details.
+For bug reporting instructions, please see:
+&lt;https://www.gnu.org/software/gdb/bugs/&gt;.
+Find the GDB manual and other documentation resources online at:
+    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.
+
+For help, type <span style="color:#e6db74">&#34;help&#34;</span>.
+Type <span style="color:#e6db74">&#34;apropos word&#34;</span> to search <span style="color:#66d9ef">for</span> commands related to <span style="color:#e6db74">&#34;word&#34;</span>...
+Reading symbols from git...
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> run
+Starting program: /usr/local/bin/git notes
+<span style="color:#f92672">[</span>New Thread 0x2603 of process 11838<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>New Thread 0x1b03 of process 11838<span style="color:#f92672">]</span>
+warning: unhandled dyld version <span style="color:#f92672">(</span>16<span style="color:#f92672">)</span>
+1daee75c5d07890f8a86869aa4b2553f60554b31 769baa18c813add6d99d85bbb7e0ab7b7c19e491
+0c92279bea1cfd75646ca487bb22bb7d5588251e 7e5ad57b724ecdd911154302b84d5cfba05f8a05
+214bc686ea9a9082763989a36830524c505e5feb ab4cc15ab20a5e14b330204de4c3d05ca1205f27
+<span style="color:#f92672">[</span>Inferior <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>process 11838<span style="color:#f92672">)</span> exited normally<span style="color:#f92672">]</span>
+<span style="color:#f92672">(</span>gdb<span style="color:#f92672">)</span> exit
+➜  git-notes-test git:<span style="color:#f92672">(</span>tl/test<span style="color:#f92672">)</span> ✗ cat ~/.gdbinit 
+set startup-with-shell off
+➜  git-notes-test git:<span style="color:#f92672">(</span>tl/test<span style="color:#f92672">)</span> ✗ sudo DevToolsSecurity -disable
+
+Developer mode is already disabled.
+➜  git-notes-test git:<span style="color:#f92672">(</span>tl/test<span style="color:#f92672">)</span> ✗ 
+</code></pre></div><ul>
+<li>I select to add &ldquo;sudo&rdquo; when executing gdb, due to isolate all the permission
+problems.</li>
+<li>I disable the developer mode by <code>sudo DevToolsSecurity -disable</code>.</li>
+<li>I add <code>set startup-with-shell off</code> into <code>~/.gdbinit</code> make sure the zsh could
+not affect the gdb initialization.</li>
+</ul>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/tools/" rel="tag">tools</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/debugging/" rel="tag">debugging</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/c/" rel="tag">c</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/exit-status/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Exit Status</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
