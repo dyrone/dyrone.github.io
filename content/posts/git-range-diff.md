@@ -4,7 +4,7 @@ date: 2022-10-18T19:18:41+08:00
 draft: true
 tags:
     - git
-    -gerrit
+    - gerrit
 ---
 
 ## How gerrit make the diff between changes
@@ -45,7 +45,44 @@ bf40424ba2b0ae97e7d6a205b3eb14259a3e9728 refs/changes/74/345774/4
 Each ref represent the information about a change patch, the change ID, patch
 sequence, and the commiti SHA;
 
-## The range diff
+## The range diff subcommand of git
 
-By Gerrit UI, if we 
+> Related documentation of git-scm:
+> 
+> https://git-scm.com/docs/git-range-diff
 
+> This command shows the differences between two versions of a patch series, or
+> more generally, two commit ranges (ignoring merge commits).
+
+> The synopsis:
+> 
+> git range-diff [--color=[<when>]] [--no-color] [<diff-options>]
+> 	[--no-dual-color] [--creation-factor=<factor>]
+> 	[--left-only | --right-only]
+> 	( <range1> <range2> | <rev1>...<rev2> | <base> <rev1> <rev2> )
+> 	[[--] <path>…​]
+
+* <path>: is after "--", literally distinguishing with the "ranges" arguments, so
+  if we want to specify a concrete <path>, it's always suggested to use "--" in
+  front at first.
+
+The next is about the ranges arguments.
+
+By Gerrit UI, if we still use the
+"https://gerrit-review.googlesource.com/c/gerrit/+/345774/2..3" as a demo, and
+we select the diff between patchset 2 and patchset 3, there are 2 file changes
+in the diff, the first one is special which is a commit message change, the
+second one is a real file change which the filepath is "lib/bouncycastle/BUILD"
+and the change is a new LF in the end.
+
+![patchset diff](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1666172767109-007c8396-8560-4755-8f20-1932c699f93d.png?x-oss-process=image%2Fresize%2Cw_1875%2Climit_0 "patchset diff")
+
+**Be aware of that, the "git diff" is to get the file diffs between two commits.
+But "git range-diff" is to get the `qcommits diff between two patchsets, also
+including the authors, commit message and the commit diff (file diff).**
+
+
+* argument format: <range1> <range2>: 
+
+> Compare the commits specified by the two ranges, where <range1> is considered
+> an older version of <range2>.

@@ -1,5 +1,5 @@
 ---
-title: "About Git Multi Points Representation"
+title: "Git Multi Points Representation"
 date: 2022-06-12T15:56:16+08:00
 tags:
   - "git"

@@ -6,7 +6,16 @@
     <description>Recent content in git on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Oct 2022 19:02:07 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[wip] Git Compile</title>
+      <link>https://dyrone.github.io/posts/git-compile/</link>
+      <pubDate>Mon, 31 Oct 2022 19:09:11 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-compile/</guid>
+      <description>https://github.com/dyrone/git/blob/master/INSTALL</description>
+    </item>
+    
     <item>
       <title>Git Notes(to be continued...)</title>
       <link>https://dyrone.github.io/posts/git-notes/</link>
@@ -62,7 +71,7 @@
     </item>
     
     <item>
-      <title>About Git Multi Points Representation</title>
+      <title>Git Multi Points Representation</title>
       <link>https://dyrone.github.io/posts/git-multi-points/</link>
       <pubDate>Sun, 12 Jun 2022 15:56:16 +0800</pubDate>
       
