@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Github Api Glance - dyrone&#39;s blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Github Api Glance" />
+<meta property="og:description" content="API 请求 Accept 头 gh api --header &#39;Accept: application/vnd." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dyrone.github.io/posts/github-api-glance/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-28T11:12:13+08:00" />
+<meta property="article:modified_time" content="2023-02-28T11:12:13+08:00" />
+
+
+		<meta itemprop="name" content="Github Api Glance">
+<meta itemprop="description" content="API 请求 Accept 头 gh api --header &#39;Accept: application/vnd."><meta itemprop="datePublished" content="2023-02-28T11:12:13+08:00" />
+<meta itemprop="dateModified" content="2023-02-28T11:12:13+08:00" />
+<meta itemprop="wordCount" content="1684">
+<meta itemprop="keywords" content="" />
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Github Api Glance"/>
+<meta name="twitter:description" content="API 请求 Accept 头 gh api --header &#39;Accept: application/vnd."/>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="滕 龙" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">滕 龙</div>
+					<div class="logo__tagline">Teng Long</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Github Api Glance</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-28T11:12:13&#43;08:00">2023-02-28</time></div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#api-请求">API 请求</a>
+      <ul>
+        <li><a href="#accept-头">Accept 头</a></li>
+        <li><a href="#api-version-头">API Version 头</a></li>
+        <li><a href="#parameters">Parameters</a></li>
+      </ul>
+    </li>
+    <li><a href="#api-响应">API 响应</a>
+      <ul>
+        <li><a href="#response-status-code">Response status code</a></li>
+        <li><a href="#response-body">Response Body</a></li>
+        <li><a href="#response-field">Response Field</a></li>
+      </ul>
+    </li>
+    <li><a href="#鉴权">鉴权</a>
+      <ul>
+        <li><a href="#basic-auth">Basic Auth</a></li>
+        <li><a href="#oauth2-in-header">OAuth2 in header</a></li>
+        <li><a href="#oauth-with-keysecret">OAuth with key/secret</a></li>
+        <li><a href="#auth-failed-and-login-limit-failed">Auth failed and login limit failed</a></li>
+        <li><a href="#auth-failed-401-bad-credentials">Auth failed (401: bad credentials)</a></li>
+        <li><a href="#reach-login-failed-limit-403">Reach login failed limit (403)</a></li>
+        <li><a href="#错误处理">错误处理</a></li>
+        <li><a href="#422-unprocessable-entity">422 Unprocessable Entity</a></li>
+      </ul>
+    </li>
+    <li><a href="#请求重定向">请求重定向</a></li>
+    <li><a href="#http-verbs">HTTP verbs</a></li>
+    <li><a href="#分页">分页</a>
+      <ul>
+        <li><a href="#设置分页数量-per_page">设置分页数量: per_page</a></li>
+      </ul>
+    </li>
+    <li><a href="#超时处理">超时处理</a></li>
+    <li><a href="#限流">限流</a>
+      <ul>
+        <li><a href="#个人账号限流-user-to-server">个人账号限流 (user-to-server)</a></li>
+        <li><a href="#app-调用限流">App 调用限流</a></li>
+      </ul>
+    </li>
+    <li><a href="#api-version">API Version</a></li>
+    <li><a href="#多媒体类型">多媒体类型</a>
+      <ul>
+        <li><a href="#通用类型">通用类型</a></li>
+        <li><a href="#评论类型">评论类型</a></li>
+        <li><a href="#blob类型">BLOB类型</a></li>
+        <li><a href="#commits-commit-comparison-and-pull-requests类型">Commits, commit comparison, and pull requests类型</a></li>
+        <li><a href="#仓库文件repository-contents">仓库文件（Repository contents）</a></li>
+        <li><a href="#openapi-description">OpenAPI Description</a></li>
+      </ul>
+    </li>
+    <li><a href="#特殊api">特殊API</a>
+      <ul>
+        <li><a href="#根接口">根接口</a></li>
+        <li><a href="#扮演github-app应用身份-可调用的api列表-以及-创建时的api权限对应关系">扮演Github App应用身份-可调用的API列表 以及 创建时的API权限对应关系</a></li>
+        <li><a href="#fine-grained-个人访问令牌-可调用的api列表">fine-grained 个人访问令牌-可调用的API列表</a></li>
+      </ul>
+    </li>
+    <li><a href="#api-开源库">API 开源库</a></li>
+    <li><a href="#api-列表和排期任务">API 列表和排期任务</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="api-请求">API 请求</h2>
+<h3 id="accept-头">Accept 头</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">gh api --header <span style="color:#e6db74">&#39;Accept: application/vnd.github+json&#39;</span>
+</code></pre></div><p>绝大多数的Github Rest API使用该Accept标头。但是也可能存在其他的类型。</p>
+<h3 id="api-version-头">API Version 头</h3>
+<pre tabindex="0"><code>gh api --header 'X-GitHub-Api-Version:2022-11-28'
+</code></pre><p>Github API的版本通过header指定，是一个yyyy-MM-dd格式的value。</p>
+<h3 id="parameters">Parameters</h3>
+<p>For <code>Get</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -i <span style="color:#e6db74">&#34;https://api.github.com/repos/vmg/redcarpet/issues?state=closed&#34;</span>
+</code></pre></div><p>For <code>POST</code> <code>PATCH</code> <code>PUT</code> <code>DELETE</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -i -u username -d <span style="color:#e6db74">&#39;{&#34;scopes&#34;:[&#34;repo_deployment&#34;]}&#39;</span> https://api.github.com/authorizations
+</code></pre></div><blockquote>
+<p>Many API methods take optional parameters. For GET requests, any parameters not
+specified as a segment in the path can be passed as an HTTP query string
+parameter. In this example, the &lsquo;vmg&rsquo; and &lsquo;redcarpet&rsquo; values are provided for
+the :owner and :repo parameters in the path while :state is passed in the query
+string.</p>
+<p>For POST, PATCH, PUT, and DELETE requests, parameters not included in the URL
+should be encoded as JSON with a Content-Type of &lsquo;application/json&rsquo;</p>
+</blockquote>
+<h2 id="api-响应">API 响应</h2>
+<h3 id="response-status-code">Response status code</h3>
+<p>Github使用的是标准的HTTP Response Status:</p>
+<blockquote>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">https://developer.mozilla.org/en-US/docs/Web/HTTP/Status</a></p>
+</blockquote>
+<h3 id="response-body">Response Body</h3>
+<p>Github的响应默认是JSON格式，除非另外指定。</p>
+<h3 id="response-field">Response Field</h3>
+<p>空的字段使用null， 而不是直接忽略:</p>
+<blockquote>
+<p>Blank fields are included as null instead of being omitted.</p>
+</blockquote>
+<p>时间使用UTC时间</p>
+<blockquote>
+<p>All timestamps return in UTC time, ISO 8601 format:
+YYYY-MM-DDTHH:MM:SSZ</p>
+</blockquote>
+<p>区分概览和详细的数据信息:</p>
+<blockquote>
+<p>Summary representations
+When you fetch a list of resources, the response includes a subset of the attributes for that resource. This is the &ldquo;summary&rdquo; representation of the resource. (Some attributes are computationally expensive for the API to provide. For performance reasons, the summary representation excludes those attributes. To obtain those attributes, fetch the &ldquo;detailed&rdquo; representation.)</p>
+<p>Example: When you get a list of repositories, you get the summary representation
+of each repository. Here, we fetch the list of repositories owned by the octokit
+organization:</p>
+<p>GET /orgs/octokit/repos</p>
+<p>When you fetch an individual resource, the response typically includes all attributes for that resource. This is the &ldquo;detailed&rdquo; representation of the resource. (Note that authorization sometimes influences the amount of detail included in the representation.)</p>
+<p>Example: When you get an individual repository, you get the detailed representation of the repository. Here, we fetch the octokit/octokit.rb repository:</p>
+<p>GET /repos/octokit/octokit.rb</p>
+</blockquote>
+<h2 id="鉴权">鉴权</h2>
+<p>鉴权支持两种方式：</p>
+<ul>
+<li>Basic Auth</li>
+<li>OAuth2
+** OAuth2 Auth(in header)
+** OAuth2 key/secret</li>
+</ul>
+<h3 id="basic-auth">Basic Auth</h3>
+<pre tabindex="0"><code>$ curl -u &quot;username&quot; https://api.github.com
+</code></pre><h3 id="oauth2-in-header">OAuth2 in header</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -H <span style="color:#e6db74">&#34;Authorization: Bearer OAUTH-TOKEN&#34;</span>
+https://api.github.com
+</code></pre></div><blockquote>
+<p>Note: In most cases, you can use Authorization: Bearer or Authorization: token
+to pass a token. However, if you are passing a JSON web token (JWT), you must
+use Authorization: Bearer.</p>
+</blockquote>
+<h3 id="oauth-with-keysecret">OAuth with key/secret</h3>
+<blockquote>
+<p>Github在2021年已经不支持基于<code>query parameter</code>的方式请求API:</p>
+<p><a href="https://developer.github.com/changes/2020-02-10-deprecating-auth-through-query-param/">https://developer.github.com/changes/2020-02-10-deprecating-auth-through-query-param/</a></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -u my_client_id:my_client_secret <span style="color:#e6db74">&#39;https://api.github.com/user/repos&#39;</span>
+</code></pre></div><p>注意，使用<code>client_id</code> 和 <code>client_secret</code> 并不会基于用户鉴权，其作用只是提升
+对应 OAuth App 的rate limit。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -u my_client_id:my_client_secret -I https://api.github.com/user/repos
+&gt; HTTP/2 <span style="color:#ae81ff">200</span>
+&gt; Date: Mon, <span style="color:#ae81ff">01</span> Jul <span style="color:#ae81ff">2013</span> 17:27:06 GMT
+&gt; x-ratelimit-limit: <span style="color:#ae81ff">5000</span>
+&gt; x-ratelimit-remaining: <span style="color:#ae81ff">4966</span>
+&gt; x-ratelimit-used: <span style="color:#ae81ff">34</span>
+&gt; x-ratelimit-reset: <span style="color:#ae81ff">1372700873</span>
+</code></pre></div><blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#increasing-the-unauthenticated-rate-limit-for-oauth-apps">https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#increasing-the-unauthenticated-rate-limit-for-oauth-apps</a></p>
+</blockquote>
+<blockquote>
+<p><strong>故， client_id 和 client_secret 只能用于server-to-server场景，而绝不应
+用于client-to-server场景，即其不应该泄露给任何的用户，这也是Github一种
+保护的设计。</strong></p>
+</blockquote>
+<h3 id="auth-failed-and-login-limit-failed">Auth failed and login limit failed</h3>
+<h3 id="auth-failed-401-bad-credentials">Auth failed (401: bad credentials)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -I https://api.github.com -u foo:bar
+&gt; HTTP/2 <span style="color:#ae81ff">401</span>
+
+&gt; <span style="color:#f92672">{</span>
+&gt;   <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Bad credentials&#34;</span>,
+&gt;   <span style="color:#e6db74">&#34;documentation_url&#34;</span>: <span style="color:#e6db74">&#34;https://docs.github.com/rest&#34;</span>
+&gt; <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="reach-login-failed-limit-403">Reach login failed limit (403)</h3>
+<p>当用户短时间内多次鉴权失败， API将会在一段时间内拒绝该用户的鉴权操作。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ curl -i https://api.github.com -u 
+-u VALID_USERNAME:VALID_TOKEN 
+&gt; HTTP/2 <span style="color:#ae81ff">403</span>
+&gt; <span style="color:#f92672">{</span>
+&gt;   <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Maximum number of login attempts exceeded. Please try again later.&#34;</span>,
+&gt;   <span style="color:#e6db74">&#34;documentation_url&#34;</span>: <span style="color:#e6db74">&#34;https://docs.github.com/rest&#34;</span>
+&gt; <span style="color:#f92672">}</span>
+</code></pre></div><h3 id="错误处理">错误处理</h3>
+<h3 id="422-unprocessable-entity">422 Unprocessable Entity</h3>
+<p>无效的字段将会返回422：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON"> <span style="color:#960050;background-color:#1e0010">HTTP/</span><span style="color:#ae81ff">2</span> <span style="color:#ae81ff">422</span>
+ <span style="color:#960050;background-color:#1e0010">Content-Length:</span> <span style="color:#ae81ff">149</span>
+
+ {
+   <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Validation Failed&#34;</span>,
+   <span style="color:#f92672">&#34;errors&#34;</span>: [
+     {
+       <span style="color:#f92672">&#34;resource&#34;</span>: <span style="color:#e6db74">&#34;Issue&#34;</span>,
+       <span style="color:#f92672">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;title&#34;</span>,
+       <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;missing_field&#34;</span>
+     }
+   ]
+ }
+</code></pre></div><p>关于此种类型的错误，具体的定义如下：</p>
+<p>For :Code: Description&quot;</p>
+<ul>
+<li>missing: A resource does not exist.</li>
+<li>missing_field: A required field on a resource has not been set.</li>
+<li>invalid: The formatting of a field is invalid. Review the documentation for
+more specific information.</li>
+<li>already_exists: Another resource has the same value as this field. This can
+happen in resources that must have some</li>
+<li>unique key (such as label names).</li>
+<li>unprocessable: The inputs provided were invalid.</li>
+</ul>
+<blockquote>
+<p>Resources may also send custom validation errors (where code is custom). Custom
+errors will always have a message field describing the error, and most errors
+will also include a documentation_url field pointing to some content that might
+help you resolve the error.</p>
+</blockquote>
+<h2 id="请求重定向">请求重定向</h2>
+<blockquote>
+<p>301: Permanent redirection. The URI you used to make the request has been
+superseded by the one specified in the Location header field. This and all
+future requests to this resource should be directed to the new URI.</p>
+<p>302, 307: Temporary redirection. The request should be repeated verbatim to
+the URI specified in the Location header field but clients should continue to
+use the original URI for future requests.</p>
+</blockquote>
+<h2 id="http-verbs">HTTP verbs</h2>
+<ul>
+<li>HEAD: Can be issued against any resource to get just the HTTP header info.</li>
+<li>GET: Used for retrieving resources.</li>
+<li>POST: Used for creating resources.</li>
+<li>PATCH: Used for updating resources with partial JSON data. For instance, an
+Issue resource has title and body attributes. A PATCH request may accept one
+or more of the attributes to update the resource.</li>
+<li>PUT: Used for replacing resources or collections. For PUT requests with no
+body attribute, be sure to set the Content-Length header to zero.</li>
+<li>DELETE: Used for deleting resources.</li>
+</ul>
+<h2 id="分页">分页</h2>
+<p>Github默认会对查询出的结果进行分页，与gitlab类似，使用Response Header的方式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ curl --include --request GET <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--url <span style="color:#e6db74">&#34;https://api.github.com/repos/octocat/Spoon-Knife/issues&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--header <span style="color:#e6db74">&#34;Accept: application/vnd.github+json&#34;</span> -I
+HTTP/2 <span style="color:#ae81ff">200</span> 
+server: GitHub.com
+date: Tue, <span style="color:#ae81ff">28</span> Feb <span style="color:#ae81ff">2023</span> 07:25:05 GMT
+content-type: application/json; charset<span style="color:#f92672">=</span>utf-8
+cache-control: public, max-age<span style="color:#f92672">=</span>60, s-maxage<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+vary: Accept, Accept-Encoding, Accept, X-Requested-With
+etag: W/<span style="color:#e6db74">&#34;4ea7ff18843015a30310314bb43a143f6ca15eb789a620b03631735696920fd1&#34;</span>
+x-github-media-type: github.v3; format<span style="color:#f92672">=</span>json
+link: &lt;https://api.github.com/repositories/1300192/issues?page<span style="color:#f92672">=</span>2&gt;; rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;next&#34;</span>, &lt;https://api.github.com/repositories/1300192/issues?page<span style="color:#f92672">=</span>527&gt;; rel<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;last&#34;</span>
+x-github-api-version-selected: 2022-11-28
+access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
+access-control-allow-origin: *
+strict-transport-security: max-age<span style="color:#f92672">=</span>31536000; includeSubdomains; preload
+x-frame-options: deny
+x-content-type-options: nosniff
+x-xss-protection: <span style="color:#ae81ff">0</span>
+referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+content-security-policy: default-src <span style="color:#e6db74">&#39;none&#39;</span>
+x-ratelimit-limit: <span style="color:#ae81ff">60</span>
+x-ratelimit-remaining: <span style="color:#ae81ff">55</span>
+x-ratelimit-reset: <span style="color:#ae81ff">1677570997</span>
+x-ratelimit-resource: core
+x-ratelimit-used: <span style="color:#ae81ff">5</span>
+accept-ranges: bytes
+content-length: <span style="color:#ae81ff">114180</span>
+x-github-request-id: 69D2:0867:5DC7510:C1F1115:63FDAC5A
+</code></pre></div><p>在Response Header中，<code>link</code>用于进行分页处理：</p>
+<pre tabindex="0"><code>link: &lt;https://api.github.com/repositories/1300192/issues?page=2&gt;; rel=&quot;next&quot;,                             &lt;https://api.github.com/repositories/1300192/issues?page=527&gt;; rel=&quot;last&quot; 
+</code></pre><ul>
+<li>The URL for the previous page is followed by rel=&ldquo;prev&rdquo;.</li>
+<li>The URL for the next page is followed by rel=&ldquo;next&rdquo;.</li>
+<li>The URL for the last page is followed by rel=&ldquo;last&rdquo;.</li>
+<li>The URL for the first page is followed by rel=&ldquo;first&rdquo;.</li>
+</ul>
+<p>知道了页数信息之后，我们就可以进行查看其他page的数据：</p>
+<pre tabindex="0"><code>curl --include --request GET \
+--url &quot;https://api.github.com/repositories/1300192/issues?page=515&quot; \
+--header &quot;Accept: application/vnd.github+json&quot; -I
+</code></pre><p>为了避免查询查询和endpoints的参数混淆，所有的case都可以基于<code>link</code> header
+的方式查询分页数据。</p>
+<h3 id="设置分页数量-per_page">设置分页数量: per_page</h3>
+<pre tabindex="0"><code>curl --include --request GET \
+--url &quot;https://api.github.com/repos/octocat/Spoon-Knife/issues?per_page=2&quot; \
+--header &quot;Accept: application/vnd.github+json&quot;
+</code></pre><p>在Response的Header中，<code>link</code>会自动附带<code>per_page</code>参数:</p>
+<pre tabindex="0"><code>link: &lt;https://api.github.com/repositories/1300192/issues?per_page=2&amp;page=2&gt;; rel=&quot;next&quot;, &lt;https://api.github.com/repositories/1300192/issues?per_page=2&amp;page=7715&gt;; rel=&quot;last&quot;
+</code></pre><h2 id="超时处理">超时处理</h2>
+<p>Github默认使用<code>10s</code>作为超时时间，如果超时那么返回:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-JSON" data-lang="JSON">{
+    <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Server Error&#34;</span>
+}
+</code></pre></div><blockquote>
+<p>Note: GitHub reserves the right to change the timeout window to protect the
+speed and reliability of the API.</p>
+</blockquote>
+<h2 id="限流">限流</h2>
+<ul>
+<li>不同的API有不同限流的设定</li>
+</ul>
+<p>在API Response Header中进行了描述, 从描述中大概可以看到其基于令牌桶设计：</p>
+<pre tabindex="0"><code>x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+x-ratelimit-reset: 1677570997
+x-ratelimit-resource: core
+x-ratelimit-used: 1
+</code></pre><h3 id="个人账号限流-user-to-server">个人账号限流 (user-to-server)</h3>
+<blockquote>
+<p>GitHub associates all user-to-server requests with the authenticated user. For
+OAuth Apps and GitHub Apps, this is the user who authorized the app. All
+user-to-server requests count toward the authenticated user&rsquo;s rate limit.</p>
+<p>User-to-server requests are limited to 5,000 requests per hour and per
+authenticated user. All requests from OAuth applications authorized by a user
+or a personal access token owned by the user, and requests authenticated with
+any of the user&rsquo;s authentication credentials, share the same quota of 5,000
+requests per hour for that user.</p>
+</blockquote>
+<ul>
+<li>已鉴权的请求-非企业用户：5000个限流令牌 / 1 hour / 所有个人鉴权的方式均共享</li>
+<li>已鉴权的请求-企业用户：15000 / 1 hour / 所有个人鉴权的方式均共享</li>
+<li>未鉴权的请求: 60 / 1 hour / originating IP address</li>
+</ul>
+<blockquote>
+<p>The request is from a GitHub App that&rsquo;s owned by a GitHub Enterprise Cloud
+organization. The request is from an OAuth App that&rsquo;s owned or approved by a
+GitHub Enterprise Cloud organization.</p>
+</blockquote>
+<h3 id="app-调用限流">App 调用限流</h3>
+<p>App的限流可能包括 <code>user-to-server</code> 以及<code>server-to-server</code>限流。</p>
+<blockquote>
+<p><a href="https://docs.github.com/en/apps/creating-github-apps/creating-github-apps/rate-limits-for-github-apps">https://docs.github.com/en/apps/creating-github-apps/creating-github-apps/rate-limits-for-github-apps</a></p>
+</blockquote>
+<h4 id="server-to-server">server-to-server</h4>
+<ul>
+<li>Default:</li>
+</ul>
+<p>&lt; 20 installations: 5000 / 1 hour</p>
+<p>+ 20 installations: + 50 / 1 hour</p>
+<ul>
+<li>EE:</li>
+</ul>
+<p>15000 / 1 hour</p>
+<h4 id="user-to-server">user-to-server</h4>
+<ul>
+<li>Default:</li>
+</ul>
+<p>5000 / 1 hour / oauth token + personal access token + any authetication
+credentials</p>
+<ul>
+<li>EE:</li>
+</ul>
+<p>15000 / 1 hour</p>
+<h2 id="api-version">API Version</h2>
+<p>Github 的API版本是基于时间的，例如<code>2022-11-28</code>，通过请求头<code>X-GitHub-Api-Version</code>
+进行传递，这样的好处是， 便于发现不兼容的情况时，及时回退， 而Github这种设计
+在向后兼容上明显是一个好的开闭原则的设计，并且考虑到了不兼容性缺陷对于用户的
+最大程度的弥补措施。</p>
+<blockquote>
+<p>如果请求的是一个不在支持的版本， 那么将会返回400的错误</p>
+</blockquote>
+<p>可以通过/versions接口，来查看当前支持的版本信息：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ curl   https://api.github.com/versions
+<span style="color:#f92672">[</span>
+  <span style="color:#e6db74">&#34;2022-11-28&#34;</span>
+<span style="color:#f92672">]</span>
+</code></pre></div><p>任何破坏性的API改动都会发布一个新的API version, 破坏性的改动包括：</p>
+<ul>
+<li>removing an entire operation //删除一个API</li>
+<li>removing or renaming a parameter //重命名参数</li>
+<li>removing or renaming a response field //重命名返回字段</li>
+<li>adding a new required parameter //新增一个必填参数</li>
+<li>making a previously optional parameter required //非必填变成必填</li>
+<li>changing the type of a parameter or response field //修改参数或字段类型</li>
+<li>removing enum values //删除枚举</li>
+<li>adding a new validation rule to an existing parameter //参数新增校验规则</li>
+<li>changing authentication or authorization requirements //鉴权或者授权的变化</li>
+</ul>
+<p>非破坏性的(扩展)改动包括:</p>
+<ul>
+<li>adding an operation //新增一个接口</li>
+<li>adding an optional parameter //新增一个非必填参数</li>
+<li>adding an optional request header //新增一个非必填的请求头</li>
+<li>adding a response field //新增一个响应字段</li>
+<li>adding a response header //新增一个响应头</li>
+<li>adding enum values //新增枚举</li>
+</ul>
+<h2 id="多媒体类型">多媒体类型</h2>
+<h3 id="通用类型">通用类型</h3>
+<ul>
+<li>application/vnd.github+json</li>
+<li>application/json</li>
+<li>application/vnd.github.raw+json</li>
+</ul>
+<h3 id="评论类型">评论类型</h3>
+<ul>
+<li>application/vnd.github.raw+json: Return the raw markdown body. Response will
+include body. This is the default if you do not pass any specific media type.</li>
+<li>application/vnd.github.text+json: Return a text only representation of the
+markdown body. Response will include body_text.</li>
+<li>application/vnd.github.html+json: Return HTML rendered from the body&rsquo;s
+markdown. Response will include body_html.</li>
+<li>application/vnd.github.full+json: Return raw, text and HTML representations.
+Response will include body, body_text, and body_html:</li>
+</ul>
+<h3 id="blob类型">BLOB类型</h3>
+<ul>
+<li>application/vnd.github+json 或者 application/json: Return JSON representation
+of the blob with content as a base64 encoded string. This is the default if
+nothing is passed.</li>
+<li>application/vnd.github.raw: Return the raw blob data.</li>
+</ul>
+<h3 id="commits-commit-comparison-and-pull-requests类型">Commits, commit comparison, and pull requests类型</h3>
+<ul>
+<li>application/vnd.github.diff</li>
+<li>application/vnd.github.patch</li>
+<li>application/vnd.github.sha</li>
+</ul>
+<h3 id="仓库文件repository-contents">仓库文件（Repository contents）</h3>
+<ul>
+<li>application/vnd.github.raw: Return the raw contents of a file. This is the
+default if you do not pass any specific media type.</li>
+<li>application/vnd.github.html: For markup files such as Markdown or AsciiDoc,
+you can retrieve the rendered HTML using the .html media type. Markup
+languages are rendered to HTML using our open-source Markup library.</li>
+</ul>
+<h3 id="openapi-description">OpenAPI Description</h3>
+<blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/openapi-description?apiVersion=2022-11-28">https://docs.github.com/en/rest/overview/openapi-description?apiVersion=2022-11-28</a></p>
+</blockquote>
+<p>OpenAPI是一个用户描述REST APIs的标准, 其遵守OpenAPI 3.0协议。</p>
+<p>Github的 OpenAPI Description 如下：</p>
+<blockquote>
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md">https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md</a></p>
+</blockquote>
+<p>作用如下：</p>
+<ul>
+<li>自动生成API客户端代码</li>
+<li>校验和测试 API</li>
+<li>使用Insomnia 或 Postman等三方工具完成对API的管理和调用</li>
+<li>自动生成API文档: <a href="https://docs.github.com/en/rest?apiVersion=2022-11-28">https://docs.github.com/en/rest?apiVersion=2022-11-28</a></li>
+</ul>
+<h2 id="特殊api">特殊API</h2>
+<h3 id="根接口">根接口</h3>
+<p>根接口定义了Github REST API 对于一些通用规范支持等能力：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ curl -I https://api.github.com
+HTTP/2 <span style="color:#ae81ff">200</span> 
+server: GitHub.com
+date: Tue, <span style="color:#ae81ff">28</span> Feb <span style="color:#ae81ff">2023</span> 06:56:30 GMT
+content-type: application/json; charset<span style="color:#f92672">=</span>utf-8
+cache-control: public, max-age<span style="color:#f92672">=</span>60, s-maxage<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+vary: Accept, Accept-Encoding, Accept, X-Requested-With
+etag: W/<span style="color:#e6db74">&#34;4f825cc84e1c733059d46e76e6df9db557ae5254f9625dfe8e1b09499c449438&#34;</span>
+x-github-media-type: github.v3; format<span style="color:#f92672">=</span>json
+x-github-api-version-selected: 2022-11-28
+access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
+access-control-allow-origin: *
+strict-transport-security: max-age<span style="color:#f92672">=</span>31536000; includeSubdomains; preload
+x-frame-options: deny
+x-content-type-options: nosniff
+x-xss-protection: <span style="color:#ae81ff">0</span>
+referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+content-security-policy: default-src <span style="color:#e6db74">&#39;none&#39;</span>
+x-ratelimit-limit: <span style="color:#ae81ff">60</span>
+x-ratelimit-remaining: <span style="color:#ae81ff">59</span>
+x-ratelimit-reset: <span style="color:#ae81ff">1677570997</span>
+x-ratelimit-resource: core
+x-ratelimit-used: <span style="color:#ae81ff">1</span>
+accept-ranges: bytes
+content-length: <span style="color:#ae81ff">2262</span>
+x-github-request-id: 5FEE:1F16:7C51F70:FFE6F11:63FDA5A4
+</code></pre></div><h3 id="扮演github-app应用身份-可调用的api列表-以及-创建时的api权限对应关系">扮演Github App应用身份-可调用的API列表 以及 创建时的API权限对应关系</h3>
+<p>可访问API列表：</p>
+<blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps?apiVersion=2022-11-28">https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps?apiVersion=2022-11-28</a></p>
+</blockquote>
+<p>创建Github App时，勾选的权限（set permissions）与API的对应关系：</p>
+<blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/permissions-required-for-github-apps?apiVersion=2022-11-28">https://docs.github.com/en/rest/overview/permissions-required-for-github-apps?apiVersion=2022-11-28</a></p>
+</blockquote>
+<h3 id="fine-grained-个人访问令牌-可调用的api列表">fine-grained 个人访问令牌-可调用的API列表</h3>
+<p>可访问API列表：</p>
+<blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/endpoints-available-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28">https://docs.github.com/en/rest/overview/endpoints-available-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28</a></p>
+</blockquote>
+<p>创建fine-grained 个人访问令牌时， 勾选的权限与API的对应关系：</p>
+<blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28">https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28</a></p>
+</blockquote>
+<p>个人访问令牌类型介绍：</p>
+<blockquote>
+<p><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token</a></p>
+</blockquote>
+<h2 id="api-开源库">API 开源库</h2>
+<blockquote>
+<p><a href="https://docs.github.com/en/rest/overview/libraries?apiVersion=2022-11-28">https://docs.github.com/en/rest/overview/libraries?apiVersion=2022-11-28</a></p>
+</blockquote>
+<ul>
+<li>ruby</li>
+<li>.net</li>
+<li>Clojure</li>
+<li>Dart</li>
+<li>Emacs Lisp</li>
+<li>Erlang</li>
+<li>Go</li>
+<li>Haskell</li>
+<li>Java</li>
+<li>JavaScript</li>
+<li>Julia</li>
+<li>OCaml</li>
+<li>Perl</li>
+<li>PHP</li>
+<li>PowerShell</li>
+<li>Shell</li>
+<li>&hellip;.</li>
+</ul>
+<h2 id="api-列表和排期任务">API 列表和排期任务</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">group</th>
+<th style="text-align:center">endpoint</th>
+<th style="text-align:center">link</th>
+<th style="text-align:center">status</th>
+<th style="text-align:center">priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Action</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Activity</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Apps</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Billing</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Branches</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Checks</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Codes of conduct</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Code Scanning</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Codespaces</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Collaborators</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Commits</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Dependabot</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Dependency Graph</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Deploy keys</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Deployments</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Emojis</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Gists</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Git database</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Gitignore</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Interactions</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Issues</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Licenses</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Markdown</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Meta</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Metrics</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Migration</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Orgs</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Packages</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Pages</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Project(classic)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Pulls</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Rate limit</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Reactions</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Releases</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Repositories</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Search</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Secret scanning</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Teams</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Users</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Repository webhooks</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+
+		</div>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/git-merge-2022/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Git Merge 2022</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 dyrone.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

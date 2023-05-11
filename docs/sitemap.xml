@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://dyrone.github.io/</loc>
+    <lastmod>2023-02-28T11:12:13+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/github-api-glance/</loc>
+    <lastmod>2023-02-28T11:12:13+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/</loc>
+    <lastmod>2023-02-28T11:12:13+08:00</lastmod>
+  </url><url>
+    <loc>https://dyrone.github.io/posts/git-merge-2022/</loc>
+    <lastmod>2022-11-17T10:36:01+08:00</lastmod>
+  </url><url>
     <loc>https://dyrone.github.io/posts/git-compile/</loc>
     <lastmod>2022-10-31T19:09:11+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/</loc>
-    <lastmod>2022-10-31T19:09:11+08:00</lastmod>
-  </url><url>
     <loc>https://dyrone.github.io/tags/git/</loc>
-    <lastmod>2022-10-31T19:09:11+08:00</lastmod>
-  </url><url>
-    <loc>https://dyrone.github.io/posts/</loc>
     <lastmod>2022-10-31T19:09:11+08:00</lastmod>
   </url><url>
     <loc>https://dyrone.github.io/tags/</loc>

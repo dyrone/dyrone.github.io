@@ -6,7 +6,25 @@
     <description>Recent content on dyrone&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Feb 2023 11:12:13 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Api Glance</title>
+      <link>https://dyrone.github.io/posts/github-api-glance/</link>
+      <pubDate>Tue, 28 Feb 2023 11:12:13 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/github-api-glance/</guid>
+      <description>API 请求 Accept 头 gh api --header &amp;#39;Accept: application/vnd.</description>
+    </item>
+    
+    <item>
+      <title>Git Merge 2022</title>
+      <link>https://dyrone.github.io/posts/git-merge-2022/</link>
+      <pubDate>Thu, 17 Nov 2022 10:36:01 +0800</pubDate>
+      
+      <guid>https://dyrone.github.io/posts/git-merge-2022/</guid>
+      <description>(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。</description>
+    </item>
+    
     <item>
       <title>[wip] Git Compile</title>
       <link>https://dyrone.github.io/posts/git-compile/</link>
