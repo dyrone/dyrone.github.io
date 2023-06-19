@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>errno on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/errno/</link>
-    <description>Recent content in errno on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>errno on Dyrone Teng</title>
+    <link>/tags/errno/</link>
+    <description>Recent content in errno on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jul 2022 22:44:37 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/errno/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jul 2022 22:44:37 +0800</lastBuildDate><atom:link href="/tags/errno/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About errno </title>
-      <link>https://dyrone.github.io/posts/error-code/</link>
+      <link>/posts/error-code/</link>
       <pubDate>Thu, 14 Jul 2022 22:44:37 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/error-code/</guid>
-      <description>This article mainly introduces errno related content.</description>
+      <guid>/posts/error-code/</guid>
+      <description>This article mainly introduces errno related content. If I get new input, I will add the content one after another.
+About errno  errno - number of last error
+ You can take a look at https://man7.org/linux/man-pages/man3/errno.3.html to know about what&amp;rsquo;s errno and how the errno is supported in POSIX and C99.
+Man Page errno {name-or-code} errno [-ls] [--list] errno [-s] [--search] {word} errno [-S] [--search-all-locales] {word} ➜ git git:(tl/bitmap-append-trace2-outputs) ✗ errno -s direct ENOENT 2 No such file or directory ENOTDIR 20 Not a directory EISDIR 21 Is a directory ENOTEMPTY 66 Directory not empty 20: ENOTDIR In a recent Git patch, Junio C Hamano, the maintainer of the Git community, gave me the following advice about ENOTDIR:</description>
     </item>
     
   </channel>

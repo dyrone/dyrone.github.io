@@ -1,82 +1,98 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>c on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/c/</link>
-    <description>Recent content in c on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>c on Dyrone Teng</title>
+    <link>/tags/c/</link>
+    <description>Recent content in c on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Oct 2022 16:00:10 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Oct 2022 16:00:10 +0800</lastBuildDate><atom:link href="/tags/c/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gdb Journey</title>
-      <link>https://dyrone.github.io/posts/gdb-journey-chapter-1/</link>
+      <link>/posts/gdb-journey-chapter-1/</link>
       <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/gdb-journey-chapter-1/</guid>
-      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包</description>
+      <guid>/posts/gdb-journey-chapter-1/</guid>
+      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包
+ DESCRIPTION debuginfo-install is a program which installs the RPMs needed to debug the specified package. The package argument can be a wildcard, but will only match installed packages. debuginfo- install will then enable any debuginfo repositories, and install the relevant debuginfo rpm.
+From: https://man7.org/linux/man-pages/man1/debuginfo-install.1.html
+ $ debuginfo-install m4-1.4.16-10.1.alios7.x86_64 GDB 指定执行参数 gdb --args git ls-tree HEAD 更多的参数和用法可以参考GDB Cheat Sheet.
+ https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf
+ 在Git中查看构建调试参数 在git源码中的Makefile中定义了CFLAG的相关参数：</description>
     </item>
     
     <item>
       <title>Git CRLF processing and &#39;git add --renormalize&#39;</title>
-      <link>https://dyrone.github.io/posts/git-crlf/</link>
+      <link>/posts/git-crlf/</link>
       <pubDate>Tue, 27 Sep 2022 15:39:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-crlf/</guid>
-      <description>git config core.</description>
+      <guid>/posts/git-crlf/</guid>
+      <description>git config core.autocrlf git config core.autocrlf true
+This does not force normalization of text files, but does ensure that text files that you introduce to the repository have their line endings normalized to LF when they are added, and that files that are already normalized in the repository stay normalized. git config core.autocrlf false printf &amp;#34;LINEONE\nLINETWO\nLINETHREE&amp;#34; &amp;gt;LF.txt printf &amp;#34;LINEONE\r\nLINETWO\r\nLINETHREE&amp;#34; &amp;gt;CRLF.txt printf &amp;#34;LINEONE\r\nLINETWO\nLINETHREE&amp;#34; &amp;gt;CRLF_mix_LF.txt Ouput the CRLF.txt:
+cat CRLF.txt | hexdump -C 00000000 4c 49 4e 45 4f 4e 45 0d 0a 4c 49 4e 45 54 57 4f |LINEONE.</description>
     </item>
     
     <item>
       <title>About &#39;git add&#39;</title>
-      <link>https://dyrone.github.io/posts/git-add/</link>
+      <link>/posts/git-add/</link>
       <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-add/</guid>
-      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later.</description>
+      <guid>/posts/git-add/</guid>
+      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later. An entry for the path is placed in the index with no content. This is useful for, among other things, showing the unstaged content of such files with git diff and committing them with git commit -a.
+ </description>
     </item>
     
     <item>
       <title>Git Index Format</title>
-      <link>https://dyrone.github.io/posts/git-index-format/</link>
+      <link>/posts/git-index-format/</link>
       <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-index-format/</guid>
-      <description>what&amp;rsquo;s index acting in git?</description>
+      <guid>/posts/git-index-format/</guid>
+      <description>what&amp;rsquo;s index acting in git?  to reproduce a single and global tree(or root-tree). to fast recognize between the tree in index and the tree in workspace. to recognize and supply merge conflicts info between different tree objects, allowing each pathname to be associated with sufficient information about the trees involved that you can create a three-way merge between them.  init test repo Init a repo which has a blob as &amp;ldquo;1.</description>
     </item>
     
     <item>
       <title>Git Remote-helper</title>
-      <link>https://dyrone.github.io/posts/git-remote-helper/</link>
+      <link>/posts/git-remote-helper/</link>
       <pubDate>Wed, 24 Aug 2022 21:44:24 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-remote-helper/</guid>
+      <guid>/posts/git-remote-helper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>page table</title>
-      <link>https://dyrone.github.io/posts/page-table/</link>
+      <link>/posts/page-table/</link>
       <pubDate>Thu, 28 Jul 2022 18:24:48 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/page-table/</guid>
-      <description>Sharing pages Page table is the brige of communitcating between virtual address space in process and physical address space in memory.</description>
+      <guid>/posts/page-table/</guid>
+      <description>Sharing pages Page table is the brige of communitcating between virtual address space in process and physical address space in memory.
+The noticeable thing is the &amp;ldquo;direction&amp;rdquo;, page table can be used for mapping from the virtual memory addr to physical memory addr, it&amp;rsquo;s single direction.
+Memory management unit (MMU) MMU locates inside the CPU stores a cache of recentlyused mappings from the operating system&amp;rsquo;s page table. This is called the translation lookaside buffer (TLB), which is an associative cache.</description>
     </item>
     
     <item>
       <title>stat and fstat</title>
-      <link>https://dyrone.github.io/posts/stat-and-fstat/</link>
+      <link>/posts/stat-and-fstat/</link>
       <pubDate>Sun, 24 Jul 2022 23:11:16 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/stat-and-fstat/</guid>
-      <description>stat stat() retrieve information about the file pointed to by pathname;</description>
+      <guid>/posts/stat-and-fstat/</guid>
+      <description>stat stat() retrieve information about the file pointed to by pathname;
+lstat lstat() is identical to stat(), except that if pathname is a symbolic link, then it returns information about the link itself, not the file that the link refers to.
+fstat stat() is identical to stat(), except that the file about which information is to be retrieved is specified by the file descriptor fd.
+fstat and stat If &amp;ldquo;stat()&amp;rdquo; could return the information about the file too, why we still need to first call &amp;ldquo;open()&amp;rdquo; to make a FD then use fstat?</description>
     </item>
     
     <item>
       <title>mmap</title>
-      <link>https://dyrone.github.io/posts/mmap/</link>
+      <link>/posts/mmap/</link>
       <pubDate>Mon, 18 Jul 2022 19:24:48 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/mmap/</guid>
-      <description>munmap If you use &amp;ldquo;mmap&amp;rdquo; successfully, it&amp;rsquo;s usually need to munmap when the work finished.</description>
+      <guid>/posts/mmap/</guid>
+      <description>munmap If you use &amp;ldquo;mmap&amp;rdquo; successfully, it&amp;rsquo;s usually need to munmap when the work finished.
+mmap It&amp;rsquo;s recommanded to read the &amp;ldquo;mmap&amp;rdquo; manpage at first. What I read is the Linux Programmer&amp;rsquo;s Manual version, I think the BSD revison(like Darwin on MacOS) maybe exist some difference but should be compatible.
+ mmap, munmap - map or unmap files or devices into memory
+ What&amp;rsquo;s the first &amp;ldquo;m&amp;rdquo; letter means &amp;ldquo;memory&amp;rdquo; I think, it&amp;rsquo;s all about the data of memory.</description>
     </item>
     
   </channel>

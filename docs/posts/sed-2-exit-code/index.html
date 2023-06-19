@@ -1,188 +1,160 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Sed [2] - Exit Code In Sed - dyrone&#39;s blog</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="Sed [2] - Exit Code In Sed" />
-<meta property="og:description" content="In this article, we will talk about the exit code when executing sed command." />
+<!doctype html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Sed [2] - Exit Code In Sed - Dyrone Teng </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:site_name" content="Dyrone Teng" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:title" content="Sed [2] - Exit Code In Sed" />
+<meta property="og:description" content="In this article, we will talk about the exit code when executing sed command.
+Exit Code: 0 When the sed command executes successfully, the execution will exit as 0 which means the procedure is now as completion.
+The result is the same whether the sed is matched or unmatched, the exit code only take the responsibility for the running correctness but not the matching logicalness. For an example:
+➜ echo &#39;abc&#39; | sed -e &#39;s/d/e/1&#39; &lt;&lt;&lt; abc ➜ echo &#39;abc&#39; | sed -e &#39;s/b/e/1&#39; &lt;&lt;&lt; aec Exit Code: 1 Code 1 means you are executing an invalid command, invalid syntax, invalid regular expression or a GNU sed extension command used with --posix" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dyrone.github.io/posts/sed-2-exit-code/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="/posts/sed-2-exit-code/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-03T17:00:04+08:00" />
 <meta property="article:modified_time" content="2022-07-03T17:00:04+08:00" />
 
 
-		<meta itemprop="name" content="Sed [2] - Exit Code In Sed">
-<meta itemprop="description" content="In this article, we will talk about the exit code when executing sed command."><meta itemprop="datePublished" content="2022-07-03T17:00:04+08:00" />
-<meta itemprop="dateModified" content="2022-07-03T17:00:04+08:00" />
-<meta itemprop="wordCount" content="508">
-<meta itemprop="keywords" content="sed," />
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Sed [2] - Exit Code In Sed"/>
-<meta name="twitter:description" content="In this article, we will talk about the exit code when executing sed command."/>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:title" content="Sed [2] - Exit Code In Sed" />
+    <meta name="twitter:description" content="" />
+    
 
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
+    <meta name="twitter:image" content="" />
+    <link rel="canonical" href="/posts/sed-2-exit-code/">
+    
+    <link rel="stylesheet" href="/css/site.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="滕 龙" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/img/placeholder.png">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">滕 龙</div>
-					<div class="logo__tagline">Teng Long</div>
-				</div>
-		</a>
+    
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Dyrone Teng" />
+    
+  </head>
+
+  <body>
+    
+<div class="mt-xl header">
+  <header>
+    <div class="container">
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <a href="" style="display: contents">
+	    <h1 class="name text-center">Teng Long Is Dyrone</h1>
+	  </a>
 	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">Sed [2] - Exit Code In Sed</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-07-03T17:00:04&#43;08:00">2022-07-03</time></div></div>
-		</header>
+      </div>
+      <div class="row justify-content-center">
+	<div class="nav justify-content-center">
+	  <ul>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/">
 		
-<div class="post__toc toc">
-	<div class="toc__title">Page content</div>
-	<div class="toc__menu">
-		<nav id="TableOfContents">
-  <ul>
-    <li><a href="#invalid-command">invalid command</a></li>
-    <li><a href="#invalid-syntax">invalid syntax</a></li>
-    <li><a href="#invalid-regular-expression">invalid regular expression</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#input-file-could-not-be-opened">input file could not be opened</a></li>
-  </ul>
-</nav>
+		Home
+	      </a>
+	    </li>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/posts/introduce/index.html">
+		
+		About
+	      </a>
+	    </li>
+	    
+	    
+	  </ul>
 	</div>
-</div><div class="content post__content clearfix">
-			<p>In this article, we will talk about the exit code when executing <strong>sed</strong> command.</p>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8">
+        <h1 class="mx-0 mx-md-4 single-page-title">Sed [2] - Exit Code In Sed</h1>
+        <div class="markdown page-content">
+          <p>In this article, we will talk about the exit code when executing <strong>sed</strong> command.</p>
 <h1 id="exit-code-0">Exit Code: 0</h1>
 <p>When the sed command executes successfully, the execution will exit as <strong>0</strong> which means the procedure is now as completion.</p>
 <p>The result is the same whether the sed is matched or unmatched, the exit code only take the responsibility for the running correctness but not the matching logicalness. For an example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜   echo <span style="color:#e6db74">&#39;abc&#39;</span> | sed -e <span style="color:#e6db74">&#39;s/d/e/1&#39;</span>                                                         <span style="color:#f92672">&lt;&lt;&lt;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜   <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;abc&#39;</span> <span style="color:#000;font-weight:bold">|</span> sed -e <span style="color:#4e9a06">&#39;s/d/e/1&#39;</span>                                                         <span style="color:#ce5c00;font-weight:bold">&lt;&lt;&lt;</span>
 abc
-➜  echo <span style="color:#e6db74">&#39;abc&#39;</span> | sed -e <span style="color:#e6db74">&#39;s/b/e/1&#39;</span>                                                         <span style="color:#f92672">&lt;&lt;&lt;</span>
+➜  <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;abc&#39;</span> <span style="color:#000;font-weight:bold">|</span> sed -e <span style="color:#4e9a06">&#39;s/b/e/1&#39;</span>                                                         <span style="color:#ce5c00;font-weight:bold">&lt;&lt;&lt;</span>
 aec
 </code></pre></div><h1 id="exit-code-1">Exit Code: 1</h1>
 <p>Code 1 means you are executing an invalid command, invalid syntax, invalid regular expression or a GNU sed extension command used with <code>--posix</code></p>
 <h2 id="invalid-command">invalid command</h2>
 <p>For example, we specify an invalid option <code>-x</code>, the following execution will exit with code <strong>1</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜ echo <span style="color:#e6db74">&#39;abc&#39;</span> | sed -x <span style="color:#e6db74">&#39;s/b/e/1&#39;</span> ; echo
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜ <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;abc&#39;</span> <span style="color:#000;font-weight:bold">|</span> sed -x <span style="color:#4e9a06">&#39;s/b/e/1&#39;</span> <span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87">echo</span>
 sed: illegal option -- x
-usage: sed script <span style="color:#f92672">[</span>-Ealn<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-i extension<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>file ...<span style="color:#f92672">]</span>
-       sed <span style="color:#f92672">[</span>-Ealn<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-i extension<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-e script<span style="color:#f92672">]</span> ... <span style="color:#f92672">[</span>-f script_file<span style="color:#f92672">]</span> ... <span style="color:#f92672">[</span>file ...<span style="color:#f92672">]</span>
-<span style="color:#ae81ff">1</span>
+usage: sed script <span style="color:#ce5c00;font-weight:bold">[</span>-Ealn<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">[</span>-i extension<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">[</span>file ...<span style="color:#ce5c00;font-weight:bold">]</span>
+       sed <span style="color:#ce5c00;font-weight:bold">[</span>-Ealn<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">[</span>-i extension<span style="color:#ce5c00;font-weight:bold">]</span> <span style="color:#ce5c00;font-weight:bold">[</span>-e script<span style="color:#ce5c00;font-weight:bold">]</span> ... <span style="color:#ce5c00;font-weight:bold">[</span>-f script_file<span style="color:#ce5c00;font-weight:bold">]</span> ... <span style="color:#ce5c00;font-weight:bold">[</span>file ...<span style="color:#ce5c00;font-weight:bold">]</span>
+<span style="color:#0000cf;font-weight:bold">1</span>
 </code></pre></div><h2 id="invalid-syntax">invalid syntax</h2>
 <p>For example, we specify an invalid substitute flag, the following execution will exit with code <strong>1</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜  posts git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ echo <span style="color:#e6db74">&#39;abc&#39;</span> | sed -e <span style="color:#e6db74">&#39;s/b/e/1/&#39;</span> ; echo $? 
-sed: 1: <span style="color:#e6db74">&#34;s/b/e/1/
-</span><span style="color:#e6db74">&#34;</span>: bad flag in substitute command: <span style="color:#e6db74">&#39;/&#39;</span>
-<span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜  posts git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;abc&#39;</span> <span style="color:#000;font-weight:bold">|</span> sed -e <span style="color:#4e9a06">&#39;s/b/e/1/&#39;</span> <span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87">echo</span> <span style="color:#000">$?</span> 
+sed: 1: <span style="color:#4e9a06">&#34;s/b/e/1/
+</span><span style="color:#4e9a06">&#34;</span>: bad flag in substitute command: <span style="color:#4e9a06">&#39;/&#39;</span>
+<span style="color:#0000cf;font-weight:bold">1</span>
 </code></pre></div><h2 id="invalid-regular-expression">invalid regular expression</h2>
 <p>For example, by default the regular expression of sed is not allowd yo be empty, so the following execution will exit with code <strong>1</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜  posts git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ echo <span style="color:#e6db74">&#39;abc&#39;</span> | sed -e <span style="color:#e6db74">&#39;s//replacement/1&#39;</span> ; echo $?                                 sed: first RE may not be empty
-<span style="color:#ae81ff">1</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜  posts git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;abc&#39;</span> <span style="color:#000;font-weight:bold">|</span> sed -e <span style="color:#4e9a06">&#39;s//replacement/1&#39;</span> <span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87">echo</span> <span style="color:#000">$?</span>                                 sed: first RE may not be empty
+<span style="color:#0000cf;font-weight:bold">1</span>
 </code></pre></div><h1 id="exit-code-2">Exit Code: 2</h1>
 <h2 id="input-file-could-not-be-opened">input file could not be opened</h2>
 <p>e.g. if a file is not found, or read permission is denied,</p>
 <p>For example, we specify an unexist input file which named <strong>input.txt</strong>, and the execution result is:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># sed &#39;s/1/2/g&#39; input.txt</span>
-sed: can<span style="color:#960050;background-color:#1e0010">&#39;</span>t read input.txt: No such file or directory
-<span style="color:#75715e"># echo $?</span>
-<span style="color:#ae81ff">2</span>
-<span style="color:#75715e"># uname -a</span>
-Linux 94cb2f1a7253 4.19.76-linuxkit <span style="color:#75715e">#1 SMP Tue May 26 11:42:35 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#8f5902;font-style:italic"># sed &#39;s/1/2/g&#39; input.txt</span>
+sed: can<span style="color:#a40000">&#39;</span>t <span style="color:#204a87">read</span> input.txt: No such file or directory
+<span style="color:#8f5902;font-style:italic"># echo $?</span>
+<span style="color:#0000cf;font-weight:bold">2</span>
+<span style="color:#8f5902;font-style:italic"># uname -a</span>
+Linux 94cb2f1a7253 4.19.76-linuxkit <span style="color:#8f5902;font-style:italic">#1 SMP Tue May 26 11:42:35 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</span>
 </code></pre></div><p>Unfortunately, the result is different if I execute the same command on my Mac, the result will be like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜  /tmp sed <span style="color:#e6db74">&#39;s/1/2/g&#39;</span> input.txt ; echo $?
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">➜  /tmp sed <span style="color:#4e9a06">&#39;s/1/2/g&#39;</span> input.txt <span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87">echo</span> <span style="color:#000">$?</span>
 sed: input.txt: No such file or directory
-<span style="color:#ae81ff">1</span>
+<span style="color:#0000cf;font-weight:bold">1</span>
 
-➜  /tmp sed <span style="color:#e6db74">&#39;1p&#39;</span> unexist.file ; echo $?
+➜  /tmp sed <span style="color:#4e9a06">&#39;1p&#39;</span> unexist.file <span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87">echo</span> <span style="color:#000">$?</span>
 sed: unexist.file: No such file or directory
-<span style="color:#ae81ff">1</span>
+<span style="color:#0000cf;font-weight:bold">1</span>
 </code></pre></div><p>But why and what happended to the Mac-sed? This is because the <strong>sed</strong> on Mac is not a GNU sed, and so on, Mac doesn&rsquo;t support the GNU extension too. The detailed information I will write on the following article.``</p>
 <h1 id="exit-code-4">Exit Code: 4</h1>
 <p>When An I/O error occured, or a serious <strong>processing</strong> error during runtime, GNU sed will be aborted immediately with <strong>4</strong>.</p>
 <h1 id="custom-exit-code">Custom Exit Code</h1>
 <p>This is a GNU sed extension, <strong>q</strong> and <strong>Q</strong> can be used to terminate <strong>sed</strong> with a custom exit code value.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ echo <span style="color:#e6db74">&#39;abc&#39;</span> | sed -e <span style="color:#e6db74">&#39;q42&#39;</span> -e <span style="color:#e6db74">&#39;s/a/A/g&#39;</span> ; echo $?
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#39;abc&#39;</span> <span style="color:#000;font-weight:bold">|</span> sed -e <span style="color:#4e9a06">&#39;q42&#39;</span> -e <span style="color:#4e9a06">&#39;s/a/A/g&#39;</span> <span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87">echo</span> <span style="color:#000">$?</span>
 abc
-<span style="color:#ae81ff">42</span>
+<span style="color:#0000cf;font-weight:bold">42</span>
 </code></pre></div><p>And then, as the tips before, If I execute is on my Mac, the <code>q</code> can not be recognized by <strong>sed</strong> and will return the <strong>1</strong> as exit code.</p>
 
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/sed/" rel="tag">sed</a>
-		</li>
-	</ul>
+
+        </div>
+      </div>
+      <div class="container">
+  <span class="row justify-content-center meta" id="footer">
+    Copyright © 2023 Dyrone Teng
+  </span>
+  <script defer src="js/custom.js"></script>
+
 </div>
-		</footer>
-	</article>
-</main>
 
+    </div>
+  </div>
+</div>
 
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/posts/sed-1-basic-usage/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">Sed [1] - Basic Usage</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/brew/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Speed Up Brew With Mirror </p>
-		</a>
-	</div>
-</nav>
+  </body>
 
-
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2023 dyrone.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-</body>
 </html>

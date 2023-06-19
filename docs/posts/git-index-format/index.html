@@ -1,89 +1,88 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Git Index Format - dyrone&#39;s blog</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="Git Index Format" />
-<meta property="og:description" content="what&rsquo;s index acting in git?" />
+<!doctype html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Git Index Format - Dyrone Teng </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:site_name" content="Dyrone Teng" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:title" content="Git Index Format" />
+<meta property="og:description" content="what&rsquo;s index acting in git?  to reproduce a single and global tree(or root-tree). to fast recognize between the tree in index and the tree in workspace. to recognize and supply merge conflicts info between different tree objects, allowing each pathname to be associated with sufficient information about the trees involved that you can create a three-way merge between them.  init test repo Init a repo which has a blob as &ldquo;1." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dyrone.github.io/posts/git-index-format/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="/posts/git-index-format/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-13T19:19:59+08:00" />
 <meta property="article:modified_time" content="2022-09-13T19:19:59+08:00" />
 
 
-		<meta itemprop="name" content="Git Index Format">
-<meta itemprop="description" content="what&rsquo;s index acting in git?"><meta itemprop="datePublished" content="2022-09-13T19:19:59+08:00" />
-<meta itemprop="dateModified" content="2022-09-13T19:19:59+08:00" />
-<meta itemprop="wordCount" content="2165">
-<meta itemprop="keywords" content="git,c," />
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git Index Format"/>
-<meta name="twitter:description" content="what&rsquo;s index acting in git?"/>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:title" content="Git Index Format" />
+    <meta name="twitter:description" content="" />
+    
 
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
+    <meta name="twitter:image" content="" />
+    <link rel="canonical" href="/posts/git-index-format/">
+    
+    <link rel="stylesheet" href="/css/site.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="滕 龙" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/img/placeholder.png">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">滕 龙</div>
-					<div class="logo__tagline">Teng Long</div>
-				</div>
-		</a>
+    
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Dyrone Teng" />
+    
+  </head>
+
+  <body>
+    
+<div class="mt-xl header">
+  <header>
+    <div class="container">
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <a href="" style="display: contents">
+	    <h1 class="name text-center">Teng Long Is Dyrone</h1>
+	  </a>
 	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">Git Index Format</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-09-13T19:19:59&#43;08:00">2022-09-13</time></div></div>
-		</header>
+      </div>
+      <div class="row justify-content-center">
+	<div class="nav justify-content-center">
+	  <ul>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/">
 		
-<div class="post__toc toc">
-	<div class="toc__title">Page content</div>
-	<div class="toc__menu">
-		<nav id="TableOfContents">
-  <ul>
-    <li><a href="#whats-index-acting-in-git">what&rsquo;s index acting in git?</a></li>
-    <li><a href="#init-test-repo">init test repo</a></li>
-    <li><a href="#structure-of-the-index-file">structure of the &ldquo;index&rdquo; file</a></li>
-    <li><a href="#understand-the-index-file-content">Understand the &ldquo;index&rdquo; file content</a></li>
-    <li><a href="#extensions">Extensions</a>
-      <ul>
-        <li><a href="#cache-tree-extension">Cache Tree Extension</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+		Home
+	      </a>
+	    </li>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/posts/introduce/index.html">
+		
+		About
+	      </a>
+	    </li>
+	    
+	    
+	  </ul>
 	</div>
-</div><div class="content post__content clearfix">
-			<h2 id="whats-index-acting-in-git">what&rsquo;s index acting in git?</h2>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8">
+        <h1 class="mx-0 mx-md-4 single-page-title">Git Index Format</h1>
+        <div class="markdown page-content">
+          <h2 id="whats-index-acting-in-git">what&rsquo;s index acting in git?</h2>
 <ul>
 <li>to reproduce a single and global tree(or root-tree).</li>
 <li>to fast recognize between the tree in index and the tree in workspace.</li>
@@ -93,18 +92,18 @@ trees involved that you can create a three-way merge between them.</li>
 </ul>
 <h2 id="init-test-repo">init test repo</h2>
 <p>Init a repo which has a blob as &ldquo;1.txt&rdquo; in workspace:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ pwd
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ <span style="color:#204a87">pwd</span>
 /Users/tenglong.tl/Downloads/dyroneteng
-➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ ls
+➜  dyroneteng git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ ls
 1.txt
 </code></pre></div><p>Read the blob object:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> pwd
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  d0 git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#204a87">pwd</span>
 /Users/tenglong.tl/Downloads/dyroneteng/.git/objects/d0
-➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ls
+➜  d0 git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ls
 0491fd7e5bb6fa28c517a0bb32b8b506539d4d
-➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -p d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
-<span style="color:#ae81ff">1</span>
-➜  d0 git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -t d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
+➜  d0 git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> git cat-file -p d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
+<span style="color:#0000cf;font-weight:bold">1</span>
+➜  d0 git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> git cat-file -t d00491fd7e5bb6fa28c517a0bb32b8b506539d4d
 blob
 </code></pre></div><h2 id="structure-of-the-index-file">structure of the &ldquo;index&rdquo; file</h2>
 <ul>
@@ -115,15 +114,15 @@ optional and can be ignored.), size of extension, extension data</li>
 <li>Hash Checksum: 20 bytes checksum data</li>
 </ul>
 <h2 id="understand-the-index-file-content">Understand the &ldquo;index&rdquo; file content</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat index  | hexdump -C
-<span style="color:#ae81ff">00000000</span>  <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  |DIRC........c.a.|
-<span style="color:#ae81ff">00000010</span>  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">07</span>  |.Ps.c.a..Ps.....|
-<span style="color:#ae81ff">00000020</span>  <span style="color:#ae81ff">06</span> ef <span style="color:#ae81ff">71</span> d3 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  |..q.............|
-<span style="color:#ae81ff">00000030</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span> d0 <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">91</span> fd  7e 5b b6 fa <span style="color:#ae81ff">28</span> c5 <span style="color:#ae81ff">17</span> a0  |........~<span style="color:#f92672">[</span>..<span style="color:#f92672">(</span>...|
-<span style="color:#ae81ff">00000040</span>  bb <span style="color:#ae81ff">32</span> b8 b5 <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">53</span> 9d 4d  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">31</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span>  |.2...S.M..1.txt.|
-<span style="color:#ae81ff">00000050</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">84</span> <span style="color:#ae81ff">08</span> b0 <span style="color:#ae81ff">29</span>  <span style="color:#ae81ff">87</span> <span style="color:#ae81ff">16</span> de c9 d4 7c 4e ac  |.......<span style="color:#f92672">)</span>.....|N.|
-<span style="color:#ae81ff">00000060</span>  ec <span style="color:#ae81ff">96</span> 7d d1 6e <span style="color:#ae81ff">95</span> <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">22</span>                           |..<span style="color:#f92672">}</span>.n.P<span style="color:#e6db74">&#34;|
-</span><span style="color:#e6db74">00000068
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> cat index  <span style="color:#000;font-weight:bold">|</span> hexdump -C
+<span style="color:#0000cf;font-weight:bold">00000000</span>  <span style="color:#0000cf;font-weight:bold">44</span> <span style="color:#0000cf;font-weight:bold">49</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">43</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">02</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">18</span> <span style="color:#0000cf;font-weight:bold">61</span> d6  <span style="color:#000;font-weight:bold">|</span>DIRC........c.a.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000010</span>  0a <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">73</span> <span style="color:#0000cf;font-weight:bold">12</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">18</span> <span style="color:#0000cf;font-weight:bold">61</span> d6  0a <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">73</span> <span style="color:#0000cf;font-weight:bold">12</span> <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">07</span>  <span style="color:#000;font-weight:bold">|</span>.Ps.c.a..Ps.....<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000020</span>  <span style="color:#0000cf;font-weight:bold">06</span> ef <span style="color:#0000cf;font-weight:bold">71</span> d3 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">81</span> a4  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> f5 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">14</span>  <span style="color:#000;font-weight:bold">|</span>..q.............<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000030</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">02</span> d0 <span style="color:#0000cf;font-weight:bold">04</span> <span style="color:#0000cf;font-weight:bold">91</span> fd  7e 5b b6 fa <span style="color:#0000cf;font-weight:bold">28</span> c5 <span style="color:#0000cf;font-weight:bold">17</span> a0  <span style="color:#000;font-weight:bold">|</span>........~<span style="color:#ce5c00;font-weight:bold">[</span>..<span style="color:#ce5c00;font-weight:bold">(</span>...<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000040</span>  bb <span style="color:#0000cf;font-weight:bold">32</span> b8 b5 <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">53</span> 9d 4d  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">05</span> <span style="color:#0000cf;font-weight:bold">31</span> 2e <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">00</span>  <span style="color:#000;font-weight:bold">|</span>.2...S.M..1.txt.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000050</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">84</span> <span style="color:#0000cf;font-weight:bold">08</span> b0 <span style="color:#0000cf;font-weight:bold">29</span>  <span style="color:#0000cf;font-weight:bold">87</span> <span style="color:#0000cf;font-weight:bold">16</span> de c9 d4 7c 4e ac  <span style="color:#000;font-weight:bold">|</span>.......<span style="color:#ce5c00;font-weight:bold">)</span>.....<span style="color:#000;font-weight:bold">|</span>N.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000060</span>  ec <span style="color:#0000cf;font-weight:bold">96</span> 7d d1 6e <span style="color:#0000cf;font-weight:bold">95</span> <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">22</span>                           <span style="color:#000;font-weight:bold">|</span>..<span style="color:#ce5c00;font-weight:bold">}</span>.n.P<span style="color:#4e9a06">&#34;|
+</span><span style="color:#4e9a06">00000068
 </span></code></pre></div><p>Let&rsquo;s try to understand the content with each part.</p>
 <blockquote>
 <p><a href="https://git-scm.com/docs/index-format">https://git-scm.com/docs/index-format</a></p>
@@ -135,7 +134,7 @@ optional and can be ignored.), size of extension, extension data</li>
 <li>63 18 61 d6: ctime(the seconds part) of the entry. digit(63 18 61 d6) = 1662542294 and we could
 show the ctime by gstat when you on macOS.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span>  gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ctime: %Z&#34;</span> 1.txt
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span>  gstat --printf<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;ctime: %Z&#34;</span> 1.txt
 ctime: 1662542294%
 </code></pre></div><ul>
 <li>
@@ -146,7 +145,7 @@ ctime: 1662542294%
 1662542294 and we could show the mtime by gstat when you on macOS.</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mtime: %Y&#34;</span> ../1.txt 
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> gstat --printf<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;mtime: %Y&#34;</span> ../1.txt 
 mtime: 1662542294% 
 </code></pre></div><ul>
 <li>
@@ -159,7 +158,7 @@ mtime: 1662542294%
 <p>06 ef 71 d3: the inode number. digit(06 ef 71 d3) = 116355539</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ino: %i&#34;</span> 1.txt
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;ino: %i&#34;</span> 1.txt
 ino: 116355539%
 </code></pre></div><ul>
 <li>00 00 81 a4: the unix permission. Only 0755 and 0644 are valid for regular
@@ -169,12 +168,12 @@ files. Symbolic links and gitlinks have value 0 in this field.</li>
 <ul>
 <li>00 00 01 f5: uid of the file</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;uid: %u&#34;</span> 1.txt
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;uid: %u&#34;</span> 1.txt
 uid: 501%
 </code></pre></div><ul>
 <li>00 00 00 14: gid of the file</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gid: %g&#34;</span> 1.txt
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gstat --printf<span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;gid: %g&#34;</span> 1.txt
 gid: 20%
 </code></pre></div><ul>
 <li>
@@ -211,17 +210,17 @@ NUL-terminated.</p>
 <h3 id="cache-tree-extension">Cache Tree Extension</h3>
 <p>When we execute &ldquo;git commit&rdquo;, the changes in stage(cache, index, they are the
 same thing) will be packaged as a commit. Then, the &ldquo;index&rdquo; file will be like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat index | hexdump -C
-<span style="color:#ae81ff">00000000</span>  <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  |DIRC........c.a.|
-<span style="color:#ae81ff">00000010</span>  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">07</span>  |.Ps.c.a..Ps.....|
-<span style="color:#ae81ff">00000020</span>  <span style="color:#ae81ff">06</span> ef <span style="color:#ae81ff">71</span> d3 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  |..q.............|
-<span style="color:#ae81ff">00000030</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span> d0 <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">91</span> fd  7e 5b b6 fa <span style="color:#ae81ff">28</span> c5 <span style="color:#ae81ff">17</span> a0  |........~<span style="color:#f92672">[</span>..<span style="color:#f92672">(</span>...|
-<span style="color:#ae81ff">00000040</span>  bb <span style="color:#ae81ff">32</span> b8 b5 <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">53</span> 9d 4d  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">31</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span>  |.2...S.M..1.txt.|
-<span style="color:#ae81ff">00000050</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">19</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span>  |....TREE.....1 0|
-<span style="color:#ae81ff">00000060</span>  0a <span style="color:#ae81ff">38</span> fd <span style="color:#ae81ff">29</span> <span style="color:#ae81ff">69</span> 7b <span style="color:#ae81ff">22</span> 0f  7e 4c a1 5b <span style="color:#ae81ff">04</span> 4c <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">22</span>  |.8.<span style="color:#f92672">)</span>i<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;.~L.[.L2&#34;</span>|
-<span style="color:#ae81ff">00000070</span>  ee fe 5a fd c1 7b <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">30</span>  <span style="color:#ae81ff">32</span> fd 1b <span style="color:#ae81ff">69</span> c3 d5 6a da  |..Z..<span style="color:#f92672">{</span>R02..i..j.|
-<span style="color:#ae81ff">00000080</span>  c7 <span style="color:#ae81ff">00</span> 8e 7b <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">95</span> <span style="color:#ae81ff">34</span> bd  f3                       |...<span style="color:#f92672">{</span>..4..|
-<span style="color:#ae81ff">00000089</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> cat index <span style="color:#000;font-weight:bold">|</span> hexdump -C
+<span style="color:#0000cf;font-weight:bold">00000000</span>  <span style="color:#0000cf;font-weight:bold">44</span> <span style="color:#0000cf;font-weight:bold">49</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">43</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">02</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">18</span> <span style="color:#0000cf;font-weight:bold">61</span> d6  <span style="color:#000;font-weight:bold">|</span>DIRC........c.a.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000010</span>  0a <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">73</span> <span style="color:#0000cf;font-weight:bold">12</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">18</span> <span style="color:#0000cf;font-weight:bold">61</span> d6  0a <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">73</span> <span style="color:#0000cf;font-weight:bold">12</span> <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">07</span>  <span style="color:#000;font-weight:bold">|</span>.Ps.c.a..Ps.....<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000020</span>  <span style="color:#0000cf;font-weight:bold">06</span> ef <span style="color:#0000cf;font-weight:bold">71</span> d3 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">81</span> a4  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> f5 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">14</span>  <span style="color:#000;font-weight:bold">|</span>..q.............<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000030</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">02</span> d0 <span style="color:#0000cf;font-weight:bold">04</span> <span style="color:#0000cf;font-weight:bold">91</span> fd  7e 5b b6 fa <span style="color:#0000cf;font-weight:bold">28</span> c5 <span style="color:#0000cf;font-weight:bold">17</span> a0  <span style="color:#000;font-weight:bold">|</span>........~<span style="color:#ce5c00;font-weight:bold">[</span>..<span style="color:#ce5c00;font-weight:bold">(</span>...<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000040</span>  bb <span style="color:#0000cf;font-weight:bold">32</span> b8 b5 <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">53</span> 9d 4d  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">05</span> <span style="color:#0000cf;font-weight:bold">31</span> 2e <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">00</span>  <span style="color:#000;font-weight:bold">|</span>.2...S.M..1.txt.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000050</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">54</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">45</span> <span style="color:#0000cf;font-weight:bold">45</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">19</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">31</span> <span style="color:#0000cf;font-weight:bold">20</span> <span style="color:#0000cf;font-weight:bold">30</span>  <span style="color:#000;font-weight:bold">|</span>....TREE.....1 0<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000060</span>  0a <span style="color:#0000cf;font-weight:bold">38</span> fd <span style="color:#0000cf;font-weight:bold">29</span> <span style="color:#0000cf;font-weight:bold">69</span> 7b <span style="color:#0000cf;font-weight:bold">22</span> 0f  7e 4c a1 5b <span style="color:#0000cf;font-weight:bold">04</span> 4c <span style="color:#0000cf;font-weight:bold">32</span> <span style="color:#0000cf;font-weight:bold">22</span>  <span style="color:#000;font-weight:bold">|</span>.8.<span style="color:#ce5c00;font-weight:bold">)</span>i<span style="color:#ce5c00;font-weight:bold">{</span><span style="color:#4e9a06">&#34;.~L.[.L2&#34;</span><span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000070</span>  ee fe 5a fd c1 7b <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">30</span>  <span style="color:#0000cf;font-weight:bold">32</span> fd 1b <span style="color:#0000cf;font-weight:bold">69</span> c3 d5 6a da  <span style="color:#000;font-weight:bold">|</span>..Z..<span style="color:#ce5c00;font-weight:bold">{</span>R02..i..j.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000080</span>  c7 <span style="color:#0000cf;font-weight:bold">00</span> 8e 7b <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">95</span> <span style="color:#0000cf;font-weight:bold">34</span> bd  f3                       <span style="color:#000;font-weight:bold">|</span>...<span style="color:#ce5c00;font-weight:bold">{</span>..4..<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000089</span>
 </code></pre></div><p>Actually, the data before &ldquo;00 05 31 2e 74 78 74 00&rdquo; is as same as we did the
 &ldquo;git commit&rdquo; before. So, let&rsquo;s focus on the left parts. Here, it introduces a
 new data region: TREE extension.</p>
@@ -263,12 +262,12 @@ to focus its efforts when reconstructing a full cache tree.</p>
 <li>checksum: 7b 52 30  32 fd 1b 69 c3 d5 6a da c7 00 8e 7b 01 95 34 bd  f3</li>
 </ul>
 <h4 id="tree-extension-data-structure">TREE extension data structure:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">00</span>
-<span style="color:#ae81ff">31</span>
-<span style="color:#ae81ff">20</span>
-<span style="color:#ae81ff">30</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0000cf;font-weight:bold">00</span>
+<span style="color:#0000cf;font-weight:bold">31</span>
+<span style="color:#0000cf;font-weight:bold">20</span>
+<span style="color:#0000cf;font-weight:bold">30</span>
 0a
-<span style="color:#ae81ff">38</span> fd <span style="color:#ae81ff">29</span> <span style="color:#ae81ff">69</span> 7b <span style="color:#ae81ff">22</span> 0f 7e 4c a1 5b <span style="color:#ae81ff">04</span> 4c <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">22</span> ee fe 5a fd c1
+<span style="color:#0000cf;font-weight:bold">38</span> fd <span style="color:#0000cf;font-weight:bold">29</span> <span style="color:#0000cf;font-weight:bold">69</span> 7b <span style="color:#0000cf;font-weight:bold">22</span> 0f 7e 4c a1 5b <span style="color:#0000cf;font-weight:bold">04</span> 4c <span style="color:#0000cf;font-weight:bold">32</span> <span style="color:#0000cf;font-weight:bold">22</span> ee fe 5a fd c1
 </code></pre></div><p>Struture of the recursive tree currently(we just &ldquo;add&rdquo;, but not &ldquo;commit&rdquo; yet):</p>
 <ul>
 <li>NUL-terminated path component (relative to its parent directory);</li>
@@ -313,7 +312,7 @@ as a tree.</li>
 </blockquote>
 <h4 id="after-the-add">After the &ldquo;add&rdquo;</h4>
 <p>Next step, we add the new directories and files.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> tree
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  dyroneteng git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> tree
 .
 ├── 1.txt
 └── parent
@@ -322,31 +321,31 @@ as a tree.</li>
         └── s.txt
 
 </code></pre></div><p>Print out the index content:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> cat index  | hexdump -C
-<span style="color:#ae81ff">00000000</span>  <span style="color:#ae81ff">44</span> <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">03</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  |DIRC........c.a.|
-<span style="color:#ae81ff">00000010</span>  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">18</span> <span style="color:#ae81ff">61</span> d6  0a <span style="color:#ae81ff">50</span> <span style="color:#ae81ff">73</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">07</span>  |.Ps.c.a..Ps.....|
-<span style="color:#ae81ff">00000020</span>  <span style="color:#ae81ff">06</span> ef <span style="color:#ae81ff">71</span> d3 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  |..q.............|
-<span style="color:#ae81ff">00000030</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">02</span> d0 <span style="color:#ae81ff">04</span> <span style="color:#ae81ff">91</span> fd  7e 5b b6 fa <span style="color:#ae81ff">28</span> c5 <span style="color:#ae81ff">17</span> a0  |........~<span style="color:#f92672">[</span>..<span style="color:#f92672">(</span>...|
-<span style="color:#ae81ff">00000040</span>  bb <span style="color:#ae81ff">32</span> b8 b5 <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">53</span> 9d 4d  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> <span style="color:#ae81ff">31</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span>  |.2...S.M..1.txt.|
-<span style="color:#ae81ff">00000050</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 2b  <span style="color:#ae81ff">30</span> 8d <span style="color:#ae81ff">15</span> 3c <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 2b  |....c<span style="color:#e6db74">&#34;.+0..&lt;c&#34;</span>.+|
-<span style="color:#ae81ff">00000060</span>  <span style="color:#ae81ff">30</span> 8d <span style="color:#ae81ff">15</span> 3c <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">08</span>  <span style="color:#ae81ff">06</span> fa ed <span style="color:#ae81ff">65</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  |0..&lt;.......e....|
-<span style="color:#ae81ff">00000070</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">06</span> f7 c6 dd <span style="color:#ae81ff">01</span>  |................|
-<span style="color:#ae81ff">00000080</span>  <span style="color:#ae81ff">64</span> fe 0e b4 fd e7 <span style="color:#ae81ff">67</span> f9  e7 <span style="color:#ae81ff">31</span> a6 c8 ad e0 b6 9f  |d.....g..1......|
-<span style="color:#ae81ff">00000090</span>  <span style="color:#ae81ff">00</span> 0c <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">65</span> 6e <span style="color:#ae81ff">74</span>  2f <span style="color:#ae81ff">70</span> 2e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span>  |..parent/p.txt..|
-000000a0  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 <span style="color:#ae81ff">37</span>  2e <span style="color:#ae81ff">30</span> 7a <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">22</span> d9 <span style="color:#ae81ff">37</span>  |....c<span style="color:#e6db74">&#34;.7.0zxc&#34;</span>.7|
-000000b0  2e <span style="color:#ae81ff">30</span> 7a <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">01</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">08</span>  <span style="color:#ae81ff">06</span> fa ed 8e <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">81</span> a4  |.0zx............|
-000000c0  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">01</span> f5 <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">05</span> c7 dc <span style="color:#ae81ff">98</span> 9f  |................|
-000000d0  <span style="color:#ae81ff">80</span> <span style="color:#ae81ff">44</span> a4 fc f1 <span style="color:#ae81ff">63</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">41</span>  <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">98</span> e1 <span style="color:#ae81ff">46</span> <span style="color:#ae81ff">94</span> e1 ac 7e  |.D...caAI..F...~|
-000000e0  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">72</span> <span style="color:#ae81ff">65</span> 6e <span style="color:#ae81ff">74</span>  2f <span style="color:#ae81ff">73</span> 6f 6e 2f <span style="color:#ae81ff">73</span> 2e <span style="color:#ae81ff">74</span>  |..parent/son/s.t|
-000000f0  <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 2d <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span>  |xt..TREE.....-1 |
-<span style="color:#ae81ff">00000100</span>  <span style="color:#ae81ff">30</span> 0a <span style="color:#ae81ff">88</span> b9 <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">96</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">81</span>  1f 2e ef df a4 d3 ac f0  |0...I.B.........|
-<span style="color:#ae81ff">00000110</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">56</span> 7f cb 1a <span style="color:#ae81ff">38</span>                                 |.V...8|
-<span style="color:#ae81ff">00000116</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  .git git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> cat index  <span style="color:#000;font-weight:bold">|</span> hexdump -C
+<span style="color:#0000cf;font-weight:bold">00000000</span>  <span style="color:#0000cf;font-weight:bold">44</span> <span style="color:#0000cf;font-weight:bold">49</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">43</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">02</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">03</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">18</span> <span style="color:#0000cf;font-weight:bold">61</span> d6  <span style="color:#000;font-weight:bold">|</span>DIRC........c.a.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000010</span>  0a <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">73</span> <span style="color:#0000cf;font-weight:bold">12</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">18</span> <span style="color:#0000cf;font-weight:bold">61</span> d6  0a <span style="color:#0000cf;font-weight:bold">50</span> <span style="color:#0000cf;font-weight:bold">73</span> <span style="color:#0000cf;font-weight:bold">12</span> <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">07</span>  <span style="color:#000;font-weight:bold">|</span>.Ps.c.a..Ps.....<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000020</span>  <span style="color:#0000cf;font-weight:bold">06</span> ef <span style="color:#0000cf;font-weight:bold">71</span> d3 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">81</span> a4  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> f5 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">14</span>  <span style="color:#000;font-weight:bold">|</span>..q.............<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000030</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">02</span> d0 <span style="color:#0000cf;font-weight:bold">04</span> <span style="color:#0000cf;font-weight:bold">91</span> fd  7e 5b b6 fa <span style="color:#0000cf;font-weight:bold">28</span> c5 <span style="color:#0000cf;font-weight:bold">17</span> a0  <span style="color:#000;font-weight:bold">|</span>........~<span style="color:#ce5c00;font-weight:bold">[</span>..<span style="color:#ce5c00;font-weight:bold">(</span>...<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000040</span>  bb <span style="color:#0000cf;font-weight:bold">32</span> b8 b5 <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">53</span> 9d 4d  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">05</span> <span style="color:#0000cf;font-weight:bold">31</span> 2e <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">00</span>  <span style="color:#000;font-weight:bold">|</span>.2...S.M..1.txt.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000050</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">22</span> d9 2b  <span style="color:#0000cf;font-weight:bold">30</span> 8d <span style="color:#0000cf;font-weight:bold">15</span> 3c <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">22</span> d9 2b  <span style="color:#000;font-weight:bold">|</span>....c<span style="color:#4e9a06">&#34;.+0..&lt;c&#34;</span>.+<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000060</span>  <span style="color:#0000cf;font-weight:bold">30</span> 8d <span style="color:#0000cf;font-weight:bold">15</span> 3c <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">08</span>  <span style="color:#0000cf;font-weight:bold">06</span> fa ed <span style="color:#0000cf;font-weight:bold">65</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">81</span> a4  <span style="color:#000;font-weight:bold">|</span>0..&lt;.......e....<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000070</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> f5 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">14</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">06</span> f7 c6 dd <span style="color:#0000cf;font-weight:bold">01</span>  <span style="color:#000;font-weight:bold">|</span>................<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000080</span>  <span style="color:#0000cf;font-weight:bold">64</span> fe 0e b4 fd e7 <span style="color:#0000cf;font-weight:bold">67</span> f9  e7 <span style="color:#0000cf;font-weight:bold">31</span> a6 c8 ad e0 b6 9f  <span style="color:#000;font-weight:bold">|</span>d.....g..1......<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000090</span>  <span style="color:#0000cf;font-weight:bold">00</span> 0c <span style="color:#0000cf;font-weight:bold">70</span> <span style="color:#0000cf;font-weight:bold">61</span> <span style="color:#0000cf;font-weight:bold">72</span> <span style="color:#0000cf;font-weight:bold">65</span> 6e <span style="color:#0000cf;font-weight:bold">74</span>  2f <span style="color:#0000cf;font-weight:bold">70</span> 2e <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span>  <span style="color:#000;font-weight:bold">|</span>..parent/p.txt..<span style="color:#000;font-weight:bold">|</span>
+000000a0  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">22</span> d9 <span style="color:#0000cf;font-weight:bold">37</span>  2e <span style="color:#0000cf;font-weight:bold">30</span> 7a <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">22</span> d9 <span style="color:#0000cf;font-weight:bold">37</span>  <span style="color:#000;font-weight:bold">|</span>....c<span style="color:#4e9a06">&#34;.7.0zxc&#34;</span>.7<span style="color:#000;font-weight:bold">|</span>
+000000b0  2e <span style="color:#0000cf;font-weight:bold">30</span> 7a <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">01</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">08</span>  <span style="color:#0000cf;font-weight:bold">06</span> fa ed 8e <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">81</span> a4  <span style="color:#000;font-weight:bold">|</span>.0zx............<span style="color:#000;font-weight:bold">|</span>
+000000c0  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">01</span> f5 <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">14</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">05</span> c7 dc <span style="color:#0000cf;font-weight:bold">98</span> 9f  <span style="color:#000;font-weight:bold">|</span>................<span style="color:#000;font-weight:bold">|</span>
+000000d0  <span style="color:#0000cf;font-weight:bold">80</span> <span style="color:#0000cf;font-weight:bold">44</span> a4 <span style="color:#204a87">fc</span> f1 <span style="color:#0000cf;font-weight:bold">63</span> <span style="color:#0000cf;font-weight:bold">61</span> <span style="color:#0000cf;font-weight:bold">41</span>  <span style="color:#0000cf;font-weight:bold">49</span> <span style="color:#0000cf;font-weight:bold">98</span> e1 <span style="color:#0000cf;font-weight:bold">46</span> <span style="color:#0000cf;font-weight:bold">94</span> e1 ac 7e  <span style="color:#000;font-weight:bold">|</span>.D...caAI..F...~<span style="color:#000;font-weight:bold">|</span>
+000000e0  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">10</span> <span style="color:#0000cf;font-weight:bold">70</span> <span style="color:#0000cf;font-weight:bold">61</span> <span style="color:#0000cf;font-weight:bold">72</span> <span style="color:#0000cf;font-weight:bold">65</span> 6e <span style="color:#0000cf;font-weight:bold">74</span>  2f <span style="color:#0000cf;font-weight:bold">73</span> 6f 6e 2f <span style="color:#0000cf;font-weight:bold">73</span> 2e <span style="color:#0000cf;font-weight:bold">74</span>  <span style="color:#000;font-weight:bold">|</span>..parent/son/s.t<span style="color:#000;font-weight:bold">|</span>
+000000f0  <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">54</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">45</span> <span style="color:#0000cf;font-weight:bold">45</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">00</span> 2d <span style="color:#0000cf;font-weight:bold">31</span> <span style="color:#0000cf;font-weight:bold">20</span>  <span style="color:#000;font-weight:bold">|</span>xt..TREE.....-1 <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000100</span>  <span style="color:#0000cf;font-weight:bold">30</span> 0a <span style="color:#0000cf;font-weight:bold">88</span> b9 <span style="color:#0000cf;font-weight:bold">49</span> <span style="color:#0000cf;font-weight:bold">96</span> <span style="color:#0000cf;font-weight:bold">42</span> <span style="color:#0000cf;font-weight:bold">81</span>  1f 2e ef df a4 d3 ac f0  <span style="color:#000;font-weight:bold">|</span>0...I.B.........<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000110</span>  <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">56</span> 7f cb 1a <span style="color:#0000cf;font-weight:bold">38</span>                                 <span style="color:#000;font-weight:bold">|</span>.V...8<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000116</span>
 </code></pre></div><p>Let&rsquo;s focus on the part after the TREE extension signature:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">00</span> 2d <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span>  |xt..TREE.....-1 |
-<span style="color:#ae81ff">00000100</span>  <span style="color:#ae81ff">30</span> 0a <span style="color:#ae81ff">88</span> b9 <span style="color:#ae81ff">49</span> <span style="color:#ae81ff">96</span> <span style="color:#ae81ff">42</span> <span style="color:#ae81ff">81</span>  1f 2e ef df a4 d3 ac f0  |0...I.B.........|
-<span style="color:#ae81ff">00000110</span>  <span style="color:#ae81ff">06</span> <span style="color:#ae81ff">56</span> 7f cb 1a <span style="color:#ae81ff">38</span>                                 |.V...8|
-<span style="color:#ae81ff">00000116</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#0000cf;font-weight:bold">54</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">45</span> <span style="color:#0000cf;font-weight:bold">45</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">00</span> 2d <span style="color:#0000cf;font-weight:bold">31</span> <span style="color:#0000cf;font-weight:bold">20</span>  <span style="color:#000;font-weight:bold">|</span>xt..TREE.....-1 <span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000100</span>  <span style="color:#0000cf;font-weight:bold">30</span> 0a <span style="color:#0000cf;font-weight:bold">88</span> b9 <span style="color:#0000cf;font-weight:bold">49</span> <span style="color:#0000cf;font-weight:bold">96</span> <span style="color:#0000cf;font-weight:bold">42</span> <span style="color:#0000cf;font-weight:bold">81</span>  1f 2e ef df a4 d3 ac f0  <span style="color:#000;font-weight:bold">|</span>0...I.B.........<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000110</span>  <span style="color:#0000cf;font-weight:bold">06</span> <span style="color:#0000cf;font-weight:bold">56</span> 7f cb 1a <span style="color:#0000cf;font-weight:bold">38</span>                                 <span style="color:#000;font-weight:bold">|</span>.V...8<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000116</span>
 </code></pre></div><ul>
 <li>00 00 00 06: data size 6</li>
 <li>00 2d 31 20 30 0a</li>
@@ -356,14 +355,14 @@ entries are written to the INDEX, but the TREE extension data will not.</p>
 <h4 id="after-the-commit">After the &ldquo;commit&rdquo;</h4>
 <p>Let&rsquo;s cut the part before TREE extension signature and the
 tailing checksum part.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">52</span> <span style="color:#ae81ff">45</span> <span style="color:#ae81ff">45</span>  <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">54</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">33</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span>  |xt..TREE...T.3 1|
-<span style="color:#ae81ff">00000100</span>  0a dc 2f b0 3f <span style="color:#ae81ff">28</span> 4b 1f  f6 <span style="color:#ae81ff">21</span> 2e <span style="color:#ae81ff">99</span> 9e 3e d6 4d  |../.?<span style="color:#f92672">(</span>K..!...&gt;.M|
-<span style="color:#ae81ff">00000110</span>  ac <span style="color:#ae81ff">56</span> 5c 6f <span style="color:#ae81ff">39</span> <span style="color:#ae81ff">70</span> <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">72</span>  <span style="color:#ae81ff">65</span> 6e <span style="color:#ae81ff">74</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">31</span> 0a  |.V<span style="color:#ae81ff">\o</span>9parent.2 1.|
-<span style="color:#ae81ff">00000120</span>  8b e9 ba e5 9d fe <span style="color:#ae81ff">61</span> <span style="color:#ae81ff">49</span>  <span style="color:#ae81ff">61</span> f1 <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">04</span> f0 8c <span style="color:#ae81ff">32</span> <span style="color:#ae81ff">77</span>  |......aIa.1...2w|
-<span style="color:#ae81ff">00000130</span>  <span style="color:#ae81ff">33</span> e0 <span style="color:#ae81ff">54</span> 5f <span style="color:#ae81ff">73</span> 6f 6e <span style="color:#ae81ff">00</span>  <span style="color:#ae81ff">31</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">30</span> 0a e4 6d <span style="color:#ae81ff">15</span> 1e  |3.T_son.1 0..m..|
-<span style="color:#ae81ff">00000140</span>  5b bb d1 <span style="color:#ae81ff">78</span> <span style="color:#ae81ff">21</span> d0 c3 ba  <span style="color:#ae81ff">67</span> <span style="color:#ae81ff">03</span> b2 d2 .. .. .. ..  |<span style="color:#f92672">[</span>..x!...g...b.Z.|
-<span style="color:#ae81ff">00000150</span>  .. .. .. .. .. .. .. ..  .. .. .. .. .. .. .. ..  |.X....@...&gt;..U..|
-<span style="color:#ae81ff">00000160</span>  .. .. .. .. 
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">000000f0  .. .. .. .. <span style="color:#0000cf;font-weight:bold">54</span> <span style="color:#0000cf;font-weight:bold">52</span> <span style="color:#0000cf;font-weight:bold">45</span> <span style="color:#0000cf;font-weight:bold">45</span>  <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">54</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">33</span> <span style="color:#0000cf;font-weight:bold">20</span> <span style="color:#0000cf;font-weight:bold">31</span>  <span style="color:#000;font-weight:bold">|</span>xt..TREE...T.3 1<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000100</span>  0a dc 2f b0 3f <span style="color:#0000cf;font-weight:bold">28</span> 4b 1f  f6 <span style="color:#0000cf;font-weight:bold">21</span> 2e <span style="color:#0000cf;font-weight:bold">99</span> 9e 3e d6 4d  <span style="color:#000;font-weight:bold">|</span>../.?<span style="color:#ce5c00;font-weight:bold">(</span>K..!...&gt;.M<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000110</span>  ac <span style="color:#0000cf;font-weight:bold">56</span> 5c 6f <span style="color:#0000cf;font-weight:bold">39</span> <span style="color:#0000cf;font-weight:bold">70</span> <span style="color:#0000cf;font-weight:bold">61</span> <span style="color:#0000cf;font-weight:bold">72</span>  <span style="color:#0000cf;font-weight:bold">65</span> 6e <span style="color:#0000cf;font-weight:bold">74</span> <span style="color:#0000cf;font-weight:bold">00</span> <span style="color:#0000cf;font-weight:bold">32</span> <span style="color:#0000cf;font-weight:bold">20</span> <span style="color:#0000cf;font-weight:bold">31</span> 0a  <span style="color:#000;font-weight:bold">|</span>.V<span style="color:#4e9a06">\o</span>9parent.2 1.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000120</span>  8b e9 ba e5 9d fe <span style="color:#0000cf;font-weight:bold">61</span> <span style="color:#0000cf;font-weight:bold">49</span>  <span style="color:#0000cf;font-weight:bold">61</span> f1 <span style="color:#0000cf;font-weight:bold">31</span> <span style="color:#0000cf;font-weight:bold">04</span> f0 8c <span style="color:#0000cf;font-weight:bold">32</span> <span style="color:#0000cf;font-weight:bold">77</span>  <span style="color:#000;font-weight:bold">|</span>......aIa.1...2w<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000130</span>  <span style="color:#0000cf;font-weight:bold">33</span> e0 <span style="color:#0000cf;font-weight:bold">54</span> 5f <span style="color:#0000cf;font-weight:bold">73</span> 6f 6e <span style="color:#0000cf;font-weight:bold">00</span>  <span style="color:#0000cf;font-weight:bold">31</span> <span style="color:#0000cf;font-weight:bold">20</span> <span style="color:#0000cf;font-weight:bold">30</span> 0a e4 6d <span style="color:#0000cf;font-weight:bold">15</span> 1e  <span style="color:#000;font-weight:bold">|</span>3.T_son.1 0..m..<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000140</span>  5b bb d1 <span style="color:#0000cf;font-weight:bold">78</span> <span style="color:#0000cf;font-weight:bold">21</span> d0 c3 ba  <span style="color:#0000cf;font-weight:bold">67</span> <span style="color:#0000cf;font-weight:bold">03</span> b2 d2 .. .. .. ..  <span style="color:#000;font-weight:bold">|</span><span style="color:#ce5c00;font-weight:bold">[</span>..x!...g...b.Z.<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000150</span>  .. .. .. .. .. .. .. ..  .. .. .. .. .. .. .. ..  <span style="color:#000;font-weight:bold">|</span>.X....@...&gt;..U..<span style="color:#000;font-weight:bold">|</span>
+<span style="color:#0000cf;font-weight:bold">00000160</span>  .. .. .. .. 
 </code></pre></div><ul>
 <li>
 <p>00 00 00 54 : TREE extension data size 84 (54 in hex)</p>
@@ -388,9 +387,9 @@ has. Here is 1 subtree, it&rsquo;s &ldquo;parent&rdquo;.</li>
 tree.</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  objects git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -p dc2fb03f284b1ff6212e999e3ed64dac565c6f39
-<span style="color:#ae81ff">100644</span> blob d00491fd7e5bb6fa28c517a0bb32b8b506539d4d    1.txt
-<span style="color:#ae81ff">040000</span> tree 8be9bae59dfe614961f13104f08c327733e0545f    parent
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  objects git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> git cat-file -p dc2fb03f284b1ff6212e999e3ed64dac565c6f39
+<span style="color:#0000cf;font-weight:bold">100644</span> blob d00491fd7e5bb6fa28c517a0bb32b8b506539d4d    1.txt
+<span style="color:#0000cf;font-weight:bold">040000</span> tree 8be9bae59dfe614961f13104f08c327733e0545f    parent
 </code></pre></div><ul>
 <li>
 <p>70 61 72  65 6e 74 00: NUL-terminated path component. Here is &ldquo;parent&rdquo;.</p>
@@ -409,9 +408,9 @@ tree.</p>
 dir.</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  8b git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> git cat-file -p 8be9bae59dfe614961f13104f08c327733e0545f
-<span style="color:#ae81ff">100644</span> blob f7c6dd0164fe0eb4fde767f9e731a6c8ade0b69f    p.txt
-<span style="color:#ae81ff">040000</span> tree e46d151e5bbbd17821d0c3ba6703b2d262f75a01    son
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">➜  8b git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> git cat-file -p 8be9bae59dfe614961f13104f08c327733e0545f
+<span style="color:#0000cf;font-weight:bold">100644</span> blob f7c6dd0164fe0eb4fde767f9e731a6c8ade0b69f    p.txt
+<span style="color:#0000cf;font-weight:bold">040000</span> tree e46d151e5bbbd17821d0c3ba6703b2d262f75a01    son
 </code></pre></div><ul>
 <li>73 6f 6e 00:  NUL-terminated path component. Here is &ldquo;son&rdquo;.</li>
 <li>31 20 30 0a:
@@ -428,56 +427,21 @@ dir.</p>
 <p>To be continued&hellip;</p>
 </blockquote>
 
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/c/" rel="tag">c</a>
-		</li>
-	</ul>
+
+        </div>
+      </div>
+      <div class="container">
+  <span class="row justify-content-center meta" id="footer">
+    Copyright © 2023 Dyrone Teng
+  </span>
+  <script defer src="js/custom.js"></script>
+
 </div>
-		</footer>
-	</article>
-</main>
 
+    </div>
+  </div>
+</div>
 
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/posts/git-remote-helper/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">Git Remote-helper</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/git-add/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">About &#39;git add&#39;</p>
-		</a>
-	</div>
-</nav>
+  </body>
 
-
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2023 dyrone.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-</body>
 </html>

@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/</link>
-    <description>Recent content in Tags on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Tags on Dyrone Teng</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>git</title>
-      <link>https://dyrone.github.io/tags/git/</link>
+      <link>/tags/git/</link>
       <pubDate>Mon, 31 Oct 2022 19:09:11 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/git/</guid>
+      <guid>/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>c</title>
-      <link>https://dyrone.github.io/tags/c/</link>
+      <link>/tags/c/</link>
       <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/c/</guid>
+      <guid>/tags/c/</guid>
       <description></description>
     </item>
     
     <item>
       <title>debugging</title>
-      <link>https://dyrone.github.io/tags/debugging/</link>
+      <link>/tags/debugging/</link>
       <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/debugging/</guid>
+      <guid>/tags/debugging/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>https://dyrone.github.io/tags/tools/</link>
+      <link>/tags/tools/</link>
       <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/tools/</guid>
+      <guid>/tags/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://dyrone.github.io/tags/linux/</link>
+      <link>/tags/linux/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/linux/</guid>
+      <guid>/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sed</title>
-      <link>https://dyrone.github.io/tags/sed/</link>
+      <link>/tags/sed/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/sed/</guid>
+      <guid>/tags/sed/</guid>
       <description></description>
     </item>
     
     <item>
       <title>testing</title>
-      <link>https://dyrone.github.io/tags/testing/</link>
+      <link>/tags/testing/</link>
       <pubDate>Mon, 08 Aug 2022 23:52:08 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/testing/</guid>
+      <guid>/tags/testing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>errno</title>
-      <link>https://dyrone.github.io/tags/errno/</link>
+      <link>/tags/errno/</link>
       <pubDate>Thu, 14 Jul 2022 22:44:37 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/errno/</guid>
+      <guid>/tags/errno/</guid>
       <description></description>
     </item>
     
     <item>
       <title>libc</title>
-      <link>https://dyrone.github.io/tags/libc/</link>
+      <link>/tags/libc/</link>
       <pubDate>Thu, 07 Jul 2022 10:38:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/libc/</guid>
+      <guid>/tags/libc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>chinese</title>
-      <link>https://dyrone.github.io/tags/chinese/</link>
+      <link>/tags/chinese/</link>
       <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/chinese/</guid>
+      <guid>/tags/chinese/</guid>
       <description></description>
     </item>
     
     <item>
       <title>introduce</title>
-      <link>https://dyrone.github.io/tags/introduce/</link>
+      <link>/tags/introduce/</link>
       <pubDate>Sat, 01 Jan 2022 15:34:15 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/tags/introduce/</guid>
+      <guid>/tags/introduce/</guid>
       <description></description>
     </item>
     

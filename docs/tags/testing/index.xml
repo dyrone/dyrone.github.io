@@ -1,82 +1,104 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>testing on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/testing/</link>
-    <description>Recent content in testing on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>testing on Dyrone Teng</title>
+    <link>/tags/testing/</link>
+    <description>Recent content in testing on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Aug 2022 23:52:08 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Aug 2022 23:52:08 +0800</lastBuildDate><atom:link href="/tags/testing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k6 series [7] - Module</title>
-      <link>https://dyrone.github.io/posts/k6-7-module/</link>
+      <link>/posts/k6-7-module/</link>
       <pubDate>Mon, 08 Aug 2022 23:52:08 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-7-module/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-7-module/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Modules There are three types of modules:
+ Builtin Local file system Remote HTTP(s)  Builtin modules These modules are provided through the k6 core, and gives access to the functionality built into k6.
+import http from &amp;#39;k6/http&amp;#39;; Local filesystem modules // helpers.js export function printHello(){ console.log(&amp;#34;hello&amp;#34;); } import http from &amp;#39;k6/http&amp;#39;; import { printHello } from &amp;#39;./helpers.js&amp;#39; export default function () { printHello(); } The output might like:</description>
     </item>
     
     <item>
       <title>k6 series [6] - Execute Command</title>
-      <link>https://dyrone.github.io/posts/k6-6-execute-command/</link>
+      <link>/posts/k6-6-execute-command/</link>
       <pubDate>Mon, 08 Aug 2022 22:44:24 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-6-execute-command/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-6-execute-command/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ install xk6 https://github.com/grafana/xk6
+install xk6-exec extension https://github.com/grafana/xk6-exec
+ Notice the output tips:
+ 2022/08/08 23:02:07 [INFO] Cleaning up temporary folder: /Users/tenglong.tl/Works/Projects/blogs/buildenv_2022-08-08-2301.1466088654 xk6 has now produced a new k6 binary which may be different than the command on your system path! Be sure to run &#39;./k6 run &amp;lt;SCRIPT_NAME&amp;gt;&#39; from the &#39;/Users/tenglong.tl/Works/Projects/blogs&#39; directory. A new binary k6 will be built at current dir.</description>
     </item>
     
     <item>
       <title>k6 series [5] - Ramping Vus</title>
-      <link>https://dyrone.github.io/posts/k6-5-ramping-vus/</link>
+      <link>/posts/k6-5-ramping-vus/</link>
       <pubDate>Mon, 08 Aug 2022 21:06:58 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-5-ramping-vus/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-5-ramping-vus/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ A variable number of VUs execute as many iterations as possible for a specified amount of time. This executor is equivalent to the global stages option.
+Options OPTION	TYPE	DESCRIPTION	DEFAULT stages(required)	array	Array of objects that specify the target number of VUs to ramp up or down to.	[] startVUs	integer	Number of VUs to run at test start.</description>
     </item>
     
     <item>
       <title>k6 series [3] - Tags And Groups</title>
-      <link>https://dyrone.github.io/posts/k6-3-tags-and-groups/</link>
+      <link>/posts/k6-3-tags-and-groups/</link>
       <pubDate>Thu, 04 Aug 2022 20:10:11 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-3-tags-and-groups/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-3-tags-and-groups/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results.
+  Tags categorize your checks, thresholds, custom metrics, and requests for in-depth filtering.
+  Groups apply tags to the script&amp;rsquo;s functions.
+  Tags k6 provides two types of tags:
+ System tags are tags that k6 automatically assigns. User-defined tags are tags that you add when you write your script.</description>
     </item>
     
     <item>
       <title>k6 series [4] - Options</title>
-      <link>https://dyrone.github.io/posts/k6-4-options/</link>
+      <link>/posts/k6-4-options/</link>
       <pubDate>Thu, 04 Aug 2022 15:00:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-4-options/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-4-options/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ option scopes  In CLI flags In environment variables In script options object  Order  First, k6 uses the option&amp;rsquo;s default value. Next, k6 uses the options set by the &amp;ndash;config flag. Then, k6 uses the script value (if set). After, k6 uses the environment variable (if set). Finally, k6 takes the value from the CLI flag (if set).</description>
     </item>
     
     <item>
       <title>k6 series [2] - Result Output</title>
-      <link>https://dyrone.github.io/posts/k6-2-result-output/</link>
+      <link>/posts/k6-2-result-output/</link>
       <pubDate>Wed, 03 Aug 2022 16:07:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-2-result-output/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-2-result-output/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Output flow overview By default, k6 provides an end-of-test summary report. This report aggregates the test results, with information about all groups, checks, and thresholds in the load test. It also gives basic, summary statistics about each metric (e.g. mean, median, p95, etc).
+For analysis, you can stream all the data that your test generates to an external output. It might be a structured file format like CSV or JSON.</description>
     </item>
     
     <item>
       <title>k6 series [1] - Overview</title>
-      <link>https://dyrone.github.io/posts/k6-1-overview/</link>
+      <link>/posts/k6-1-overview/</link>
       <pubDate>Mon, 01 Aug 2022 21:24:42 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-1-overview/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-1-overview/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Install export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles  mac :  brew install k6 More install supporst in https://k6.io/docs/getting-started/installation/
+Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop.
+  init context: use the default function, this function defines the entry point for your VUsi. Init code runs first and is called only once per VU. On the other hand, default code executes as many times as the test options set.</description>
     </item>
     
     <item>
       <title>Why Acceptance Testing is so important to us(Chinese)?</title>
-      <link>https://dyrone.github.io/posts/acceptance_test/</link>
+      <link>/posts/acceptance_test/</link>
       <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/acceptance_test/</guid>
-      <description>`This article is written in Chinese.</description>
+      <guid>/posts/acceptance_test/</guid>
+      <description>`This article is written in Chinese. `
+   No good testing, no engineer culture.   1. 定义  &amp;#34;Acceptance Testing is a method of software testing where a system is tested for acceptability. The major aim of this test is to evaluate the &amp;gt; compliance of the system with the business requirements and assess whether it is acceptable for delivery or not.&amp;#34;
+    &amp;#34;验收测试是一种这样的软件测试方法, 其目的是评估系统与业务需求的合规性，通过测试进一步判定系统是否可以对外交付，简单来说，是用来测试一个系统是否合格。&amp;#34; From Wikipedia: https://en.</description>
     </item>
     
   </channel>

@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>linux on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/linux/</link>
-    <description>Recent content in linux on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>linux on Dyrone Teng</title>
+    <link>/tags/linux/</link>
+    <description>Recent content in linux on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[WIP]Sed  [5] The other Commands</title>
-      <link>https://dyrone.github.io/posts/sed-5-other-command/</link>
+      <link>/posts/sed-5-other-command/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-5-other-command/</guid>
-      <description>Command The following example show to use sed to comment the options will affect the final result:</description>
+      <guid>/posts/sed-5-other-command/</guid>
+      <description>Command The following example show to use sed to comment the options will affect the final result:
+➜ blogs git:(master) ✗ echo &amp;#39;ls&amp;#39; |gsed &amp;#39;s/ls/ls #-a/e&amp;#39; README.md archetypes config.toml content data docs layouts resources static test themes ➜ blogs git:(master) ✗ echo &amp;#39;ls&amp;#39; |gsed &amp;#39;s/ls/ls -a/e&amp;#39; . .. .git .gitignore .gitmodules README.md archetypes config.toml content data docs layouts resources static test themes or we could append the comments after each print out:</description>
     </item>
     
     <item>
       <title>Sed [4] - The &#39;s&#39; Commands</title>
-      <link>https://dyrone.github.io/posts/sed-4-s-command/</link>
+      <link>/posts/sed-4-s-command/</link>
       <pubDate>Sat, 13 Aug 2022 13:22:26 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-4-s-command/</guid>
-      <description>Sed command-line execution format sed OPTIONS.</description>
+      <guid>/posts/sed-4-s-command/</guid>
+      <description>Sed command-line execution format sed OPTIONS... [SCRIPT] [INPUTFILE...] Here the command-line format contains:
+  OPTIONS: the command-line options
+  [SCRIPT]: the rules we want to deal with the inputstream
+  [INPUTFILE]: the FD we want to output to, by default it&amp;rsquo;s stdout
+  SCRIPT Sed script constructs by three parts:
+[addr]X[options] ``` * `addr`: an optional line address. * `X`: a single letter **sed command**, be noticeable that the sed command here is not the same as **sed command-line command**.</description>
     </item>
     
   </channel>

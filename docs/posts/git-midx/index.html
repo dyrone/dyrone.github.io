@@ -1,71 +1,96 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Git pack and index - dyrone&#39;s blog</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="Git pack and index" />
-<meta property="og:description" content="`This article is written in Chinese." />
+<!doctype html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Git pack and index - Dyrone Teng </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:site_name" content="Dyrone Teng" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:title" content="Git pack and index" />
+<meta property="og:description" content="`This article is written in Chinese. `
+   About pack and index file in git.
+ 1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
+   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
+  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
+   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
+ 现在我们回过来继续看packfile.
+ Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
+ Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dyrone.github.io/posts/git-midx/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="/posts/git-midx/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-07T14:44:25+08:00" />
 <meta property="article:modified_time" content="2022-03-07T14:44:25+08:00" />
 
 
-		<meta itemprop="name" content="Git pack and index">
-<meta itemprop="description" content="`This article is written in Chinese."><meta itemprop="datePublished" content="2022-03-07T14:44:25+08:00" />
-<meta itemprop="dateModified" content="2022-03-07T14:44:25+08:00" />
-<meta itemprop="wordCount" content="778">
-<meta itemprop="keywords" content="git,chinese," />
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git pack and index"/>
-<meta name="twitter:description" content="`This article is written in Chinese."/>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:title" content="Git pack and index" />
+    <meta name="twitter:description" content="" />
+    
 
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
+    <meta name="twitter:image" content="" />
+    <link rel="canonical" href="/posts/git-midx/">
+    
+    <link rel="stylesheet" href="/css/site.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="滕 龙" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/img/placeholder.png">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">滕 龙</div>
-					<div class="logo__tagline">Teng Long</div>
-				</div>
-		</a>
+    
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Dyrone Teng" />
+    
+  </head>
+
+  <body>
+    
+<div class="mt-xl header">
+  <header>
+    <div class="container">
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <a href="" style="display: contents">
+	    <h1 class="name text-center">Teng Long Is Dyrone</h1>
+	  </a>
 	</div>
-		<div class="divider"></div>
+      </div>
+      <div class="row justify-content-center">
+	<div class="nav justify-content-center">
+	  <ul>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/">
+		
+		Home
+	      </a>
+	    </li>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/posts/introduce/index.html">
+		
+		About
+	      </a>
+	    </li>
+	    
+	    
+	  </ul>
 	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">Git pack and index</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-03-07T14:44:25&#43;08:00">2022-03-07</time></div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<div class="quoteblock">
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8">
+        <h1 class="mx-0 mx-md-4 single-page-title">Git pack and index</h1>
+        <div class="markdown page-content">
+          <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
 <p>`This article is written in Chinese. `</p>
@@ -521,56 +546,21 @@ $cat pack-bbe47ea26bb124a49bbb93aaebf067c7971843c4.pack | hexdump -C
 </div>
 </div>
 
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/git/" rel="tag">git</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/chinese/" rel="tag">chinese</a>
-		</li>
-	</ul>
+
+        </div>
+      </div>
+      <div class="container">
+  <span class="row justify-content-center meta" id="footer">
+    Copyright © 2023 Dyrone Teng
+  </span>
+  <script defer src="js/custom.js"></script>
+
 </div>
-		</footer>
-	</article>
-</main>
 
+    </div>
+  </div>
+</div>
 
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/posts/introduce/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">About me</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/acceptance_test/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Why Acceptance Testing is so important to us(Chinese)?</p>
-		</a>
-	</div>
-</nav>
+  </body>
 
-
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2023 dyrone.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-</body>
 </html>

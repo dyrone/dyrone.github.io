@@ -1,151 +1,151 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+	xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dyrone.github.io/</loc>
+    <loc>/</loc>
     <lastmod>2023-02-28T11:12:13+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/github-api-glance/</loc>
+    <loc>/posts/github-api-glance/</loc>
     <lastmod>2023-02-28T11:12:13+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/</loc>
+    <loc>/posts/</loc>
     <lastmod>2023-02-28T11:12:13+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-merge-2022/</loc>
+    <loc>/posts/git-merge-2022/</loc>
     <lastmod>2022-11-17T10:36:01+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-compile/</loc>
+    <loc>/posts/git-compile/</loc>
     <lastmod>2022-10-31T19:09:11+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/git/</loc>
+    <loc>/tags/git/</loc>
     <lastmod>2022-10-31T19:09:11+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/</loc>
+    <loc>/tags/</loc>
     <lastmod>2022-10-31T19:09:11+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/c/</loc>
+    <loc>/tags/c/</loc>
     <lastmod>2022-10-13T16:00:10+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/debugging/</loc>
+    <loc>/tags/debugging/</loc>
     <lastmod>2022-10-13T16:00:10+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/gdb-journey-chapter-1/</loc>
+    <loc>/posts/gdb-journey-chapter-1/</loc>
     <lastmod>2022-10-13T16:00:10+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/tools/</loc>
+    <loc>/tags/tools/</loc>
     <lastmod>2022-10-13T16:00:10+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/exit-status/</loc>
+    <loc>/posts/exit-status/</loc>
     <lastmod>2022-10-11T14:47:33+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-alias/</loc>
+    <loc>/posts/git-alias/</loc>
     <lastmod>2022-10-11T14:47:33+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-notes/</loc>
+    <loc>/posts/git-notes/</loc>
     <lastmod>2022-10-06T19:02:07+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-crlf/</loc>
+    <loc>/posts/git-crlf/</loc>
     <lastmod>2022-09-27T15:39:04+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-add/</loc>
+    <loc>/posts/git-add/</loc>
     <lastmod>2022-09-13T19:19:59+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-index-format/</loc>
+    <loc>/posts/git-index-format/</loc>
     <lastmod>2022-09-13T19:19:59+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-remote-helper/</loc>
+    <loc>/posts/git-remote-helper/</loc>
     <lastmod>2022-08-24T21:44:24+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-5-other-command/</loc>
+    <loc>/posts/sed-5-other-command/</loc>
     <lastmod>2022-08-15T11:56:21+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/linux/</loc>
+    <loc>/tags/linux/</loc>
     <lastmod>2022-08-15T11:56:21+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/sed/</loc>
+    <loc>/tags/sed/</loc>
     <lastmod>2022-08-15T11:56:21+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-4-s-command/</loc>
+    <loc>/posts/sed-4-s-command/</loc>
     <lastmod>2022-08-13T13:22:26+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-7-module/</loc>
+    <loc>/posts/k6-7-module/</loc>
     <lastmod>2022-08-08T23:52:08+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/testing/</loc>
+    <loc>/tags/testing/</loc>
     <lastmod>2022-08-08T23:52:08+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-6-execute-command/</loc>
+    <loc>/posts/k6-6-execute-command/</loc>
     <lastmod>2022-08-08T22:44:24+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-5-ramping-vus/</loc>
+    <loc>/posts/k6-5-ramping-vus/</loc>
     <lastmod>2022-08-08T21:06:58+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-3-tags-and-groups/</loc>
+    <loc>/posts/k6-3-tags-and-groups/</loc>
     <lastmod>2022-08-04T20:10:11+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-4-options/</loc>
+    <loc>/posts/k6-4-options/</loc>
     <lastmod>2022-08-04T15:00:25+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-2-result-output/</loc>
+    <loc>/posts/k6-2-result-output/</loc>
     <lastmod>2022-08-03T16:07:59+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/k6-1-overview/</loc>
+    <loc>/posts/k6-1-overview/</loc>
     <lastmod>2022-08-01T21:24:42+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/page-table/</loc>
+    <loc>/posts/page-table/</loc>
     <lastmod>2022-07-28T18:24:48+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/stat-and-fstat/</loc>
+    <loc>/posts/stat-and-fstat/</loc>
     <lastmod>2022-07-24T23:11:16+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/mmap/</loc>
+    <loc>/posts/mmap/</loc>
     <lastmod>2022-07-18T19:24:48+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/error-code/</loc>
+    <loc>/posts/error-code/</loc>
     <lastmod>2022-07-14T22:44:37+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/errno/</loc>
+    <loc>/tags/errno/</loc>
     <lastmod>2022-07-14T22:44:37+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-3-gnu-bsd/</loc>
+    <loc>/posts/sed-3-gnu-bsd/</loc>
     <lastmod>2022-07-10T23:55:52+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/libc/</loc>
+    <loc>/tags/libc/</loc>
     <lastmod>2022-07-07T10:38:21+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/locale/</loc>
+    <loc>/posts/locale/</loc>
     <lastmod>2022-07-07T10:38:21+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/brew/</loc>
+    <loc>/posts/brew/</loc>
     <lastmod>2022-07-05T20:56:48+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-2-exit-code/</loc>
+    <loc>/posts/sed-2-exit-code/</loc>
     <lastmod>2022-07-03T17:00:04+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/sed-1-basic-usage/</loc>
+    <loc>/posts/sed-1-basic-usage/</loc>
     <lastmod>2022-07-01T17:00:04+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-basic-ref-and-object/</loc>
+    <loc>/posts/git-basic-ref-and-object/</loc>
     <lastmod>2022-06-21T19:06:02+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/chinese/</loc>
+    <loc>/tags/chinese/</loc>
     <lastmod>2022-06-21T19:06:02+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-multi-points/</loc>
+    <loc>/posts/git-multi-points/</loc>
     <lastmod>2022-06-12T15:56:16+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/acceptance_test/</loc>
+    <loc>/posts/acceptance_test/</loc>
     <lastmod>2022-05-25T11:44:25+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/git-midx/</loc>
+    <loc>/posts/git-midx/</loc>
     <lastmod>2022-03-07T14:44:25+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/posts/introduce/</loc>
+    <loc>/posts/introduce/</loc>
     <lastmod>2022-01-01T15:34:15+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/tags/introduce/</loc>
+    <loc>/tags/introduce/</loc>
     <lastmod>2022-01-01T15:34:15+08:00</lastmod>
   </url><url>
-    <loc>https://dyrone.github.io/categories/</loc>
+    <loc>/categories/</loc>
   </url>
 </urlset>

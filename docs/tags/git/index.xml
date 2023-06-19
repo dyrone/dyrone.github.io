@@ -1,91 +1,119 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>git on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/git/</link>
-    <description>Recent content in git on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>git on Dyrone Teng</title>
+    <link>/tags/git/</link>
+    <description>Recent content in git on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[wip] Git Compile</title>
-      <link>https://dyrone.github.io/posts/git-compile/</link>
+      <link>/posts/git-compile/</link>
       <pubDate>Mon, 31 Oct 2022 19:09:11 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-compile/</guid>
-      <description>https://github.com/dyrone/git/blob/master/INSTALL</description>
+      <guid>/posts/git-compile/</guid>
+      <description>https://github.com/dyrone/git/blob/master/INSTALL
+https://blog.csdn.net/weixin_48503637/article/details/122582089
+https://bbs.csdn.net/topics/370157417
+https://ata.alibaba-inc.com/articles/122969?spm=ata.23639746.0.0.4e2f44f6Qf5dRV
+https://manpages.ubuntu.com/manpages/xenial/man1/gcov2perl.1p.html</description>
     </item>
     
     <item>
       <title>Git Notes(to be continued...)</title>
-      <link>https://dyrone.github.io/posts/git-notes/</link>
+      <link>/posts/git-notes/</link>
       <pubDate>Thu, 06 Oct 2022 19:02:07 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-notes/</guid>
-      <description>Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。</description>
+      <guid>/posts/git-notes/</guid>
+      <description>Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。
+git clone https://review.opendev.org/openstack/tripleo-quickstart Openstack 相关的仓库大多使用 git-notes来保存commit自身包含信息之外的其他信息。
+Gerrit 使用特殊的引用 refs/notes/review来记录&amp;quot;notes&amp;quot;，默认情况下，clone的仓库 中是不会包含该引用的，但是我们可以通过git fetch 子命令将其获取到本地。
+git fetch origin refs/notes/review:refs/notes/review 然后, 我们可以执行git log --notes=refs/notes/review --no-merge帮助显示非merge 节点提交的&amp;quot;notes&amp;quot;：
+commit dc26b849018e3d5f2ecfe625fca7264877fe75ae (HEAD -&amp;gt; master, origin/master, origin/HEAD) Author: PranaliD &amp;lt;pdeore@redhat.com&amp;gt; Date: Wed Sep 28 11:20:43 2022 +0530 [CS8][Train] Exclude container-selinux-2:2.189.0 Similar to wallaby[1], latest container-selinux-2:2.189.0 needs to be excluded for train as well. Related-Bug: #1990810 [1]: https://review.opendev.org/c/openstack/tripleo-quickstart/+/859213 Change-Id: I56d3c199b89997238c50638c9813900a26a3dadb Notes (review): Code-Review+2: yatin &amp;lt;ykarel@redhat.com&amp;gt; Code-Review+2: chandan kumar &amp;lt;chkumar@redhat.</description>
     </item>
     
     <item>
       <title>Git CRLF processing and &#39;git add --renormalize&#39;</title>
-      <link>https://dyrone.github.io/posts/git-crlf/</link>
+      <link>/posts/git-crlf/</link>
       <pubDate>Tue, 27 Sep 2022 15:39:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-crlf/</guid>
-      <description>git config core.</description>
+      <guid>/posts/git-crlf/</guid>
+      <description>git config core.autocrlf git config core.autocrlf true
+This does not force normalization of text files, but does ensure that text files that you introduce to the repository have their line endings normalized to LF when they are added, and that files that are already normalized in the repository stay normalized. git config core.autocrlf false printf &amp;#34;LINEONE\nLINETWO\nLINETHREE&amp;#34; &amp;gt;LF.txt printf &amp;#34;LINEONE\r\nLINETWO\r\nLINETHREE&amp;#34; &amp;gt;CRLF.txt printf &amp;#34;LINEONE\r\nLINETWO\nLINETHREE&amp;#34; &amp;gt;CRLF_mix_LF.txt Ouput the CRLF.txt:
+cat CRLF.txt | hexdump -C 00000000 4c 49 4e 45 4f 4e 45 0d 0a 4c 49 4e 45 54 57 4f |LINEONE.</description>
     </item>
     
     <item>
       <title>About &#39;git add&#39;</title>
-      <link>https://dyrone.github.io/posts/git-add/</link>
+      <link>/posts/git-add/</link>
       <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-add/</guid>
-      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later.</description>
+      <guid>/posts/git-add/</guid>
+      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later. An entry for the path is placed in the index with no content. This is useful for, among other things, showing the unstaged content of such files with git diff and committing them with git commit -a.
+ </description>
     </item>
     
     <item>
       <title>Git Index Format</title>
-      <link>https://dyrone.github.io/posts/git-index-format/</link>
+      <link>/posts/git-index-format/</link>
       <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-index-format/</guid>
-      <description>what&amp;rsquo;s index acting in git?</description>
+      <guid>/posts/git-index-format/</guid>
+      <description>what&amp;rsquo;s index acting in git?  to reproduce a single and global tree(or root-tree). to fast recognize between the tree in index and the tree in workspace. to recognize and supply merge conflicts info between different tree objects, allowing each pathname to be associated with sufficient information about the trees involved that you can create a three-way merge between them.  init test repo Init a repo which has a blob as &amp;ldquo;1.</description>
     </item>
     
     <item>
       <title>Git Remote-helper</title>
-      <link>https://dyrone.github.io/posts/git-remote-helper/</link>
+      <link>/posts/git-remote-helper/</link>
       <pubDate>Wed, 24 Aug 2022 21:44:24 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-remote-helper/</guid>
+      <guid>/posts/git-remote-helper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>About Git Objects and References</title>
-      <link>https://dyrone.github.io/posts/git-basic-ref-and-object/</link>
+      <link>/posts/git-basic-ref-and-object/</link>
       <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-basic-ref-and-object/</guid>
-      <description>This article is written in Chinese.</description>
+      <guid>/posts/git-basic-ref-and-object/</guid>
+      <description>This article is written in Chinese. 
+ Git 对象(Git Object) 1. 了解Git, 离不开了解Git对象 提到版本控制, 大家可能都不太陌生, 作为开发者或者软件工程师, 版本控制一直在频繁发生着, Git作为一款优秀的 VCS版本控制管理工具 (Version Control System) , 就是为了解决版本控制问题诞生。以下是来自维基百科中关于VCS的一段描述:
+ “几乎与文章写作过程一样，对文本的组织和修订的需求一直存在, 只不过逻辑上的完成手段在各个历史时期有所不同, 书籍的 &amp;lt;版本&amp;gt; 和规范修订的 &amp;lt;编号&amp;gt; 的使用可以追溯到发明印刷术的时代。当计算时代来临之后，修订的逻辑诉求变得更加重要和复杂。如今，最强大或者最复杂的版本控制系统是用于软件开发的系统之中。复杂体现在通常版本需要多个人员同时读取和并发修改。”
+— From: https://en.wikipedia.org/wiki/Version_control
+ 如上述描述所言, “版本控制在逻辑上的完成手段在各个历史时期有所不同”, 而现如今Git便是“逻辑上的完成手段”的极佳实现之一, 为何Git会脱颖而出呢? 依照作者看来主要有以下几个原因:
+  免费并开源 : Git是免费的, 并基于GPL-V2协议的开源软件;
+  存储完整性 : Git可以让每台工作的计算机上都存储一个完整的代码存储仓库 (副本), “完整” 意味着每个副本均具备完整的变更历史记录 (一般场景均适用, 但如·shallow-clone·特性除外, 因为用户可以使用·shallow-clone·去下载一个指定的、裁剪过的提交历史, 而不下载整个Git仓库);
+  网络独立性 : 因为具备了完整的版本跟踪能力, 存储在任何一个计算机上的Git仓库都可以脱离网络而独立工作 (一般场景均适用, 例如·partial-clone·情况除外, 因为用户可以使用·partial-clone·仅仅下载提交的历史, 而不下载任何相关的文本文件, 当在未来需要用到它们的时候“按需下载”, 如果没有网络则可能会造成surprise);</description>
     </item>
     
     <item>
       <title>Git Multi Points Representation</title>
-      <link>https://dyrone.github.io/posts/git-multi-points/</link>
+      <link>/posts/git-multi-points/</link>
       <pubDate>Sun, 12 Jun 2022 15:56:16 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-multi-points/</guid>
-      <description>If we read the &amp;lsquo;git-rev-list.</description>
+      <guid>/posts/git-multi-points/</guid>
+      <description>If we read the &amp;lsquo;git-rev-list.txt&amp;rsquo; in git project on github or in git rev-list --help output. You can find there are some the related description about multi points in git.
+The multiple points notation in git rev-list intents to select a range of commits on the repository commit graph.
+Two Points Notation: &amp;ldquo;..&amp;rdquo;  A special notation &amp;lt;commit1&amp;gt;..&amp;lt;commit2&amp;gt; can be used as a short-hand for ^&#39;&amp;lt;commit1&amp;gt;&#39; &amp;lt;commit2&amp;gt;. For example, either of the following may be used interchangeably:</description>
     </item>
     
     <item>
       <title>Git pack and index</title>
-      <link>https://dyrone.github.io/posts/git-midx/</link>
+      <link>/posts/git-midx/</link>
       <pubDate>Mon, 07 Mar 2022 14:44:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-midx/</guid>
-      <description>`This article is written in Chinese.</description>
+      <guid>/posts/git-midx/</guid>
+      <description>`This article is written in Chinese. `
+   About pack and index file in git.
+ 1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
+   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
+  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
+   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
+ 现在我们回过来继续看packfile.
+ Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
+ Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）</description>
     </item>
     
   </channel>

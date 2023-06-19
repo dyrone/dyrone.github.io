@@ -1,0 +1,75 @@
+languageCode: en-us
+title: "Dyrone Teng"
+author: Dyrone Teng
+
+enableEmoji: true
+hasCJKLanguage: false
+# You can change code highlight theme
+pygmentsstyle: "tango"
+pygmentscodefences: true
+
+# if you want to add html to your markdown
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+# Links of the navbar
+menu:
+  primary:
+    - name: Home
+      url: /
+      weight: 1
+    - name: About
+      url: /posts/introduce/index.html
+      weight: 2
+    #- name: Subscribe
+    #  url: /index.xml
+    #  weight: 3
+
+# You can add languages!
+# do not expect it to work out of the box
+# https://gohugo.io/content-management/multilingual/
+defaultContentLanguage: en
+#languages:
+#  en:
+#    LanguageName: English
+#    # contentDir: content/english
+#  ru:
+#    LanguageName: русский
+#    # contentDir: content/russian
+
+params:
+  sitename: "Teng Long Is Dyrone"
+  # it will produce: copyrights (c) 2023 dyrone
+  copyrights: Dyrone Teng
+  # set default homepage list (what section to list pages from)
+  # default: global
+  # currently available options (global, blog)
+  defaultList: global
+  # list 3 items of every section
+  # you can use a section specific list
+  # to list n items of that section.
+  # see ./layouts/partials/bloglist.html for example
+  paginationLen: 500
+  # path to the favicon directory
+  # see ./layouts/_defaults/baseof.html line #30 to line #37
+  # faviconpath: "/img/favicon"
+  # projects will show in the index page
+#  myprojects:
+#    - name: "Totally Awesome Project"
+#      description: "Machine Learning Magic!!!"
+#      url: https://example.com
+#    - name: "Kaslaanka"
+#      description: "The best hugo theme ever!!!"
+#      url: https://github.com/M1cR0xf7/kaslaanka
+  # link to more projects
+  # show your github repositories as example
+  # or create your own page.
+#  projectsURL: https://example.com
+
+  # a brief about me
+  brief_about: <center>feel good about life☕️</center>
+
+# and don't forget
+theme: kaslaanka

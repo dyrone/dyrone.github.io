@@ -1,105 +1,99 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>k6 series [1] - Overview - dyrone&#39;s blog</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="k6 series [1] - Overview" />
-<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation" />
+<!doctype html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> k6 series [1] - Overview - Dyrone Teng </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:site_name" content="Dyrone Teng" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:title" content="k6 series [1] - Overview" />
+<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation
+ Install export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles  mac :  brew install k6 More install supporst in https://k6.io/docs/getting-started/installation/
+Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop.
+  init context: use the default function, this function defines the entry point for your VUsi. Init code runs first and is called only once per VU. On the other hand, default code executes as many times as the test options set." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dyrone.github.io/posts/k6-1-overview/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="/posts/k6-1-overview/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-01T21:24:42+08:00" />
 <meta property="article:modified_time" content="2022-08-01T21:24:42+08:00" />
 
 
-		<meta itemprop="name" content="k6 series [1] - Overview">
-<meta itemprop="description" content="NOTICE: Base and excerpt from the official k6 documentation"><meta itemprop="datePublished" content="2022-08-01T21:24:42+08:00" />
-<meta itemprop="dateModified" content="2022-08-01T21:24:42+08:00" />
-<meta itemprop="wordCount" content="1691">
-<meta itemprop="keywords" content="testing," />
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="k6 series [1] - Overview"/>
-<meta name="twitter:description" content="NOTICE: Base and excerpt from the official k6 documentation"/>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:title" content="k6 series [1] - Overview" />
+    <meta name="twitter:description" content="" />
+    
 
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
+    <meta name="twitter:image" content="" />
+    <link rel="canonical" href="/posts/k6-1-overview/">
+    
+    <link rel="stylesheet" href="/css/site.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="滕 龙" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/img/placeholder.png">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">滕 龙</div>
-					<div class="logo__tagline">Teng Long</div>
-				</div>
-		</a>
+    
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Dyrone Teng" />
+    
+  </head>
+
+  <body>
+    
+<div class="mt-xl header">
+  <header>
+    <div class="container">
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <a href="" style="display: contents">
+	    <h1 class="name text-center">Teng Long Is Dyrone</h1>
+	  </a>
 	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">k6 series [1] - Overview</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-01T21:24:42&#43;08:00">2022-08-01</time></div></div>
-		</header>
+      </div>
+      <div class="row justify-content-center">
+	<div class="nav justify-content-center">
+	  <ul>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/">
 		
-<div class="post__toc toc">
-	<div class="toc__title">Page content</div>
-	<div class="toc__menu">
-		<nav id="TableOfContents">
-  <ul>
-    <li><a href="#install">Install</a></li>
-    <li><a href="#concepts">Concepts</a></li>
-    <li><a href="#test-life-cycle">Test life cycle</a>
-      <ul>
-        <li><a href="#init-stage">init stage</a></li>
-        <li><a href="#vu-stage">VU stage</a></li>
-        <li><a href="#setup-and-teardown-stages">setup and teardown stages</a></li>
-      </ul>
-    </li>
-    <li><a href="#running-k6">Running k6</a>
-      <ul>
-        <li><a href="#first-run">first run</a></li>
-        <li><a href="#options">options</a></li>
-        <li><a href="#execution-modes">Execution modes</a></li>
-      </ul>
-    </li>
-    <li><a href="#integrate-in-emacs">integrate in Emacs</a></li>
-  </ul>
-</nav>
+		Home
+	      </a>
+	    </li>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/posts/introduce/index.html">
+		
+		About
+	      </a>
+	    </li>
+	    
+	    
+	  </ul>
 	</div>
-</div><div class="content post__content clearfix">
-			<blockquote>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8">
+        <h1 class="mx-0 mx-md-4 single-page-title">k6 series [1] - Overview</h1>
+        <div class="markdown page-content">
+          <blockquote>
 <p>NOTICE: Base and excerpt from the official k6 documentation</p>
 </blockquote>
 <h2 id="install">Install</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export HOMEBREW_BOTTLE_DOMAIN<span style="color:#f92672">=</span>https://mirrors.ustc.edu.cn/homebrew-bottles
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#204a87">export</span> <span style="color:#000">HOMEBREW_BOTTLE_DOMAIN</span><span style="color:#ce5c00;font-weight:bold">=</span>https://mirrors.ustc.edu.cn/homebrew-bottles
 </code></pre></div><ul>
 <li>mac :</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install k6
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install k6
 </code></pre></div><p>More install supporst in <a href="https://k6.io/docs/getting-started/installation/">https://k6.io/docs/getting-started/installation/</a></p>
 <h2 id="concepts">Concepts</h2>
 <ul>
@@ -112,54 +106,54 @@ for your VUsi. Init code runs first and is called only once per VU. On the other
 hand, default code executes as many times as the test options set.</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#75715e">// vu code: do things here...
-</span><span style="color:#75715e"></span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// vu code: do things here...
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><h2 id="test-life-cycle">Test life cycle</h2>
 <p>In last section, we introduced the init context, here we will talk about the
 test life cycle.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 1. init code
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>() {
-  <span style="color:#75715e">// 2. setup code
-</span><span style="color:#75715e"></span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#8f5902;font-style:italic">// 1. init code
+</span><span style="color:#8f5902;font-style:italic"></span>
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">setup</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// 2. setup code
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">data</span>) {
-  <span style="color:#75715e">// 3. VU code
-</span><span style="color:#75715e"></span>}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// 3. VU code
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">teardown</span>(<span style="color:#a6e22e">data</span>) {
-  <span style="color:#75715e">// 4. teardown code
-</span><span style="color:#75715e"></span>}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">teardown</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// 4. teardown code
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><p>Overview:</p>
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1659421018537-928345fb-3b75-416b-bc8f-498e1bbf6488.png?x-oss-process=image%2Fresize%2Cw_1349%2Climit_0" alt="overview" title="overview"></p>
 <h3 id="init-stage">init stage</h3>
 <p>The init stage is required. Separating the init stage from the VU stage removes
 irrelevant computation from VU code, which both improves k6 performance and
 makes test results more reliable.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// init context: importing modules
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Trend</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/metrics&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#8f5902;font-style:italic">// init context: importing modules
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">Trend</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/metrics&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#75715e">// init context: define k6 options
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
-  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
-};
+<span style="color:#8f5902;font-style:italic">// init context: define k6 options
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">options</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">vus</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#000">duration</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;30s&#39;</span><span style="color:#000;font-weight:bold">,</span>
+<span style="color:#000;font-weight:bold">};</span>
 
-<span style="color:#75715e">// init context: global variables
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">customTrend</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Trend</span>(<span style="color:#e6db74">&#39;oneCustomMetric&#39;</span>);
+<span style="color:#8f5902;font-style:italic">// init context: global variables
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">customTrend</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Trend</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;oneCustomMetric&#39;</span><span style="color:#000;font-weight:bold">);</span>
 
-<span style="color:#75715e">// init context: define custom function
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">myCustomFunction</span>() {
-  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>}
+<span style="color:#8f5902;font-style:italic">// init context: define custom function
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">myCustomFunction</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// ...
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
 
 </code></pre></div><h3 id="vu-stage">VU stage</h3>
 <p>The code inside <code>default()</code> function is VU code.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#75715e">// do things here...
-</span><span style="color:#75715e"></span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// do things here...
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><p>VU code runs over and over through the test duration.</p>
 <p>VU code can make HTTP requests, emit metrics, and generally do everything you&rsquo;d
 expect a load test to do. The only exceptions are the jobs that happen in the
@@ -176,70 +170,70 @@ unlike the default function, k6 calls setup and teardown only once per test.</p>
 the VU stage. teardown is called at the end of a test, after the VU stage
 (default function). You can call the full k6 API in the setup and teardown
 stages, unlike the init stage. For example, you can make HTTP requests:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setup</span>() {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io/get&#39;</span>);
-  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>() };
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">setup</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">res</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;https://httpbin.test.k6.io/get&#39;</span><span style="color:#000;font-weight:bold">);</span>
+  <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">data</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000">res</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">json</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">};</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">teardown</span>(<span style="color:#a6e22e">data</span>) {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>));
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">teardown</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">JSON</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">stringify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">));</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">data</span>) {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>));
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">JSON</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">stringify</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">));</span>
+<span style="color:#000;font-weight:bold">}</span>
 
 
 </code></pre></div><p><img src="https://k6.io/docs/static/2c69d22ae34cc91f7514f63bd2a787ea/5d70e/lifecycle.png" alt="flow" title="flow"></p>
 <h2 id="running-k6">Running k6</h2>
 <h3 id="first-run">first run</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">sleep</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://test.k6.io&#39;</span>);
-  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;https://test.k6.io&#39;</span><span style="color:#000;font-weight:bold">);</span>
+  <span style="color:#000">sleep</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k6 run script.js
 </code></pre></div><h3 id="options">options</h3>
 <p>You can specifiy <code>--vus 10 and</code> <code>--duration 30s</code> similar way to run test each time,
 or you can include the options in your js file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>,
-  <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;30s&#39;</span>,
-};
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;http://test.k6.io&#39;</span>);
-  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
-}
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">sleep</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">options</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">vus</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#000">duration</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;30s&#39;</span><span style="color:#000;font-weight:bold">,</span>
+<span style="color:#000;font-weight:bold">};</span>
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;http://test.k6.io&#39;</span><span style="color:#000;font-weight:bold">);</span>
+  <span style="color:#000">sleep</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><h4 id="stages-ramping-updown-vus">stages: ramping up/down VUs</h4>
 <p>You can ramp the number if VUs up and down during the test.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span>, <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">check</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">sleep</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">stages</span><span style="color:#f92672">:</span> [
-  {<span style="color:#a6e22e">duration</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">20</span>},
-  {<span style="color:#a6e22e">duration</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span>},
-  {<span style="color:#a6e22e">duration</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>},
-  ]
-};
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">options</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">stages</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">[</span>
+  <span style="color:#000;font-weight:bold">{</span><span style="color:#000">duration</span> <span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;5s&#39;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">target</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">20</span><span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#000;font-weight:bold">{</span><span style="color:#000">duration</span> <span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;3s&#39;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">target</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">10</span><span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#000;font-weight:bold">{</span><span style="color:#000">duration</span> <span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;5s&#39;</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">target</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#000;font-weight:bold">]</span>
+<span style="color:#000;font-weight:bold">};</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://httpbin.test.k6.io/get&#39;</span>);
-  <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">res</span>, {<span style="color:#e6db74">&#39;status was 200&#39;</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>});
-  <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">1</span>);
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">res</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;https://httpbin.test.k6.io/get&#39;</span><span style="color:#000;font-weight:bold">);</span>
+  <span style="color:#000">check</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">res</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000;font-weight:bold">{</span><span style="color:#4e9a06">&#39;status was 200&#39;</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#000">r</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000">r</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">status</span> <span style="color:#ce5c00;font-weight:bold">==</span> <span style="color:#0000cf;font-weight:bold">200</span><span style="color:#000;font-weight:bold">});</span>
+  <span style="color:#000">sleep</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
 
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">teardown</span>(<span style="color:#a6e22e">data</span>) {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;test done...&#39;</span>);
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">teardown</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">data</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;test done...&#39;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><h4 id="scenarios">Scenarios</h4>
 <p>Benefits of using scenarios include:</p>
 <ul>
@@ -340,131 +334,131 @@ a test run here.</p>
 </ul>
 <p>For example, the following script defines two minimal scenarios (1 VU, default
 duration):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">example_scenario</span><span style="color:#f92672">:</span> {
-      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;shared-iterations&#39;</span>,
-      <span style="color:#a6e22e">startTime</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;0s&#39;</span>
-    },
-    <span style="color:#a6e22e">another_scenario</span><span style="color:#f92672">:</span> {
-      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;shared-iterations&#39;</span>,
-      <span style="color:#a6e22e">startTime</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;5s&#39;</span>
-    },
-  },
-};
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">options</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">scenarios</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">example_scenario</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+      <span style="color:#000">executor</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;shared-iterations&#39;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#000">startTime</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;0s&#39;</span>
+    <span style="color:#000;font-weight:bold">},</span>
+    <span style="color:#000">another_scenario</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+      <span style="color:#000">executor</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;shared-iterations&#39;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#000">startTime</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;5s&#39;</span>
+    <span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#000;font-weight:bold">},</span>
+<span style="color:#000;font-weight:bold">};</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;https://google.com/&#39;</span>);
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#39;https://google.com/&#39;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><p>The output will be :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/
-     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /
-    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  |
-  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#4e9a06">\ </span>     <span style="color:#000;font-weight:bold">|</span>‾‾<span style="color:#000;font-weight:bold">|</span> /‾‾/   /‾‾/
+     /<span style="color:#4e9a06">\ </span> /  <span style="color:#4e9a06">\ </span>    <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span>/  /   /  /
+    /  <span style="color:#4e9a06">\/</span>    <span style="color:#4e9a06">\ </span>   <span style="color:#000;font-weight:bold">|</span>     <span style="color:#ce5c00;font-weight:bold">(</span>   /   ‾‾<span style="color:#4e9a06">\
+</span><span style="color:#4e9a06"></span>   /          <span style="color:#4e9a06">\ </span>  <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span><span style="color:#4e9a06">\ </span> <span style="color:#4e9a06">\ </span><span style="color:#000;font-weight:bold">|</span>  <span style="color:#ce5c00;font-weight:bold">(</span>‾<span style="color:#ce5c00;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">|</span>
+  / __________ <span style="color:#4e9a06">\ </span> <span style="color:#000;font-weight:bold">|</span>__<span style="color:#000;font-weight:bold">|</span> <span style="color:#4e9a06">\_</span>_<span style="color:#4e9a06">\ \_</span>____/ .io
 
-  execution: local
-     script: .<span style="color:#ae81ff">\s</span>cenario_example.js
+  execution: <span style="color:#204a87">local</span>
+     script: .<span style="color:#4e9a06">\s</span>cenario_example.js
      output: -
 
-  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span> scenarios, <span style="color:#ae81ff">2</span> max VUs, 10m35s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
-           * example_scenario: <span style="color:#ae81ff">1</span> iterations shared among <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
-           * another_scenario: <span style="color:#ae81ff">1</span> iterations shared among <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, startTime: 5s, gracefulStop: 30s<span style="color:#f92672">)</span>
+  scenarios: <span style="color:#ce5c00;font-weight:bold">(</span>100.00%<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#0000cf;font-weight:bold">2</span> scenarios, <span style="color:#0000cf;font-weight:bold">2</span> max VUs, 10m35s max duration <span style="color:#ce5c00;font-weight:bold">(</span>incl. graceful stop<span style="color:#ce5c00;font-weight:bold">)</span>:
+           * example_scenario: <span style="color:#0000cf;font-weight:bold">1</span> iterations shared among <span style="color:#0000cf;font-weight:bold">1</span> VUs <span style="color:#ce5c00;font-weight:bold">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#ce5c00;font-weight:bold">)</span>
+           * another_scenario: <span style="color:#0000cf;font-weight:bold">1</span> iterations shared among <span style="color:#0000cf;font-weight:bold">1</span> VUs <span style="color:#ce5c00;font-weight:bold">(</span>maxDuration: 10m0s, startTime: 5s, gracefulStop: 30s<span style="color:#ce5c00;font-weight:bold">)</span>
 
 
-running <span style="color:#f92672">(</span>00m05.2s<span style="color:#f92672">)</span>, 0/2 VUs, <span style="color:#ae81ff">2</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
-example_scenario ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.2s/10m0s  1/1 shared iters
-another_scenario ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.2s/10m0s  1/1 shared iters
+running <span style="color:#ce5c00;font-weight:bold">(</span>00m05.2s<span style="color:#ce5c00;font-weight:bold">)</span>, 0/2 VUs, <span style="color:#0000cf;font-weight:bold">2</span> <span style="color:#204a87">complete</span> and <span style="color:#0000cf;font-weight:bold">0</span> interrupted iterations
+example_scenario ✓ <span style="color:#ce5c00;font-weight:bold">[======================================]</span> <span style="color:#0000cf;font-weight:bold">1</span> VUs  00m00.2s/10m0s  1/1 shared iters
+another_scenario ✓ <span style="color:#ce5c00;font-weight:bold">[======================================]</span> <span style="color:#0000cf;font-weight:bold">1</span> VUs  00m00.2s/10m0s  1/1 shared iters
 
-     data_received..................: <span style="color:#ae81ff">54</span> kB  <span style="color:#ae81ff">11</span> kB/s
-     data_sent......................: 2.5 kB <span style="color:#ae81ff">486</span> B/s
-     http_req_blocked...............: avg<span style="color:#f92672">=</span>53.45ms  min<span style="color:#f92672">=</span>46.56ms  med<span style="color:#f92672">=</span>48.42ms  max<span style="color:#f92672">=</span>70.4ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>64.25ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>67.32ms
-     http_req_connecting............: avg<span style="color:#f92672">=</span>19.95ms  min<span style="color:#f92672">=</span>18.62ms  med<span style="color:#f92672">=</span>19.93ms  max<span style="color:#f92672">=</span>21.3ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>21.26ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>21.28ms
-     http_req_duration..............: avg<span style="color:#f92672">=</span>46.16ms  min<span style="color:#f92672">=</span>25.82ms  med<span style="color:#f92672">=</span>45.6ms   max<span style="color:#f92672">=</span>67.6ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>65.63ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>66.61ms
-       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>46.16ms  min<span style="color:#f92672">=</span>25.82ms  med<span style="color:#f92672">=</span>45.6ms   max<span style="color:#f92672">=</span>67.6ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>65.63ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>66.61ms
-     http_req_failed................: 0.00%  ✓ <span style="color:#ae81ff">0</span>        ✗ <span style="color:#ae81ff">4</span>
-     http_req_receiving.............: avg<span style="color:#f92672">=</span>3.56ms   min<span style="color:#f92672">=</span>305.8µs  med<span style="color:#f92672">=</span>3.05ms   max<span style="color:#f92672">=</span>7.84ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>7.01ms   p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>7.43ms
-     http_req_sending...............: avg<span style="color:#f92672">=</span>132.85µs min<span style="color:#f92672">=</span>0s       med<span style="color:#f92672">=</span>0s       max<span style="color:#f92672">=</span>531.4µs  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>371.98µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>451.68µs
-     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>32.68ms  min<span style="color:#f92672">=</span>27.63ms  med<span style="color:#f92672">=</span>27.99ms  max<span style="color:#f92672">=</span>47.09ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>41.43ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>44.26ms
-     http_req_waiting...............: avg<span style="color:#f92672">=</span>42.46ms  min<span style="color:#f92672">=</span>24.78ms  med<span style="color:#f92672">=</span>42.64ms  max<span style="color:#f92672">=</span>59.75ms  p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>58.45ms  p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>59.1ms
-     http_reqs......................: <span style="color:#ae81ff">4</span>      0.771306/s
-     iteration_duration.............: avg<span style="color:#f92672">=</span>199.23ms min<span style="color:#f92672">=</span>182.79ms med<span style="color:#f92672">=</span>199.23ms max<span style="color:#f92672">=</span>215.67ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>212.38ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>214.03ms
-     iterations.....................: <span style="color:#ae81ff">2</span>      0.385653/s
-     vus............................: <span style="color:#ae81ff">0</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-     vus_max........................: <span style="color:#ae81ff">2</span>      min<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+     data_received..................: <span style="color:#0000cf;font-weight:bold">54</span> kB  <span style="color:#0000cf;font-weight:bold">11</span> kB/s
+     data_sent......................: 2.5 kB <span style="color:#0000cf;font-weight:bold">486</span> B/s
+     http_req_blocked...............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>53.45ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>46.56ms  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>48.42ms  <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>70.4ms   p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>64.25ms  p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>67.32ms
+     http_req_connecting............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>19.95ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>18.62ms  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>19.93ms  <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>21.3ms   p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>21.26ms  p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>21.28ms
+     http_req_duration..............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>46.16ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>25.82ms  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>45.6ms   <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>67.6ms   p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>65.63ms  p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>66.61ms
+       <span style="color:#ce5c00;font-weight:bold">{</span> expected_response:true <span style="color:#ce5c00;font-weight:bold">}</span>...: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>46.16ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>25.82ms  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>45.6ms   <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>67.6ms   p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>65.63ms  p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>66.61ms
+     http_req_failed................: 0.00%  ✓ <span style="color:#0000cf;font-weight:bold">0</span>        ✗ <span style="color:#0000cf;font-weight:bold">4</span>
+     http_req_receiving.............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>3.56ms   <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>305.8µs  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>3.05ms   <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>7.84ms   p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>7.01ms   p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>7.43ms
+     http_req_sending...............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>132.85µs <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>0s       <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>0s       <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>531.4µs  p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>371.98µs p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>451.68µs
+     http_req_tls_handshaking.......: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>32.68ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>27.63ms  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>27.99ms  <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>47.09ms  p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>41.43ms  p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>44.26ms
+     http_req_waiting...............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>42.46ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>24.78ms  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>42.64ms  <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>59.75ms  p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>58.45ms  p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>59.1ms
+     http_reqs......................: <span style="color:#0000cf;font-weight:bold">4</span>      0.771306/s
+     iteration_duration.............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>199.23ms <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>182.79ms <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>199.23ms <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>215.67ms p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>212.38ms p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>214.03ms
+     iterations.....................: <span style="color:#0000cf;font-weight:bold">2</span>      0.385653/s
+     vus............................: <span style="color:#0000cf;font-weight:bold">0</span>      <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">0</span>      <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">0</span>
+     vus_max........................: <span style="color:#0000cf;font-weight:bold">2</span>      <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">2</span>      <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">2</span>
 
 </code></pre></div><h4 id="graceful-stop">Graceful stop</h4>
 <p>This option is available for all executors except <code>externally-controlled</code> and
 allows the user to specify a duration to wait before forcefully interrupting
 them. The default value is <code>30s</code>.</p>
 <p>For example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">check</span>, <span style="color:#a6e22e">sleep</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">check</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#000">sleep</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">options</span> <span style="color:#f92672">=</span> {
-  <span style="color:#75715e">// k6 will return null as the body. The whole body will be ignored.
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// This is the default when discardResponseBodies is set to true.
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">discardResponseBodies</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-  <span style="color:#a6e22e">scenarios</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">contacts</span><span style="color:#f92672">:</span> {
-      <span style="color:#75715e">// A fixed number of VUs execute as many iterations as possible for
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// a specified amount of time.
-</span><span style="color:#75715e"></span>      <span style="color:#a6e22e">executor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;constant-vus&#39;</span>,
-      <span style="color:#a6e22e">vus</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">100</span>,
-      <span style="color:#a6e22e">duration</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;10s&#39;</span>,
-      <span style="color:#a6e22e">gracefulStop</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;3s&#39;</span>,
-    },
-  },
-};
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">options</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#8f5902;font-style:italic">// k6 will return null as the body. The whole body will be ignored.
+</span><span style="color:#8f5902;font-style:italic"></span>  <span style="color:#8f5902;font-style:italic">// This is the default when discardResponseBodies is set to true.
+</span><span style="color:#8f5902;font-style:italic"></span>  <span style="color:#000">discardResponseBodies</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">,</span>
+  <span style="color:#000">scenarios</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#000">contacts</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">{</span>
+      <span style="color:#8f5902;font-style:italic">// A fixed number of VUs execute as many iterations as possible for
+</span><span style="color:#8f5902;font-style:italic"></span>      <span style="color:#8f5902;font-style:italic">// a specified amount of time.
+</span><span style="color:#8f5902;font-style:italic"></span>      <span style="color:#000">executor</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;constant-vus&#39;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#000">vus</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#0000cf;font-weight:bold">100</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#000">duration</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;10s&#39;</span><span style="color:#000;font-weight:bold">,</span>
+      <span style="color:#000">gracefulStop</span><span style="color:#ce5c00;font-weight:bold">:</span> <span style="color:#4e9a06">&#39;3s&#39;</span><span style="color:#000;font-weight:bold">,</span>
+    <span style="color:#000;font-weight:bold">},</span>
+  <span style="color:#000;font-weight:bold">},</span>
+<span style="color:#000;font-weight:bold">};</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-  <span style="color:#75715e">// this address support a customized delayed payload.
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">`https://httpbin.test.k6.io/delay/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">delay</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">delay</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87">Math</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">floor</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87">Math</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">random</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#0000cf;font-weight:bold">5</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">;</span>
+  <span style="color:#8f5902;font-style:italic">// this address support a customized delayed payload.
+</span><span style="color:#8f5902;font-style:italic"></span>  <span style="color:#000">http</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">get</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">`https://httpbin.test.k6.io/delay/</span><span style="color:#4e9a06">${</span><span style="color:#000">delay</span><span style="color:#4e9a06">}</span><span style="color:#4e9a06">`</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
 
-<span style="color:#75715e">// export default function () {
-</span><span style="color:#75715e">//   const res = http.get(&#39;https://httpbin.test.k6.io/get&#39;);
-</span><span style="color:#75715e">//   check(res, {&#39;status was 200&#39;: (r) =&gt; r.status == 200});
-</span><span style="color:#75715e">//   sleep(1);
-</span><span style="color:#75715e">// }
+<span style="color:#8f5902;font-style:italic">// export default function () {
+</span><span style="color:#8f5902;font-style:italic">//   const res = http.get(&#39;https://httpbin.test.k6.io/get&#39;);
+</span><span style="color:#8f5902;font-style:italic">//   check(res, {&#39;status was 200&#39;: (r) =&gt; r.status == 200});
+</span><span style="color:#8f5902;font-style:italic">//   sleep(1);
+</span><span style="color:#8f5902;font-style:italic">// }
 </span></code></pre></div><p>The ouput is like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
-     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
-    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
-   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
-  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">          /<span style="color:#4e9a06">\ </span>     <span style="color:#000;font-weight:bold">|</span>‾‾<span style="color:#000;font-weight:bold">|</span> /‾‾/   /‾‾/   
+     /<span style="color:#4e9a06">\ </span> /  <span style="color:#4e9a06">\ </span>    <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span>/  /   /  /    
+    /  <span style="color:#4e9a06">\/</span>    <span style="color:#4e9a06">\ </span>   <span style="color:#000;font-weight:bold">|</span>     <span style="color:#ce5c00;font-weight:bold">(</span>   /   ‾‾<span style="color:#4e9a06">\ </span> 
+   /          <span style="color:#4e9a06">\ </span>  <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span><span style="color:#4e9a06">\ </span> <span style="color:#4e9a06">\ </span><span style="color:#000;font-weight:bold">|</span>  <span style="color:#ce5c00;font-weight:bold">(</span>‾<span style="color:#ce5c00;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">|</span> 
+  / __________ <span style="color:#4e9a06">\ </span> <span style="color:#000;font-weight:bold">|</span>__<span style="color:#000;font-weight:bold">|</span> <span style="color:#4e9a06">\_</span>_<span style="color:#4e9a06">\ \_</span>____/ .io
 
-  execution: local
+  execution: <span style="color:#204a87">local</span>
      script: pt-1-0001-stages.ts
      output: -
 
-  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">100</span> max VUs, 13s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
-           * contacts: <span style="color:#ae81ff">100</span> looping VUs <span style="color:#66d9ef">for</span> 10s <span style="color:#f92672">(</span>gracefulStop: 3s<span style="color:#f92672">)</span>
+  scenarios: <span style="color:#ce5c00;font-weight:bold">(</span>100.00%<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#0000cf;font-weight:bold">1</span> scenario, <span style="color:#0000cf;font-weight:bold">100</span> max VUs, 13s max duration <span style="color:#ce5c00;font-weight:bold">(</span>incl. graceful stop<span style="color:#ce5c00;font-weight:bold">)</span>:
+           * contacts: <span style="color:#0000cf;font-weight:bold">100</span> looping VUs <span style="color:#204a87;font-weight:bold">for</span> 10s <span style="color:#ce5c00;font-weight:bold">(</span>gracefulStop: 3s<span style="color:#ce5c00;font-weight:bold">)</span>
 
 
-running <span style="color:#f92672">(</span>13.0s<span style="color:#f92672">)</span>, 000/100 VUs, <span style="color:#ae81ff">304</span> complete and <span style="color:#ae81ff">27</span> interrupted iterations
-contacts ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">100</span> VUs  10s
+running <span style="color:#ce5c00;font-weight:bold">(</span>13.0s<span style="color:#ce5c00;font-weight:bold">)</span>, 000/100 VUs, <span style="color:#0000cf;font-weight:bold">304</span> <span style="color:#204a87">complete</span> and <span style="color:#0000cf;font-weight:bold">27</span> interrupted iterations
+contacts ✓ <span style="color:#ce5c00;font-weight:bold">[======================================]</span> <span style="color:#0000cf;font-weight:bold">100</span> VUs  10s
 
-     data_received..................: <span style="color:#ae81ff">712</span> kB <span style="color:#ae81ff">55</span> kB/s
-     data_sent......................: <span style="color:#ae81ff">73</span> kB  5.6 kB/s
-     http_req_blocked...............: avg<span style="color:#f92672">=</span>334.76ms min<span style="color:#f92672">=</span>2µs   med<span style="color:#f92672">=</span>7µs   max<span style="color:#f92672">=</span>2.54s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>945.15ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>996.46ms
-     http_req_connecting............: avg<span style="color:#f92672">=</span>81.15ms  min<span style="color:#f92672">=</span>0s    med<span style="color:#f92672">=</span>0s    max<span style="color:#f92672">=</span>276.62ms p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>256ms    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>261.4ms 
-     http_req_duration..............: avg<span style="color:#f92672">=</span>3.16s    min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.24s max<span style="color:#f92672">=</span>5.29s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.25s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>5.26s   
-       <span style="color:#f92672">{</span> expected_response:true <span style="color:#f92672">}</span>...: avg<span style="color:#f92672">=</span>3.16s    min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.24s max<span style="color:#f92672">=</span>5.29s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.25s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>5.26s   
-     http_req_failed................: 0.00%  ✓ <span style="color:#ae81ff">0</span>         ✗ <span style="color:#ae81ff">304</span>  
-     http_req_receiving.............: avg<span style="color:#f92672">=</span>94.97µs  min<span style="color:#f92672">=</span>28µs  med<span style="color:#f92672">=</span>87µs  max<span style="color:#f92672">=</span>1.02ms   p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>121µs    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>132.69µs
-     http_req_sending...............: avg<span style="color:#f92672">=</span>36.02µs  min<span style="color:#f92672">=</span>12µs  med<span style="color:#f92672">=</span>33µs  max<span style="color:#f92672">=</span>495µs    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>46µs     p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>54.69µs 
-     http_req_tls_handshaking.......: avg<span style="color:#f92672">=</span>192.62ms min<span style="color:#f92672">=</span>0s    med<span style="color:#f92672">=</span>0s    max<span style="color:#f92672">=</span>2.11s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>497.04ms p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>540.7ms 
-     http_req_waiting...............: avg<span style="color:#f92672">=</span>3.16s    min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.24s max<span style="color:#f92672">=</span>5.29s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.25s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>5.25s   
-     http_reqs......................: <span style="color:#ae81ff">304</span>    23.377036/s
-     iteration_duration.............: avg<span style="color:#f92672">=</span>3.5s     min<span style="color:#f92672">=</span>1.22s med<span style="color:#f92672">=</span>3.25s max<span style="color:#f92672">=</span>7.79s    p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>5.27s    p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>6.1s    
-     iterations.....................: <span style="color:#ae81ff">304</span>    23.377036/s
-     vus............................: <span style="color:#ae81ff">27</span>     min<span style="color:#f92672">=</span><span style="color:#ae81ff">27</span>      max<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
-     vus_max........................: <span style="color:#ae81ff">100</span>    min<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>     max<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>
+     data_received..................: <span style="color:#0000cf;font-weight:bold">712</span> kB <span style="color:#0000cf;font-weight:bold">55</span> kB/s
+     data_sent......................: <span style="color:#0000cf;font-weight:bold">73</span> kB  5.6 kB/s
+     http_req_blocked...............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>334.76ms <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>2µs   <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>7µs   <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>2.54s    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>945.15ms p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>996.46ms
+     http_req_connecting............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>81.15ms  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>0s    <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>0s    <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>276.62ms p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>256ms    p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>261.4ms 
+     http_req_duration..............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>3.16s    <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>1.22s <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>3.24s <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>5.29s    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>5.25s    p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>5.26s   
+       <span style="color:#ce5c00;font-weight:bold">{</span> expected_response:true <span style="color:#ce5c00;font-weight:bold">}</span>...: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>3.16s    <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>1.22s <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>3.24s <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>5.29s    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>5.25s    p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>5.26s   
+     http_req_failed................: 0.00%  ✓ <span style="color:#0000cf;font-weight:bold">0</span>         ✗ <span style="color:#0000cf;font-weight:bold">304</span>  
+     http_req_receiving.............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>94.97µs  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>28µs  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>87µs  <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>1.02ms   p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>121µs    p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>132.69µs
+     http_req_sending...............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>36.02µs  <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>12µs  <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>33µs  <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>495µs    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>46µs     p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>54.69µs 
+     http_req_tls_handshaking.......: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>192.62ms <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>0s    <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>0s    <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>2.11s    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>497.04ms p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>540.7ms 
+     http_req_waiting...............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>3.16s    <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>1.22s <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>3.24s <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>5.29s    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>5.25s    p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>5.25s   
+     http_reqs......................: <span style="color:#0000cf;font-weight:bold">304</span>    23.377036/s
+     iteration_duration.............: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>3.5s     <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>1.22s <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>3.25s <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>7.79s    p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>5.27s    p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>6.1s    
+     iterations.....................: <span style="color:#0000cf;font-weight:bold">304</span>    23.377036/s
+     vus............................: <span style="color:#0000cf;font-weight:bold">27</span>     <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">27</span>      <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">100</span>
+     vus_max........................: <span style="color:#0000cf;font-weight:bold">100</span>    <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">100</span>     <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#0000cf;font-weight:bold">100</span>
 </code></pre></div><p>Notice that <code>running (13.0s)</code>, even though the total test duration is 10s, the
 actual execution time was 13s because of <code>gracefulStop</code>, giving the VUs a 3s
 additional time to complete iterations in progress. 27 iterations are
@@ -496,53 +490,21 @@ language server to install. (Here I use ts lsp server)</p>
 <p><a href="https://marketplace.visualstudio.com/items?itemName=k6.k6">https://marketplace.visualstudio.com/items?itemName=k6.k6</a></p>
 </blockquote>
 
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
-		</li>
-	</ul>
+
+        </div>
+      </div>
+      <div class="container">
+  <span class="row justify-content-center meta" id="footer">
+    Copyright © 2023 Dyrone Teng
+  </span>
+  <script defer src="js/custom.js"></script>
+
 </div>
-		</footer>
-	</article>
-</main>
 
+    </div>
+  </div>
+</div>
 
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/posts/page-table/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">page table</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/k6-2-result-output/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">k6 series [2] - Result Output</p>
-		</a>
-	</div>
-</nav>
+  </body>
 
-
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2023 dyrone.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-</body>
 </html>

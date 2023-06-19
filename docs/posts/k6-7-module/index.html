@@ -1,84 +1,91 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>k6 series [7] - Module - dyrone&#39;s blog</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="k6 series [7] - Module" />
-<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation" />
+<!doctype html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> k6 series [7] - Module - Dyrone Teng </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:site_name" content="Dyrone Teng" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:title" content="k6 series [7] - Module" />
+<meta property="og:description" content="NOTICE: Base and excerpt from the official k6 documentation
+ Modules There are three types of modules:
+ Builtin Local file system Remote HTTP(s)  Builtin modules These modules are provided through the k6 core, and gives access to the functionality built into k6.
+import http from &#39;k6/http&#39;; Local filesystem modules // helpers.js export function printHello(){ console.log(&#34;hello&#34;); } import http from &#39;k6/http&#39;; import { printHello } from &#39;./helpers.js&#39; export default function () { printHello(); } The output might like:" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dyrone.github.io/posts/k6-7-module/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="/posts/k6-7-module/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-08T23:52:08+08:00" />
 <meta property="article:modified_time" content="2022-08-08T23:52:08+08:00" />
 
 
-		<meta itemprop="name" content="k6 series [7] - Module">
-<meta itemprop="description" content="NOTICE: Base and excerpt from the official k6 documentation"><meta itemprop="datePublished" content="2022-08-08T23:52:08+08:00" />
-<meta itemprop="dateModified" content="2022-08-08T23:52:08+08:00" />
-<meta itemprop="wordCount" content="366">
-<meta itemprop="keywords" content="testing," />
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="k6 series [7] - Module"/>
-<meta name="twitter:description" content="NOTICE: Base and excerpt from the official k6 documentation"/>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:title" content="k6 series [7] - Module" />
+    <meta name="twitter:description" content="" />
+    
 
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
+    <meta name="twitter:image" content="" />
+    <link rel="canonical" href="/posts/k6-7-module/">
+    
+    <link rel="stylesheet" href="/css/site.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="滕 龙" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/img/placeholder.png">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">滕 龙</div>
-					<div class="logo__tagline">Teng Long</div>
-				</div>
-		</a>
+    
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Dyrone Teng" />
+    
+  </head>
+
+  <body>
+    
+<div class="mt-xl header">
+  <header>
+    <div class="container">
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <a href="" style="display: contents">
+	    <h1 class="name text-center">Teng Long Is Dyrone</h1>
+	  </a>
 	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">k6 series [7] - Module</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-08-08T23:52:08&#43;08:00">2022-08-08</time></div></div>
-		</header>
+      </div>
+      <div class="row justify-content-center">
+	<div class="nav justify-content-center">
+	  <ul>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/">
 		
-<div class="post__toc toc">
-	<div class="toc__title">Page content</div>
-	<div class="toc__menu">
-		<nav id="TableOfContents">
-  <ul>
-    <li><a href="#modules">Modules</a></li>
-    <li><a href="#builtin-modules">Builtin modules</a></li>
-    <li><a href="#local-filesystem-modules">Local filesystem modules</a></li>
-    <li><a href="#remote-https-modules">Remote HTTP(S) modules</a></li>
-  </ul>
-</nav>
+		Home
+	      </a>
+	    </li>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/posts/introduce/index.html">
+		
+		About
+	      </a>
+	    </li>
+	    
+	    
+	  </ul>
 	</div>
-</div><div class="content post__content clearfix">
-			<blockquote>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8">
+        <h1 class="mx-0 mx-md-4 single-page-title">k6 series [7] - Module</h1>
+        <div class="markdown page-content">
+          <blockquote>
 <p>NOTICE: Base and excerpt from the official k6 documentation</p>
 </blockquote>
 <h2 id="modules">Modules</h2>
@@ -91,121 +98,89 @@
 <h2 id="builtin-modules">Builtin modules</h2>
 <p>These modules are provided through the k6 core, and gives access to the
 functionality built into k6.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
 </code></pre></div><h2 id="local-filesystem-modules">Local filesystem modules</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// helpers.js
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printHello</span>(){
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;hello&#34;</span>);
-}
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">http</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;k6/http&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">printHello</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./helpers.js&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#8f5902;font-style:italic">// helpers.js
+</span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">printHello</span><span style="color:#000;font-weight:bold">(){</span>
+    <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;hello&#34;</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000">http</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;k6/http&#39;</span><span style="color:#000;font-weight:bold">;</span>
+<span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">printHello</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;./helpers.js&#39;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">printHello</span>();
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">printHello</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><p>The output might like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
-    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
-   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
-  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     /<span style="color:#4e9a06">\ </span> /  <span style="color:#4e9a06">\ </span>    <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span>/  /   /  /    
+    /  <span style="color:#4e9a06">\/</span>    <span style="color:#4e9a06">\ </span>   <span style="color:#000;font-weight:bold">|</span>     <span style="color:#ce5c00;font-weight:bold">(</span>   /   ‾‾<span style="color:#4e9a06">\ </span> 
+   /          <span style="color:#4e9a06">\ </span>  <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span><span style="color:#4e9a06">\ </span> <span style="color:#4e9a06">\ </span><span style="color:#000;font-weight:bold">|</span>  <span style="color:#ce5c00;font-weight:bold">(</span>‾<span style="color:#ce5c00;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">|</span> 
+  / __________ <span style="color:#4e9a06">\ </span> <span style="color:#000;font-weight:bold">|</span>__<span style="color:#000;font-weight:bold">|</span> <span style="color:#4e9a06">\_</span>_<span style="color:#4e9a06">\ \_</span>____/ .io
 
-  execution: local
+  execution: <span style="color:#204a87">local</span>
      script: pt-1-0001-stages.ts
      output: -
 
-  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
-           * default: <span style="color:#ae81ff">1</span> iterations <span style="color:#66d9ef">for</span> each of <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+  scenarios: <span style="color:#ce5c00;font-weight:bold">(</span>100.00%<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#0000cf;font-weight:bold">1</span> scenario, <span style="color:#0000cf;font-weight:bold">1</span> max VUs, 10m30s max duration <span style="color:#ce5c00;font-weight:bold">(</span>incl. graceful stop<span style="color:#ce5c00;font-weight:bold">)</span>:
+           * default: <span style="color:#0000cf;font-weight:bold">1</span> iterations <span style="color:#204a87;font-weight:bold">for</span> each of <span style="color:#0000cf;font-weight:bold">1</span> VUs <span style="color:#ce5c00;font-weight:bold">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#ce5c00;font-weight:bold">)</span>
 
-INFO<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> hello                                         source<span style="color:#f92672">=</span>console
+INFO<span style="color:#ce5c00;font-weight:bold">[</span>0000<span style="color:#ce5c00;font-weight:bold">]</span> hello                                         <span style="color:#000">source</span><span style="color:#ce5c00;font-weight:bold">=</span>console
 
-running <span style="color:#f92672">(</span>00m00.0s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
-default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.0s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+running <span style="color:#ce5c00;font-weight:bold">(</span>00m00.0s<span style="color:#ce5c00;font-weight:bold">)</span>, 0/1 VUs, <span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#204a87">complete</span> and <span style="color:#0000cf;font-weight:bold">0</span> interrupted iterations
+default ✓ <span style="color:#ce5c00;font-weight:bold">[======================================]</span> <span style="color:#0000cf;font-weight:bold">1</span> VUs  00m00.0s/10m0s  1/1 iters, <span style="color:#0000cf;font-weight:bold">1</span> per VU
 
-     data_received........: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
-     data_sent............: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
-     iteration_duration...: avg<span style="color:#f92672">=</span>80.16µs min<span style="color:#f92672">=</span>80.16µs med<span style="color:#f92672">=</span>80.16µs max<span style="color:#f92672">=</span>80.16µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>80.16µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>80.16µs
-     iterations...........: <span style="color:#ae81ff">1</span>   1088.139282/s
+     data_received........: <span style="color:#0000cf;font-weight:bold">0</span> B <span style="color:#0000cf;font-weight:bold">0</span> B/s
+     data_sent............: <span style="color:#0000cf;font-weight:bold">0</span> B <span style="color:#0000cf;font-weight:bold">0</span> B/s
+     iteration_duration...: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>80.16µs <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>80.16µs <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>80.16µs <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>80.16µs p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>80.16µs p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>80.16µs
+     iterations...........: <span style="color:#0000cf;font-weight:bold">1</span>   1088.139282/s
 </code></pre></div><h2 id="remote-https-modules">Remote HTTP(S) modules</h2>
 <p>These modules are accessed over HTTP(S), from a source like the k6 JSLib or from
 any publicly accessible web server. The imported modules will be downloaded and
 executed at runtime, making it extremely important to make sure the code is
 legit and trusted before including it in a test script.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">randomString</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;https://jslib.k6.io/k6-utils/1.2.0/index.js&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">{</span> <span style="color:#000">randomString</span> <span style="color:#000;font-weight:bold">}</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#39;https://jslib.k6.io/k6-utils/1.2.0/index.js&#39;</span><span style="color:#000;font-weight:bold">;</span>
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> () {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">randomString</span>(<span style="color:#ae81ff">6</span>));
-}
+<span style="color:#204a87;font-weight:bold">export</span> <span style="color:#204a87;font-weight:bold">default</span> <span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">randomString</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">6</span><span style="color:#000;font-weight:bold">));</span>
+<span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><p>The output will be like on my env:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">         /<span style="color:#ae81ff">\ </span>     |‾‾| /‾‾/   /‾‾/   
-     /<span style="color:#ae81ff">\ </span> /  <span style="color:#ae81ff">\ </span>    |  |/  /   /  /    
-    /  <span style="color:#ae81ff">\/</span>    <span style="color:#ae81ff">\ </span>   |     <span style="color:#f92672">(</span>   /   ‾‾<span style="color:#ae81ff">\ </span> 
-   /          <span style="color:#ae81ff">\ </span>  |  |<span style="color:#ae81ff">\ </span> <span style="color:#ae81ff">\ </span>|  <span style="color:#f92672">(</span>‾<span style="color:#f92672">)</span>  | 
-  / __________ <span style="color:#ae81ff">\ </span> |__| <span style="color:#ae81ff">\_</span>_<span style="color:#ae81ff">\ \_</span>____/ .io
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">         /<span style="color:#4e9a06">\ </span>     <span style="color:#000;font-weight:bold">|</span>‾‾<span style="color:#000;font-weight:bold">|</span> /‾‾/   /‾‾/   
+     /<span style="color:#4e9a06">\ </span> /  <span style="color:#4e9a06">\ </span>    <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span>/  /   /  /    
+    /  <span style="color:#4e9a06">\/</span>    <span style="color:#4e9a06">\ </span>   <span style="color:#000;font-weight:bold">|</span>     <span style="color:#ce5c00;font-weight:bold">(</span>   /   ‾‾<span style="color:#4e9a06">\ </span> 
+   /          <span style="color:#4e9a06">\ </span>  <span style="color:#000;font-weight:bold">|</span>  <span style="color:#000;font-weight:bold">|</span><span style="color:#4e9a06">\ </span> <span style="color:#4e9a06">\ </span><span style="color:#000;font-weight:bold">|</span>  <span style="color:#ce5c00;font-weight:bold">(</span>‾<span style="color:#ce5c00;font-weight:bold">)</span>  <span style="color:#000;font-weight:bold">|</span> 
+  / __________ <span style="color:#4e9a06">\ </span> <span style="color:#000;font-weight:bold">|</span>__<span style="color:#000;font-weight:bold">|</span> <span style="color:#4e9a06">\_</span>_<span style="color:#4e9a06">\ \_</span>____/ .io
 
-  execution: local
+  execution: <span style="color:#204a87">local</span>
      script: pt-1-0001-stages.ts
      output: -
 
-  scenarios: <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span> scenario, <span style="color:#ae81ff">1</span> max VUs, 10m30s max duration <span style="color:#f92672">(</span>incl. graceful stop<span style="color:#f92672">)</span>:
-           * default: <span style="color:#ae81ff">1</span> iterations <span style="color:#66d9ef">for</span> each of <span style="color:#ae81ff">1</span> VUs <span style="color:#f92672">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#f92672">)</span>
+  scenarios: <span style="color:#ce5c00;font-weight:bold">(</span>100.00%<span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#0000cf;font-weight:bold">1</span> scenario, <span style="color:#0000cf;font-weight:bold">1</span> max VUs, 10m30s max duration <span style="color:#ce5c00;font-weight:bold">(</span>incl. graceful stop<span style="color:#ce5c00;font-weight:bold">)</span>:
+           * default: <span style="color:#0000cf;font-weight:bold">1</span> iterations <span style="color:#204a87;font-weight:bold">for</span> each of <span style="color:#0000cf;font-weight:bold">1</span> VUs <span style="color:#ce5c00;font-weight:bold">(</span>maxDuration: 10m0s, gracefulStop: 30s<span style="color:#ce5c00;font-weight:bold">)</span>
 
-INFO<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> fborfd                                        source<span style="color:#f92672">=</span>console
+INFO<span style="color:#ce5c00;font-weight:bold">[</span>0000<span style="color:#ce5c00;font-weight:bold">]</span> fborfd                                        <span style="color:#000">source</span><span style="color:#ce5c00;font-weight:bold">=</span>console
 
-running <span style="color:#f92672">(</span>00m00.0s<span style="color:#f92672">)</span>, 0/1 VUs, <span style="color:#ae81ff">1</span> complete and <span style="color:#ae81ff">0</span> interrupted iterations
-default ✓ <span style="color:#f92672">[======================================]</span> <span style="color:#ae81ff">1</span> VUs  00m00.0s/10m0s  1/1 iters, <span style="color:#ae81ff">1</span> per VU
+running <span style="color:#ce5c00;font-weight:bold">(</span>00m00.0s<span style="color:#ce5c00;font-weight:bold">)</span>, 0/1 VUs, <span style="color:#0000cf;font-weight:bold">1</span> <span style="color:#204a87">complete</span> and <span style="color:#0000cf;font-weight:bold">0</span> interrupted iterations
+default ✓ <span style="color:#ce5c00;font-weight:bold">[======================================]</span> <span style="color:#0000cf;font-weight:bold">1</span> VUs  00m00.0s/10m0s  1/1 iters, <span style="color:#0000cf;font-weight:bold">1</span> per VU
 
-     data_received........: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
-     data_sent............: <span style="color:#ae81ff">0</span> B <span style="color:#ae81ff">0</span> B/s
-     iteration_duration...: avg<span style="color:#f92672">=</span>144.76µs min<span style="color:#f92672">=</span>144.76µs med<span style="color:#f92672">=</span>144.76µs max<span style="color:#f92672">=</span>144.76µs p<span style="color:#f92672">(</span>90<span style="color:#f92672">)=</span>144.76µs p<span style="color:#f92672">(</span>95<span style="color:#f92672">)=</span>144.76µs
-     iterations...........: <span style="color:#ae81ff">1</span>   989.119683/s
+     data_received........: <span style="color:#0000cf;font-weight:bold">0</span> B <span style="color:#0000cf;font-weight:bold">0</span> B/s
+     data_sent............: <span style="color:#0000cf;font-weight:bold">0</span> B <span style="color:#0000cf;font-weight:bold">0</span> B/s
+     iteration_duration...: <span style="color:#000">avg</span><span style="color:#ce5c00;font-weight:bold">=</span>144.76µs <span style="color:#000">min</span><span style="color:#ce5c00;font-weight:bold">=</span>144.76µs <span style="color:#000">med</span><span style="color:#ce5c00;font-weight:bold">=</span>144.76µs <span style="color:#000">max</span><span style="color:#ce5c00;font-weight:bold">=</span>144.76µs p<span style="color:#ce5c00;font-weight:bold">(</span>90<span style="color:#ce5c00;font-weight:bold">)=</span>144.76µs p<span style="color:#ce5c00;font-weight:bold">(</span>95<span style="color:#ce5c00;font-weight:bold">)=</span>144.76µs
+     iterations...........: <span style="color:#0000cf;font-weight:bold">1</span>   989.119683/s
 </code></pre></div>
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/testing/" rel="tag">testing</a>
-		</li>
-	</ul>
+
+        </div>
+      </div>
+      <div class="container">
+  <span class="row justify-content-center meta" id="footer">
+    Copyright © 2023 Dyrone Teng
+  </span>
+  <script defer src="js/custom.js"></script>
+
 </div>
-		</footer>
-	</article>
-</main>
 
+    </div>
+  </div>
+</div>
 
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/posts/k6-6-execute-command/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">k6 series [6] - Execute Command</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/sed-4-s-command/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Sed [4] - The &#39;s&#39; Commands</p>
-		</a>
-	</div>
-</nav>
+  </body>
 
-
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2023 dyrone.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-</body>
 </html>

@@ -1,105 +1,107 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Git Merge 2022 - dyrone&#39;s blog</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="Git Merge 2022" />
-<meta property="og:description" content="(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。" />
+<!doctype html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Git Merge 2022 - Dyrone Teng </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta property="og:site_name" content="Dyrone Teng" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="og:title" content="Git Merge 2022" />
+<meta property="og:description" content="(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。
+三路合并(three-way content merge) 假设我们有一个简单的文件，存在于我们感兴趣的两个分支上，我将分支命名为 和，假设我们有三行在的这个感兴趣的文件中，而我们在 的文件中有三个非常相似的行。但是， 现在如果我们合并这些分支，中间行在两个分支之 间是不同的，那条中间线在合并的最后会发生什么，除非您知道历史上的共同点（称为 merge base）中发生了什么，否则很难说清楚。
+所以如果合并基础恰好与匹配，那么我们可以说很好，没有进行任何 更改，因此合并结果应该与对比，如果合并基础与匹配，那么我们会 说没有进行任何更改，所以我们应该从对比。
+当然也有可能是与任何一方都不匹配，然后我们都知道这会产生合并冲突，尽 管我们可能不是那么喜欢它。
+新特性：&ndash;remerge-diff  when you want to look at a previous merge and say how did this person resolve the conflicts in this merge? then you can pass this remerge flag.
+ 同时，remerge的输出信息回展示两侧合并时的, 以及最终解决后 的结果, 其背后是通过将 的两个parent进行再次合并，同时创建一个临时的 用来保存合并后的结果（比如包含了conflict的信息）。 当临时的还原后，与实际的 进行 diff 操作，便可以的到执行的结果。
+commit f45e25cb6665291ab6ee7167ca6cdb72b468a3c9 (HEAD -&gt; master) Merge: eb1d27b f93af98 Author: tenglong." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://dyrone.github.io/posts/git-merge-2022/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="/posts/git-merge-2022/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-11-17T10:36:01+08:00" />
 <meta property="article:modified_time" content="2022-11-17T10:36:01+08:00" />
 
 
-		<meta itemprop="name" content="Git Merge 2022">
-<meta itemprop="description" content="(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。"><meta itemprop="datePublished" content="2022-11-17T10:36:01+08:00" />
-<meta itemprop="dateModified" content="2022-11-17T10:36:01+08:00" />
-<meta itemprop="wordCount" content="357">
-<meta itemprop="keywords" content="" />
-		<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git Merge 2022"/>
-<meta name="twitter:description" content="(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。"/>
 
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:title" content="Git Merge 2022" />
+    <meta name="twitter:description" content="" />
+    
 
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
+    <meta name="twitter:image" content="" />
+    <link rel="canonical" href="/posts/git-merge-2022/">
+    
+    <link rel="stylesheet" href="/css/site.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="滕 龙" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/img/placeholder.png">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">滕 龙</div>
-					<div class="logo__tagline">Teng Long</div>
-				</div>
-		</a>
+    
+    
+    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Dyrone Teng" />
+    
+  </head>
+
+  <body>
+    
+<div class="mt-xl header">
+  <header>
+    <div class="container">
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <a href="" style="display: contents">
+	    <h1 class="name text-center">Teng Long Is Dyrone</h1>
+	  </a>
 	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">Git Merge 2022</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-11-17T10:36:01&#43;08:00">2022-11-17</time></div></div>
-		</header>
+      </div>
+      <div class="row justify-content-center">
+	<div class="nav justify-content-center">
+	  <ul>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/">
 		
-<div class="post__toc toc">
-	<div class="toc__title">Page content</div>
-	<div class="toc__menu">
-		<nav id="TableOfContents">
-  <ul>
-    <li><a href="#git-merge-by-elijah-newren-git-merge的平方新版merge介绍">(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍)</a>
-      <ul>
-        <li><a href="#三路合并three-way-content-merge">三路合并(three-way content merge)</a></li>
-        <li><a href="#新特性--remerge-diff">新特性：&ndash;remerge-diff</a></li>
-        <li><a href="#新特性auto_merge">新特性：AUTO_MERGE</a></li>
-        <li><a href="#新特性repository-subsets">新特性：Repository subsets</a></li>
-        <li><a href="#新特性孵化部分">新特性：孵化部分</a></li>
-        <li><a href="#性能的挑战">性能的挑战</a></li>
-        <li><a href="#why-renames-are-important">Why renames are important?</a></li>
-        <li><a href="#how-rename-detection-works">How rename detection works</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+		Home
+	      </a>
+	    </li>
+	    
+	    <li class="nav-item justify-content-center mx-auto"> 
+	      <a class="nav-link" href="/posts/introduce/index.html">
+		
+		About
+	      </a>
+	    </li>
+	    
+	    
+	  </ul>
 	</div>
-</div><div class="content post__content clearfix">
-			<h2 id="git-merge-by-elijah-newren-git-merge的平方新版merge介绍">(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍)</h2>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-lg-8">
+        <h1 class="mx-0 mx-md-4 single-page-title">Git Merge 2022</h1>
+        <div class="markdown page-content">
+          <h2 id="git-merge-by-elijah-newren-git-merge的平方新版merge介绍">(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍)</h2>
 <p>2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。</p>
 <p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h87xhbhpztj31d80q4n0t.jpg" alt=""></p>
 <h3 id="三路合并three-way-content-merge">三路合并(three-way content merge)</h3>
 <p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h87xicw3yrj31d20o6n11.jpg" alt=""></p>
-<p>假设我们有一个简单的文件，存在于我们感兴趣的两个分支上，我将分支命名为<!-- raw HTML omitted -->
-和<!-- raw HTML omitted -->，假设我们有三行在<!-- raw HTML omitted -->的这个感兴趣的文件中，而我们在<!-- raw HTML omitted -->
+<p>假设我们有一个简单的文件，存在于我们感兴趣的两个分支上，我将分支命名为<side-one>
+和<side-two>，假设我们有三行在<side-one>的这个感兴趣的文件中，而我们在<side-two>
 的文件中有三个非常相似的行。但是， 现在如果我们合并这些分支，中间行在两个分支之
 间是不同的，那条中间线在合并的最后会发生什么，除非您知道历史上的共同点（称为
 merge base）中发生了什么，否则很难说清楚。</p>
-<p>所以如果合并基础恰好与<!-- raw HTML omitted -->匹配，那么我们可以说很好，<!-- raw HTML omitted -->没有进行任何
-更改，因此合并结果应该与<!-- raw HTML omitted -->对比，如果合并基础与<!-- raw HTML omitted -->匹配，那么我们会
-说<!-- raw HTML omitted -->没有进行任何更改，所以我们应该从<!-- raw HTML omitted -->对比。</p>
-<p>当然也有可能是<!-- raw HTML omitted -->与任何一方都不匹配，然后我们都知道这会产生合并冲突，尽
+<p>所以如果合并基础恰好与<side-one>匹配，那么我们可以说很好，<side-two>没有进行任何
+更改，因此合并结果应该与<side-two>对比，如果合并基础与<side-two>匹配，那么我们会
+说<side-two>没有进行任何更改，所以我们应该从<siede-one>对比。</p>
+<p>当然也有可能是<merge base>与任何一方都不匹配，然后我们都知道这会产生合并冲突，尽
 管我们可能不是那么喜欢它。</p>
 <p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h883mmrdu3j31lr0u0dm1.jpg" alt=""></p>
 <h3 id="新特性--remerge-diff">新特性：&ndash;remerge-diff</h3>
@@ -109,45 +111,46 @@ merge base）中发生了什么，否则很难说清楚。</p>
 this person resolve the conflicts in this merge?
 then you can pass this remerge flag.</p>
 </blockquote>
-<p>同时，remerge的输出信息回展示两侧合并时的<!-- raw HTML omitted -->, 以及最终解决后
-的结果, 其背后是通过将 <!-- raw HTML omitted --> 的两个parent进行再次合并，同时创建一个临时的
-<!-- raw HTML omitted -->用来保存合并后的结果（比如包含了conflict的信息）。 当临时的<!-- raw HTML omitted --> 还原后，与实际的 <!-- raw HTML omitted --> 进行 diff 操作，便可以的到执行的结果。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">commit f45e25cb6665291ab6ee7167ca6cdb72b468a3c9 (HEAD -&gt; master)
+<p>同时，remerge的输出信息回展示两侧合并时的<commid-oid>, 以及最终解决后
+的结果, 其背后是通过将 <merge commit> 的两个parent进行再次合并，同时创建一个临时的
+<tree object>用来保存合并后的结果（比如包含了conflict的信息）。 当临时的<tree
+object> 还原后，与实际的 <merge commit> 进行 diff 操作，便可以的到执行的结果。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">commit f45e25cb6665291ab6ee7167ca6cdb72b468a3c9 (HEAD -&gt; master)
 Merge: eb1d27b f93af98
 Author: tenglong.tl &lt;tenglong.tl@alibaba-inc.com&gt;
 Date:   Thu Nov 17 14:40:18 2022 +0800
 
     Merge branch &#39;topic&#39;
 
-diff --git a/1.txt b/1.txt
-remerge CONFLICT (content): Merge conflict in 1.txt
-index f40bda6..de663a0 100644
-<span style="color:#f92672">--- a/1.txt
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/1.txt
-</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -1,5 +1 @@
-</span><span style="color:#75715e"></span><span style="color:#f92672">-&lt;&lt;&lt;&lt;&lt;&lt;&lt; eb1d27b (3)
-</span><span style="color:#f92672">-2022年11月17日 星期四 14时39分17秒 CST
-</span><span style="color:#f92672">-=======
-</span><span style="color:#f92672">-2022年11月17日 星期四 14时38分58秒 CST
-</span><span style="color:#f92672">-&gt;&gt;&gt;&gt;&gt;&gt;&gt; f93af98 (2)
-</span><span style="color:#f92672"></span><span style="color:#a6e22e">+ I need a new date!!
-</span><span style="color:#a6e22e"></span>
+<span style="color:#000080;font-weight:bold">diff --git a/1.txt b/1.txt
+</span><span style="color:#000080;font-weight:bold"></span>remerge CONFLICT (content): Merge conflict in 1.txt
+<span style="color:#000080;font-weight:bold">index f40bda6..de663a0 100644
+</span><span style="color:#000080;font-weight:bold"></span><span style="color:#a40000">--- a/1.txt
+</span><span style="color:#a40000"></span><span style="color:#00a000">+++ b/1.txt
+</span><span style="color:#00a000"></span><span style="color:#800080;font-weight:bold">@@ -1,5 +1 @@
+</span><span style="color:#800080;font-weight:bold"></span><span style="color:#a40000">-&lt;&lt;&lt;&lt;&lt;&lt;&lt; eb1d27b (3)
+</span><span style="color:#a40000">-2022年11月17日 星期四 14时39分17秒 CST
+</span><span style="color:#a40000">-=======
+</span><span style="color:#a40000">-2022年11月17日 星期四 14时38分58秒 CST
+</span><span style="color:#a40000">-&gt;&gt;&gt;&gt;&gt;&gt;&gt; f93af98 (2)
+</span><span style="color:#a40000"></span><span style="color:#00a000">+ I need a new date!!
+</span><span style="color:#00a000"></span>
 </code></pre></div><h3 id="新特性auto_merge">新特性：AUTO_MERGE</h3>
 <p>可以在解决冲突的过程中，回顾你最近的冲突解决的相关信息 :</p>
 <p>![](<a href="https://tva1.sinaimg.cn/large/008vxvgGgy1h884ti21rsj31ik0pydkx.jpg">https://tva1.sinaimg.cn/large/008vxvgGgy1h884ti21rsj31ik0pydkx.jpg</a> =200x20)</p>
 <p>具体的提交为5291828df8386ebeb01039d1403d9f845d2f6e20</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
 commit 5291828df8386ebeb01039d1403d9f845d2f6e20
 Author: Elijah Newren &lt;newren@gmail.com&gt;
-Date:   Sat Mar <span style="color:#ae81ff">20</span> 00:03:52 <span style="color:#ae81ff">2021</span> +0000
+Date:   Sat Mar <span style="color:#0000cf;font-weight:bold">20</span> 00:03:52 <span style="color:#0000cf;font-weight:bold">2021</span> +0000
 
-    merge-ort: write $GIT_DIR/AUTO_MERGE whenever we hit a conflict
+    merge-ort: write <span style="color:#000">$GIT_DIR</span>/AUTO_MERGE whenever we hit a conflict
     
-    There are a variety of questions users might ask <span style="color:#66d9ef">while</span> resolving
+    There are a variety of questions users might ask <span style="color:#204a87;font-weight:bold">while</span> resolving
     conflicts:
-      * What changes have been made since the previous <span style="color:#f92672">(</span>first<span style="color:#f92672">)</span> parent?
+      * What changes have been made since the previous <span style="color:#ce5c00;font-weight:bold">(</span>first<span style="color:#ce5c00;font-weight:bold">)</span> parent?
       * What changes are staged?
-      * What is still unstaged? <span style="color:#f92672">(</span>or what is still conflicted?<span style="color:#f92672">)</span>
+      * What is still unstaged? <span style="color:#ce5c00;font-weight:bold">(</span>or what is still conflicted?<span style="color:#ce5c00;font-weight:bold">)</span>
       * What changes did I make to resolve conflicts so far?
     The first three of these have simple answers:
       * git diff HEAD
@@ -155,24 +158,24 @@ Date:   Sat Mar <span style="color:#ae81ff">20</span> 00:03:52 <span style="colo
       * git diff
     There was no way to answer the final question previously.  Adding one
     is trivial in merge-ort, since it works by creating a tree representing
-    what should be written to the working copy complete with conflict
+    what should be written to the working copy <span style="color:#204a87">complete</span> with conflict
     markers.  Simply write that tree to .git/AUTO_MERGE, allowing users to
     answer the fourth question with
       * git diff AUTO_MERGE
 
 </code></pre></div><p>下面是我本地的一个例子，足以说明conflict tree对象的构造和实现方式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  remerege-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ cat .git/AUTO_MERGE 
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  remerege-test git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ cat .git/AUTO_MERGE 
 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae
-➜  remerege-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ git show 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae | cat
+➜  remerege-test git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ git show 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae <span style="color:#000;font-weight:bold">|</span> cat
 tree 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae
 
 1.txt
-➜  remerege-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ git cat-file -p 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae
-<span style="color:#ae81ff">100644</span> blob 5afb917ee9420afc90ee7abd194743ab204b20f8    1.txt
-➜  remerege-test git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ git cat-file -p 5afb917ee9420afc90ee7abd194743ab204b20f8
-<span style="color:#f92672">&lt;&lt;&lt;&lt;&lt;&lt;</span>&lt; HEAD
-2022年11月17日 星期四 14时39分17秒 CST
-<span style="color:#f92672">=======</span>
+➜  remerege-test git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ git cat-file -p 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae
+<span style="color:#0000cf;font-weight:bold">100644</span> blob 5afb917ee9420afc90ee7abd194743ab204b20f8    1.txt
+➜  remerege-test git:<span style="color:#ce5c00;font-weight:bold">(</span>master<span style="color:#ce5c00;font-weight:bold">)</span> ✗ git cat-file -p 5afb917ee9420afc90ee7abd194743ab204b20f8
+<span style="color:#ce5c00;font-weight:bold">&lt;&lt;&lt;&lt;&lt;&lt;</span>&lt; HEAD
+2022年11月17日 星期四 14时39分17秒 <span style="color:#000">CST</span>
+<span style="color:#ce5c00;font-weight:bold">=======</span>
 2022年11月17日 星期四 14时38分58秒 CST
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; topic
 </code></pre></div><h3 id="新特性repository-subsets">新特性：Repository subsets</h3>
@@ -186,15 +189,15 @@ tree 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae
 <h3 id="why-renames-are-important">Why renames are important?</h3>
 <p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h8874ka6yfj31iy0r2q9f.jpg" alt=""></p>
 <h3 id="how-rename-detection-works">How rename detection works</h3>
-<p>我们需要从两端进行rename的检测，即根据merge-base到 <!-- raw HTML omitted --> 以及 <!-- raw HTML omitted -->
-, 但是在例子中，可以从随意的一端<!-- raw HTML omitted -->开始举例:</p>
+<p>我们需要从两端进行rename的检测，即根据merge-base到 <side-one> 以及 <side-two>
+, 但是在例子中，可以从随意的一端<given-side>开始举例:</p>
 <ul>
 <li>
 <p>如果一个文件，在两端均有出现，那么则不是rename的情况；</p>
 </li>
 <li>
 <p>另外的一种情况，例如在base中存在，而在&lt;given-side不存在&gt;时候，可能是在
-<!-- raw HTML omitted -->做了删除和新增的操作，但是也有可能是rename。</p>
+<given-side>做了删除和新增的操作，但是也有可能是rename。</p>
 </li>
 <li>
 <p>针对每一对deleted/added:</p>
@@ -208,42 +211,21 @@ tree 46cd09ccb1bc612a6b153fdc4afc6eb57c033dae
 能上的影响。</p>
 <p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h888v2zy7vj31jg0rm0ym.jpg" alt=""></p>
 
-		</div>
-	</article>
-</main>
 
+        </div>
+      </div>
+      <div class="container">
+  <span class="row justify-content-center meta" id="footer">
+    Copyright © 2023 Dyrone Teng
+  </span>
+  <script defer src="js/custom.js"></script>
 
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/posts/git-compile/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">[wip] Git Compile</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/github-api-glance/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Github Api Glance</p>
-		</a>
-	</div>
-</nav>
+</div>
 
+    </div>
+  </div>
+</div>
 
-			</div>
-			
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2023 dyrone.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-<script src="/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-</body>
+  </body>
+
 </html>

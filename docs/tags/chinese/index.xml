@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>chinese on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/chinese/</link>
-    <description>Recent content in chinese on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>chinese on Dyrone Teng</title>
+    <link>/tags/chinese/</link>
+    <description>Recent content in chinese on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jun 2022 19:06:02 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/chinese/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jun 2022 19:06:02 +0800</lastBuildDate><atom:link href="/tags/chinese/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Git Objects and References</title>
-      <link>https://dyrone.github.io/posts/git-basic-ref-and-object/</link>
+      <link>/posts/git-basic-ref-and-object/</link>
       <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-basic-ref-and-object/</guid>
-      <description>This article is written in Chinese.</description>
+      <guid>/posts/git-basic-ref-and-object/</guid>
+      <description>This article is written in Chinese. 
+ Git 对象(Git Object) 1. 了解Git, 离不开了解Git对象 提到版本控制, 大家可能都不太陌生, 作为开发者或者软件工程师, 版本控制一直在频繁发生着, Git作为一款优秀的 VCS版本控制管理工具 (Version Control System) , 就是为了解决版本控制问题诞生。以下是来自维基百科中关于VCS的一段描述:
+ “几乎与文章写作过程一样，对文本的组织和修订的需求一直存在, 只不过逻辑上的完成手段在各个历史时期有所不同, 书籍的 &amp;lt;版本&amp;gt; 和规范修订的 &amp;lt;编号&amp;gt; 的使用可以追溯到发明印刷术的时代。当计算时代来临之后，修订的逻辑诉求变得更加重要和复杂。如今，最强大或者最复杂的版本控制系统是用于软件开发的系统之中。复杂体现在通常版本需要多个人员同时读取和并发修改。”
+— From: https://en.wikipedia.org/wiki/Version_control
+ 如上述描述所言, “版本控制在逻辑上的完成手段在各个历史时期有所不同”, 而现如今Git便是“逻辑上的完成手段”的极佳实现之一, 为何Git会脱颖而出呢? 依照作者看来主要有以下几个原因:
+  免费并开源 : Git是免费的, 并基于GPL-V2协议的开源软件;
+  存储完整性 : Git可以让每台工作的计算机上都存储一个完整的代码存储仓库 (副本), “完整” 意味着每个副本均具备完整的变更历史记录 (一般场景均适用, 但如·shallow-clone·特性除外, 因为用户可以使用·shallow-clone·去下载一个指定的、裁剪过的提交历史, 而不下载整个Git仓库);
+  网络独立性 : 因为具备了完整的版本跟踪能力, 存储在任何一个计算机上的Git仓库都可以脱离网络而独立工作 (一般场景均适用, 例如·partial-clone·情况除外, 因为用户可以使用·partial-clone·仅仅下载提交的历史, 而不下载任何相关的文本文件, 当在未来需要用到它们的时候“按需下载”, 如果没有网络则可能会造成surprise);</description>
     </item>
     
     <item>
       <title>Why Acceptance Testing is so important to us(Chinese)?</title>
-      <link>https://dyrone.github.io/posts/acceptance_test/</link>
+      <link>/posts/acceptance_test/</link>
       <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/acceptance_test/</guid>
-      <description>`This article is written in Chinese.</description>
+      <guid>/posts/acceptance_test/</guid>
+      <description>`This article is written in Chinese. `
+   No good testing, no engineer culture.   1. 定义  &amp;#34;Acceptance Testing is a method of software testing where a system is tested for acceptability. The major aim of this test is to evaluate the &amp;gt; compliance of the system with the business requirements and assess whether it is acceptable for delivery or not.&amp;#34;
+    &amp;#34;验收测试是一种这样的软件测试方法, 其目的是评估系统与业务需求的合规性，通过测试进一步判定系统是否可以对外交付，简单来说，是用来测试一个系统是否合格。&amp;#34; From Wikipedia: https://en.</description>
     </item>
     
     <item>
       <title>Git pack and index</title>
-      <link>https://dyrone.github.io/posts/git-midx/</link>
+      <link>/posts/git-midx/</link>
       <pubDate>Mon, 07 Mar 2022 14:44:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-midx/</guid>
-      <description>`This article is written in Chinese.</description>
+      <guid>/posts/git-midx/</guid>
+      <description>`This article is written in Chinese. `
+   About pack and index file in git.
+ 1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
+   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
+  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
+   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
+ 现在我们回过来继续看packfile.
+ Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
+ Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）</description>
     </item>
     
   </channel>

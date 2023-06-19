@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sed on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/sed/</link>
-    <description>Recent content in sed on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>sed on Dyrone Teng</title>
+    <link>/tags/sed/</link>
+    <description>Recent content in sed on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/sed/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Aug 2022 11:56:21 +0800</lastBuildDate><atom:link href="/tags/sed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[WIP]Sed  [5] The other Commands</title>
-      <link>https://dyrone.github.io/posts/sed-5-other-command/</link>
+      <link>/posts/sed-5-other-command/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-5-other-command/</guid>
-      <description>Command The following example show to use sed to comment the options will affect the final result:</description>
+      <guid>/posts/sed-5-other-command/</guid>
+      <description>Command The following example show to use sed to comment the options will affect the final result:
+➜ blogs git:(master) ✗ echo &amp;#39;ls&amp;#39; |gsed &amp;#39;s/ls/ls #-a/e&amp;#39; README.md archetypes config.toml content data docs layouts resources static test themes ➜ blogs git:(master) ✗ echo &amp;#39;ls&amp;#39; |gsed &amp;#39;s/ls/ls -a/e&amp;#39; . .. .git .gitignore .gitmodules README.md archetypes config.toml content data docs layouts resources static test themes or we could append the comments after each print out:</description>
     </item>
     
     <item>
       <title>Sed [4] - The &#39;s&#39; Commands</title>
-      <link>https://dyrone.github.io/posts/sed-4-s-command/</link>
+      <link>/posts/sed-4-s-command/</link>
       <pubDate>Sat, 13 Aug 2022 13:22:26 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-4-s-command/</guid>
-      <description>Sed command-line execution format sed OPTIONS.</description>
+      <guid>/posts/sed-4-s-command/</guid>
+      <description>Sed command-line execution format sed OPTIONS... [SCRIPT] [INPUTFILE...] Here the command-line format contains:
+  OPTIONS: the command-line options
+  [SCRIPT]: the rules we want to deal with the inputstream
+  [INPUTFILE]: the FD we want to output to, by default it&amp;rsquo;s stdout
+  SCRIPT Sed script constructs by three parts:
+[addr]X[options] ``` * `addr`: an optional line address. * `X`: a single letter **sed command**, be noticeable that the sed command here is not the same as **sed command-line command**.</description>
     </item>
     
     <item>
       <title>Sed Part[3] - &#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
-      <link>https://dyrone.github.io/posts/sed-3-gnu-bsd/</link>
+      <link>/posts/sed-3-gnu-bsd/</link>
       <pubDate>Sun, 10 Jul 2022 23:55:52 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-3-gnu-bsd/</guid>
-      <description>Why exists two seds?</description>
+      <guid>/posts/sed-3-gnu-bsd/</guid>
+      <description>Why exists two seds? Sed is supported on a number of platforms, including some distributions of Linux that are based on GNU, and some common platforms such as MacOS that are based on BSD.
+The distribution quirks cause sed to behave differently on different platforms, mainly on some GNU extensions.
+For example the command q:
+ q [exit-code] Exit sed without processing any more commands or input. This command accepts only one address.</description>
     </item>
     
     <item>
       <title>Sed [2] - Exit Code In Sed</title>
-      <link>https://dyrone.github.io/posts/sed-2-exit-code/</link>
+      <link>/posts/sed-2-exit-code/</link>
       <pubDate>Sun, 03 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-2-exit-code/</guid>
-      <description>In this article, we will talk about the exit code when executing sed command.</description>
+      <guid>/posts/sed-2-exit-code/</guid>
+      <description>In this article, we will talk about the exit code when executing sed command.
+Exit Code: 0 When the sed command executes successfully, the execution will exit as 0 which means the procedure is now as completion.
+The result is the same whether the sed is matched or unmatched, the exit code only take the responsibility for the running correctness but not the matching logicalness. For an example:
+➜ echo &amp;#39;abc&amp;#39; | sed -e &amp;#39;s/d/e/1&amp;#39; &amp;lt;&amp;lt;&amp;lt; abc ➜ echo &amp;#39;abc&amp;#39; | sed -e &amp;#39;s/b/e/1&amp;#39; &amp;lt;&amp;lt;&amp;lt; aec Exit Code: 1 Code 1 means you are executing an invalid command, invalid syntax, invalid regular expression or a GNU sed extension command used with --posix</description>
     </item>
     
     <item>
       <title>Sed [1] - Basic Usage</title>
-      <link>https://dyrone.github.io/posts/sed-1-basic-usage/</link>
+      <link>/posts/sed-1-basic-usage/</link>
       <pubDate>Fri, 01 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-1-basic-usage/</guid>
-      <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.</description>
+      <guid>/posts/sed-1-basic-usage/</guid>
+      <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.
+Glimpse of man page  DESCRIPTION
+The sed utility reads the specified files, or the standard input if no files are specified, modifying the input as specified by a list of commands. The input is then written to the standard output.
+A single command may be specified as the first argument to sed.</description>
     </item>
     
   </channel>

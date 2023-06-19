@@ -1,316 +1,413 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/</link>
-    <description>Recent content on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Dyrone Teng</title>
+    <link>/</link>
+    <description>Recent content on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2023 11:12:13 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Feb 2023 11:12:13 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github Api Glance</title>
-      <link>https://dyrone.github.io/posts/github-api-glance/</link>
+      <link>/posts/github-api-glance/</link>
       <pubDate>Tue, 28 Feb 2023 11:12:13 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/github-api-glance/</guid>
-      <description>API 请求 Accept 头 gh api --header &amp;#39;Accept: application/vnd.</description>
+      <guid>/posts/github-api-glance/</guid>
+      <description>API 请求 Accept 头 gh api --header &amp;#39;Accept: application/vnd.github+json&amp;#39; 绝大多数的Github Rest API使用该Accept标头。但是也可能存在其他的类型。
+API Version 头 gh api --header &#39;X-GitHub-Api-Version:2022-11-28&#39; Github API的版本通过header指定，是一个yyyy-MM-dd格式的value。
+Parameters For Get:
+$ curl -i &amp;#34;https://api.github.com/repos/vmg/redcarpet/issues?state=closed&amp;#34; For POST PATCH PUT DELETE:
+$ curl -i -u username -d &amp;#39;{&amp;#34;scopes&amp;#34;:[&amp;#34;repo_deployment&amp;#34;]}&amp;#39; https://api.github.com/authorizations  Many API methods take optional parameters. For GET requests, any parameters not specified as a segment in the path can be passed as an HTTP query string parameter. In this example, the &amp;lsquo;vmg&amp;rsquo; and &amp;lsquo;redcarpet&amp;rsquo; values are provided for the :owner and :repo parameters in the path while :state is passed in the query string.</description>
     </item>
     
     <item>
       <title>Git Merge 2022</title>
-      <link>https://dyrone.github.io/posts/git-merge-2022/</link>
+      <link>/posts/git-merge-2022/</link>
       <pubDate>Thu, 17 Nov 2022 10:36:01 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-merge-2022/</guid>
-      <description>(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。</description>
+      <guid>/posts/git-merge-2022/</guid>
+      <description>(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。
+三路合并(three-way content merge) 假设我们有一个简单的文件，存在于我们感兴趣的两个分支上，我将分支命名为 和，假设我们有三行在的这个感兴趣的文件中，而我们在 的文件中有三个非常相似的行。但是， 现在如果我们合并这些分支，中间行在两个分支之 间是不同的，那条中间线在合并的最后会发生什么，除非您知道历史上的共同点（称为 merge base）中发生了什么，否则很难说清楚。
+所以如果合并基础恰好与匹配，那么我们可以说很好，没有进行任何 更改，因此合并结果应该与对比，如果合并基础与匹配，那么我们会 说没有进行任何更改，所以我们应该从对比。
+当然也有可能是与任何一方都不匹配，然后我们都知道这会产生合并冲突，尽 管我们可能不是那么喜欢它。
+新特性：&amp;ndash;remerge-diff  when you want to look at a previous merge and say how did this person resolve the conflicts in this merge? then you can pass this remerge flag.
+ 同时，remerge的输出信息回展示两侧合并时的, 以及最终解决后 的结果, 其背后是通过将 的两个parent进行再次合并，同时创建一个临时的 用来保存合并后的结果（比如包含了conflict的信息）。 当临时的还原后，与实际的 进行 diff 操作，便可以的到执行的结果。
+commit f45e25cb6665291ab6ee7167ca6cdb72b468a3c9 (HEAD -&amp;gt; master) Merge: eb1d27b f93af98 Author: tenglong.</description>
     </item>
     
     <item>
       <title>[wip] Git Compile</title>
-      <link>https://dyrone.github.io/posts/git-compile/</link>
+      <link>/posts/git-compile/</link>
       <pubDate>Mon, 31 Oct 2022 19:09:11 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-compile/</guid>
-      <description>https://github.com/dyrone/git/blob/master/INSTALL</description>
+      <guid>/posts/git-compile/</guid>
+      <description>https://github.com/dyrone/git/blob/master/INSTALL
+https://blog.csdn.net/weixin_48503637/article/details/122582089
+https://bbs.csdn.net/topics/370157417
+https://ata.alibaba-inc.com/articles/122969?spm=ata.23639746.0.0.4e2f44f6Qf5dRV
+https://manpages.ubuntu.com/manpages/xenial/man1/gcov2perl.1p.html</description>
     </item>
     
     <item>
       <title>Gdb Journey</title>
-      <link>https://dyrone.github.io/posts/gdb-journey-chapter-1/</link>
+      <link>/posts/gdb-journey-chapter-1/</link>
       <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/gdb-journey-chapter-1/</guid>
-      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包</description>
+      <guid>/posts/gdb-journey-chapter-1/</guid>
+      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包
+ DESCRIPTION debuginfo-install is a program which installs the RPMs needed to debug the specified package. The package argument can be a wildcard, but will only match installed packages. debuginfo- install will then enable any debuginfo repositories, and install the relevant debuginfo rpm.
+From: https://man7.org/linux/man-pages/man1/debuginfo-install.1.html
+ $ debuginfo-install m4-1.4.16-10.1.alios7.x86_64 GDB 指定执行参数 gdb --args git ls-tree HEAD 更多的参数和用法可以参考GDB Cheat Sheet.
+ https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf
+ 在Git中查看构建调试参数 在git源码中的Makefile中定义了CFLAG的相关参数：</description>
     </item>
     
     <item>
       <title>Exit Status</title>
-      <link>https://dyrone.github.io/posts/exit-status/</link>
+      <link>/posts/exit-status/</link>
       <pubDate>Tue, 11 Oct 2022 14:47:33 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/exit-status/</guid>
-      <description>Description of GNU doc The exit status of an executed command is the value returned by the waitpid system call or equivalent function.</description>
+      <guid>/posts/exit-status/</guid>
+      <description>Description of GNU doc The exit status of an executed command is the value returned by the waitpid system call or equivalent function. Exit statuses fall between 0 and 255, though, as explained below, the shell may use values above 125 specially. Exit statuses from shell builtins and compound commands are also limited to this range. Under certain circumstances, the shell will use special values to indicate specific failure modes.</description>
     </item>
     
     <item>
       <title>The git aliases worth trying</title>
-      <link>https://dyrone.github.io/posts/git-alias/</link>
+      <link>/posts/git-alias/</link>
       <pubDate>Tue, 11 Oct 2022 14:47:33 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-alias/</guid>
-      <description>Get the nice sort of tags git config &amp;ndash;global alias.</description>
+      <guid>/posts/git-alias/</guid>
+      <description>Get the nice sort of tags git config &amp;ndash;global alias.tags &amp;lsquo;tag -l &amp;ndash;sort=-version:refname &amp;ldquo;v*&amp;quot;&amp;rsquo;</description>
     </item>
     
     <item>
       <title>Git Notes(to be continued...)</title>
-      <link>https://dyrone.github.io/posts/git-notes/</link>
+      <link>/posts/git-notes/</link>
       <pubDate>Thu, 06 Oct 2022 19:02:07 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-notes/</guid>
-      <description>Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。</description>
+      <guid>/posts/git-notes/</guid>
+      <description>Quick start 下面的demo选择了openstack社区的tripleo-quickstart快速开始，我们首先克隆该仓库。
+git clone https://review.opendev.org/openstack/tripleo-quickstart Openstack 相关的仓库大多使用 git-notes来保存commit自身包含信息之外的其他信息。
+Gerrit 使用特殊的引用 refs/notes/review来记录&amp;quot;notes&amp;quot;，默认情况下，clone的仓库 中是不会包含该引用的，但是我们可以通过git fetch 子命令将其获取到本地。
+git fetch origin refs/notes/review:refs/notes/review 然后, 我们可以执行git log --notes=refs/notes/review --no-merge帮助显示非merge 节点提交的&amp;quot;notes&amp;quot;：
+commit dc26b849018e3d5f2ecfe625fca7264877fe75ae (HEAD -&amp;gt; master, origin/master, origin/HEAD) Author: PranaliD &amp;lt;pdeore@redhat.com&amp;gt; Date: Wed Sep 28 11:20:43 2022 +0530 [CS8][Train] Exclude container-selinux-2:2.189.0 Similar to wallaby[1], latest container-selinux-2:2.189.0 needs to be excluded for train as well. Related-Bug: #1990810 [1]: https://review.opendev.org/c/openstack/tripleo-quickstart/+/859213 Change-Id: I56d3c199b89997238c50638c9813900a26a3dadb Notes (review): Code-Review+2: yatin &amp;lt;ykarel@redhat.com&amp;gt; Code-Review+2: chandan kumar &amp;lt;chkumar@redhat.</description>
     </item>
     
     <item>
       <title>Git CRLF processing and &#39;git add --renormalize&#39;</title>
-      <link>https://dyrone.github.io/posts/git-crlf/</link>
+      <link>/posts/git-crlf/</link>
       <pubDate>Tue, 27 Sep 2022 15:39:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-crlf/</guid>
-      <description>git config core.</description>
+      <guid>/posts/git-crlf/</guid>
+      <description>git config core.autocrlf git config core.autocrlf true
+This does not force normalization of text files, but does ensure that text files that you introduce to the repository have their line endings normalized to LF when they are added, and that files that are already normalized in the repository stay normalized. git config core.autocrlf false printf &amp;#34;LINEONE\nLINETWO\nLINETHREE&amp;#34; &amp;gt;LF.txt printf &amp;#34;LINEONE\r\nLINETWO\r\nLINETHREE&amp;#34; &amp;gt;CRLF.txt printf &amp;#34;LINEONE\r\nLINETWO\nLINETHREE&amp;#34; &amp;gt;CRLF_mix_LF.txt Ouput the CRLF.txt:
+cat CRLF.txt | hexdump -C 00000000 4c 49 4e 45 4f 4e 45 0d 0a 4c 49 4e 45 54 57 4f |LINEONE.</description>
     </item>
     
     <item>
       <title>About &#39;git add&#39;</title>
-      <link>https://dyrone.github.io/posts/git-add/</link>
+      <link>/posts/git-add/</link>
       <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-add/</guid>
-      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later.</description>
+      <guid>/posts/git-add/</guid>
+      <description>-N &amp;ndash;intent-to-add  Record only the fact that the path will be added later. An entry for the path is placed in the index with no content. This is useful for, among other things, showing the unstaged content of such files with git diff and committing them with git commit -a.
+ </description>
     </item>
     
     <item>
       <title>Git Index Format</title>
-      <link>https://dyrone.github.io/posts/git-index-format/</link>
+      <link>/posts/git-index-format/</link>
       <pubDate>Tue, 13 Sep 2022 19:19:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-index-format/</guid>
-      <description>what&amp;rsquo;s index acting in git?</description>
+      <guid>/posts/git-index-format/</guid>
+      <description>what&amp;rsquo;s index acting in git?  to reproduce a single and global tree(or root-tree). to fast recognize between the tree in index and the tree in workspace. to recognize and supply merge conflicts info between different tree objects, allowing each pathname to be associated with sufficient information about the trees involved that you can create a three-way merge between them.  init test repo Init a repo which has a blob as &amp;ldquo;1.</description>
     </item>
     
     <item>
       <title>Git Remote-helper</title>
-      <link>https://dyrone.github.io/posts/git-remote-helper/</link>
+      <link>/posts/git-remote-helper/</link>
       <pubDate>Wed, 24 Aug 2022 21:44:24 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-remote-helper/</guid>
+      <guid>/posts/git-remote-helper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>[WIP]Sed  [5] The other Commands</title>
-      <link>https://dyrone.github.io/posts/sed-5-other-command/</link>
+      <link>/posts/sed-5-other-command/</link>
       <pubDate>Mon, 15 Aug 2022 11:56:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-5-other-command/</guid>
-      <description>Command The following example show to use sed to comment the options will affect the final result:</description>
+      <guid>/posts/sed-5-other-command/</guid>
+      <description>Command The following example show to use sed to comment the options will affect the final result:
+➜ blogs git:(master) ✗ echo &amp;#39;ls&amp;#39; |gsed &amp;#39;s/ls/ls #-a/e&amp;#39; README.md archetypes config.toml content data docs layouts resources static test themes ➜ blogs git:(master) ✗ echo &amp;#39;ls&amp;#39; |gsed &amp;#39;s/ls/ls -a/e&amp;#39; . .. .git .gitignore .gitmodules README.md archetypes config.toml content data docs layouts resources static test themes or we could append the comments after each print out:</description>
     </item>
     
     <item>
       <title>Sed [4] - The &#39;s&#39; Commands</title>
-      <link>https://dyrone.github.io/posts/sed-4-s-command/</link>
+      <link>/posts/sed-4-s-command/</link>
       <pubDate>Sat, 13 Aug 2022 13:22:26 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-4-s-command/</guid>
-      <description>Sed command-line execution format sed OPTIONS.</description>
+      <guid>/posts/sed-4-s-command/</guid>
+      <description>Sed command-line execution format sed OPTIONS... [SCRIPT] [INPUTFILE...] Here the command-line format contains:
+  OPTIONS: the command-line options
+  [SCRIPT]: the rules we want to deal with the inputstream
+  [INPUTFILE]: the FD we want to output to, by default it&amp;rsquo;s stdout
+  SCRIPT Sed script constructs by three parts:
+[addr]X[options] ``` * `addr`: an optional line address. * `X`: a single letter **sed command**, be noticeable that the sed command here is not the same as **sed command-line command**.</description>
     </item>
     
     <item>
       <title>k6 series [7] - Module</title>
-      <link>https://dyrone.github.io/posts/k6-7-module/</link>
+      <link>/posts/k6-7-module/</link>
       <pubDate>Mon, 08 Aug 2022 23:52:08 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-7-module/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-7-module/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Modules There are three types of modules:
+ Builtin Local file system Remote HTTP(s)  Builtin modules These modules are provided through the k6 core, and gives access to the functionality built into k6.
+import http from &amp;#39;k6/http&amp;#39;; Local filesystem modules // helpers.js export function printHello(){ console.log(&amp;#34;hello&amp;#34;); } import http from &amp;#39;k6/http&amp;#39;; import { printHello } from &amp;#39;./helpers.js&amp;#39; export default function () { printHello(); } The output might like:</description>
     </item>
     
     <item>
       <title>k6 series [6] - Execute Command</title>
-      <link>https://dyrone.github.io/posts/k6-6-execute-command/</link>
+      <link>/posts/k6-6-execute-command/</link>
       <pubDate>Mon, 08 Aug 2022 22:44:24 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-6-execute-command/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-6-execute-command/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ install xk6 https://github.com/grafana/xk6
+install xk6-exec extension https://github.com/grafana/xk6-exec
+ Notice the output tips:
+ 2022/08/08 23:02:07 [INFO] Cleaning up temporary folder: /Users/tenglong.tl/Works/Projects/blogs/buildenv_2022-08-08-2301.1466088654 xk6 has now produced a new k6 binary which may be different than the command on your system path! Be sure to run &#39;./k6 run &amp;lt;SCRIPT_NAME&amp;gt;&#39; from the &#39;/Users/tenglong.tl/Works/Projects/blogs&#39; directory. A new binary k6 will be built at current dir.</description>
     </item>
     
     <item>
       <title>k6 series [5] - Ramping Vus</title>
-      <link>https://dyrone.github.io/posts/k6-5-ramping-vus/</link>
+      <link>/posts/k6-5-ramping-vus/</link>
       <pubDate>Mon, 08 Aug 2022 21:06:58 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-5-ramping-vus/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-5-ramping-vus/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ A variable number of VUs execute as many iterations as possible for a specified amount of time. This executor is equivalent to the global stages option.
+Options OPTION	TYPE	DESCRIPTION	DEFAULT stages(required)	array	Array of objects that specify the target number of VUs to ramp up or down to.	[] startVUs	integer	Number of VUs to run at test start.</description>
     </item>
     
     <item>
       <title>k6 series [3] - Tags And Groups</title>
-      <link>https://dyrone.github.io/posts/k6-3-tags-and-groups/</link>
+      <link>/posts/k6-3-tags-and-groups/</link>
       <pubDate>Thu, 04 Aug 2022 20:10:11 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-3-tags-and-groups/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-3-tags-and-groups/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Overview k6 provides two scripting APIs to help you visualize, sort, and filter your test results.
+  Tags categorize your checks, thresholds, custom metrics, and requests for in-depth filtering.
+  Groups apply tags to the script&amp;rsquo;s functions.
+  Tags k6 provides two types of tags:
+ System tags are tags that k6 automatically assigns. User-defined tags are tags that you add when you write your script.</description>
     </item>
     
     <item>
       <title>k6 series [4] - Options</title>
-      <link>https://dyrone.github.io/posts/k6-4-options/</link>
+      <link>/posts/k6-4-options/</link>
       <pubDate>Thu, 04 Aug 2022 15:00:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-4-options/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-4-options/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ option scopes  In CLI flags In environment variables In script options object  Order  First, k6 uses the option&amp;rsquo;s default value. Next, k6 uses the options set by the &amp;ndash;config flag. Then, k6 uses the script value (if set). After, k6 uses the environment variable (if set). Finally, k6 takes the value from the CLI flag (if set).</description>
     </item>
     
     <item>
       <title>k6 series [2] - Result Output</title>
-      <link>https://dyrone.github.io/posts/k6-2-result-output/</link>
+      <link>/posts/k6-2-result-output/</link>
       <pubDate>Wed, 03 Aug 2022 16:07:59 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-2-result-output/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-2-result-output/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Output flow overview By default, k6 provides an end-of-test summary report. This report aggregates the test results, with information about all groups, checks, and thresholds in the load test. It also gives basic, summary statistics about each metric (e.g. mean, median, p95, etc).
+For analysis, you can stream all the data that your test generates to an external output. It might be a structured file format like CSV or JSON.</description>
     </item>
     
     <item>
       <title>k6 series [1] - Overview</title>
-      <link>https://dyrone.github.io/posts/k6-1-overview/</link>
+      <link>/posts/k6-1-overview/</link>
       <pubDate>Mon, 01 Aug 2022 21:24:42 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/k6-1-overview/</guid>
-      <description>NOTICE: Base and excerpt from the official k6 documentation</description>
+      <guid>/posts/k6-1-overview/</guid>
+      <description>NOTICE: Base and excerpt from the official k6 documentation
+ Install export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles  mac :  brew install k6 More install supporst in https://k6.io/docs/getting-started/installation/
+Concepts   virtual users (VUs): VUs are essentially parallel while(true) loop.
+  init context: use the default function, this function defines the entry point for your VUsi. Init code runs first and is called only once per VU. On the other hand, default code executes as many times as the test options set.</description>
     </item>
     
     <item>
       <title>page table</title>
-      <link>https://dyrone.github.io/posts/page-table/</link>
+      <link>/posts/page-table/</link>
       <pubDate>Thu, 28 Jul 2022 18:24:48 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/page-table/</guid>
-      <description>Sharing pages Page table is the brige of communitcating between virtual address space in process and physical address space in memory.</description>
+      <guid>/posts/page-table/</guid>
+      <description>Sharing pages Page table is the brige of communitcating between virtual address space in process and physical address space in memory.
+The noticeable thing is the &amp;ldquo;direction&amp;rdquo;, page table can be used for mapping from the virtual memory addr to physical memory addr, it&amp;rsquo;s single direction.
+Memory management unit (MMU) MMU locates inside the CPU stores a cache of recentlyused mappings from the operating system&amp;rsquo;s page table. This is called the translation lookaside buffer (TLB), which is an associative cache.</description>
     </item>
     
     <item>
       <title>stat and fstat</title>
-      <link>https://dyrone.github.io/posts/stat-and-fstat/</link>
+      <link>/posts/stat-and-fstat/</link>
       <pubDate>Sun, 24 Jul 2022 23:11:16 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/stat-and-fstat/</guid>
-      <description>stat stat() retrieve information about the file pointed to by pathname;</description>
+      <guid>/posts/stat-and-fstat/</guid>
+      <description>stat stat() retrieve information about the file pointed to by pathname;
+lstat lstat() is identical to stat(), except that if pathname is a symbolic link, then it returns information about the link itself, not the file that the link refers to.
+fstat stat() is identical to stat(), except that the file about which information is to be retrieved is specified by the file descriptor fd.
+fstat and stat If &amp;ldquo;stat()&amp;rdquo; could return the information about the file too, why we still need to first call &amp;ldquo;open()&amp;rdquo; to make a FD then use fstat?</description>
     </item>
     
     <item>
       <title>mmap</title>
-      <link>https://dyrone.github.io/posts/mmap/</link>
+      <link>/posts/mmap/</link>
       <pubDate>Mon, 18 Jul 2022 19:24:48 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/mmap/</guid>
-      <description>munmap If you use &amp;ldquo;mmap&amp;rdquo; successfully, it&amp;rsquo;s usually need to munmap when the work finished.</description>
+      <guid>/posts/mmap/</guid>
+      <description>munmap If you use &amp;ldquo;mmap&amp;rdquo; successfully, it&amp;rsquo;s usually need to munmap when the work finished.
+mmap It&amp;rsquo;s recommanded to read the &amp;ldquo;mmap&amp;rdquo; manpage at first. What I read is the Linux Programmer&amp;rsquo;s Manual version, I think the BSD revison(like Darwin on MacOS) maybe exist some difference but should be compatible.
+ mmap, munmap - map or unmap files or devices into memory
+ What&amp;rsquo;s the first &amp;ldquo;m&amp;rdquo; letter means &amp;ldquo;memory&amp;rdquo; I think, it&amp;rsquo;s all about the data of memory.</description>
     </item>
     
     <item>
       <title>About errno </title>
-      <link>https://dyrone.github.io/posts/error-code/</link>
+      <link>/posts/error-code/</link>
       <pubDate>Thu, 14 Jul 2022 22:44:37 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/error-code/</guid>
-      <description>This article mainly introduces errno related content.</description>
+      <guid>/posts/error-code/</guid>
+      <description>This article mainly introduces errno related content. If I get new input, I will add the content one after another.
+About errno  errno - number of last error
+ You can take a look at https://man7.org/linux/man-pages/man3/errno.3.html to know about what&amp;rsquo;s errno and how the errno is supported in POSIX and C99.
+Man Page errno {name-or-code} errno [-ls] [--list] errno [-s] [--search] {word} errno [-S] [--search-all-locales] {word} ➜ git git:(tl/bitmap-append-trace2-outputs) ✗ errno -s direct ENOENT 2 No such file or directory ENOTDIR 20 Not a directory EISDIR 21 Is a directory ENOTEMPTY 66 Directory not empty 20: ENOTDIR In a recent Git patch, Junio C Hamano, the maintainer of the Git community, gave me the following advice about ENOTDIR:</description>
     </item>
     
     <item>
       <title>Sed Part[3] - &#39;GNU sed&#39; and &#39;BSD sed&#39;</title>
-      <link>https://dyrone.github.io/posts/sed-3-gnu-bsd/</link>
+      <link>/posts/sed-3-gnu-bsd/</link>
       <pubDate>Sun, 10 Jul 2022 23:55:52 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-3-gnu-bsd/</guid>
-      <description>Why exists two seds?</description>
+      <guid>/posts/sed-3-gnu-bsd/</guid>
+      <description>Why exists two seds? Sed is supported on a number of platforms, including some distributions of Linux that are based on GNU, and some common platforms such as MacOS that are based on BSD.
+The distribution quirks cause sed to behave differently on different platforms, mainly on some GNU extensions.
+For example the command q:
+ q [exit-code] Exit sed without processing any more commands or input. This command accepts only one address.</description>
     </item>
     
     <item>
       <title>Locale and Priority</title>
-      <link>https://dyrone.github.io/posts/locale/</link>
+      <link>/posts/locale/</link>
       <pubDate>Thu, 07 Jul 2022 10:38:21 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/locale/</guid>
-      <description>Scenarios I found an article which represent well about the locale commu uses I think, and I will excerpt part from Differences between the C Locale and the C++ Locales</description>
+      <guid>/posts/locale/</guid>
+      <description>Scenarios I found an article which represent well about the locale commu uses I think, and I will excerpt part from Differences between the C Locale and the C++ Locales
+ Default locale. As a developer, you may never require internationalization features, and thus you may never call std::setlocale(). If you can safely assume that users of your applications are accommodated by the classic US English ASCII behavior, you have no need for localization.</description>
     </item>
     
     <item>
       <title>Speed Up Brew With Mirror </title>
-      <link>https://dyrone.github.io/posts/brew/</link>
+      <link>/posts/brew/</link>
       <pubDate>Tue, 05 Jul 2022 20:56:48 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/brew/</guid>
-      <description>Brew Mirror We could use a brew mirror to speed up the install procedure if the download speed is so pool in your area.</description>
+      <guid>/posts/brew/</guid>
+      <description>Brew Mirror We could use a brew mirror to speed up the install procedure if the download speed is so pool in your area.
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles </description>
     </item>
     
     <item>
       <title>Sed [2] - Exit Code In Sed</title>
-      <link>https://dyrone.github.io/posts/sed-2-exit-code/</link>
+      <link>/posts/sed-2-exit-code/</link>
       <pubDate>Sun, 03 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-2-exit-code/</guid>
-      <description>In this article, we will talk about the exit code when executing sed command.</description>
+      <guid>/posts/sed-2-exit-code/</guid>
+      <description>In this article, we will talk about the exit code when executing sed command.
+Exit Code: 0 When the sed command executes successfully, the execution will exit as 0 which means the procedure is now as completion.
+The result is the same whether the sed is matched or unmatched, the exit code only take the responsibility for the running correctness but not the matching logicalness. For an example:
+➜ echo &amp;#39;abc&amp;#39; | sed -e &amp;#39;s/d/e/1&amp;#39; &amp;lt;&amp;lt;&amp;lt; abc ➜ echo &amp;#39;abc&amp;#39; | sed -e &amp;#39;s/b/e/1&amp;#39; &amp;lt;&amp;lt;&amp;lt; aec Exit Code: 1 Code 1 means you are executing an invalid command, invalid syntax, invalid regular expression or a GNU sed extension command used with --posix</description>
     </item>
     
     <item>
       <title>Sed [1] - Basic Usage</title>
-      <link>https://dyrone.github.io/posts/sed-1-basic-usage/</link>
+      <link>/posts/sed-1-basic-usage/</link>
       <pubDate>Fri, 01 Jul 2022 17:00:04 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/sed-1-basic-usage/</guid>
-      <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.</description>
+      <guid>/posts/sed-1-basic-usage/</guid>
+      <description>About sed The sed means as &amp;ldquo;stream editor&amp;rdquo;, it is used to perform text things from an input stream to an _output stream.
+Glimpse of man page  DESCRIPTION
+The sed utility reads the specified files, or the standard input if no files are specified, modifying the input as specified by a list of commands. The input is then written to the standard output.
+A single command may be specified as the first argument to sed.</description>
     </item>
     
     <item>
       <title>About Git Objects and References</title>
-      <link>https://dyrone.github.io/posts/git-basic-ref-and-object/</link>
+      <link>/posts/git-basic-ref-and-object/</link>
       <pubDate>Tue, 21 Jun 2022 19:06:02 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-basic-ref-and-object/</guid>
-      <description>This article is written in Chinese.</description>
+      <guid>/posts/git-basic-ref-and-object/</guid>
+      <description>This article is written in Chinese. 
+ Git 对象(Git Object) 1. 了解Git, 离不开了解Git对象 提到版本控制, 大家可能都不太陌生, 作为开发者或者软件工程师, 版本控制一直在频繁发生着, Git作为一款优秀的 VCS版本控制管理工具 (Version Control System) , 就是为了解决版本控制问题诞生。以下是来自维基百科中关于VCS的一段描述:
+ “几乎与文章写作过程一样，对文本的组织和修订的需求一直存在, 只不过逻辑上的完成手段在各个历史时期有所不同, 书籍的 &amp;lt;版本&amp;gt; 和规范修订的 &amp;lt;编号&amp;gt; 的使用可以追溯到发明印刷术的时代。当计算时代来临之后，修订的逻辑诉求变得更加重要和复杂。如今，最强大或者最复杂的版本控制系统是用于软件开发的系统之中。复杂体现在通常版本需要多个人员同时读取和并发修改。”
+— From: https://en.wikipedia.org/wiki/Version_control
+ 如上述描述所言, “版本控制在逻辑上的完成手段在各个历史时期有所不同”, 而现如今Git便是“逻辑上的完成手段”的极佳实现之一, 为何Git会脱颖而出呢? 依照作者看来主要有以下几个原因:
+  免费并开源 : Git是免费的, 并基于GPL-V2协议的开源软件;
+  存储完整性 : Git可以让每台工作的计算机上都存储一个完整的代码存储仓库 (副本), “完整” 意味着每个副本均具备完整的变更历史记录 (一般场景均适用, 但如·shallow-clone·特性除外, 因为用户可以使用·shallow-clone·去下载一个指定的、裁剪过的提交历史, 而不下载整个Git仓库);
+  网络独立性 : 因为具备了完整的版本跟踪能力, 存储在任何一个计算机上的Git仓库都可以脱离网络而独立工作 (一般场景均适用, 例如·partial-clone·情况除外, 因为用户可以使用·partial-clone·仅仅下载提交的历史, 而不下载任何相关的文本文件, 当在未来需要用到它们的时候“按需下载”, 如果没有网络则可能会造成surprise);</description>
     </item>
     
     <item>
       <title>Git Multi Points Representation</title>
-      <link>https://dyrone.github.io/posts/git-multi-points/</link>
+      <link>/posts/git-multi-points/</link>
       <pubDate>Sun, 12 Jun 2022 15:56:16 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-multi-points/</guid>
-      <description>If we read the &amp;lsquo;git-rev-list.</description>
+      <guid>/posts/git-multi-points/</guid>
+      <description>If we read the &amp;lsquo;git-rev-list.txt&amp;rsquo; in git project on github or in git rev-list --help output. You can find there are some the related description about multi points in git.
+The multiple points notation in git rev-list intents to select a range of commits on the repository commit graph.
+Two Points Notation: &amp;ldquo;..&amp;rdquo;  A special notation &amp;lt;commit1&amp;gt;..&amp;lt;commit2&amp;gt; can be used as a short-hand for ^&#39;&amp;lt;commit1&amp;gt;&#39; &amp;lt;commit2&amp;gt;. For example, either of the following may be used interchangeably:</description>
     </item>
     
     <item>
       <title>Why Acceptance Testing is so important to us(Chinese)?</title>
-      <link>https://dyrone.github.io/posts/acceptance_test/</link>
+      <link>/posts/acceptance_test/</link>
       <pubDate>Wed, 25 May 2022 11:44:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/acceptance_test/</guid>
-      <description>`This article is written in Chinese.</description>
+      <guid>/posts/acceptance_test/</guid>
+      <description>`This article is written in Chinese. `
+   No good testing, no engineer culture.   1. 定义  &amp;#34;Acceptance Testing is a method of software testing where a system is tested for acceptability. The major aim of this test is to evaluate the &amp;gt; compliance of the system with the business requirements and assess whether it is acceptable for delivery or not.&amp;#34;
+    &amp;#34;验收测试是一种这样的软件测试方法, 其目的是评估系统与业务需求的合规性，通过测试进一步判定系统是否可以对外交付，简单来说，是用来测试一个系统是否合格。&amp;#34; From Wikipedia: https://en.</description>
     </item>
     
     <item>
       <title>Git pack and index</title>
-      <link>https://dyrone.github.io/posts/git-midx/</link>
+      <link>/posts/git-midx/</link>
       <pubDate>Mon, 07 Mar 2022 14:44:25 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/git-midx/</guid>
-      <description>`This article is written in Chinese.</description>
+      <guid>/posts/git-midx/</guid>
+      <description>`This article is written in Chinese. `
+   About pack and index file in git.
+ 1. git packfile 介绍 首先我们要了解的事， Git中使用 对象 来保存我们的修改内容和历史,关于Git对象的分类, 目前有两种不同的 分法 :
+   将Git对象分类为 4 个, 这个也是比较常见的分法, 其中包含 blob/tree/commit/tag.
+  在第1种分类的基础上, 将 packfile (使用zlib来对其他对象压缩后的文件) 作为第 5 种对象(wiki中的packfile的说明).
+   如果希望了解Git的4种基本对象和为什么他们基于 快照 的存储策略，我之前写过一篇 《15分钟了解Git对象》。
+ 现在我们回过来继续看packfile.
+ Git通过blob/tree/commit/tag来存储对象, 这些对象本质上都是git仓库中的存储的文件。 如果对象文件较少， 仓库的性能还可以接受。 但随着仓库提交越来越多， 这些松散存储（每个对象都是一个文件）的对象文件会越来越多，并且占用的体积会越来越大（存储快照而非差异）, 会导致仓库性能随之下降。所以Git需要一种聚合的存储方式，试图将这些松散的文件组织起来， 从而解决这个问题， 这就是`packfile`的由来。
+ Packfile中除了可以包含上面提到的blob/tree/commit/tag对象外, 还可以支持存储 delta 对象。delta对象是一种更加高效的存储方式(但是可能额外消耗计算资源), 它可以实现在pack中存储对象之间的差异, 而非重新存储整个对象, 这在一定程度上降低了packfile文件的体积。（例如,存在一个100M的文本文(base对象),修改修改10次,但是每次改动都只新增了一行, 那基于blob的delta的存储方式可以节约1000M的存储空间。）</description>
     </item>
     
     <item>
       <title>About me</title>
-      <link>https://dyrone.github.io/posts/introduce/</link>
+      <link>/posts/introduce/</link>
       <pubDate>Sat, 01 Jan 2022 15:34:15 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/introduce/</guid>
-      <description>About Dyrone Teng</description>
+      <guid>/posts/introduce/</guid>
+      <description>About Dyrone Teng
+Career In Alibaba Stage: 2015.3-2015.12 加入阿里巴巴，同年年底开始负责Aone下游系统scmcenter的建设，从而实现了阿 里独有的分支集成的分支开发模式，并在Aone落地。
+Joined Alibaba in 2015, and began to be responsible for the construction of Aone&amp;rsquo;s(Alibaba Devops Platform) downstream system scmcenter at the end of same year, thus realizing Alibaba&amp;rsquo;s unique branch-integrated branch development model, which was implemented in Aone.
+Stage: 2016 2016年继续提升用户整体研发体验，完善新版Aone代码部分功能，同时作为PM参与了冲突 白屏化并将代码托管权限体系打通等工作, 同时开始建设代码中台。
+Icontinued to improve the overall R&amp;amp;D experience of users, improved some functions of the new version of Aone code, and participated in the white screen of conflicts as a PM and opened up the code hosting authority system.</description>
     </item>
     
   </channel>

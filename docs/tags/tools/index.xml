@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tools on dyrone&#39;s blog</title>
-    <link>https://dyrone.github.io/tags/tools/</link>
-    <description>Recent content in tools on dyrone&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>tools on Dyrone Teng</title>
+    <link>/tags/tools/</link>
+    <description>Recent content in tools on Dyrone Teng</description>
+    
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Oct 2022 16:00:10 +0800</lastBuildDate><atom:link href="https://dyrone.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Oct 2022 16:00:10 +0800</lastBuildDate><atom:link href="/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gdb Journey</title>
-      <link>https://dyrone.github.io/posts/gdb-journey-chapter-1/</link>
+      <link>/posts/gdb-journey-chapter-1/</link>
       <pubDate>Thu, 13 Oct 2022 16:00:10 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/gdb-journey-chapter-1/</guid>
-      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包</description>
+      <guid>/posts/gdb-journey-chapter-1/</guid>
+      <description>Use m4 for a test 如果发现没有debug详细信息，根据gdb的提示，可以使用debuginfo-install安装对应的 依赖包
+ DESCRIPTION debuginfo-install is a program which installs the RPMs needed to debug the specified package. The package argument can be a wildcard, but will only match installed packages. debuginfo- install will then enable any debuginfo repositories, and install the relevant debuginfo rpm.
+From: https://man7.org/linux/man-pages/man1/debuginfo-install.1.html
+ $ debuginfo-install m4-1.4.16-10.1.alios7.x86_64 GDB 指定执行参数 gdb --args git ls-tree HEAD 更多的参数和用法可以参考GDB Cheat Sheet.
+ https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf
+ 在Git中查看构建调试参数 在git源码中的Makefile中定义了CFLAG的相关参数：</description>
     </item>
     
     <item>
       <title>Speed Up Brew With Mirror </title>
-      <link>https://dyrone.github.io/posts/brew/</link>
+      <link>/posts/brew/</link>
       <pubDate>Tue, 05 Jul 2022 20:56:48 +0800</pubDate>
       
-      <guid>https://dyrone.github.io/posts/brew/</guid>
-      <description>Brew Mirror We could use a brew mirror to speed up the install procedure if the download speed is so pool in your area.</description>
+      <guid>/posts/brew/</guid>
+      <description>Brew Mirror We could use a brew mirror to speed up the install procedure if the download speed is so pool in your area.
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles </description>
     </item>
     
   </channel>
