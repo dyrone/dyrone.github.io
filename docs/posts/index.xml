@@ -6,35 +6,7 @@
     <description>Recent content in Posts on Dyrone Teng</description>
     
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2023 11:12:13 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Github Api Glance</title>
-      <link>/posts/github-api-glance/</link>
-      <pubDate>Tue, 28 Feb 2023 11:12:13 +0800</pubDate>
-      
-      <guid>/posts/github-api-glance/</guid>
-      <description>API 请求 Accept 头 gh api --header &amp;#39;Accept: application/vnd.github+json&amp;#39; 绝大多数的Github Rest API使用该Accept标头。但是也可能存在其他的类型。
-API Version 头 gh api --header &#39;X-GitHub-Api-Version:2022-11-28&#39; Github API的版本通过header指定，是一个yyyy-MM-dd格式的value。
-Parameters For Get:
-$ curl -i &amp;#34;https://api.github.com/repos/vmg/redcarpet/issues?state=closed&amp;#34; For POST PATCH PUT DELETE:
-$ curl -i -u username -d &amp;#39;{&amp;#34;scopes&amp;#34;:[&amp;#34;repo_deployment&amp;#34;]}&amp;#39; https://api.github.com/authorizations  Many API methods take optional parameters. For GET requests, any parameters not specified as a segment in the path can be passed as an HTTP query string parameter. In this example, the &amp;lsquo;vmg&amp;rsquo; and &amp;lsquo;redcarpet&amp;rsquo; values are provided for the :owner and :repo parameters in the path while :state is passed in the query string.</description>
-    </item>
-    
-    <item>
-      <title>Git Merge 2022</title>
-      <link>/posts/git-merge-2022/</link>
-      <pubDate>Thu, 17 Nov 2022 10:36:01 +0800</pubDate>
-      
-      <guid>/posts/git-merge-2022/</guid>
-      <description>(Git Merge)² By Elijah Newren (Git Merge的平方——新版Merge介绍) 2020年开始研究git merge的优化，截止到2022才完成git 新版merge全部的实现。
-三路合并(three-way content merge) 假设我们有一个简单的文件，存在于我们感兴趣的两个分支上，我将分支命名为 和，假设我们有三行在的这个感兴趣的文件中，而我们在 的文件中有三个非常相似的行。但是， 现在如果我们合并这些分支，中间行在两个分支之 间是不同的，那条中间线在合并的最后会发生什么，除非您知道历史上的共同点（称为 merge base）中发生了什么，否则很难说清楚。
-所以如果合并基础恰好与匹配，那么我们可以说很好，没有进行任何 更改，因此合并结果应该与对比，如果合并基础与匹配，那么我们会 说没有进行任何更改，所以我们应该从对比。
-当然也有可能是与任何一方都不匹配，然后我们都知道这会产生合并冲突，尽 管我们可能不是那么喜欢它。
-新特性：&amp;ndash;remerge-diff  when you want to look at a previous merge and say how did this person resolve the conflicts in this merge? then you can pass this remerge flag.
- 同时，remerge的输出信息回展示两侧合并时的, 以及最终解决后 的结果, 其背后是通过将 的两个parent进行再次合并，同时创建一个临时的 用来保存合并后的结果（比如包含了conflict的信息）。 当临时的还原后，与实际的 进行 diff 操作，便可以的到执行的结果。
-commit f45e25cb6665291ab6ee7167ca6cdb72b468a3c9 (HEAD -&amp;gt; master) Merge: eb1d27b f93af98 Author: tenglong.</description>
-    </item>
-    
+    <lastBuildDate>Mon, 31 Oct 2022 19:09:11 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[wip] Git Compile</title>
       <link>/posts/git-compile/</link>
@@ -81,7 +53,7 @@ From: https://man7.org/linux/man-pages/man1/debuginfo-install.1.html
     </item>
     
     <item>
-      <title>Git Notes(to be continued...)</title>
+      <title>About &#39;git notes&#39;</title>
       <link>/posts/git-notes/</link>
       <pubDate>Thu, 06 Oct 2022 19:02:07 +0800</pubDate>
       

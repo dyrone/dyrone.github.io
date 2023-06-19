@@ -1,5 +1,5 @@
 ---
-title: "Git Notes(to be continued...)"
+title: About 'git notes'
 date: 2022-10-06T19:02:07+08:00
 draft: false 
 tags: 
