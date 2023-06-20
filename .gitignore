@@ -2,5 +2,5 @@
 .idea
 *.log
 tmp/
-themes/mainroad
 nohup.out
+themes/
