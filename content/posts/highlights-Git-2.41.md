@@ -13,6 +13,8 @@ tags:
 
 * 本文[托管在 github 上的仓库](https://github.com/dyrone/dyrone.github.io/blob/master/content/posts/highlights-Git-2.41.md)中，如果有发现文字或翻译错误， 欢迎通过 Pull Request 的方式来提交修改。
 
+* 原文地址为： https://github.blog/2023-06-01-highlights-from-git-2-41/
+
 <br />
 ## 中文术语表
 <br />
