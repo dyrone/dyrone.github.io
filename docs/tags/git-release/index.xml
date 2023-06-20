@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git-release on Dyrone Teng</title>
+    <link>/tags/git-release/</link>
+    <description>Recent content in git-release on Dyrone Teng</description>
+    
+    <language>en-us</language>
+    <lastBuildDate>Tue, 20 Jun 2023 14:46:46 +0800</lastBuildDate><atom:link href="/tags/git-release/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git 2.41 版本介绍</title>
+      <link>/posts/highlights-git-2.41/</link>
+      <pubDate>Tue, 20 Jun 2023 14:46:46 +0800</pubDate>
+      
+      <guid>/posts/highlights-git-2.41/</guid>
+      <description>Git 作为一个开源项目刚刚发布了 2.41 版本，其中共有 95 位开发者贡献了新的特性以及已有缺陷的修复，而他们中的 29 位是新的贡献者。我们上次聊到 Git 的最新发布动态是在Git 2.40 版本
+  这篇博文是 Github 对新引入的一些最有新的特性和变化的介绍，本文的原作者是 Taylor Blau, 本文的中文译者是 滕龙（花名：澳明），该博文已经由原作者同意由本人进行翻译以及在中国进行传播，让更多的开发者了解和追踪 Git 的演进
+  本文托管在 github 上的仓库中，如果有发现文字或翻译错误， 欢迎通过 Pull Request 的方式来提交修改
+  
+中文术语表 
+可以从 Git 中文本地化文件中查看对应术语，如果缺少某个术语或者建议添加，可以随时提供建议。
+
+格式说明  中文（Git中的术语） 如 commit, blob，tree，branch，tag 等基础词汇不进行翻译  
+处理“不可达对象”上的优化 
+每个 Git 仓库的本质都由“一组对象”构成， 如果你还不了解为什么如此设计，你可以通过 此篇文章了解 Git 对象模型的复杂性。 一般来说，你的 Git 仓库正是由这些对象如添砖加 瓦般罗列而成。blob 表示单个文件的内容，而 tree 将许多blob（以及其他tree）组合在一起，表 示一个目录。commit 通过指向一个特定的 tree 将所有关联的对象联系在一起， 这个特定 的tree 其实就代表了生成 commit 时对应仓库的状态。</description>
+    </item>
+    
+  </channel>
+</rss>
