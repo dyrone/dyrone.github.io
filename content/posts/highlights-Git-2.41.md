@@ -7,11 +7,11 @@ tags:
     - git-release
 ---
 <br />
-* Git 作为一个开源项目刚刚发布了 [2.41 版本](https://lore.kernel.org/git/xmqqleh3a3wm.fsf@gitster.g/ "2.41 版本")，其中共有 95 位开发者贡献了新的特性以及已有缺陷的修复，而他们中的 29 位是新的贡献者。我们上次聊到 Git 的最新发布动态是在[Git 2.40 版本](https://github.blog/2023-03-13-highlights-from-git-2-40/ "Git 2.40 版本")
+* Git 作为一个开源项目刚刚发布了 [2.41 版本](https://lore.kernel.org/git/xmqqleh3a3wm.fsf@gitster.g/ "2.41 版本")，其中共有 95 位开发者贡献了新的特性以及已有缺陷的修复，而他们中的 29 位是新的贡献者。我们上次聊到 Git 的最新发布动态是在[Git 2.40 版本](https://github.blog/2023-03-13-highlights-from-git-2-40/ "Git 2.40 版本")。
 
-* 这篇博文是 Github 对新引入的一些最有新的特性和变化的介绍，本文的原作者是 [Taylor Blau](https://github.com/ttaylorr "Taylor Blau"), 本文的中文译者是 [滕龙（花名：澳明）](https://github.com/dyrone "滕龙（花名：澳明）")，该博文已经由原作者同意由本人进行翻译以及在中国进行传播，让更多的开发者了解和追踪 Git 的演进
+* 这篇博文是 Github 对新引入的一些最有新的特性和变化的介绍，本文的原作者是 [Taylor Blau](https://github.com/ttaylorr "Taylor Blau"), 本文的中文译者是 [滕龙（花名：澳明）](https://github.com/dyrone "滕龙（花名：澳明）")，该博文已经由原作者同意由本人进行翻译以及在中国进行传播，让更多的开发者了解和追踪 Git 的演进。
 
-* 本文托管在 github 上的仓库中，如果有发现文字或翻译错误， 欢迎通过 Pull Request 的方式来提交修改
+* 本文[托管在 github 上的仓库](https://github.com/dyrone/dyrone.github.io/blob/master/content/posts/highlights-Git-2.41.md)中，如果有发现文字或翻译错误， 欢迎通过 Pull Request 的方式来提交修改。
 
 <br />
 ## 中文术语表
@@ -22,8 +22,8 @@ tags:
 <br />
 ## 格式说明
 
-* 中文（Git中的术语）
-* 如 commit, blob，tree，branch，tag 等基础词汇不进行翻译
+* 中文（Git中的术语）。
+* 如 commit, blob，tree，branch，tag 等基础词汇不进行翻译。
 
 <br />
 ## 处理“不可达对象”上的优化
@@ -37,15 +37,9 @@ tags:
 的tree 其实就代表了生成 commit 时对应仓库的状态。
 
 
-Git对象存在两种状态: “可达（reachable）” 或 “不可达（unreachable）”。假如，我们
-从存储库中的某个分支或标签开始，并沿着提交的历史从新到老的进行遍历（walk），对于
-沿途我们经过的对象们，认为他们是可达的。遍历（walk）仅仅是为了，寻找一个对象，并
-且进而寻找到这个对象关联的其他对象，一个 commit 对象对外可能有0个或多个父提交
-（parents），对内可能关联很多 tree 和 blob 对象。
+Git对象存在两种状态: “可达（reachable）” 或 “不可达（unreachable）”。假如，我们从存储库中的某个分支或标签开始，并沿着提交的历史从新到老的进行遍历（walk），对于沿途我们经过的对象们，认为他们是可达的。遍历（walk）仅仅是为了，寻找一个对象，并且进而寻找到这个对象关联的其他对象，一个 commit 对象对外可能有0个或多个父提交（parents），对内可能关联很多 tree 和 blob 对象。
 
-可能存在这样一些对象，他们在任何分支或标签或者其他引用上经历 walk 后均无法找到，
-这些对象将被认为是不可达的对象。 为了压缩存储库的大小，git 每隔一段时间，就会决
-定删除一些不可达对象， 比如你可能看到过类似的提示：
+可能存在这样一些对象，他们在任何分支或标签或者其他引用上经历 walk 后均无法找到，这些对象将被认为是不可达的对象。 为了压缩存储库的大小，git 每隔一段时间，就会决定删除一些不可达对象， 比如你可能看到过类似的提示：
 
 ```shell
 Auto packing the repository in background for optimum performance.
@@ -54,37 +48,23 @@ See "git help gc" for manual housekeeping.
 
 或者我们可以执行运行 `git gc`, 自主决定是否要立即清理这些不可达的对象。
 
-但是，Git 并不一定在第一次运行 git gc 时就会清理不可达对象。因为从一个活跃的仓库
-中删除他们是存在一定风险的[1]，git 此时会选择延迟执行。 另外，如果通过一个给定的
-参数（--prune）来提供一个给定的截止时间点时，只有足够老的不可达对象才会被删除。
-即，如果执行 `git gc --prune=2.week.ago`:
+但是，Git 并不一定在第一次运行 git gc 时就会清理不可达对象。因为从一个活跃的仓库中删除他们是存在一定风险的[1]，git 此时会选择延迟执行。 另外，如果通过一个给定的参数（`--prune`）来提供一个给定的截止时间点时，只有足够老的不可达对象才会被删除。即，如果执行 `git gc --prune=2.week.ago`:
 
-* 所有可达的对象都会收集，并打到一个包(pack)中。
+* 所有可达的对象都会收集，并打到一个包（pack）中。
 * 2周内写入的不可达对象，单独存储在其他位置（作为松散对象：loose object 的存储在
   仓库中）。
 * 剩余的不可达对象将会被忽略。
 
-在 Git 2.37 之前，Git通过将不可达对象存储为松散对象文件，并使用文件的 `mtime`作为
-对象最后写入时间的评判依据，来跟踪不可达对象的最后写入时间。然而，将不可访问的对
-象作为松散存储直到它们老化可能会产生许多负面的副作用。如果有许多不可访问的对象，
-它们可能会导致存储库的大小膨胀，和/或耗尽系统上可用的inode。
+在 Git 2.37 之前，Git通过将不可达对象存储为松散对象文件，并使用文件的 `mtime`作为对象最后写入时间的评判依据，来跟踪不可达对象的最后写入时间。然而，将不可访问的对象作为松散存储直到它们老化可能会产生许多负面的副作用。如果有许多不可访问的对象，它们可能会导致存储库的大小膨胀，耗尽系统上可用的inode。
 
-Git 2.37 引入了一种新的包(pack)，叫做 “废弃包(cruft pack)”，它将不可达的对象全部
-存储在一个单独的 pack 中, 同时生成一个与之对应的辅助的文件：
-[*.mtime](https://git-scm.com/docs/gitformat-pack/2.41.0/#_pack_mtimes_files_have_the_format)
-。mtime 文件用户帮助追踪 pack 中不可达对象的年龄，通过这种方式，可以防止 inode 耗
-尽并且允许这些不可达对象以 [增量对象（delta）](https://en.wikipedia.org/wiki/Delta_encoding)的方式
-存储在 pack 中，降低仓库的大小.
+Git 2.37 引入了一种新的包(pack)，叫做 “废弃包（cruft pack）”，它将不可达的对象全部存储在一个单独的 pack 中, 同时生成一个与之对应的辅助的文件：
+[*.mtime](https://git-scm.com/docs/gitformat-pack/2.41.0/#_pack_mtimes_files_have_the_format)。mtime 文件用户帮助追踪 pack 中不可达对象的年龄，通过这种方式，可以防止 inode 耗尽并且允许这些不可达对象以 [增量对象（delta）](https://en.wikipedia.org/wiki/Delta_encoding)的方式存储在 pack 中，降低仓库的大小。
 
-![cruft](../images/cruft.png)
+<img src="/images/cruft.png" alt= “” width="500">
 
-上图体现了一个废弃包，以及预期对应的 *.idx 文件以及 *.mtimes 文件. 将不可达对象在
-包中集中存储可以让 Git 更高效的访问这些不可达的数据，而不必担心给系统资源带来的
-压力。
+上图体现了一个废弃包，以及预期对应的 *.idx 文件以及 *.mtimes 文件. 将不可达对象在包中集中存储可以让 Git 更高效的访问这些不可达的数据，而不必担心给系统资源带来的压力。
 
-在 Git 2.41 中， 生成废弃包的特性已经作为 Git 默认的行为，即执行 `git gc` 就会为
-你的仓库生成一个废弃包（如果有满足清理条件的不可达对象）。如果希望学习更多有关废
-弃包的内容，可以查看此前的文章：[扩展 Git 垃圾回收机制](https://github.blog/2022-09-13-scaling-gits-garbage-collection/#object-deletion-raciness)
+在 Git 2.41 中， 生成废弃包的特性已经作为 Git 默认的行为，即执行 `git gc` 就会为你的仓库生成一个废弃包（如果有满足清理条件的不可达对象）。如果希望学习更多有关废弃包的内容，可以查看此前的文章：[扩展 Git 垃圾回收机制](https://github.blog/2022-09-13-scaling-gits-garbage-collection/#object-deletion-raciness)。
 
 <br />
 ## 反向索引已经作为 Git 默认行为生效
@@ -93,42 +73,23 @@ Git 2.37 引入了一种新的包(pack)，叫做 “废弃包(cruft pack)”，�
 从 2.41 版本开始，你可能会注意到，在你的仓库中可能会产生一个新的文件， 位于
 `.git/objects/pack` 下的 `*.rev` 文件。
 
-这个新的文件中保存的信息与 packfile 索引文件中保存的信息是类似的。 如果你在包目
-录中发现了文件后缀为 `*.idx` 文件的话，这些正是包文件对应的索引文件。
+这个新的文件中保存的信息与 packfile 索引文件中保存的信息是类似的。 如果你在包目录中发现了文件后缀为 `*.idx` 文件的话，这些正是包文件对应的索引文件。
 
-包索引文件与包文件中记录的对象是一一映射的，映射时涉及两种不同的顺序。第一种是名称序（name order），就是在 packfile 索引文件中，根据对象ID（OID）的名称排序后的顺序。另外一种是压缩序（pack order），是在 packfile 中存储的对象的顺序。
-Git通常需要频繁的在这两种顺序之间进行转换。 例如。如果你希望得到一个特定对象的信
-息，可能通过执行 `git cat-file -p` 完成。 Git 会查找所有的 `*.idx` 文件，并通过[二分查找](https://en.wikipedia.org/wiki/Binary_search_algorithm "二分查找")来检索给定对象在包文件的名称序（name order）中的位置。如果二分查找命中了，那么进而通过 `*.idx` 文件可以快速定位位于包中的对象，进而转储对象的内容。
+包索引文件与包文件中记录的对象是一一映射的，映射时涉及两种不同的顺序。第一种是名称序（name order），就是在 packfile 索引文件中，根据对象ID（OID）的名称排序后的顺序。另外一种是压缩序（pack order），是在 packfile 中存储的对象的顺序。Git通常需要频繁的在这两种顺序之间进行转换， 例如。如果你希望得到一个特定对象的信息，可能通过执行 `git cat-file -p` 完成。 Git 会查找所有的 `*.idx` 文件，并通过[二分查找](https://en.wikipedia.org/wiki/Binary_search_algorithm "二分查找")来检索给定对象在包文件的名称序（name order）中的位置。如果二分查找命中了，那么进而通过 `*.idx` 文件可以快速定位位于包中的对象，进而转储对象的内容。
 
 但是如果是反过来呢？ Git 如何能够通过一个“包文件的位置 + 包文件本身” 得知 “这个对象是什么？”。为了达成这个目的，Git 实现了反向索引（reverse index）,从而可以将压缩序（pack order） 映射到 名称序 (name order)，顾名思义，这个数据结构是上面提到的 packfile 索引的倒置。
 
-![rev idx](../images/rev.png "rev idx")
+<img src="/images/rev.png" alt= “” width="500">
 
+上图显示了反向索引的查询过程。 为了发现黄色对象的字典序（索引）位置，Git 读取反向索引中的相应条目，其值为字典序位置。 在这个例子中，假设黄色对象是包中的第 4 个对象，因此 Git 读取 `.rev` 文件中的第 4 个条目，其值为 1。通过读取 `*.idx` 文件，我们就可以获取到黄色的对象。
 
-上图显示了反向索引的查询过程。 为了发现黄色对象的字典序（索引）位置，Git 读取反
-向索引中的相应条目，其值为字典序位置。 在这个例子中，假设黄色对象是包中的第 4 个
-对象，因此 Git 读取 `.rev` 文件中的第 4 个条目，其值为 1。通过读取 `*.idx` 文件，
-我们就可以获取到黄色的对象。
+在以前的 Git 版本中，反向索引是通过在列表中存储“一对数据”（一个对象保存一对数据，分为为对象的名称序以及压缩序） 来完成[即时构建](https://github.com/git/git/blob/v2.41.0/pack-revindex.c#L27-L178 "即时构建")。这个策略的副作用较多，最显著的是在时间和内存消耗上。
 
-在以前的 Git 版本中，反向索引是通过在列表中存储“一对数据”（一个对象保存一对数据，
-分为为对象的名称序以及压缩序） 来完成[即时构建](https://github.com/git/git/blob/v2.41.0/pack-revindex.c#L27-L178 "即时构建")。
-这个策略的副作用较多，最显著的是在时间和内存消耗上。
+在 Git 2.31 版本中，引入了磁盘持久化的反向索引[2]。反向索引的内容其实并没有变化，但是文件只会生成一次，其结果作为 `*.rev` 存储在磁盘下[3]. 预计算并存储反向索引可以显著提供大型存储库的性能，特别是对于推送或者确定对象的磁盘大小等场景。
 
-在 Git 2.31 版本中，引入了磁盘持久化的反向索引[2]。反向索引的内容其实并没有变化，
-但是文件只会生成一次，其结果作为 `*.rev` 存储在磁盘下[3]. 预计算并存储反向索引可
-以显著提供大型存储库的性能，特别是对于推送或者确定对象的磁盘大小等场景。
+在 Git 2.41 中，Git 现在会默认生成反向索引。 这意味着下次升级后在存储库上运行 `git gc` 时，您应该会注意到可能你仓库性能在某些场景下变得更快了。 在测试新的默认行为时，我们在 `torvalds/linux` 中推送最后 30 次提交时，`git push` 作为 Git 中一种 CPU 密集型作业，其[速度提高了 1.49倍](https://github.com/git/git/commit/a8dd7e05b1c033917b900ea3d930e79eea3ff9a4)。而对于一些琐碎的操作星座，例如使用 `git cat-file --batch='%(objectsize:disk)'` 计算单个对象的大小时，速度提高了近 77 倍。
 
-在 Git 2.41 中，Git 现在会默认生成反向索引。 这意味着下次升级后在存储库上运行
-`git gc` 时，您应该会注意到可能你仓库性能在某些场景下变得更快了。 在测试新的默认
-行为时，我们在 `torvalds/linux` 中推送最后 30 次提交时，`git push` 作为 Git 中一
-种 CPU 密集型作业，其[速度提高了 1.49
-倍](https://github.com/git/git/commit/a8dd7e05b1c033917b900ea3d930e79eea3ff9a4)。
-而对于一些琐碎的操作星座，例如使用 `git cat-file --batch='%(objectsize:disk)'` 计
-算单个对象的大小时，速度提高了近 77 倍。
-
-要了解有关磁盘反向索引的更多信息，您可以查看之前的另一篇文章“[Scaling monorepo
-maintenance](https://github.blog/2021-04-29-scaling-monorepo-maintenance/)”，其中[有一章节](https://github.blog/2021-04-29-scaling-monorepo-maintenance/#reverse-indexes)是
-关于反向索引的相关介绍。
+要了解有关磁盘反向索引的更多信息，您可以查看之前的另一篇文章“[Scaling monorepo maintenance](https://github.blog/2021-04-29-scaling-monorepo-maintenance/)”，其中[有一章节](https://github.blog/2021-04-29-scaling-monorepo-maintenance/#reverse-indexes)是关于反向索引的相关介绍。
 
 [[源码](https://github.com/git/git/compare/2807bd2c10606e590886543afe4e4f208dddd489...9f7f10a282d8adeb9da0990aa0eb2adf93a47ca7)]
 
@@ -247,14 +208,22 @@ fetch $remote
 
 [[源码](https://github.com/git/git/compare/849c8b3dbf8e850020951e81a42df4dc0b1e5b5d...5a6072f631dcf4d9f65e83b08d14c82e2af45dd8)，[源码](https://github.com/git/git/compare/29b8a3f49d3c521431650b670fa2fbcd9ad571b3...cf9cd8b55c55794cc5eb38a157855f1ca2edd5ab)]
 
+<br />
 ## 本次 Release 回顾
+<br />
+
 
 本文只是 Git 最新发行版中的部分变化的介绍。如果你想了解更多发布内容，可以查看[2.41 的发布日志](https://github.com/git/git/blob/v2.41.0/Documentation/RelNotes/2.41.0.txt),于此同时还可以[在 Git 仓库](https://github.com/git/git/branches)中查看[历史发布内容](https://github.com/git/git/tree/v2.41.0/Documentation/RelNotes)。
 
+<br />
 ## 注释和引用
+<br />
 
-[1]. 风险基于很多因素， 最常见的就是并发写入的场景，比如 git 接收到的对象依赖一个 gc 正要清理的对象。 也就是，正在写入的对象引用了一个已经删除的对象，此时仓库就会损坏（corrupt）. 如果你感兴趣了解更多的内容，可以查看这个[文章](https://github.blog/2022-09-13-scaling-gits-garbage-collection/#object-deletion-raciness "章节")
+[1]. 风险基于很多因素， 最常见的就是并发写入的场景，比如 git 接收到的对象依赖一个 gc 正要清理的对象。 也就是，正在写入的对象引用了一个已经删除的对象，此时仓库就会损坏（corrupt）. 如果你感兴趣了解更多的内容，可以查看这个[文章](https://github.blog/2022-09-13-scaling-gits-garbage-collection/#object-deletion-raciness "章节")。
+<br />
 [2] https://github.blog/2021-03-15-highlights-from-git-2-31/#on-disk-reverse-indexes
+<br />
 [3] https://git-scm.com/docs/gitformat-pack/2.41.0/#_pack_rev_files_have_the_format
-[4] 在 Git 中 walk 指的是遍历 objects 的过程
+<br />
+[4] walk： 指的是 Git 遍历 objects 的过程。
 
