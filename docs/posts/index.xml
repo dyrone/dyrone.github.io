@@ -6,7 +6,22 @@
     <description>Recent content in Posts on Dyrone Teng</description>
     
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Jun 2023 14:46:46 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jul 2023 14:01:31 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>云效代码评审，助力“质效”提升</title>
+      <link>/posts/codeup-cr/</link>
+      <pubDate>Wed, 05 Jul 2023 14:01:31 +0800</pubDate>
+      
+      <guid>/posts/codeup-cr/</guid>
+      <description>前言 代码质量涵盖的范围之广可谓触及产研流程的方方面面，多年来代码质量相关的方法论和依 此产生的工具更是不胜枚举，本文我们尝试从代码评审的切面入手，尝试从 CodeReview 视角介绍我们在云效 Codeup 产品评审能力的建设过程中，相关的一些思考和实践。
+在代码评审的一些方法实践中，“小步快跑”一直是一个经常被提及的词语，我们认为的原因 主要有以下几点：
+ 及时发现问题：及时发现问题，避免问题的积累 降低修正成本：如果一次代码评审设计的代码量较多或者内容不聚焦，那么发现问题后进行修正或重构成本较高。 研发协作效率：让评审的参与者们，可以每次进行一小部分工作，降低评审压力和难度，最终完成评审过程。  1. CodeReview 的“小步快跑”为什么难以落地? 1.1 什么是“小步” 我们将“小步快跑”拆分为两个部分来看，首先我们来看“小步”。我们认为，“小步”就是指每 一次代码提交的内容要原子化，并且内容尽可能的少，即：一个提交做且只做一个事情。提 交能否做到原子化，会直接影响后续代码评审、代码合并以及持续集成的效率，是最容易被 忽略但是确最重要的前提之一。
+1.1.1 成为更好的开发者，从学习做好一个提交开始 那么，一个“好”的提交具体应该如何评判呢？我们认为主要应该体现在三个方面：
+ 提交做小 提交做对 提交做好  1.1.1.1 提交做小 提交做小就是将要解决的问题解耦：“Do one thing and do it well”。一些质量较为严格的项目的 提交通常都很小，每个提交只修改一个到几个文件，每次只修改几行到几十行。
+找一个你熟悉的开源项目，在仓库中执行下面的命令，可以很容易地统计出来每个提交的修改量。
+$ git log --no-merges --pretty= --shortstat 2 files changed, 25 insertions(+), 4 deletions(-) 1 file changed, 4 insertions(+), 12 deletions(-) 2 files changed, 30 insertions(+), 1 deletion(-) 3 files changed, 15 insertions(+), 5 deletions(-) 而在很多项目则不是这样，有时候一个提交动辄修改成百上千的文件，涉及成千上万行的源 代码，这样的提交很难进行测试，代码评审也几乎难以进行。</description>
+    </item>
+    
     <item>
       <title>Git 2.41 版本介绍</title>
       <link>/posts/highlights-git-2.41/</link>

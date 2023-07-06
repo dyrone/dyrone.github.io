@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>codeup-cr.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = (unset),
+	LC_CTYPE = "en_US.UTF-8",
+	LANG = "en_CN.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+<hr />
+
+<p>title: "Codeup CR"
+date: 2023-07-05T14:01:31+08:00</p>
+
+<h2>draft: false</h2>
+
+<h3>前言</h3>
+
+<p>代码质量涵盖的范围之广可谓触及产研流程的方方面面，多年来代码质量相关的方法论和依
+此产生的工具更是不胜枚举，仅凭一篇文章很难盖全。所以本文我们从代码评审的切面入手，
+尝试从 CodeReview 的视角介绍我们在云效 Codeup 产品评审能力的建设过程中，产生的一
+些思考和实践。</p>
+
+<h3>1. CodeReview 的“小步快跑”为什么难以落地?</h3>
+
+<h4>1.1 什么是“小步”</h4>
+
+<p>我们将“小步快跑”拆分为两个部分来看，首先我们来看“小步”。我们认为，“小步”就是指每
+一次代码提交的内容要原子化，并且内容尽可能的少，即：一个提交做且只做一个事情，把
+提交尽量做“好”。</p>
+
+<h5>1.1.1 成为更好的开发者，从学习做好一个提交开始</h5>
+
+<p>“好”的提交具体应该如何界定呢？我们认为主要应该体现在三个方面：</p>
+
+<ul>
+<li>提交做小</li>
+<li>提交做对</li>
+<li>提交做好</li>
+</ul>
+
+<h6>1.1.1.1 提交做小</h6>
+
+<p>写小提交就是将问题解耦：“Do one thing and do it well”。开源项目的提交通常都很小，
+每个提交只修改一个到几个文件，每次只修改几行到几十行。</p>
+
+<p>找一个你熟悉的开源项目，在仓库中执行下面的命令，可以很容易地统计出来每个提交的修改量。</p>
+
+<p><code>shell
+$ git log --no-merges --pretty= --shortstat
+2 files changed, 25 insertions(+), 4 deletions(-)
+1 file changed, 4 insertions(+), 12 deletions(-)
+2 files changed, 30 insertions(+), 1 deletion(-)
+3 files changed, 15 insertions(+), 5 deletions(-)
+而我看到很多公司内的项目则不是这样，一个提交动辄修改成百上千的文件，涉及成千上万行的源代码。试问这样的提交能 Show 出来给人看么？
+</code></p>
+
+<p>可是在开发过程中，程序员一旦进入状态，往往才思如泉涌，不经意间就写出一个大提交。
+比如一次向 Git 贡献代码时，提交还不算太大，就被 Git 的维护者 Junio 吐槽，要求
+拆分提交，便于评审：</p>
+
+<blockquote>
+  <p>I think this patch should be in at least two parts:</p>
+
+<p>Introduce the two-phase "collect in del_list, remove in a
+separate loop at the end" restructuring.</p>
+
+<p>(optional, if you are feeling ambitious) Change the path that is
+stored in del<em>list relative to the prefix, so that all functions
+that operate on the string in the del</em>list do not have to do
+*<em>relative() thing. Some functions may instead have to prepend
+prefix but if they are minority compared to the users of
+*</em>relative(), it may be an overall win from the readability's
+point of view.</p>
+
+<p>Add the "interactively allow you to reduce the del_list" bit
+between the two phases.</p>
+
+<p>关于提交拆分等具体操作方法，可以观看 Codeup 团队的技术视频进行了解： <a href="https://www.bilibili.com/video/BV1sF411n7sL">《拒做无名之辈！写好提交，做一个有品味的程序员》</a>。</p>
+</blockquote>
+
+<h6>1.1.1.2 提交做对</h6>
+
+<p>“好的文章不是写出来的，而是改出来的。” 代码提交也是如此。</p>
+
+<p>程序员写完代码，往往迫不及待地敲下：<code>git commit</code>，然后发现提交中少了一个文件，或
+者提交了多余的文件，或者发现提交中包含错误无法编译，或者提交说明中出现了错别字。</p>
+
+<p>Git 提供了一个命令：<code>git commit --amend</code> 来把此次更改附加到当前提交上, 防止我们做
+的是同一件事情，但是产生了多余的提交，从而破坏了提交的原子化。</p>
+
+<p>如果你发现错误出现在上一个提交或其他历史提交中怎么办呢？比如发现历史提交
+a1234567 中包含错误，直接在当前工作区中针对这个错误进行修改，然后执行下面命令
+<code>git commit --fixup a1234567</code>。你会发现使用了 <code>--fixup</code> 参数的提交命令，不再询问你
+提交说明怎么写，而是直接把错误提交 <code>a1234567</code> 的提交说明的第一行拿来，在前面增加一
+个前缀“fixup!”，如下：</p>
+
+<p><code>
+fixup! 原提交说明
+</code></p>
+
+<p>当开发工作完成后，待推送/评审的提交中出现大量的包含“fixup!”前缀的提交该如何处理呢？</p>
+
+<p>如果你执行过一次下面的命令，即针对错误提交 a1234567 及其后面所有提交执行交互式变
+基（注意其中的 <code>--autosquash</code> 参数），你就会惊叹 Git 设计的是这么巧妙：</p>
+
+<p><code>shell
+$ git rebase -i --autosquash a1234567^
+</code></p>
+
+<p>交互式 rebase 弹出的编辑器内自动对提交进行排序，将提交 <code>a1234567</code> 连同它的所有修正
+提交压缩为一个提交。</p>
+
+<h6>1.1.1.3 提交做好</h6>
+
+<p>仅仅做到提交做小、提交做对，往往还不够，还要通过撰写详细的提交说明让评审者信服，
+这样才能够让提交尽快通过评审合入项目仓库中。几年前，发现 Git 服务器上的一个异常，
+最终将问题定位到 Git 工具本身。整个代码改动只有区区一行：</p>
+
+<blockquote>
+  <p>提交：<a href="https://github.com/git/git/commit/b112b14d7869bf3c000abb84cd22e57dd811d031">receive-pack: crash when checking with non-exist HEAD</a></p>
+</blockquote>
+
+<p>你能猜到提交说明写了多少么？写了20多行！</p>
+
+<p>```
+    receive-pack: crash when checking with non-exist HEAD</p>
+
+<pre><code>If HEAD of a repository points to a conflict reference, such as:
+
+* There exist a reference named 'refs/heads/jx/feature1', but HEAD
+  points to 'refs/heads/jx', or
+
+* There exist a reference named 'refs/heads/feature', but HEAD points
+  to 'refs/heads/feature/bad'.
+
+When we push to delete a reference for this repo, such as:
+
+        git push /path/to/bad-head-repo.git :some/good/reference
+
+The git-receive-pack process will crash.
+
+This is because if HEAD points to a conflict reference, the function
+`resolve_refdup("HEAD", ...)` does not return a valid reference name,
+but a null buffer.  Later matching the delete reference against the null
+buffer will cause git-receive-pack crash.
+
+Signed-off-by: Jiang Xin &lt;worldhello.net@gmail.com&gt;
+Signed-off-by: Junio C Hamano &lt;gitster@pobox.com&gt;
+</code></pre>
+
+<p>```</p>
+
+<p>让我们来看看关于提交说明的一些约定俗成的规定：</p>
+
+<ul>
+<li><p>提交说明第一行是提交标题，是整个提交的概要性描述。提交标题的长度要求：尽量不要超过 50 个字符。 这是因为对于像 Linux、Git 这样的开源项目，是以邮件列表作为代码评审的平台，提交标题要作为邮件的标题，而邮件标题本身有长度上的限制。</p></li>
+<li><p>提交标题使用英文，尽量不要出现中文。这是因为一些 git 工具如 git format-patch 讲提交转换补丁，或以邮件方式交换提交补丁的时候，会丢失中文（中文转换为空白字符！）</p></li>
+<li><p>建议在提交标题中添加前缀，对改动范围进行区分（例如用模块名做前缀：
+receive-pack:）。</p></li>
+<li><p>不要在提交标题后面添加标点符号（如句号.）。一个原因是提交标题的长度要求，不要
+浪费。</p></li>
+<li><p>提交标题后的空行。必须要在提交说明的第一行（subject）和后续的提交说明（body）
+中间留一个空行！如果没有这个空行，很多 Git 客户端会将连续几行的提交说明合在一
+起作为提交的简要描述（<code>git log --oneline</code>）,这样显然太糟了。</p></li>
+<li><p>提交说明也有长度的限制，最好以72字节为限，超过则断行。提交说明主体中要写什么内
+容呢？ 例如：本次提交要解决什么问题？如何解决的？为什么这么做是最合理的。</p></li>
+<li><p>签名区: <code>git commit</code> 命令有一个 <code>-s</code> 参数，自动在提交说明最后添加 "sob" 签名
+（不是你想的那个缩写）。为什么要在提交后面添加签名呢？因为一个提交的元信息中只
+有作者（author）、提交者（committer）两个字段，而一段代码的诞生，参与的人往往
+不止于此，还可能有问题报告者（Reported-by）、代码评审者（Reviewed-by）、上游
+Committer 的签名（Signed-off-by）。为此一些开源项目（如 Git、Linux）的一个约定
+俗成的习惯，是在提交的最后加上签名，每个贡献者一行，从上到下可以看到这段代码诞
+生的过程。对帮助过你的人致谢吧，加上你的代码签名.</p></li>
+</ul>
+
+<h4>1.2 “快跑”：提交之间的逻辑化组织</h4>
+
+<p>对于代码评审来说，光把单个提交做好还不够。我们认为：代码评审要关注过程，要由远及
+近地看每一个提交，不能只看前后两个版本之间的差异。有人认为这样的代码评审多此一举，
+认为这样可能是浪费时间。有的时候，给一个提交不规范的开发者做代码评审，的确头疼又
+浪费时间：看到一个提交中的代码问题，花了几分钟写评论，然后发现下一个提交中这个问
+题被修正（fixup）了，这样的情况时有发生，让人无奈。</p>
+
+<h5>1.2.1 提交之间组织或编排，往往被人忽略</h5>
+
+<p>我们都知道，在从开发到不断修正，最终可能经历多次 <code>git push</code>， 每一次中间都可能包
+含多个提交， 我们可以把每一次推送对应到代码评审中的特定版本或者补丁（Patch）。。</p>
+
+<p>既然包含多个提交的情况是常态， 那么这些提交应该如何组织和编排呢？</p>
+
+<h5>1.2.2 提交编排的基本原则</h5>
+
+<ul>
+<li>Cleanup【先做】【靠后提交】</li>
+<li>Preparation
+<ul>
+<li>Refactor</li>
+<li>Test cases supplyment</li>
+</ul></li>
+<li>Implementation</li>
+<li>Test cases</li>
+<li>Documentation【最后做】【靠前提交】</li>
+</ul>
+
+<p>首先，Cleanup 可以理解为当我们真正开始开发一个补丁（patch）之前，可能我们顺带发现了之前相
+关联代码的一些问题，为了更好的实现我们的特性或者缺陷修复，我们需要尽量修复之前的问题，不论是
+新发现的缺陷还是格式化的问题，Cleanup的提交应该处于补丁中靠后位置。</p>
+
+<p>体现开发者的设计功力，让“快跑”成为可能</p>
+
+<p>我们都知道，跑是一步接着一步，没有人可以不迈出第一步而直接奔跑， 每一步与上一步都是承接关系。</p>
+
+<p>步： 每一次发送的版本或补丁（Patch），其中可能包含 1 个或多个提交
+跑： 每一次版本或补丁（Patch）， 都可以快速的定位差待评审内容， 同时如果待评审内容足够的“小”</p>
+
+<h5>1.2.3 通过 git rebase 进行提交编排</h5>
+
+<h5>1.2.4 通过 git range-diff 理清提交维度的改动差异</h5>
+
+<h4>1.3 基于 Patch 的评审工作流</h4>
+
+<p>代码评审以 patch 为颗粒度，每次推送会产生新的 patch
+对于已经 review 过的历史 patch，支持通过指定 patch 区间评审特定版本之间的变更， 大幅提升 review 效率
+将保存 patch 衍生的全部数据，方便追溯特定 patch 的评审上下文信息</p>
+
+<h3>2. 代码评审与持续集成的紧密结合</h3>
+
+<h4>2.1 为什么越多的人倾向于在代码评审中进行持续集成？</h4>
+
+<p>通过代码评审中进行持续集成，主要有如下好处：</p>
+
+<ul>
+<li><p>codereview 通常具备一定的社区属性，参与评审的各个角色可以充分交流。</p></li>
+<li><p>持续集成中产生的问题，例如 foo.bar 文件的第 20 行导致编译失败，可以比较顺滑的
+与评审的代码内容进行准确映射。</p></li>
+<li><p>代码评审通常是在代码真正合入主干之前的一环，在事前发生持续集成更能提早暴露问题。</p></li>
+</ul>
+
+<h4>2.2 git bisect 的作用</h4>
+
+<h4>2.3 持续集成的扩展——三方自动化检查</h4>
+
+<p>通常在不同企业持续集成的诉求度也不尽相同，针对这种情况，如何更够更好的支持三方自
+动化检查就非常重要，其中包括：</p>
+
+<ul>
+<li>支持提交状态检查、三方应用检查等CI工具集成。</li>
+<li>支持查看特定 patch 的自动化检查结果。</li>
+<li>三方应用检查支持自定义markdown模版。</li>
+</ul>
+
+<h3>3. 轻评审与重评审流程</h3>
+
+<h4>3.1 轻量级评审</h4>
+
+<p>轻评审即轻量级评审，适合将迭代速度放在第一优先级的产研团队，对代码质量和上线后的风险方面有一定包容度。</p>
+
+<p>在研发资源极度紧张，业务需求井喷的场景下，质量和速度是鱼和熊掌不可兼得的事，很多初创企业的管理者或者是技术Leader都选择接受一定的技术债务，在研发流程上，不要求一定满足严格的评审合入准则， 在这种情况下，请评审是比较不错的选择。</p>
+
+<h4>3.2 重量级评审</h4>
+
+<p>重量级评审与轻量级评审采取不同的策略，通常常见于以下常见的场景：</p>
+
+<ol>
+<li>业务类：对于代码质量要求较高</li>
+<li>服务类：应用、中台类应用、工具等</li>
+<li>开源类：开源贡献场景，通常对于代码质量的要求较高</li>
+</ol>
+
+<p>重量级评审通常对于质量上的流程把控比较严格，要求评审合入之前需要通过一系列的</p>
+
+<h4>3.3 灵活的卡点支持</h4>
+
+<p>不管是轻量级评审还是重量级评审，不同的企业对于代码评审的卡点支持上，通常主要关注通用性、扩展性和灵活性三个维度。</p>
+
+<h5>3.3.1 通用性</h5>
+
+<p>通用卡点主要包括：</p>
+
+<ul>
+<li>支持代码冲突检测结果作为合并卡点</li>
+<li>待解决评论作为合并卡点</li>
+<li>评审人评审是否通过作为合并卡点</li>
+</ul>
+
+<h5>3.3.2 扩展性</h5>
+
+<p>扩展性主要体现在，根据自身业务诉求，在基础卡点类型基础之上，支持扩展平台内置或者三方接入的自定义卡点：</p>
+
+<ul>
+<li>代码风格：支持code-style检测结果作为合并卡点。</li>
+<li>代码测试：支持单元测试、集成测试、可交付测试等测试结果作为合并卡点。</li>
+<li>代码检测：支持依赖包漏洞检测、代码漏洞检测、代码扫描检测、开源合规检测等检测结果作为合并卡点。</li>
+<li>其他卡点类型。</li>
+</ul>
+
+<h5>3.3.3 灵活性</h5>
+
+<p>通常在一些特殊的场景下，尽管设置了代码评审的相关卡点，你可能仍旧希望在特定规则下，可以灵活的控制卡点的生效逻辑，包括：</p>
+
+<ul>
+<li>可灵活选择卡点结果是否作为卡点，例如只希望代码风格的卡点进行检查和结果查看，但是不作为真正卡点阻碍代码的合并。</li>
+<li>在紧急发布情况下，本地已经验证通过，希望临时将某些卡点检查自动跳过，从而尽快进行合并从而修复线上缺陷。</li>
+</ul>
+
+<h3>4. 评审协同效率</h3>
+
+<h4>4.1 评审的发起与更新</h4>
+
+<p>基于主干模式下的推送评审流程</p>
+
+<blockquote>
+  <p>todo 贴视频</p>
+</blockquote>
+
+<h4>4.2 化零为整，评审操作更专注</h4>
+
+<p>将评审过程中各类操作进行聚合，提供统一视图进行评审操作
+可以在统一评审视图中，再次 review和补充本次评审操作的关键内容</p>
+
+<h4>4.3 化繁为简，评审待办更直观</h4>
+
+<p>快速浏览和定位待解决评论
+快速浏览和定位自动化检测问题
+快捷键支持（即将上线）</p>
+
+<h4>4.4 化腐为奇，评审评论可追溯</h4>
+
+<ul>
+<li>支持行内评论、整体评论以及草稿评论等常见类型</li>
+<li>支持追溯 outdate 评论</li>
+<li>评论支持markdown格式，以及动态表情评论</li>
+</ul>
+
+<h3>5. AIGC时代的代码评审</h3>
+
+<p>github copilot X
+google在gerrit上的实践</p>
+
+</body>
+</html>
