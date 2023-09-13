@@ -127,7 +127,6 @@ disorganized materials, which are:
 * [计算机历史博物馆采访(Computer History Museum interview)](https://www.xiaoyuzhoufm.com/episode/63ea3205e99bdef7d39ea6d8)
 * [One of the editorial boards of Efficient Coding: A Java Development Manual (Easy Coding)](https://github.com/alibaba/p3c/blob/master/Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C(%E9%BB%84%E5%B1%B1%E7%89%88).pdf)
 * Alibaba Cloud 2022 Top 10 Technology Architecture Award: Multi-master architecture based on Git
-![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/2601/1683776150239-afbf7aa5-73e4-4acc-9d54-5aa7109ee2d1.png?x-oss-process=image%2Fresize%2Cw_500%2Climit_0 "img")
 * Speech on GDEC(Openatom Global OpenSource Summit), start from 25:00](https://gongyi.cctv.com/2023/06/12/VIDEpugJe9GosEPc5NJ8uYXJ230612.shtml) 
 
 ## About English
