@@ -10,7 +10,7 @@ draft: false
 
 I promoted to as a father at 2021, the nickname of my son is "Cola" .
 
-<iframe src="//player.bilibili.com/player.html?aid=530117835&bvid=BV1Wu41187n9&cid=1170226831&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+![0](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1655300578495-fa44b155-e2d7-4416-b40a-13db5ef4e128.png?x-oss-process=image%2Fresize%2Cw_1650%2Climit_0)
 
 ## Career In Alibaba
 
@@ -135,3 +135,10 @@ I'm not very good at speaking, writting English, but I'm try to improve in spare
 time.
 
 ![1](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1655300175101-c07b2c8e-2f23-4943-b3a6-d50239e0f08a.png?x-oss-process=image%2Fresize%2Cw_500%2Climit_0)
+
+
+## About Electric Guitar
+
+I like guitar, but I only started trying to learn it in July 2023. Although the actual practice time is very little, I enjoy the process very much. It can relieve the mental internal friction that sometimes occurs.
+
+<iframe src="//player.bilibili.com/player.html?aid=452013503&bvid=BV1Fj411s7jP&cid=1360881632&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
