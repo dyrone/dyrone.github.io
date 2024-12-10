@@ -6,12 +6,6 @@ tags:
 draft: false
 ---
 
-## My Family
-
-I promoted to as a father at 2021, the nickname of my son is "Cola" .
-
-![0](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1655300578495-fa44b155-e2d7-4416-b40a-13db5ef4e128.png?x-oss-process=image%2Fresize%2Cw_1650%2Climit_0)
-
 ## Career In Alibaba
 
 ### Stage: 2015.3-2015.12
@@ -94,6 +88,27 @@ same time, as the person in charge of the domestic open source platform of the
 Ministry of Industry and Information Technology (only of Alibaba, also including
 Open Atoms Foundation and CSDN), built the atomgit.com open source platform (beta).
 
+### Stage: 2023
+
+继续负责阿里云云效Codeup相关产研工作，设计并发布了一系列特性 如新版代码评审、轻量级
+webide、commit status、check runs等一些列特性。
+
+Continue to be responsible for the R&D work related to Alibaba Cloud Codeup, designed
+and released a series of features such as new version of code review, lightweight webide,
+commit status.
+
+* https://www.aliyun.com/product/yunxiao/codeup
+* https://help.aliyun.com/zh/yunxiao/user-guide/consolidation-request-capability-overview
+
+## Stage: 2024
+
+通义灵码技术PM，同时负责单元测试智能生成领域、通义灵码稳定性和性能、灵码大客户共创等相关工作。
+
+Tongyi Lingma Technology PM is also responsible for related work in the field of unit test
+intelligent generation, Tongyi Lingma stability and performance, Lingma major customer
+co-creation, etc.
+
+
 ## Other roles
 
 ### Git committer: 
@@ -135,10 +150,3 @@ I'm not very good at speaking, writting English, but I'm try to improve in spare
 time.
 
 ![1](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1655300175101-c07b2c8e-2f23-4943-b3a6-d50239e0f08a.png?x-oss-process=image%2Fresize%2Cw_500%2Climit_0)
-
-
-## About Electric Guitar
-
-I like guitar, but I only started trying to learn it in July 2023. Although the actual practice time is very little, I enjoy the process very much. It can relieve the mental internal friction that sometimes occurs.
-
-<iframe src="//player.bilibili.com/player.html?aid=452013503&bvid=BV1Fj411s7jP&cid=1360881632&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
