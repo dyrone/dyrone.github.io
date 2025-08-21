@@ -102,12 +102,11 @@ commit status.
 
 ## Stage: 2024
 
-通义灵码技术PM，同时负责单元测试智能生成领域、通义灵码稳定性和性能、灵码大客户共创等相关工作。
+通义灵码技术PM，同时负责单元测试智能生成垂直领域、通义灵码稳定性、推理基础设施、推理性能、灵码大客户共创等相关工作。
 
-Tongyi Lingma Technology PM is also responsible for related work in the field of unit test
-intelligent generation, Tongyi Lingma stability and performance, Lingma major customer
-co-creation, etc.
-
+Tongyi Lingma Technology PM, also responsible for unit test intelligent generation vertical
+field, Tongyi Lingma SLA, AI infra, inference performance optimization, Lingma key customers
+co-creation and other related work.
 
 ## Other roles
 
@@ -144,9 +143,3 @@ disorganized materials, which are:
 * Alibaba Cloud 2022 Top 10 Technology Architecture Award: Multi-master architecture based on Git
 * Speech on GDEC(Openatom Global OpenSource Summit), start from 25:00](https://gongyi.cctv.com/2023/06/12/VIDEpugJe9GosEPc5NJ8uYXJ230612.shtml) 
 
-## About English
-
-I'm not very good at speaking, writting English, but I'm try to improve in spare
-time.
-
-![1](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/2601/1655300175101-c07b2c8e-2f23-4943-b3a6-d50239e0f08a.png?x-oss-process=image%2Fresize%2Cw_500%2Climit_0)
