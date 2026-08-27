@@ -108,6 +108,20 @@ Tongyi Lingma Technology PM, also responsible for unit test intelligent generati
 field, Tongyi Lingma SLA, AI infra, inference performance optimization, Lingma key customers
 co-creation and other related work.
 
+## Stage: 2025
+
+负责 qoder 业务全球建站、整体架构，以及推理性能优化（代码补全、NES、Diff-apply 等 with 百炼）。
+
+Responsible for qoder global site deployment, overall architecture, and inference performance
+optimization (code completion, NES, Diff-apply, etc. with Bailian).
+
+## Stage: 2026
+
+负责 qoder CN 业务（2C、2B），以及推理性能优化（wiki 等 with 百炼）。
+
+Responsible for qoder CN business (2C, 2B), and inference performance optimization (wiki, etc.
+with Bailian).
+
 ## Other roles
 
 ### Git committer: 
@@ -141,5 +155,17 @@ disorganized materials, which are:
 * [计算机历史博物馆采访(Computer History Museum interview)](https://www.xiaoyuzhoufm.com/episode/63ea3205e99bdef7d39ea6d8)
 * [One of the editorial boards of Efficient Coding: A Java Development Manual (Easy Coding)](https://github.com/alibaba/p3c/blob/master/Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C(%E9%BB%84%E5%B1%B1%E7%89%88).pdf)
 * Alibaba Cloud 2022 Top 10 Technology Architecture Award: Multi-master architecture based on Git
-* Speech on GDEC(Openatom Global OpenSource Summit), start from 25:00](https://gongyi.cctv.com/2023/06/12/VIDEpugJe9GosEPc5NJ8uYXJ230612.shtml) 
+* Speech on GDEC(Openatom Global OpenSource Summit), start from 25:00](https://gongyi.cctv.com/2023/06/12/VIDEpugJe9GosEPc5NJ8uYXJ230612.shtml)
 
+## Electric Guitar
+
+I also like playing electric guitar in my spare time, here are some of my covers:
+
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: flex-start;">
+  <a href="https://xhslink.cn/o/2Ug15zWi4pq" style="width: 300px; display: block;">
+    <img src="/images/guitar-seria-gate.png" alt="赛利亚的旅馆（seria gate）cover by dyrone" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+  </a>
+  <a href="https://xhslink.cn/o/53IVZHPv3R5" style="width: 300px; display: block;">
+    <img src="/images/guitar-livin-on-a-prayer.png" alt="Bon Jovi-Livin' on a prayer 🌟" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+  </a>
+</div>
