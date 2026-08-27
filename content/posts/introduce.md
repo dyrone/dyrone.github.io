@@ -169,3 +169,4 @@ I also like playing electric guitar in my spare time, here are some of my covers
     <img src="/images/guitar-livin-on-a-prayer.png" alt="Bon Jovi-Livin' on a prayer 🌟" style="width: 100%; height: auto; display: block; border-radius: 8px;">
   </a>
 </div>
+
