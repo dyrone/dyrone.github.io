@@ -1,6 +1,7 @@
 languageCode: en-us
 title: "Dyrone Teng"
 author: Dyrone Teng
+publishDir: docs
 
 enableEmoji: true
 hasCJKLanguage: false
