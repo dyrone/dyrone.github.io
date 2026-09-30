@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>全书五部分 — 《思考，快与慢》全书地图</title>
+  <desc>五张批注卡片水平排列，分别标注全书五个部分，虚线阅读路径相连，红色批注"全书地图"。</desc>
+
+  <!-- cream paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <!-- faint ruled lines -->
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="40" y1="100" x2="1160" y2="100"/>
+    <line x1="40" y1="200" x2="1160" y2="200"/>
+    <line x1="40" y1="300" x2="1160" y2="300"/>
+    <line x1="40" y1="400" x2="1160" y2="400"/>
+    <line x1="40" y1="500" x2="1160" y2="500"/>
+  </g>
+
+  <!-- red annotation title top-right, handwritten feel -->
+  <text x="1060" y="62" font-family="sans-serif" font-size="32" fill="#ad4e3e" font-weight="bold" font-style="italic" text-anchor="middle" transform="rotate(-3, 1060, 62)">✎ 全书地图</text>
+  <!-- underline scribble -->
+  <path d="M 970 70 Q 1020 76, 1060 68 Q 1100 60, 1150 72" stroke="#ad4e3e" stroke-width="2" fill="none"/>
+
+  <!-- ===== Dashed reading path connecting cards ===== -->
+  <path d="M 165 310 L 280 310 Q 310 310, 310 290 L 310 270 Q 310 250, 340 250 L 380 250 Q 400 250, 400 270 L 400 310 L 510 310 Q 530 310, 530 290 L 530 260 Q 530 240, 560 240 L 610 240 Q 640 240, 640 260 L 640 310 L 740 310 Q 760 310, 760 290 L 760 255 Q 760 235, 790 235 L 840 235 Q 860 235, 860 255 L 860 310 L 970 310 Q 990 310, 990 290 L 990 260 Q 990 240, 1010 240 L 1040 240"
+        stroke="#282722" stroke-width="2" stroke-dasharray="8,5" fill="none" opacity="0.4"/>
+
+  <!-- ===== CARD 1: 两个系统 ===== -->
+  <g transform="translate(68, 150)">
+    <!-- card shadow -->
+    <rect x="4" y="4" width="180" height="240" rx="3" fill="#ddd" opacity="0.3"/>
+    <!-- sticky note -->
+    <rect x="0" y="0" width="180" height="240" rx="3" fill="#efd15b" stroke="#e4b936" stroke-width="1.5"/>
+    <!-- tape strip -->
+    <rect x="60" y="-10" width="60" height="22" rx="2" fill="#f5eed0" stroke="#d6c87a" stroke-width="0.8" opacity="0.85" transform="rotate(-3, 90, 1)"/>
+    <!-- part number -->
+    <text x="90" y="50" font-family="sans-serif" font-size="48" fill="#282722" text-anchor="middle" font-weight="bold" opacity="0.2">I</text>
+    <!-- title -->
+    <text x="90" y="110" font-family="sans-serif" font-size="24" fill="#282722" text-anchor="middle" font-weight="bold">两个系统</text>
+    <!-- description -->
+    <text x="90" y="148" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">快思考 vs 慢思考</text>
+    <text x="90" y="170" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">自动化 vs 受控</text>
+    <!-- small icon: lightning -->
+    <text x="90" y="218" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle" opacity="0.35">⚡</text>
+  </g>
+
+  <!-- ===== CARD 2: 启发法与偏见 ===== -->
+  <g transform="translate(298, 165)">
+    <rect x="4" y="4" width="180" height="240" rx="3" fill="#ddd" opacity="0.3"/>
+    <rect x="0" y="0" width="180" height="240" rx="3" fill="#efd15b" stroke="#e4b936" stroke-width="1.5"/>
+    <rect x="55" y="-10" width="65" height="22" rx="2" fill="#f5eed0" stroke="#d6c87a" stroke-width="0.8" opacity="0.85" transform="rotate(2, 87, 1)"/>
+    <text x="90" y="50" font-family="sans-serif" font-size="48" fill="#282722" text-anchor="middle" font-weight="bold" opacity="0.2">II</text>
+    <text x="90" y="105" font-family="sans-serif" font-size="22" fill="#282722" text-anchor="middle" font-weight="bold">启发法</text>
+    <text x="90" y="133" font-family="sans-serif" font-size="22" fill="#282722" text-anchor="middle" font-weight="bold">与偏见</text>
+    <text x="90" y="170" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">可得性·代表性</text>
+    <text x="90" y="192" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">锚定·替代</text>
+    <text x="90" y="228" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle" opacity="0.35">⚖</text>
+  </g>
+
+  <!-- ===== CARD 3: 过度自信 ===== -->
+  <g transform="translate(528, 155)">
+    <rect x="4" y="4" width="180" height="240" rx="3" fill="#ddd" opacity="0.3"/>
+    <rect x="0" y="0" width="180" height="240" rx="3" fill="#efd15b" stroke="#e4b936" stroke-width="1.5"/>
+    <rect x="62" y="-10" width="58" height="22" rx="2" fill="#f5eed0" stroke="#d6c87a" stroke-width="0.8" opacity="0.85" transform="rotate(-1, 90, 1)"/>
+    <text x="90" y="50" font-family="sans-serif" font-size="48" fill="#282722" text-anchor="middle" font-weight="bold" opacity="0.2">III</text>
+    <text x="90" y="110" font-family="sans-serif" font-size="24" fill="#282722" text-anchor="middle" font-weight="bold">过度自信</text>
+    <text x="90" y="148" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">后见之明</text>
+    <text x="90" y="170" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">专家幻觉·公式优势</text>
+    <text x="90" y="228" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle" opacity="0.35">⊘</text>
+  </g>
+
+  <!-- ===== CARD 4: 选择 ===== -->
+  <g transform="translate(758, 160)">
+    <rect x="4" y="4" width="180" height="240" rx="3" fill="#ddd" opacity="0.3"/>
+    <rect x="0" y="0" width="180" height="240" rx="3" fill="#efd15b" stroke="#e4b936" stroke-width="1.5"/>
+    <rect x="58" y="-10" width="62" height="22" rx="2" fill="#f5eed0" stroke="#d6c87a" stroke-width="0.8" opacity="0.85" transform="rotate(2.5, 89, 1)"/>
+    <text x="90" y="50" font-family="sans-serif" font-size="48" fill="#282722" text-anchor="middle" font-weight="bold" opacity="0.2">IV</text>
+    <text x="90" y="110" font-family="sans-serif" font-size="24" fill="#282722" text-anchor="middle" font-weight="bold">选择</text>
+    <text x="90" y="148" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">前景理论·损失厌恶</text>
+    <text x="90" y="170" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">框架效应</text>
+    <text x="90" y="228" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle" opacity="0.35">⇌</text>
+  </g>
+
+  <!-- ===== CARD 5: 两个自我 ===== -->
+  <g transform="translate(988, 150)">
+    <rect x="4" y="4" width="180" height="240" rx="3" fill="#ddd" opacity="0.3"/>
+    <rect x="0" y="0" width="180" height="240" rx="3" fill="#efd15b" stroke="#e4b936" stroke-width="1.5"/>
+    <rect x="55" y="-10" width="64" height="22" rx="2" fill="#f5eed0" stroke="#d6c87a" stroke-width="0.8" opacity="0.85" transform="rotate(-2, 87, 1)"/>
+    <text x="90" y="50" font-family="sans-serif" font-size="48" fill="#282722" text-anchor="middle" font-weight="bold" opacity="0.2">V</text>
+    <text x="90" y="110" font-family="sans-serif" font-size="24" fill="#282722" text-anchor="middle" font-weight="bold">两个自我</text>
+    <text x="90" y="148" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">经验自我 vs 记忆自我</text>
+    <text x="90" y="170" font-family="sans-serif" font-size="13" fill="#555" text-anchor="middle">峰终定律·幸福悖论</text>
+    <text x="90" y="228" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle" opacity="0.35">☯</text>
+  </g>
+
+  <!-- ===== Arrow connectors between cards (on top of dashed path) ===== -->
+  <defs>
+    <marker id="arrowCharcoal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#282722" opacity="0.5"/>
+    </marker>
+  </defs>
+  <line x1="252" y1="310" x2="294" y2="310" stroke="#282722" stroke-width="2" marker-end="url(#arrowCharcoal)" opacity="0.45"/>
+  <line x1="482" y1="310" x2="524" y2="310" stroke="#282722" stroke-width="2" marker-end="url(#arrowCharcoal)" opacity="0.45"/>
+  <line x1="712" y1="310" x2="754" y2="310" stroke="#282722" stroke-width="2" marker-end="url(#arrowCharcoal)" opacity="0.45"/>
+  <line x1="942" y1="310" x2="984" y2="310" stroke="#282722" stroke-width="2" marker-end="url(#arrowCharcoal)" opacity="0.45"/>
+
+  <!-- reading path label -->
+  <text x="600" y="450" font-family="sans-serif" font-size="16" fill="#888" text-anchor="middle">- - - 阅读路径 - - -</text>
+  <line x1="460" y1="456" x2="740" y2="456" stroke="#888" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- red bracket under all cards -->
+  <path d="M 80 420 L 80 435 L 600 435 L 600 445 L 600 435 L 1155 435 L 1155 420" stroke="#ad4e3e" stroke-width="2" fill="none"/>
+  <text x="600" y="476" font-family="sans-serif" font-size="20" fill="#ad4e3e" text-anchor="middle" font-style="italic">从认知机制到人生幸福——一条完整的思维审计链</text>
+
+  <!-- bottom label -->
+  <text x="60" y="610" font-family="sans-serif" font-size="14" fill="#aaa">全书概览 · 五部分结构</text>
+</svg>

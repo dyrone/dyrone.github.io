@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>锚定效应——先入为主的数字如何扭曲判断</title>
+  <desc>展示锚定值12如何像船锚一样将你的估值从理性位置拖向锚点，以及两条破锚策略注释</desc>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="9" markerHeight="7" orient="auto">
+      <path d="M0,0.8 L9,3.5 L0,6.2" fill="none" stroke="#282722" stroke-width="1.1"/>
+    </marker>
+  </defs>
+
+  <!-- Paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <line x1="72" y1="0" x2="72" y2="630" stroke="#c4a088" stroke-width="1" opacity="0.22"/>
+  <line x1="0" y1="76" x2="1200" y2="76" stroke="#d4cfc2" stroke-width="0.7" opacity="0.3"/>
+
+  <!-- Chapter title -->
+  <text x="600" y="50" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="bold" fill="#282722" letter-spacing="3">第八章 · 锚定效应</text>
+
+  <!-- ========== Number line (scale 0-100) at y=210 ========== -->
+  <line x1="130" y1="210" x2="1070" y2="210" stroke="#282722" stroke-width="2.5"/>
+
+  <!-- Tick: 0 (x=140) -->
+  <line x1="140" y1="200" x2="140" y2="220" stroke="#282722" stroke-width="1.8"/>
+  <text x="140" y="240" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8a8878">0</text>
+  <!-- Tick: 25 (x=370) -->
+  <line x1="370" y1="203" x2="370" y2="217" stroke="#282722" stroke-width="1.2"/>
+  <text x="370" y="238" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#8a8878">25</text>
+  <!-- Tick: 50 (x=600) -->
+  <line x1="600" y1="200" x2="600" y2="220" stroke="#282722" stroke-width="1.8"/>
+  <text x="600" y="240" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8a8878">50</text>
+  <!-- Tick: 75 (x=830) -->
+  <line x1="830" y1="203" x2="830" y2="217" stroke="#282722" stroke-width="1.2"/>
+  <text x="830" y="238" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#8a8878">75</text>
+  <!-- Tick: 100 (x=1060) -->
+  <line x1="1060" y1="200" x2="1060" y2="220" stroke="#282722" stroke-width="1.8"/>
+  <text x="1060" y="240" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8a8878">100</text>
+  <!-- Special tick at 12 (x=140+12/100*920 = 250) -->
+  <line x1="250" y1="198" x2="250" y2="222" stroke="#282722" stroke-width="2"/>
+
+  <!-- ========== Anchor hanging below the "12" position ========== -->
+  <g transform="translate(250,228)">
+    <!-- Chain links -->
+    <ellipse cx="0" cy="12" rx="5" ry="9" fill="none" stroke="#282722" stroke-width="1.8"/>
+    <ellipse cx="0" cy="28" rx="5" ry="9" fill="none" stroke="#282722" stroke-width="1.8"/>
+    <ellipse cx="0" cy="44" rx="5" ry="9" fill="none" stroke="#282722" stroke-width="1.8"/>
+
+    <!-- Anchor ring -->
+    <circle cx="0" cy="70" r="16" fill="none" stroke="#282722" stroke-width="3"/>
+    <!-- Shaft -->
+    <line x1="0" y1="86" x2="0" y2="215" stroke="#282722" stroke-width="3.5"/>
+    <!-- Crossbar -->
+    <line x1="-42" y1="122" x2="42" y2="122" stroke="#282722" stroke-width="3"/>
+    <!-- Left fluke -->
+    <path d="M0,215 C-22,216 -72,204 -74,168" fill="none" stroke="#282722" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-74,168 L-78,183 L-64,176" fill="#282722"/>
+    <!-- Right fluke -->
+    <path d="M0,215 C22,216 72,204 74,168" fill="none" stroke="#282722" stroke-width="3" stroke-linecap="round"/>
+    <path d="M74,168 L78,183 L64,176" fill="#282722"/>
+
+    <!-- "12" on the shaft with yellow highlight -->
+    <rect x="-28" y="140" width="56" height="42" rx="4" fill="#efd15b" opacity="0.55"/>
+    <text x="0" y="170" text-anchor="middle" font-family="sans-serif" font-size="32" font-weight="bold" fill="#282722">12</text>
+  </g>
+
+  <!-- ========== Estimate markers on the number line ========== -->
+
+  <!-- Ghost marker: rational estimate (approx 62, x=710) -->
+  <polygon points="710,196 720,178 730,196" fill="none" stroke="#8a8878" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.55"/>
+  <text x="720" y="170" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8a8878" opacity="0.7">理性估值</text>
+
+  <!-- Actual anchored estimate (approx 38, x=490) -->
+  <polygon points="480,196 490,175 500,196" fill="#282722" opacity="0.85"/>
+  <text x="490" y="160" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="bold" fill="#282722">你的估值</text>
+
+  <!-- Yellow highlight bar showing drag distance -->
+  <rect x="500" y="205" width="218" height="8" rx="3" fill="#efd15b" opacity="0.45"/>
+
+  <!-- Curved pull-arrow from ghost to actual -->
+  <path d="M708,190 C680,178 560,172 505,187" fill="none" stroke="#282722" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <path d="M505,187 L512,180 M505,187 L513,193" fill="none" stroke="#282722" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="610" y="175" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#8a8878">被锚拖移</text>
+
+  <!-- Diagonal chain from anchor to the actual estimate (showing pull) -->
+  <path d="M278,290 Q380,250 485,208" fill="none" stroke="#282722" stroke-width="1" stroke-dasharray="5 4" opacity="0.35"/>
+
+  <!-- ========== Red annotations ========== -->
+  <text x="640" y="545" font-family="sans-serif" font-size="21" fill="#ad4e3e" font-style="italic" transform="rotate(-1.5,640,545)">先出现的数字 = 锚</text>
+  <text x="640" y="580" font-family="sans-serif" font-size="19" fill="#ad4e3e" font-style="italic" transform="rotate(-1,640,580)">考虑反面可以破锚</text>
+
+  <!-- Small annotation bracket -->
+  <path d="M620,530 L630,530 L630,592 L620,592" fill="none" stroke="#ad4e3e" stroke-width="1.5" opacity="0.6"/>
+</svg>

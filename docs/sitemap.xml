@@ -3,10 +3,25 @@
 	xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2023-07-05T14:01:31+08:00</lastmod>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/posts/</loc>
-    <lastmod>2023-07-05T14:01:31+08:00</lastmod>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/posts/thinking-fast-and-slow/</loc>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%BF%83%E7%90%86%E5%AD%A6/</loc>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2026-09-28T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/posts/codeup-cr/</loc>
     <lastmod>2023-07-05T14:01:31+08:00</lastmod>
@@ -18,9 +33,6 @@
     <lastmod>2023-06-20T14:46:46+08:00</lastmod>
   </url><url>
     <loc>/tags/git-release/</loc>
-    <lastmod>2023-06-20T14:46:46+08:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2023-06-20T14:46:46+08:00</lastmod>
   </url><url>
     <loc>/tags/c/</loc>

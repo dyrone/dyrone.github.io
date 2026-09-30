@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>禀赋效应——拥有如何改变你对价值的判断</title>
+  <desc>同一个咖啡杯，拥有前标价三元，拥有后标价七元，展示禀赋效应如何改变参照点与主观估值</desc>
+
+  <!-- Paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <line x1="72" y1="0" x2="72" y2="630" stroke="#c4a088" stroke-width="1" opacity="0.22"/>
+  <line x1="0" y1="76" x2="1200" y2="76" stroke="#d4cfc2" stroke-width="0.7" opacity="0.3"/>
+
+  <!-- Chapter title -->
+  <text x="600" y="50" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="bold" fill="#282722" letter-spacing="3">第十章 · 禀赋效应</text>
+
+  <!-- ========== LEFT PANEL: Before ownership ========== -->
+  <!-- Panel label -->
+  <text x="280" y="118" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#282722">拥有前</text>
+  <line x1="220" y1="128" x2="340" y2="128" stroke="#282722" stroke-width="1" opacity="0.3"/>
+
+  <!-- Coffee mug (simple, neutral) -->
+  <g transform="translate(220,180)">
+    <!-- Mug body -->
+    <path d="M0,0 L0,125 Q0,140 15,140 L105,140 Q120,140 120,125 L120,0" fill="none" stroke="#282722" stroke-width="2.5"/>
+    <!-- Rim -->
+    <line x1="-2" y1="0" x2="122" y2="0" stroke="#282722" stroke-width="3"/>
+    <!-- Handle -->
+    <path d="M120,28 Q158,28 158,70 Q158,112 120,112" fill="none" stroke="#282722" stroke-width="2.5"/>
+    <!-- Liquid level -->
+    <line x1="10" y1="40" x2="110" y2="40" stroke="#282722" stroke-width="1" opacity="0.25" stroke-dasharray="4 3"/>
+    <!-- Steam wisps -->
+    <path d="M30,-8 Q35,-22 28,-38" fill="none" stroke="#282722" stroke-width="1.3" opacity="0.3"/>
+    <path d="M60,-8 Q66,-25 58,-42" fill="none" stroke="#282722" stroke-width="1.3" opacity="0.3"/>
+    <path d="M90,-8 Q95,-22 88,-38" fill="none" stroke="#282722" stroke-width="1.3" opacity="0.3"/>
+  </g>
+
+  <!-- Price tag ¥3 -->
+  <g transform="translate(185,340)">
+    <!-- Tag shape -->
+    <path d="M0,15 L12,0 L80,0 L80,36 L12,36 Z" fill="#fffdf7" stroke="#282722" stroke-width="1.5"/>
+    <circle cx="16" cy="18" r="4" fill="none" stroke="#282722" stroke-width="1"/>
+    <!-- String -->
+    <path d="M80,10 Q95,5 105,15" fill="none" stroke="#282722" stroke-width="1" opacity="0.5"/>
+    <!-- Price text -->
+    <text x="48" y="24" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#282722">&#165;3</text>
+  </g>
+
+  <!-- "neutral" hand icon — open palm, not grasping -->
+  <text x="280" y="420" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8a8878">（无感，可买可不买）</text>
+
+  <!-- ========== CENTER: Transformation arrow ========== -->
+  <!-- Large arrow -->
+  <line x1="475" y1="270" x2="615" y2="270" stroke="#282722" stroke-width="2.5"/>
+  <polygon points="615,260 640,270 615,280" fill="#282722"/>
+  <!-- Yellow highlight on arrow -->
+  <line x1="480" y1="270" x2="610" y2="270" stroke="#efd15b" stroke-width="12" opacity="0.3"/>
+  <!-- Label -->
+  <text x="558" y="252" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#282722">拥 有</text>
+  <text x="558" y="300" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#8a8878">（仅仅握在手中）</text>
+
+  <!-- ========== RIGHT PANEL: After ownership ========== -->
+  <!-- Panel label -->
+  <text x="900" y="118" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#282722">拥有后</text>
+  <line x1="840" y1="128" x2="960" y2="128" stroke="#282722" stroke-width="1" opacity="0.3"/>
+
+  <!-- Same coffee mug — but with subtle "glow" showing attachment -->
+  <g transform="translate(840,180)">
+    <!-- Attachment glow -->
+    <rect x="-12" y="-12" width="146" height="166" rx="14" fill="#efd15b" opacity="0.12"/>
+
+    <!-- Mug body (identical shape) -->
+    <path d="M0,0 L0,125 Q0,140 15,140 L105,140 Q120,140 120,125 L120,0" fill="none" stroke="#282722" stroke-width="2.5"/>
+    <!-- Rim -->
+    <line x1="-2" y1="0" x2="122" y2="0" stroke="#282722" stroke-width="3"/>
+    <!-- Handle -->
+    <path d="M120,28 Q158,28 158,70 Q158,112 120,112" fill="none" stroke="#282722" stroke-width="2.5"/>
+    <!-- Liquid level -->
+    <line x1="10" y1="40" x2="110" y2="40" stroke="#282722" stroke-width="1" opacity="0.25" stroke-dasharray="4 3"/>
+    <!-- Steam wisps -->
+    <path d="M30,-8 Q35,-22 28,-38" fill="none" stroke="#282722" stroke-width="1.3" opacity="0.3"/>
+    <path d="M60,-8 Q66,-25 58,-42" fill="none" stroke="#282722" stroke-width="1.3" opacity="0.3"/>
+    <path d="M90,-8 Q95,-22 88,-38" fill="none" stroke="#282722" stroke-width="1.3" opacity="0.3"/>
+  </g>
+
+  <!-- Price tag ¥7 with yellow highlight -->
+  <g transform="translate(805,340)">
+    <!-- Yellow highlight behind tag -->
+    <rect x="6" y="-4" width="82" height="44" rx="4" fill="#efd15b" opacity="0.4"/>
+    <!-- Tag shape -->
+    <path d="M0,15 L12,0 L80,0 L80,36 L12,36 Z" fill="#fffdf7" stroke="#282722" stroke-width="1.5"/>
+    <circle cx="16" cy="18" r="4" fill="none" stroke="#282722" stroke-width="1"/>
+    <!-- String -->
+    <path d="M80,10 Q95,5 105,15" fill="none" stroke="#282722" stroke-width="1" opacity="0.5"/>
+    <!-- Price text -->
+    <text x="48" y="24" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#282722">&#165;7</text>
+  </g>
+
+  <text x="900" y="420" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8a8878">（这是我的！低于七元免谈）</text>
+
+  <!-- ========== Price gap highlight ========== -->
+  <text x="558" y="380" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#282722" opacity="0.6">同一个杯子</text>
+  <!-- Yellow bar highlighting price difference -->
+  <rect x="410" y="390" width="296" height="6" rx="3" fill="#efd15b" opacity="0.5"/>
+  <text x="425" y="412" font-family="sans-serif" font-size="14" fill="#8a8878">&#165;3</text>
+  <text x="690" y="412" text-anchor="end" font-family="sans-serif" font-size="14" fill="#8a8878">&#165;7</text>
+  <text x="558" y="414" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="bold" fill="#e4b936">差价 &#165;4</text>
+
+  <!-- ========== Red annotations ========== -->
+  <!-- Annotation 1 -->
+  <text x="560" y="510" text-anchor="middle" font-family="sans-serif" font-size="21" fill="#ad4e3e" font-style="italic" transform="rotate(-1.5,560,510)">拥有改变参照点</text>
+  <!-- Annotation 2 -->
+  <text x="560" y="550" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#ad4e3e" font-style="italic" transform="rotate(-1,560,550)">从零开始还会选它吗？</text>
+  <!-- Bracket -->
+  <path d="M390,498 L400,498 L400,560 L390,560" fill="none" stroke="#ad4e3e" stroke-width="1.5" opacity="0.5"/>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>两套系统 — 系统1与系统2</title>
+  <desc>左侧闪电图标代表系统1（快·自动·直觉），右侧计算器图标代表系统2（慢·费力·理性），中间虚线分隔，红色批注箭头"先直觉，再校验！"。</desc>
+
+  <!-- cream paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <!-- faint ruled lines -->
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="40" y1="80" x2="1160" y2="80"/>
+    <line x1="40" y1="160" x2="1160" y2="160"/>
+    <line x1="40" y1="240" x2="1160" y2="240"/>
+    <line x1="40" y1="320" x2="1160" y2="320"/>
+    <line x1="40" y1="400" x2="1160" y2="400"/>
+    <line x1="40" y1="480" x2="1160" y2="480"/>
+    <line x1="40" y1="560" x2="1160" y2="560"/>
+  </g>
+
+  <!-- ===== CENTER DASHED DIVIDING LINE ===== -->
+  <line x1="600" y1="60" x2="600" y2="510" stroke="#282722" stroke-width="2" stroke-dasharray="12,8" opacity="0.35"/>
+  <text x="600" y="44" font-family="sans-serif" font-size="13" fill="#aaa" text-anchor="middle">← 分 界 线 →</text>
+
+  <!-- ===== LEFT SIDE: System 1 ===== -->
+  <!-- lightning bolt icon -->
+  <g transform="translate(280, 130)">
+    <!-- glow -->
+    <polygon points="30,-30 -5,30 18,30 -10,85 55,18 28,18 60,-30" fill="#efd15b" opacity="0.3" transform="scale(1.3) translate(-8,-5)"/>
+    <!-- bolt -->
+    <polygon points="30,-30 -5,30 18,30 -10,85 55,18 28,18 60,-30" fill="#efd15b" stroke="#e4b936" stroke-width="2.5" stroke-linejoin="round"/>
+  </g>
+
+  <!-- System 1 label -->
+  <text x="290" y="260" font-family="sans-serif" font-size="40" fill="#282722" text-anchor="middle" font-weight="bold">系统 1</text>
+  <!-- yellow highlight band -->
+  <rect x="105" y="278" width="370" height="40" rx="3" fill="#efd15b" opacity="0.4"/>
+  <text x="290" y="308" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle">快 · 自动 · 直觉</text>
+
+  <!-- characteristics list -->
+  <g font-family="sans-serif" font-size="17" fill="#555">
+    <text x="150" y="370">▸ 无需努力，立即响应</text>
+    <text x="150" y="400">▸ 模式识别，情感驱动</text>
+    <text x="150" y="430">▸ 容易出错但效率极高</text>
+    <text x="150" y="460">▸ "眼见即为事实" (WYSIATI)</text>
+  </g>
+
+  <!-- ===== RIGHT SIDE: System 2 ===== -->
+  <!-- calculator icon -->
+  <g transform="translate(845, 110)">
+    <!-- body -->
+    <rect x="-40" y="0" width="80" height="100" rx="8" fill="none" stroke="#282722" stroke-width="3"/>
+    <!-- screen -->
+    <rect x="-30" y="10" width="60" height="24" rx="3" fill="#e8e4d8" stroke="#282722" stroke-width="1.5"/>
+    <!-- equation text -->
+    <text x="0" y="28" font-family="sans-serif" font-size="13" fill="#282722" text-anchor="middle">17×24</text>
+    <!-- buttons grid -->
+    <g fill="#282722" opacity="0.6">
+      <rect x="-28" y="44" width="14" height="10" rx="2"/>
+      <rect x="-8" y="44" width="14" height="10" rx="2"/>
+      <rect x="14" y="44" width="14" height="10" rx="2"/>
+      <rect x="-28" y="60" width="14" height="10" rx="2"/>
+      <rect x="-8" y="60" width="14" height="10" rx="2"/>
+      <rect x="14" y="60" width="14" height="10" rx="2"/>
+      <rect x="-28" y="76" width="14" height="10" rx="2"/>
+      <rect x="-8" y="76" width="14" height="10" rx="2"/>
+      <rect x="14" y="76" width="14" height="10" rx="2"/>
+    </g>
+  </g>
+
+  <!-- System 2 label -->
+  <text x="880" y="260" font-family="sans-serif" font-size="40" fill="#282722" text-anchor="middle" font-weight="bold">系统 2</text>
+  <!-- subtle background box -->
+  <rect x="695" y="278" width="370" height="40" rx="3" fill="#e8e4d8" opacity="0.5"/>
+  <text x="880" y="308" font-family="sans-serif" font-size="28" fill="#282722" text-anchor="middle">慢 · 费力 · 理性</text>
+
+  <!-- characteristics list -->
+  <g font-family="sans-serif" font-size="17" fill="#555">
+    <text x="730" y="370">▸ 需要注意力，消耗能量</text>
+    <text x="730" y="400">▸ 逻辑推理，规则计算</text>
+    <text x="730" y="430">▸ 精确但懒惰，常被跳过</text>
+    <text x="730" y="460">▸ 监督系统1，决定是否介入</text>
+  </g>
+
+  <!-- ===== RED ANNOTATION: arrow from left to right ===== -->
+  <defs>
+    <marker id="arrowR" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ad4e3e"/>
+    </marker>
+  </defs>
+  <path d="M 370 78 C 450 55, 550 50, 700 72" stroke="#ad4e3e" stroke-width="2.5" fill="none" marker-end="url(#arrowR)"/>
+  <text x="540" y="58" font-family="sans-serif" font-size="22" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-3, 540, 58)">先直觉，再校验！</text>
+
+  <!-- ===== BOTTOM: key question ===== -->
+  <rect x="250" y="520" width="700" height="55" rx="6" fill="none" stroke="#ad4e3e" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="600" y="555" font-family="sans-serif" font-size="24" fill="#ad4e3e" text-anchor="middle" font-weight="bold">关键判断前问：这是事实还是故事？</text>
+
+  <!-- bottom label -->
+  <text x="60" y="610" font-family="sans-serif" font-size="14" fill="#aaa">第三章 · 两套系统</text>
+</svg>

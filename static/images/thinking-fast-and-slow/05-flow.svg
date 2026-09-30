@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>心流 — 能力与挑战的平衡</title>
+  <desc>坐标系以"挑战"为纵轴、"能力"为横轴，对角黄色带为心流区，上方标注"焦虑"，下方标注"无聊"，红色批注"能力≈挑战→专注"。</desc>
+
+  <!-- cream paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <!-- faint ruled lines -->
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="40" y1="80" x2="1160" y2="80"/>
+    <line x1="40" y1="160" x2="1160" y2="160"/>
+    <line x1="40" y1="240" x2="1160" y2="240"/>
+    <line x1="40" y1="320" x2="1160" y2="320"/>
+    <line x1="40" y1="400" x2="1160" y2="400"/>
+    <line x1="40" y1="480" x2="1160" y2="480"/>
+    <line x1="40" y1="560" x2="1160" y2="560"/>
+  </g>
+
+  <!-- ===== COORDINATE SYSTEM ===== -->
+  <defs>
+    <marker id="axisArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#282722"/>
+    </marker>
+    <marker id="arrowRed3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ad4e3e"/>
+    </marker>
+  </defs>
+
+  <!-- origin at (200, 500) -->
+  <!-- Y axis: 挑战 -->
+  <line x1="200" y1="510" x2="200" y2="60" stroke="#282722" stroke-width="2.5" marker-end="url(#axisArrow)"/>
+  <text x="188" y="50" font-family="sans-serif" font-size="22" fill="#282722" text-anchor="end" font-weight="bold">挑战</text>
+  <!-- X axis: 能力 -->
+  <line x1="190" y1="500" x2="1080" y2="500" stroke="#282722" stroke-width="2.5" marker-end="url(#axisArrow)"/>
+  <text x="1095" y="508" font-family="sans-serif" font-size="22" fill="#282722" font-weight="bold">能力</text>
+
+  <!-- axis tick marks and labels -->
+  <g font-family="sans-serif" font-size="13" fill="#999" stroke="#ccc" stroke-width="0.8">
+    <line x1="200" y1="400" x2="195" y2="400"/><text x="185" y="404" text-anchor="end" stroke="none">低</text>
+    <line x1="200" y1="200" x2="195" y2="200"/><text x="185" y="204" text-anchor="end" stroke="none">高</text>
+    <line x1="400" y1="500" x2="400" y2="505"/><text x="400" y="522" text-anchor="middle" stroke="none">低</text>
+    <line x1="800" y1="500" x2="800" y2="505"/><text x="800" y="522" text-anchor="middle" stroke="none">高</text>
+  </g>
+
+  <!-- grid lines (very faint) -->
+  <g stroke="#e0dcd0" stroke-width="0.5" stroke-dasharray="4,6">
+    <line x1="200" y1="400" x2="1050" y2="400"/>
+    <line x1="200" y1="300" x2="1050" y2="300"/>
+    <line x1="200" y1="200" x2="1050" y2="200"/>
+    <line x1="400" y1="500" x2="400" y2="80"/>
+    <line x1="600" y1="500" x2="600" y2="80"/>
+    <line x1="800" y1="500" x2="800" y2="80"/>
+  </g>
+
+  <!-- ===== DIAGONAL YELLOW FLOW BAND ===== -->
+  <!-- band from bottom-left to top-right -->
+  <polygon points="200,500 200,420 1000,70 1050,70 1050,150 250,500"
+           fill="#efd15b" opacity="0.4"/>
+  <!-- band edges -->
+  <line x1="200" y1="420" x2="1000" y2="70" stroke="#e4b936" stroke-width="2" opacity="0.7"/>
+  <line x1="250" y1="500" x2="1050" y2="150" stroke="#e4b936" stroke-width="2" opacity="0.7"/>
+
+  <!-- flow zone label (along diagonal) -->
+  <text x="620" y="275" font-family="sans-serif" font-size="36" fill="#282722" font-weight="bold" text-anchor="middle" transform="rotate(-27, 620, 275)">心 流 区</text>
+  <text x="620" y="310" font-family="sans-serif" font-size="16" fill="#555" text-anchor="middle" transform="rotate(-27, 620, 310)">全神贯注 · 时间消失 · 内在愉悦</text>
+
+  <!-- ===== ANXIETY ZONE (above band) ===== -->
+  <text x="370" y="170" font-family="sans-serif" font-size="30" fill="#282722" text-anchor="middle" opacity="0.6">焦虑</text>
+  <text x="370" y="198" font-family="sans-serif" font-size="14" fill="#888" text-anchor="middle">挑战远超能力</text>
+  <!-- anxiety scribble marks -->
+  <g stroke="#282722" stroke-width="1" opacity="0.2">
+    <path d="M 320 130 Q 330 120, 340 130 Q 350 140, 360 130" fill="none"/>
+    <path d="M 340 145 Q 350 135, 360 145 Q 370 155, 380 145" fill="none"/>
+  </g>
+
+  <!-- ===== BOREDOM ZONE (below band) ===== -->
+  <text x="820" y="430" font-family="sans-serif" font-size="30" fill="#282722" text-anchor="middle" opacity="0.6">无聊</text>
+  <text x="820" y="458" font-family="sans-serif" font-size="14" fill="#888" text-anchor="middle">能力远超挑战</text>
+  <!-- boredom dots/zzz -->
+  <g font-family="sans-serif" font-size="18" fill="#282722" opacity="0.2">
+    <text x="870" y="445">z</text>
+    <text x="885" y="435">z</text>
+    <text x="900" y="425">z</text>
+  </g>
+
+  <!-- ===== A dot in the flow zone ===== -->
+  <circle cx="600" cy="290" r="8" fill="#e4b936" stroke="#282722" stroke-width="2"/>
+  <text x="628" y="296" font-family="sans-serif" font-size="14" fill="#282722" font-weight="bold">你在这里</text>
+
+  <!-- ===== RED ANNOTATION ===== -->
+  <!-- curved arrow pointing to flow zone -->
+  <path d="M 980 540 C 920 500, 820 400, 720 320" stroke="#ad4e3e" stroke-width="2.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed3)"/>
+
+  <!-- red annotation text -->
+  <rect x="820" y="535" width="340" height="52" rx="4" fill="none" stroke="#ad4e3e" stroke-width="1.8" stroke-dasharray="5,4"/>
+  <text x="990" y="568" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic">✎ 能力 ≈ 挑战 → 专注</text>
+
+  <!-- extra insight note -->
+  <text x="200" y="572" font-family="sans-serif" font-size="15" fill="#ad4e3e" font-style="italic">提示：刻意把难度调到刚好够得着的水平</text>
+
+  <!-- bottom label -->
+  <text x="60" y="610" font-family="sans-serif" font-size="14" fill="#aaa">第五章 · 心流</text>
+</svg>

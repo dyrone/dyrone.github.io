@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>最省力法则 — 大脑偏爱阻力最小的路</title>
+  <desc>岔路口场景：宽阔平坦的黄色捷径和狭窄陡峭的严谨分析路径，大脑图标在岔路口选择捷径，红色批注"大脑偏爱阻力最小的路"。</desc>
+
+  <!-- cream paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <!-- faint ruled lines -->
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="40" y1="100" x2="1160" y2="100"/>
+    <line x1="40" y1="200" x2="1160" y2="200"/>
+    <line x1="40" y1="300" x2="1160" y2="300"/>
+    <line x1="40" y1="400" x2="1160" y2="400"/>
+    <line x1="40" y1="500" x2="1160" y2="500"/>
+  </g>
+
+  <!-- ===== EASY PATH (wide, smooth, yellow-highlighted) — sweeps down-right ===== -->
+  <!-- wide yellow road surface -->
+  <path d="M 380 340 C 480 360, 600 400, 780 420 C 900 435, 1000 440, 1140 430"
+        stroke="none" fill="#efd15b" opacity="0.35"/>
+  <path d="M 380 310 C 480 320, 600 350, 780 370 C 900 382, 1000 385, 1140 378
+           L 1140 430
+           C 1000 440, 900 435, 780 420
+           C 600 400, 480 360, 380 340 Z"
+        fill="#efd15b" opacity="0.4"/>
+  <!-- road edges -->
+  <path d="M 380 310 C 480 320, 600 350, 780 370 C 900 382, 1000 385, 1140 378"
+        stroke="#e4b936" stroke-width="2.5" fill="none"/>
+  <path d="M 380 340 C 480 360, 600 400, 780 420 C 900 435, 1000 440, 1140 430"
+        stroke="#e4b936" stroke-width="2.5" fill="none"/>
+  <!-- center line dashes -->
+  <path d="M 400 326 C 500 340, 620 374, 800 395 C 920 408, 1010 412, 1140 404"
+        stroke="#e4b936" stroke-width="1.5" stroke-dasharray="12,8" fill="none" opacity="0.6"/>
+  <!-- easy path label -->
+  <text x="750" y="360" font-family="sans-serif" font-size="26" fill="#282722" font-weight="bold" transform="rotate(4, 750, 360)">捷径（启发式）</text>
+  <!-- little decorations: smooth rolling -->
+  <text x="900" y="405" font-family="sans-serif" font-size="14" fill="#888" transform="rotate(2, 900, 405)">平坦 · 省力 · 自动</text>
+
+  <!-- ===== HARD PATH (narrow, steep) — goes up-right ===== -->
+  <!-- narrow gray road -->
+  <path d="M 380 300 C 430 270, 500 210, 580 150 C 640 105, 720 70, 840 55"
+        stroke="#282722" stroke-width="6" fill="none" opacity="0.2"/>
+  <path d="M 380 300 C 430 270, 500 210, 580 150 C 640 105, 720 70, 840 55"
+        stroke="#282722" stroke-width="2" fill="none" opacity="0.5"/>
+  <!-- steep path hash marks (effort indicators) -->
+  <g stroke="#282722" stroke-width="1.2" opacity="0.35">
+    <line x1="430" y1="262" x2="438" y2="275"/>
+    <line x1="470" y1="232" x2="478" y2="245"/>
+    <line x1="510" y1="198" x2="518" y2="211"/>
+    <line x1="545" y1="170" x2="553" y2="183"/>
+    <line x1="580" y1="143" x2="588" y2="156"/>
+    <line x1="620" y1="118" x2="628" y2="131"/>
+    <line x1="665" y1="94" x2="673" y2="107"/>
+    <line x1="715" y1="76" x2="723" y2="89"/>
+  </g>
+  <!-- hard path label -->
+  <text x="680" y="140" font-family="sans-serif" font-size="20" fill="#282722" opacity="0.55" transform="rotate(-25, 680, 140)">严谨分析</text>
+  <text x="780" y="95" font-family="sans-serif" font-size="13" fill="#888" transform="rotate(-18, 780, 95)">费力 · 缓慢 · 精确</text>
+
+  <!-- ===== BRAIN ICON at fork ===== -->
+  <g transform="translate(320, 280)">
+    <!-- brain outline (simplified two-lobe) -->
+    <ellipse cx="-15" cy="0" rx="32" ry="36" fill="#fffdf7" stroke="#282722" stroke-width="2.5"/>
+    <ellipse cx="15" cy="0" rx="32" ry="36" fill="#fffdf7" stroke="#282722" stroke-width="2.5"/>
+    <!-- overlap cover -->
+    <ellipse cx="0" cy="0" rx="14" ry="36" fill="#fffdf7"/>
+    <!-- brain folds left -->
+    <path d="M -30 -8 Q -15 -14, -8 -6" stroke="#282722" stroke-width="1.5" fill="none"/>
+    <path d="M -35 8 Q -18 2, -6 10" stroke="#282722" stroke-width="1.5" fill="none"/>
+    <path d="M -28 22 Q -14 18, -4 24" stroke="#282722" stroke-width="1.5" fill="none"/>
+    <!-- brain folds right -->
+    <path d="M 30 -8 Q 15 -14, 8 -6" stroke="#282722" stroke-width="1.5" fill="none"/>
+    <path d="M 35 8 Q 18 2, 6 10" stroke="#282722" stroke-width="1.5" fill="none"/>
+    <path d="M 28 22 Q 14 18, 4 24" stroke="#282722" stroke-width="1.5" fill="none"/>
+    <!-- stem -->
+    <line x1="0" y1="36" x2="0" y2="50" stroke="#282722" stroke-width="2.5"/>
+  </g>
+
+  <!-- arrow from brain toward easy path -->
+  <defs>
+    <marker id="arrowYel" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e4b936"/>
+    </marker>
+  </defs>
+  <path d="M 358 310 C 390 325, 420 338, 465 350" stroke="#e4b936" stroke-width="3" fill="none" marker-end="url(#arrowYel)"/>
+
+  <!-- label near brain -->
+  <text x="240" y="380" font-family="sans-serif" font-size="16" fill="#555" text-anchor="middle">选择</text>
+  <text x="240" y="400" font-family="sans-serif" font-size="14" fill="#888" text-anchor="middle">（几乎总选捷径）</text>
+
+  <!-- incoming path to fork -->
+  <path d="M 60 325 L 280 325" stroke="#282722" stroke-width="2" stroke-dasharray="8,5" opacity="0.4"/>
+
+  <!-- ===== FORK SIGNPOST ===== -->
+  <g transform="translate(340, 210)">
+    <!-- post -->
+    <rect x="-4" y="0" width="8" height="130" fill="#282722" opacity="0.3"/>
+    <!-- sign pointing up-right -->
+    <rect x="5" y="-10" width="110" height="28" rx="3" fill="#f5f0e0" stroke="#282722" stroke-width="1.2"/>
+    <text x="60" y="10" font-family="sans-serif" font-size="12" fill="#282722" text-anchor="middle">↗ 严谨分析</text>
+    <!-- sign pointing down-right -->
+    <rect x="5" y="24" width="110" height="28" rx="3" fill="#efd15b" stroke="#e4b936" stroke-width="1.2"/>
+    <text x="60" y="44" font-family="sans-serif" font-size="12" fill="#282722" text-anchor="middle" font-weight="bold">→ 启发式捷径</text>
+  </g>
+
+  <!-- ===== RED ANNOTATION ===== -->
+  <defs>
+    <marker id="arrowRed2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ad4e3e"/>
+    </marker>
+  </defs>
+  <!-- annotation box -->
+  <rect x="140" y="490" width="920" height="60" rx="5" fill="none" stroke="#ad4e3e" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="600" y="530" font-family="sans-serif" font-size="30" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic">✎ 大脑偏爱阻力最小的路</text>
+
+  <!-- small red arrow from brain to annotation -->
+  <path d="M 310 340 C 300 400, 280 460, 350 496" stroke="#ad4e3e" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#arrowRed2)"/>
+
+  <!-- bottom label -->
+  <text x="60" y="610" font-family="sans-serif" font-size="14" fill="#aaa">第四章 · 最省力法则</text>
+</svg>
