@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <title>发生了什么 — 回答正在变成界面</title>
+  <desc>左侧对话窗口的问题经中间"组件库→编译器"管道，右侧流式渲染出图表卡片、带默认值的表单和确认按钮，红色批注"回答正在变成界面"。</desc>
+
+  <!-- cream paper background -->
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <!-- faint ruled lines -->
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="60" y1="80" x2="1140" y2="80"/>
+    <line x1="60" y1="160" x2="1140" y2="160"/>
+    <line x1="60" y1="240" x2="1140" y2="240"/>
+    <line x1="60" y1="320" x2="1140" y2="320"/>
+    <line x1="60" y1="400" x2="1140" y2="400"/>
+    <line x1="60" y1="480" x2="1140" y2="480"/>
+    <line x1="60" y1="560" x2="1140" y2="560"/>
+  </g>
+
+  <!-- ===== LEFT: chat window ===== -->
+  <rect x="70" y="110" width="330" height="340" rx="10" fill="#fff" stroke="#282722" stroke-width="2"/>
+  <g fill="#282722" opacity="0.4">
+    <circle cx="95" cy="133" r="4"/><circle cx="113" cy="133" r="4"/><circle cx="131" cy="133" r="4"/>
+  </g>
+  <line x1="70" y1="152" x2="400" y2="152" stroke="#282722" stroke-width="1.5"/>
+  <!-- user bubble -->
+  <rect x="100" y="172" width="235" height="40" rx="10" fill="#e8e4d8"/>
+  <text x="217" y="198" font-family="sans-serif" font-size="15" fill="#282722" text-anchor="middle">帮我分析这份季度报表</text>
+  <!-- model bubble -->
+  <rect x="100" y="235" width="270" height="90" rx="10" fill="none" stroke="#ccc" stroke-width="1.5"/>
+  <g stroke="#ccc" stroke-width="1.5">
+    <line x1="120" y1="265" x2="340" y2="265"/>
+    <line x1="120" y1="285" x2="320" y2="285"/>
+    <line x1="120" y1="305" x2="300" y2="305"/>
+  </g>
+  <text x="235" y="360" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle">一问一答，回合制</text>
+
+  <!-- ===== MIDDLE: library + compiler ===== -->
+  <text x="550" y="150" font-family="sans-serif" font-size="14" fill="#555" text-anchor="middle">组件库</text>
+  <circle cx="550" cy="190" r="18" fill="#e8e4d8" opacity="0.6" stroke="#282722" stroke-width="2"/>
+  <line x1="550" y1="212" x2="550" y2="258" stroke="#282722" stroke-width="2" marker-end="url(#inkArrow)"/>
+  <!-- gear = compiler -->
+  <g stroke="#282722" stroke-width="5" stroke-linecap="round">
+    <line x1="550" y1="258" x2="550" y2="246"/>
+    <line x1="550" y1="342" x2="550" y2="354"/>
+    <line x1="508" y1="300" x2="496" y2="300"/>
+    <line x1="592" y1="300" x2="604" y2="300"/>
+    <line x1="520" y1="270" x2="511" y2="261"/>
+    <line x1="580" y1="270" x2="589" y2="261"/>
+    <line x1="520" y1="330" x2="511" y2="339"/>
+    <line x1="580" y1="330" x2="589" y2="339"/>
+  </g>
+  <circle cx="550" cy="300" r="30" fill="#efd15b" opacity="0.45" stroke="#282722" stroke-width="3"/>
+  <text x="550" y="385" font-family="sans-serif" font-size="16" fill="#555" text-anchor="middle">编译器</text>
+  <defs>
+    <marker id="inkArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#282722"/>
+    </marker>
+  </defs>
+
+  <!-- ===== RIGHT: component cards ===== -->
+  <!-- chart card -->
+  <rect x="700" y="100" width="440" height="160" rx="8" fill="#fff" stroke="#282722" stroke-width="2"/>
+  <text x="725" y="132" font-family="sans-serif" font-size="15" fill="#555">季度营收（万元）</text>
+  <g fill="#efd15b" stroke="#e4b936" stroke-width="1.5">
+    <rect x="760" y="190" width="50" height="45"/>
+    <rect x="830" y="170" width="50" height="65"/>
+    <rect x="900" y="140" width="50" height="95"/>
+    <rect x="970" y="155" width="50" height="80"/>
+  </g>
+  <line x1="730" y1="235" x2="1120" y2="235" stroke="#282722" stroke-width="1"/>
+  <!-- form card -->
+  <rect x="700" y="285" width="440" height="150" rx="8" fill="#fff" stroke="#282722" stroke-width="2"/>
+  <text x="725" y="315" font-family="sans-serif" font-size="15" fill="#555">预算分配</text>
+  <rect x="725" y="335" width="200" height="38" rx="4" fill="none" stroke="#282722" stroke-width="1.5"/>
+  <rect x="737" y="343" width="110" height="22" fill="#efd15b" opacity="0.55"/>
+  <text x="745" y="361" font-family="sans-serif" font-size="17" fill="#282722">¥10,000</text>
+  <polygon points="905,350 915,350 910,358" fill="#282722" opacity="0.6"/>
+  <rect x="960" y="335" width="150" height="38" rx="4" fill="none" stroke="#282722" stroke-width="2"/>
+  <text x="1035" y="361" font-family="sans-serif" font-size="19" fill="#282722" text-anchor="middle">确定</text>
+  <text x="725" y="408" font-family="sans-serif" font-size="13" fill="#ad4e3e">↑ 默认值，多数人会直接点确定</text>
+
+  <!-- ===== RED ANNOTATION ===== -->
+  <defs>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ad4e3e"/>
+    </marker>
+  </defs>
+  <path d="M 380 250 C 480 200, 560 165, 690 145" stroke="#ad4e3e" stroke-width="2.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed)"/>
+  <text x="600" y="62" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-3, 600, 62)">回答正在变成界面</text>
+
+  <!-- ===== BOTTOM: key takeaway ===== -->
+  <rect x="250" y="520" width="700" height="55" rx="6" fill="none" stroke="#ad4e3e" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="600" y="555" font-family="sans-serif" font-size="24" fill="#ad4e3e" text-anchor="middle" font-weight="bold">免费发给 12 亿人：图表的生成成本降为零</text>
+
+  <!-- bottom label -->
+  <text x="60" y="610" font-family="sans-serif" font-size="14" fill="#aaa">第一节 · 发生了什么</text>
+</svg>
