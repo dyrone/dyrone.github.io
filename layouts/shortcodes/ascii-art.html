@@ -1,0 +1,10 @@
+{{ $piece := .Get "piece" }}
+<figure class="ascii-art-figure">
+  <div class="ascii-art-stage">
+    <canvas data-ascii-piece="{{ $piece }}" width="1000" height="720" role="img" aria-label="{{ .Get "alt" }}"></canvas>
+    <div class="ascii-art-loading">正在生成画面…</div>
+  </div>
+  <figcaption>{{ .Get "caption" }}</figcaption>
+</figure>
+<script src="{{ printf "/js/ascii-art/%s.js" $piece | relURL }}" defer></script>
+<script src="{{ "/js/ascii-art.js" | relURL }}" defer></script>

@@ -9,6 +9,8 @@ draft: false
 article_style: reading-notes
 ---
 
+{{< ascii-art piece="alpine-dawn" alt="动态 ASCII 画面：晨光照亮雪峰，山下湖面倒映群山" caption="alpine dawn" >}}
+
 ## 1. 发生了什么
 {{< reading-note-figure src="/images/gpt6-intelligent-ui-kuai-yu-man/01-intelligent-ui.svg" alt="GPT-6 的回答经过组件库和编译器转化为可交互界面" caption="回答不再只是文字，而是由模型实时组织并渲染的界面。" >}}
 
