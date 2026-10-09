@@ -6,7 +6,20 @@
     <description>Recent content on Dyrone Teng</description>
     
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>别把 System One 模型叫成 Jev</title>
+      <link>/posts/jev-and-system-one-models/</link>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/jev-and-system-one-models/</guid>
+      <description>最近在讨论里常听到&amp;quot;我们要接入 Jev&amp;quot;。多数时候，这句话说的并不是它字面上的意思。Jev 是一个具体模型的名字，大家真正想表达的往往是&amp;quot;接入一类模型&amp;quot;。名字用错，看起来只是措辞问题，落到对外沟通、合作关系和能力预期上，就会变成实际问题。
+1. Jev 是 TypeSafe AI 的模型名 Jev 是一家公司的一个具体模型，写作 Jev 和 TypeSafe。  Jev 是 TypeSafe AI 发布的模型。两个写法值得留意：
+ 模型名写作 Jev，只有首字母大写，不是 JEV。 公司名写作 TypeSafe，一个词，不是 Type Safe。  TypeSafe 把 Jev 归入它提出的 System One Models。官方的定义是：&amp;ldquo;a new class of frontier models built to make fast, structured decisions that software can use directly.&amp;rdquo; 也就是一类新的前沿模型，用来做快速、结构化、可以被软件直接消费的决策。
+注意这句定义里的措辞：System One Models 是 &amp;ldquo;a new class&amp;rdquo;——一类模型；Jev 是这一类里的一个具体模型。
+ 2. System One 是一类模型的名字 System One 是类别，Jev 只是其中之一；这一类的特征是并行采样和结构化输出。  &amp;ldquo;System One&amp;rdquo; 这个名字取自卡尼曼《思考，快与慢》里的系统 1 与系统 2（我之前写过一篇读书笔记）。系统 1 快速、直觉、不费力；系统 2 缓慢、审慎、逐步推理。按这个比喻，常见的大语言模型逐 token 生成，更像系统 2；System One 模型追求的是系统 1 式的&amp;quot;一眼给出判断&amp;quot;。</description>
+    </item>
+    
     <item>
       <title>GPT-6 Intelligent UI：交互体验、认知偏差与媒介演进</title>
       <link>/posts/gpt6-intelligent-ui-kuai-yu-man/</link>

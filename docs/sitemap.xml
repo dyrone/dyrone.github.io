@@ -3,21 +3,30 @@
 	xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/posts/jev-and-system-one-models/</loc>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%91%BD%E5%90%8D/</loc>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/posts/gpt6-intelligent-ui-kuai-yu-man/</loc>
     <lastmod>2026-10-08T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
-  </url><url>
     <loc>/tags/%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1/</loc>
-    <lastmod>2026-10-08T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
     <lastmod>2026-10-08T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/tags/%E5%AA%92%E4%BB%8B%E6%BC%94%E8%BF%9B/</loc>
