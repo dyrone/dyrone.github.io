@@ -115,9 +115,37 @@
 </ul>
 <p>这些是范式层面的特征，并不专属于某一家公司。别的团队完全可以训练、部署具备同样特征的模型——它们可以是 System One 模型，但不是 Jev。</p>
 <hr>
-<h2 id="3-为什么接入-jev不准确">3. 为什么&quot;接入 Jev&quot;不准确</h2>
+<h2 id="3-大厂与创业公司怎么称呼这类模型">3. 大厂与创业公司怎么称呼这类模型</h2>
 <figure class="reading-note-figure">
-  <img src="/images/jev-and-system-one-models/03-four-misreadings.svg" alt="一句“我们接入了 Jev”分别引出合作关系、能力预期、品牌合规、内部沟通四种误读" loading="lazy">
+  <img src="/images/jev-and-system-one-models/03-naming-landscape.svg" alt="两列对比：左侧沿用 System One 命名的 TypeSafe、Google、Kev；右侧换用 Decision model / Decisions 命名的 Microsoft、OpenAI、Amazon、Cloudflare、Fastino、Together AI、StartLux" loading="lazy">
+  <figcaption>大厂集体绕开 System One，改用更朴素的 Decision model；只有 Google 和沿袭 TypeSafe 契约的开源项目保留 System One 这一说法。</figcaption>
+</figure>
+
+<p>从 Jev 发布到现在不到一个月，同范式的模型几乎每周都有一款。观察下来，命名出现了两种明显的阵营：</p>
+<p><strong>沿用&quot;System One 模型&quot;的少数</strong></p>
+<ul>
+<li><strong>TypeSafe AI</strong> 自己造的词 Jev / System One Models，仍是品类来源。</li>
+<li><strong>Google DeepMind</strong> 的开源 DiffusionGemma 在官方 Codelabs 里被明写为 &ldquo;The Discriminative model is a System One model&rdquo;，是目前唯一跟进这一命名的大厂。</li>
+<li>开源项目 <strong>Kev</strong>（Jared Palmer）直接声明 API 沿用 TypeSafe 的 System One 契约。</li>
+</ul>
+<p><strong>换用&quot;Decision model / Decisions&quot;的多数</strong></p>
+<ul>
+<li><strong>Microsoft Foundry</strong> 10 月 9 日上线 <strong>Microsoft-Decision-1</strong>，官方描述是 &ldquo;fast decision-making&rdquo; 和 &ldquo;decision-scoring model&rdquo;，发布文中没有出现 System One。</li>
+<li><strong>OpenAI</strong> 10 月 6 日在 DevDay 上公测 <strong>Decisions API</strong>，底层是 GPT-6 Luna，宣传语是 &ldquo;Let your app choose the right model, tool, or action in near real-time&rdquo;，同样绕开了 System One 这一标签。</li>
+<li><strong>Amazon</strong> 10 月 1 日发布 <strong>Strands Decider 2B</strong>，被 TechCrunch 直接称为&quot;Jev clone&quot;，官方口径是 &ldquo;AI decision model&rdquo;。</li>
+<li><strong>Cloudflare</strong> 10 月 1 日把 <strong>Clef / Clef-Flash</strong> 开源到 Hugging Face，官方博客称之为 &ldquo;decision models&rdquo;，引用 Jev 时才提到 System One。</li>
+<li>创业公司阵营也以 Decision 为主：<strong>Fastino</strong> 的 GLiNER2.5-Decide / GLiDE、<strong>Together AI</strong> 的 Tev1、<strong>Bespoke Labs</strong> 的 Nimble，都用 &ldquo;decision model&rdquo; / &ldquo;open-weight decision model&rdquo; 的说法。</li>
+<li>国内目前能查到的开源代表是 <strong>StartLux-Decision</strong>（上海 StartLux，9 月 30 日发布），自我定位是&quot;决策模型&quot;。</li>
+</ul>
+<p>两个观察：</p>
+<ul>
+<li><strong>&ldquo;System One&rdquo; 更像 TypeSafe 的品类命名权</strong>。大厂发同类产品时集体避开这个词，改用更朴素的 &ldquo;decision model&rdquo;，Microsoft 和 OpenAI 的发布文里甚至不出现 System One。这既避免被动给对手背书，也降低了与卡尼曼术语绑定的解释成本。</li>
+<li><strong>&ldquo;Jev&rdquo; 已经在被用作泛指</strong>。Amazon 的发布被业界直接写成 &ldquo;Jev clone&rdquo;，国内外中文媒体多以&quot;类 Jev 模型&quot;/&ldquo;Jev 的开源替代&quot;概括。这正是上一节担心的地方——越是流通的泛指，越会把具体供应商和品类特征混在一起。</li>
+</ul>
+<hr>
+<h2 id="4-为什么接入-jev不准确">4. 为什么&quot;接入 Jev&quot;不准确</h2>
+<figure class="reading-note-figure">
+  <img src="/images/jev-and-system-one-models/04-four-misreadings.svg" alt="一句“我们接入了 Jev”分别引出合作关系、能力预期、品牌合规、内部沟通四种误读" loading="lazy">
   <figcaption>没有真正调用 TypeSafe 的 Jev 时，这句话会在四个方向上被误读。</figcaption>
 </figure>
 
@@ -130,9 +158,9 @@
 <li><strong>内部沟通含混</strong>：采购、成本结算、技术排障都需要知道&quot;到底接的是谁的模型&rdquo;，泛化的名字会让这些环节反复确认。</li>
 </ul>
 <hr>
-<h2 id="4-建议的说法">4. 建议的说法</h2>
+<h2 id="5-建议的说法">5. 建议的说法</h2>
 <figure class="reading-note-figure">
-  <img src="/images/jev-and-system-one-models/04-naming-decision.svg" alt="判断树：调用 TypeSafe 的 Jev 时说接入 Jev，否则正式场合说接入 System One 模型、口头沟通可说接入类 Jev 模型" loading="lazy">
+  <img src="/images/jev-and-system-one-models/05-naming-decision.svg" alt="判断树：调用 TypeSafe 的 Jev 时说接入 Jev，否则正式场合说接入 System One 模型、口头沟通可说接入类 Jev 模型" loading="lazy">
   <figcaption>先确认接的是谁的模型，再选名字；正式文档优先用类别名。</figcaption>
 </figure>
 
@@ -151,7 +179,7 @@
 </tr>
 <tr>
 <td>接入同范式的其他模型（正式场合）</td>
-<td>接入 System One 模型（系统-1 模型）</td>
+<td>接入 System One 模型（或 Decision 模型）</td>
 </tr>
 <tr>
 <td>接入同范式的其他模型（对方熟悉 Jev 时）</td>
@@ -159,26 +187,58 @@
 </tr>
 </tbody>
 </table>
-<p>其中&quot;System One 模型&quot;描述的是模型类别，适合写进文档、方案和对外材料；&ldquo;类 Jev 模型&quot;借 Jev 的知名度帮助对方快速理解形态，适合口头沟通，但正式文档里仍建议优先用类别名。</p>
+<p>其中&quot;System One 模型（或 Decision 模型）&ldquo;描述的是模型类别，适合写进文档、方案和对外材料。两种叫法现阶段并存，下一节专门展开到底该选哪个。&ldquo;类 Jev 模型&quot;借 Jev 的知名度帮助对方快速理解形态，适合口头沟通，但正式文档里仍建议优先用类别名。</p>
 <p>另外两个细节：</p>
 <ul>
 <li>书写时用 Jev 而不是 JEV，用 TypeSafe 而不是 Type Safe。</li>
 <li>调用接口时，模型 id 一律照服务方给出的原样填写，不要用&quot;Jev&quot;之类的通用叫法代替。</li>
 </ul>
 <hr>
-<h2 id="5-小结">5. 小结</h2>
+<h2 id="6-system-one-模型还是-decision-模型">6. System One 模型还是 Decision 模型</h2>
 <figure class="reading-note-figure">
-  <img src="/images/jev-and-system-one-models/05-name-is-a-claim.svg" alt="“接入 Jev”的标签指向“用的是 TypeSafe AI 的模型”这一声明，不是则改用类别名，名字决定合作、预期和成本能否说清" loading="lazy">
+  <img src="/images/jev-and-system-one-models/06-which-name.svg" alt="左右两张对照卡：System One 模型优点是继承 TypeSafe 品类命名、绑定卡尼曼比喻、品类讨论稳定，缺点是带供应商暗示、要额外解释、名字不描述能力；Decision 模型优点是大厂通用名、自带语义、更中性，缺点是和决策树决策引擎易混、短期多种变体、失去卡尼曼比喻；底部提示并存期先写一个、括号补另一个" loading="lazy">
+  <figcaption>两种叫法各有得失，技术讨论用 System One 模型，对外沟通用 Decision 模型；别再用 Jev 做泛指。</figcaption>
+</figure>
+
+<p>两种叫法都是一个月内才扩散开的，没必要押宝其中一个。它们各有适用场景。</p>
+<p><strong>System One 模型</strong></p>
+<ul>
+<li><strong>优点</strong>：和 TypeSafe 发布 Jev 时提出的概念绑定，一句话就能把这类模型与卡尼曼《思考，快与慢》里的&quot;系统 1&quot;挂钩，解释范式特征时自带隐喻；在学术、品类分析、架构讨论里更稳定。</li>
+<li><strong>缺点</strong>：承认了 TypeSafe 对品类的命名权，大厂集体避开这个词说明它带有供应商暗示；名字本身不描述模型做什么，对不熟悉卡尼曼的读者需要再解释一遍。</li>
+</ul>
+<p><strong>Decision 模型</strong></p>
+<ul>
+<li><strong>优点</strong>：大厂（Microsoft/OpenAI/Amazon/Cloudflare 等）事实上形成的通用名，和产品 API 的叫法保持一致；&ldquo;决策&quot;两个字自带语义，不认识 Jev 也能大致猜到用途；更中性，不绑定任何一家公司。</li>
+<li><strong>缺点</strong>：覆盖面太宽，容易和传统规则引擎、决策树、强化学习里的 decision 混淆；行业里短期还没统一叫法，有 Decision model / Decisions API / Decider / Decide 多种变体；失去了与卡尼曼比喻的连接，谈范式特征时得多说一句。</li>
+</ul>
+<p>因此我自己的用法分三挡：</p>
+<ul>
+<li><strong>对外写作、产品沟通、客户介绍</strong>：用&quot;决策模型&quot;或&quot;Decision 模型&rdquo;，跟进大厂叫法，自带语义，解释成本最低。</li>
+<li><strong>技术分析、架构讨论、品类/学术对比</strong>：保留&quot;System One 模型&rdquo;，卡尼曼的隐喻能帮读者快速对齐范式特征。</li>
+<li><strong>两者并存阶段</strong>：第一次出现时写&quot;决策模型（System One 模型）&ldquo;或反过来，让读者两种名字都能对上号。</li>
+</ul>
+<p>不管用哪个，都不要再用&quot;Jev&quot;做泛指。</p>
+<hr>
+<h2 id="7-小结">7. 小结</h2>
+<figure class="reading-note-figure">
+  <img src="/images/jev-and-system-one-models/07-name-is-a-claim.svg" alt="“接入 Jev”的标签指向“用的是 TypeSafe AI 的模型”这一声明，不是则改用类别名，名字决定合作、预期和成本能否说清" loading="lazy">
   <figcaption>说出模型名就是一次声明，名字准确，后续的事情才说得清。</figcaption>
 </figure>
 
-<p>Jev 是 TypeSafe AI 的一个模型，System One 是一类模型。说&quot;接入 Jev&rdquo;，就是在声明我们用的是 TypeSafe 的模型；如果不是，就应该说&quot;接入 System One 模型&rdquo;，或者在非正式场合说&quot;接入类 Jev 模型&quot;。名字准确，后面的合作、预期和成本才说得清楚。</p>
+<p>Jev 是 TypeSafe AI 的一个模型，System One 是一类模型。说&quot;接入 Jev&rdquo;，就是在声明我们用的是 TypeSafe 的模型；如果不是，就应该说&quot;接入 System One 模型（或 Decision 模型）&quot;，或者在非正式场合说&quot;接入类 Jev 模型&rdquo;。名字准确，后面的合作、预期和成本才说得清楚。</p>
 <hr>
 <p><strong>事实来源</strong></p>
 <ul>
 <li><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Introducing System One Models &amp; Jev — TypeSafe AI</a></li>
 <li><a href="https://www.langchain.com/blog/building-a-harness-with-jev">Building a Harness with Jev — LangChain</a></li>
 <li><a href="https://www.kai-waehner.de/blog/2026/09/28/how-system-one-models-like-jev-change-enterprise-ai-architecture/">How System One Models Like Jev Change Enterprise AI Architecture — Kai Waehner</a></li>
+<li><a href="https://commandline.microsoft.com/microsoft-decision-1-model-foundry/">Microsoft-Decision-1: Our model for fast decision-making — Microsoft</a></li>
+<li><a href="https://community.openai.com/t/decisions-api-is-now-available-in-public-beta/1403877">Decisions API is now available in Public Beta — OpenAI Community</a></li>
+<li><a href="https://startupfortune.com/amazon-releases-its-own-jev-clone-as-the-ai-decision-model-race-turns-into-a-pile-up/">Amazon releases its own Jev clone as the AI decision model race turns into a pile-up — Startup Fortune</a></li>
+<li><a href="https://blog.cloudflare.com/clef-decision-models/">Clef and Clef-flash: open-source decision models — Cloudflare</a></li>
+<li><a href="https://codelabs.developers.google.com/codelabs/discriminative-models">Getting started with Discriminative (Jev / DiffusionGemma) — Google Codelabs</a></li>
+<li><a href="https://fortune.com/2026/10/08/jev-an-ai-for-making-quick-decisions-has-been-a-viral-hit-in-silicon-valley-but-openai-is-hot-on-its-heels/">Jev, an AI for making quick decisions, has been a viral hit — Fortune</a></li>
+<li><a href="https://36kr.com/p/4009510615027849">Jev 被请下王座，StartLux 中国开源决策模型冲上第一 — 36Kr</a></li>
 </ul>
 
 

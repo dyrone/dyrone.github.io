@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t5 d5">
+  <title id="t5">说出名字就是一次声明</title>
+  <desc id="d5">左侧标签写着"接入 Jev"，箭头指向"声明：用的是 TypeSafe AI 的模型"；如果不是，红色虚线指向改正后的说法"接入 System One 模型"或"接入类 Jev 模型"；左下三个圆圈写着合作、预期、成本，表示名字决定这三件事能否说清。</desc>
+
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="60" y1="80" x2="1140" y2="80"/>
+    <line x1="60" y1="160" x2="1140" y2="160"/>
+    <line x1="60" y1="240" x2="1140" y2="240"/>
+    <line x1="60" y1="320" x2="1140" y2="320"/>
+    <line x1="60" y1="400" x2="1140" y2="400"/>
+    <line x1="60" y1="480" x2="1140" y2="480"/>
+    <line x1="60" y1="560" x2="1140" y2="560"/>
+  </g>
+  <defs>
+    <marker id="inkArrow5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#282722"/>
+    </marker>
+    <marker id="arrowRed5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ad4e3e"/>
+    </marker>
+  </defs>
+
+  <text x="600" y="62" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-2, 600, 62)">说出名字，就是一次声明</text>
+
+  <!-- tag -->
+  <polygon points="90,170 430,170 490,225 430,280 90,280" fill="#efd15b" opacity="0.55" stroke="#282722" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="440" cy="225" r="9" fill="#fffdf7" stroke="#282722" stroke-width="2"/>
+  <text x="250" y="240" font-family="sans-serif" font-size="40" font-weight="bold" fill="#282722" text-anchor="middle">接入 Jev</text>
+
+  <line x1="492" y1="225" x2="590" y2="225" stroke="#282722" stroke-width="2.5" marker-end="url(#inkArrow5)"/>
+
+  <!-- claim card -->
+  <rect x="600" y="170" width="530" height="110" rx="8" fill="#fff" stroke="#282722" stroke-width="2.5"/>
+  <text x="625" y="212" font-family="sans-serif" font-size="18" fill="#746b60">等于声明</text>
+  <text x="625" y="254" font-family="sans-serif" font-size="25" font-weight="bold" fill="#282722">用的是 TypeSafe AI 的模型</text>
+
+  <!-- if not -->
+  <path d="M 865 280 L 865 340" stroke="#ad4e3e" stroke-width="2.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed5)"/>
+  <text x="885" y="318" font-family="sans-serif" font-size="19" font-weight="bold" fill="#ad4e3e">不是？</text>
+  <rect x="600" y="345" width="530" height="120" rx="8" fill="#f7f0de" stroke="#ad4e3e" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="625" y="392" font-family="sans-serif" font-size="23" font-weight="bold" fill="#282722">改说：接入 System One 模型</text>
+  <text x="625" y="432" font-family="sans-serif" font-size="19" fill="#282722">非正式场合：接入类 Jev 模型</text>
+
+  <!-- three things that hinge on the name -->
+  <text x="95" y="345" font-family="sans-serif" font-size="19" fill="#746b60">名字决定这三件事能否说清</text>
+  <g font-family="sans-serif" font-size="22" font-weight="bold" fill="#282722" text-anchor="middle">
+    <circle cx="150" cy="420" r="46" fill="#fff" stroke="#282722" stroke-width="2"/>
+    <text x="150" y="428">合作</text>
+    <circle cx="275" cy="420" r="46" fill="#fff" stroke="#282722" stroke-width="2"/>
+    <text x="275" y="428">预期</text>
+    <circle cx="400" cy="420" r="46" fill="#fff" stroke="#282722" stroke-width="2"/>
+    <text x="400" y="428">成本</text>
+  </g>
+
+  <rect x="240" y="510" width="720" height="56" rx="6" fill="none" stroke="#ad4e3e" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="600" y="546" font-family="sans-serif" font-size="23" fill="#ad4e3e" text-anchor="middle" font-weight="bold">名字准确，后面的合作、预期和成本才说得清楚</text>
+
+  <text x="60" y="610" font-family="sans-serif" font-size="14" fill="#aaa">第五节 · 小结</text>
+</svg>
