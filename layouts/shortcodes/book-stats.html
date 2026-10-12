@@ -1,0 +1,12 @@
+{{- $total := 0 }}{{ $read := 0 }}
+{{- range $group, $books := site.Data.reading_list }}
+  {{- range $books }}
+    {{- $total = add $total 1 }}
+    {{- if eq .status "read" }}{{ $read = add $read 1 }}{{ end }}
+  {{- end }}
+{{- end }}
+<div class="book-stats">
+  <span>共 <b>{{ $total }}</b> 本</span>
+  <span class="book-stats-read">已阅读 <b>{{ $read }}</b></span>
+  <span class="book-stats-unread">未开始 <b>{{ sub $total $read }}</b></span>
+</div>

@@ -1,0 +1,327 @@
+# 近期书单数据：content/posts/reading-list.md 通过 book-grid 短代码按分组渲染。
+# status 取值：read（已阅读）/ unread（未开始）。
+# cover 为 static/images/reading-list/ 下的文件名，缺省时渲染书脊占位。
+# douban 为豆瓣读书条目 id，封面与版本信息均取自该条目。
+
+kahneman:
+  - title: 思考，快与慢
+    author: 丹尼尔·卡尼曼
+    status: read
+    cover: thinking-fast-and-slow.jpg
+    douban: "10785583"
+    post: /posts/thinking-fast-and-slow/
+    note: 系统 1 与系统 2，这份书单的起点。
+  - title: 思维的发现
+    original: The Undoing Project
+    author: 迈克尔·刘易斯
+    status: unread
+    cover: undoing-project.jpg
+    douban: "30238047"
+    note: 卡尼曼与特沃斯基的双人传记，相当于《快与慢》的前传。
+  - title: 噪声
+    original: Noise
+    author: 丹尼尔·卡尼曼 等
+    status: unread
+    cover: noise.jpg
+    douban: "35541399"
+    note: 卡尼曼的续作，从“偏差”转向“判断的离散”。
+  - title: “错误”的行为
+    original: Misbehaving
+    author: 理查德·塞勒
+    status: unread
+    cover: misbehaving.jpg
+    douban: "30128262"
+    note: 行为经济学的落地史，塞勒是卡尼曼的长期合作者。
+  - title: 助推
+    original: Nudge
+    author: 理查德·塞勒、卡斯·桑斯坦
+    status: unread
+    cover: nudge.jpg
+    douban: "30128227"
+    note: 行为科学如何变成政策与默认值设计。
+  - title: 怪诞行为学
+    original: Predictably Irrational
+    author: 丹·艾瑞里
+    status: unread
+    cover: predictably-irrational.jpg
+    douban: "4929844"
+    note: 实验派的轻量入门。
+  - title: 影响力
+    original: Influence
+    author: 罗伯特·西奥迪尼
+    status: unread
+    cover: influence.jpg
+    douban: "1786387"
+    note: 说服机制，与“认知放松→熟悉感→信任”同属一族。
+  - title: 清醒思考的艺术
+    original: The Art of Thinking Clearly
+    author: 罗尔夫·多贝里
+    status: unread
+    cover: art-of-thinking-clearly.jpg
+    douban: "20492550"
+    note: 52 个思维错误，手册式速查。
+  - title: 超越智商
+    original: What Intelligence Tests Miss
+    author: 基思·斯坦诺维奇
+    status: unread
+    cover: what-intelligence-tests-miss.jpg
+    douban: "26605978"
+    note: 聪明人为什么做蠢事：智力与理性是两种能力。
+  - title: 黑天鹅
+    original: The Black Swan
+    author: 纳西姆·塔勒布
+    status: unread
+    cover: black-swan.jpg
+    douban: "30422558"
+    note: 反方之一：极端事件主导历史，预测模型普遍低估它们。
+  - title: 反脆弱
+    original: Antifragile
+    author: 纳西姆·塔勒布
+    status: unread
+    cover: antifragile.jpg
+    douban: "25782902"
+    note: 从波动中获益的系统，和《黑天鹅》对照着读。
+  - title: 直觉思维
+    original: Gut Feelings
+    author: 格尔德·吉仁泽
+    status: unread
+    cover: gut-feelings.jpg
+    douban: "30276962"
+    note: 反方之二：在不确定环境里，启发式反而是优势。
+  - title: 稀缺
+    original: Scarcity
+    author: 塞德希尔·穆来纳森、埃尔德·沙菲尔
+    status: unread
+    cover: scarcity.jpg
+    douban: "36110828"
+    note: “带宽税”，稀缺如何挤占认知资源。
+
+memory_science:
+  - title: 追寻记忆的痕迹
+    original: In Search of Memory
+    author: 埃里克·坎德尔
+    status: unread
+    cover: in-search-of-memory.jpg
+    douban: "33429926"
+    note: 诺奖得主的神经科学自传，从海兔实验到突触可塑性。
+  - title: 记忆的七宗罪
+    original: The Seven Sins of Memory
+    author: 丹尼尔·沙克特
+    status: unread
+    cover: seven-sins-of-memory.jpg
+    douban: "1058715"
+    note: 缺失、纠缠、错认、暗示、偏差、持久、空想。
+  - title: 与爱因斯坦月球漫步
+    original: Moonwalking with Einstein
+    author: 乔舒亚·福尔
+    status: unread
+    cover: moonwalking-with-einstein.jpg
+    douban: "7154320"
+    note: 科学记者一年练成美国记忆冠军，记忆宫殿的叙事入门。
+  - title: 认知天性
+    original: Make It Stick
+    author: 彼得·布朗 等
+    status: unread
+    cover: make-it-stick.jpg
+    douban: "30353486"
+    note: 检索练习与间隔重复，记忆科学在学习方法上的应用。
+  - title: 记忆错觉
+    original: The Memory Illusion
+    author: 朱莉娅·肖
+    status: unread
+    cover: memory-illusion.jpg
+    douban: "27002390"
+    note: 虚假记忆与记忆的可重构性，司法心理学视角。
+  - title: 牛津通识读本：记忆
+    original: "Memory: A Very Short Introduction"
+    author: 乔纳森·福斯特
+    status: unread
+    note: 最薄的系统入门。
+
+memory_humanities:
+  - title: 记忆的艺术
+    original: The Art of Memory
+    author: 弗朗西丝·耶茨
+    status: unread
+    cover: art-of-memory.jpg
+    douban: "27612602"
+    note: 记忆术传统的奠基之作，从西塞罗到布鲁诺的“记忆剧场”。
+  - title: 记忆之书
+    original: The Book of Memory
+    author: 玛丽·卡拉瑟斯
+    status: unread
+    note: 中世纪把记忆当作核心技艺的文化史。
+  - title: 追忆似水年华
+    original: À la recherche du temps perdu
+    author: 马塞尔·普鲁斯特
+    status: unread
+    cover: in-search-of-lost-time.jpg
+    douban: "10779650"
+    note: 非自主记忆的文学巅峰，玛德莱娜小蛋糕。
+  - title: 博闻强记的富内斯
+    original: Funes el memorioso
+    author: 豪尔赫·路易斯·博尔赫斯
+    status: unread
+    cover: ficciones.jpg
+    douban: "36315132"
+    note: 短篇，收于《虚构集》。“记得一切的人”的寓言：遗忘才是思考的前提。
+
+zeng_ming:
+  - title: 智能商业
+    author: 曾鸣
+    status: unread
+    cover: smart-business.jpg
+    douban: "30357931"
+    note: “数据智能 × 网络协同”双螺旋，理解阿里方法论的原典。
+  - title: 智能战略
+    original: Smart Business
+    author: 曾鸣
+    status: unread
+    cover: smart-strategy.jpg
+    douban: "34839920"
+    note: 英文版由哈佛商业评论出版社出版，用阿里案例讲智能战略范式。
+  - title: 智能：AI 时代的商业、组织与战略的本质
+    author: 曾鸣
+    status: unread
+    cover: zeng-intelligence.jpg
+    douban: "38553944"
+    note: 2026 年新书，前两本在 AI 时代的延伸。
+
+gates:
+  - title: 事实
+    original: Factfulness
+    author: 汉斯·罗斯林
+    status: unread
+    cover: factfulness.jpg
+    douban: "33385402"
+    note: 盖茨称之为最重要的书之一。
+  - title: 人性中的善良天使
+    original: The Better Angels of Our Nature
+    author: 斯蒂芬·平克
+    status: unread
+    cover: better-angels.jpg
+    douban: "26150549"
+  - title: 枪炮、病菌与钢铁
+    original: Guns, Germs, and Steel
+    author: 贾雷德·戴蒙德
+    status: unread
+    cover: guns-germs-steel.jpg
+    douban: "1813841"
+  - title: 商业冒险
+    original: Business Adventures
+    author: 约翰·布鲁克斯
+    status: unread
+    cover: business-adventures.jpg
+    douban: "26362997"
+    note: 盖茨与巴菲特共同的最爱。
+
+jobs:
+  - title: 禅者的初心
+    original: Zen Mind, Beginner's Mind
+    author: 铃木俊隆
+    status: unread
+    cover: zen-mind.jpg
+    douban: "4898627"
+  - title: 一个瑜伽行者的自传
+    original: Autobiography of a Yogi
+    author: 帕拉宏撒·尤迦南达
+    status: unread
+    cover: autobiography-of-a-yogi.jpg
+    douban: "10344040"
+  - title: 创新者的窘境
+    original: The Innovator's Dilemma
+    author: 克莱顿·克里斯坦森
+    status: unread
+    cover: innovators-dilemma.jpg
+    douban: "35148452"
+    note: 乔布斯公开承认它影响了苹果的战略决策。
+
+musk:
+  - title: 银河系搭车客指南
+    original: The Hitchhiker's Guide to the Galaxy
+    author: 道格拉斯·亚当斯
+    status: unread
+    cover: hitchhikers-guide.jpg
+    douban: "6265745"
+    note: 马斯克反复提到的最爱。
+  - title: 基地
+    original: Foundation
+    author: 艾萨克·阿西莫夫
+    status: unread
+    cover: foundation.jpg
+    douban: "1258490"
+    note: 多行星文明愿景的原材料。
+  - title: 魔戒
+    original: The Lord of the Rings
+    author: J.R.R. 托尔金
+    status: unread
+    cover: lord-of-the-rings.jpg
+    douban: "21979017"
+  - title: 火箭发动机基础
+    original: Rocket Propulsion Elements
+    author: 乔治·萨顿
+    status: unread
+    cover: rocket-propulsion.jpg
+    douban: "1535836"
+    note: “我靠教科书学会造火箭”里的那类教科书。
+
+bezos:
+  - title: 长日将尽
+    original: The Remains of the Day
+    author: 石黑一雄
+    status: unread
+    cover: remains-of-the-day.jpg
+    douban: "30142261"
+    note: 贝索斯最爱、反复重读的小说。
+  - title: 富甲美国
+    original: Made in America
+    author: 山姆·沃尔顿
+    status: unread
+    cover: made-in-america.jpg
+    douban: "26411602"
+    note: 沃尔玛创始人自传，亚马逊高管必读。
+  - title: 目标
+    original: The Goal
+    author: 艾利·高德拉特
+    status: unread
+    cover: the-goal.jpg
+    douban: "10582496"
+  - title: 人月神话
+    original: The Mythical Man-Month
+    author: 弗雷德里克·布鲁克斯
+    status: unread
+    cover: mythical-man-month.jpg
+    douban: "1102259"
+
+zuckerberg:
+  - title: 权力的终结
+    original: The End of Power
+    author: 莫伊塞斯·纳伊姆
+    status: unread
+    cover: end-of-power.jpg
+    douban: "25733957"
+    note: 2015 年“读书之年”的第一本。
+  - title: 人类简史
+    original: Sapiens
+    author: 尤瓦尔·赫拉利
+    status: unread
+    cover: sapiens.jpg
+    douban: "25985021"
+  - title: 世界秩序
+    original: World Order
+    author: 亨利·基辛格
+    status: unread
+    cover: world-order.jpg
+    douban: "26435040"
+  - title: 历史绪论
+    original: Muqaddimah
+    author: 伊本·赫勒敦
+    status: unread
+    cover: muqaddimah.jpg
+    douban: "26320902"
+  - title: 游戏玩家
+    original: The Player of Games
+    author: 伊恩·M. 班克斯
+    status: unread
+    cover: player-of-games.jpg
+    douban: "35182230"

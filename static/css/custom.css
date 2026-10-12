@@ -136,3 +136,138 @@
   .content .markdown.article-style-reading-notes hr { margin: 40px 1rem 8px; }
   .content .markdown figure.ascii-art-figure { margin: 8px 1rem 36px !important; padding: 10px 10px 8px; }
 }
+
+/* === Book List Article Style === */
+/* Scoped to article_style: book-list; chapter look matches reading-notes */
+.content .markdown.article-style-book-list h2 {
+  border-top: 3px solid #282722;
+  padding-top: 20px;
+  margin-top: 16px;
+  margin-bottom: 22px;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.75rem;
+  line-height: 1.4;
+}
+.content .markdown.article-style-book-list hr {
+  border: none;
+  border-top: 2px dashed #c4b99a;
+  margin: 52px 1.5rem 12px;
+}
+.content .markdown.article-style-book-list h3 {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 32px 1.5rem 14px 2rem;
+  padding: 8px 0 8px 15px;
+  border-left: 5px solid #e4b936;
+  background: linear-gradient(90deg, #fff8d8 0%, rgba(255,248,216,0) 75%);
+}
+
+.content .markdown .book-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 1.5rem 28px;
+  font-size: 0.92rem;
+}
+.content .markdown .book-stats span {
+  padding: 4px 12px;
+  border: 1px solid #d7c8ad;
+  border-radius: 999px;
+  background: #f7f0de;
+  color: #3d3530;
+}
+.content .markdown .book-stats .book-stats-read { background: #282722; border-color: #282722; color: #fffdf7; }
+.content .markdown .book-stats .book-stats-unread { background: #fffdf7; border-style: dashed; }
+
+/* Cover grid */
+.content .markdown .book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 26px 20px;
+  margin: 20px 1.5rem 36px;
+}
+.content .markdown .book-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #3d3530;
+}
+.content .markdown .book-card .book-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 2 / 3;
+  background: #f1eadb;
+  border: 1px solid #d7c8ad;
+  border-radius: 3px;
+  box-shadow: 3px 4px 0 #e6dcc6;
+  overflow: hidden;
+  border-bottom: none;
+}
+.content .markdown .book-card .book-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+}
+.content .markdown .book-card.is-unread .book-cover img { filter: saturate(0.55); opacity: 0.88; }
+.content .markdown .book-card .book-cover-placeholder {
+  background: repeating-linear-gradient(0deg, #f7f0de 0 22px, #efe6d0 22px 23px);
+  border-left: 10px solid #282722;
+}
+.content .markdown .book-card .book-cover-placeholder span {
+  writing-mode: vertical-rl;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.15em;
+  color: #282722;
+  max-height: 90%;
+}
+.content .markdown .book-card .book-status {
+  position: absolute;
+  top: 8px;
+  right: -6px;
+  padding: 1px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 2px;
+  transform: rotate(3deg);
+}
+.content .markdown .book-card.is-read .book-status { background: #282722; color: #fffdf7; }
+.content .markdown .book-card.is-unread .book-status { background: #fffdf7; color: #746b60; border: 1px dashed #b5a888; }
+.content .markdown .book-card .book-title {
+  margin-top: 12px;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #282722;
+}
+.content .markdown .book-card.is-read .book-title {
+  background: linear-gradient(transparent 60%, rgba(239,209,91,0.65) 60%);
+  align-self: flex-start;
+}
+.content .markdown .book-card .book-author { color: #746b60; font-size: 0.78rem; }
+.content .markdown .book-card .book-author i { color: #9a8f7e; }
+.content .markdown .book-card .book-note {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dotted #d7c8ad;
+  font-size: 0.8rem;
+}
+.content .markdown .book-card .book-post {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #ad4e3e;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .content .markdown.article-style-book-list h2 { font-size: 1.45rem; margin-top: 12px; }
+  .content .markdown.article-style-book-list hr { margin: 40px 1rem 8px; }
+  .content .markdown .book-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 16px; margin: 16px 1rem 30px; }
+}

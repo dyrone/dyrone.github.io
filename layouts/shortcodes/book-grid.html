@@ -1,0 +1,23 @@
+{{- $books := index site.Data.reading_list (.Get "group") -}}
+<div class="book-grid">
+  {{- range $books }}
+  {{- $read := eq .status "read" }}
+  <div class="book-card{{ if $read }} is-read{{ else }} is-unread{{ end }}">
+    {{- $href := "" }}{{ with .douban }}{{ $href = printf "https://book.douban.com/subject/%s/" . }}{{ end }}
+    {{- if .cover }}
+    <a class="book-cover"{{ with $href }} href="{{ . }}" target="_blank" rel="noopener"{{ end }}>
+      <img src="{{ printf "/images/reading-list/%s" .cover | relURL }}" alt="《{{ .title }}》封面" loading="lazy">
+    </a>
+    {{- else }}
+    <div class="book-cover book-cover-placeholder" role="img" aria-label="《{{ .title }}》暂无封面">
+      <span>{{ .title }}</span>
+    </div>
+    {{- end }}
+    <span class="book-status">{{ if $read }}已阅读{{ else }}未开始{{ end }}</span>
+    <div class="book-title">{{ .title }}</div>
+    <div class="book-author">{{ .author }}{{ with .original }}<br><i>{{ . }}</i>{{ end }}</div>
+    {{- with .note }}<div class="book-note">{{ . }}</div>{{ end }}
+    {{- with .post }}<a class="book-post" href="{{ . | relURL }}">读书笔记 →</a>{{ end }}
+  </div>
+  {{- end }}
+</div>
