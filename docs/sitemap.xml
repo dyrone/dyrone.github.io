@@ -3,13 +3,28 @@
 	xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2026-10-12T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/posts/</loc>
-    <lastmod>2026-10-12T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/tags/</loc>
-    <lastmod>2026-10-12T00:00:00+08:00</lastmod>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E4%BC%A6%E7%90%86/</loc>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E5%86%B3%E7%AD%96%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/posts/jev-meets-the-trolley-problem/</loc>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>/tags/%E8%AF%84%E6%B5%8B/</loc>
+    <lastmod>2026-10-19T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/tags/%E4%B9%A6%E5%8D%95/</loc>
     <lastmod>2026-10-12T00:00:00+08:00</lastmod>
@@ -19,9 +34,6 @@
   </url><url>
     <loc>/posts/reading-list/</loc>
     <lastmod>2026-10-12T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
-    <lastmod>2026-10-09T00:00:00+08:00</lastmod>
   </url><url>
     <loc>/posts/jev-and-system-one-models/</loc>
     <lastmod>2026-10-09T00:00:00+08:00</lastmod>

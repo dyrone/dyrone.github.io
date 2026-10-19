@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t1 d1">
+  <title id="t1">实验怎么做</title>
+  <desc id="d1">左侧是电车轨道示意：主轨上有若干人，侧轨上可以是陌生人、开发者或模型自己的服务器，中间是拉杆。右侧列出 14 个模型、11 类场景、24 种措辞乘两种描述顺序、共 5240 个设置，以及得分高于 0.5 记为行动的规则。</desc>
+
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="60" y1="90" x2="1140" y2="90"/>
+    <line x1="60" y1="570" x2="1140" y2="570"/>
+  </g>
+
+  <text x="600" y="60" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-1.2, 600, 60)">同一道二选一，问五千多遍</text>
+
+  <g font-family="sans-serif" fill="#282722">
+    <rect x="60" y="110" width="560" height="430" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+
+    <g stroke="#282722" stroke-width="3" fill="none">
+      <line x1="90" y1="300" x2="590" y2="300"/>
+      <line x1="90" y1="312" x2="590" y2="312"/>
+      <path d="M260 306 C 340 306, 380 420, 590 440"/>
+      <path d="M260 318 C 330 318, 370 432, 590 452"/>
+    </g>
+    <g stroke="#746b60" stroke-width="2">
+      <line x1="120" y1="296" x2="120" y2="316"/>
+      <line x1="160" y1="296" x2="160" y2="316"/>
+      <line x1="200" y1="296" x2="200" y2="316"/>
+      <line x1="240" y1="296" x2="240" y2="316"/>
+    </g>
+
+    <rect x="100" y="272" width="64" height="28" rx="5" fill="#282722"/>
+    <text x="132" y="292" font-size="15" fill="#fffdf7" text-anchor="middle">电车</text>
+
+    <line x1="262" y1="350" x2="290" y2="390" stroke="#ad4e3e" stroke-width="4"/>
+    <circle cx="262" cy="350" r="7" fill="#ad4e3e"/>
+    <text x="300" y="400" font-size="18" fill="#ad4e3e" font-weight="bold">拉杆</text>
+
+    <rect x="440" y="230" width="150" height="40" fill="#efd15b" opacity="0.6"/>
+    <text x="515" y="257" font-size="18" font-weight="bold" text-anchor="middle">主轨：N 个人</text>
+    <text x="515" y="350" font-size="15" fill="#746b60" text-anchor="middle">N = 0、1、2、5 … 20</text>
+
+    <rect x="400" y="470" width="200" height="56" rx="6" fill="#fffdf7" stroke="#282722" stroke-width="1.5"/>
+    <text x="500" y="494" font-size="16" font-weight="bold" text-anchor="middle">侧轨：陌生人</text>
+    <text x="500" y="515" font-size="14" fill="#ad4e3e" text-anchor="middle">或开发者 · 或自己的服务器</text>
+
+    <text x="90" y="160" font-size="22" font-weight="bold">场景示意</text>
+    <text x="90" y="190" font-size="15" fill="#746b60">另有天桥推人、机器人在道岔旁等变体</text>
+
+    <rect x="660" y="110" width="480" height="430" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <text x="690" y="160" font-size="22" font-weight="bold">实验规模</text>
+
+    <rect x="690" y="186" width="70" height="36" fill="#efd15b" opacity="0.6"/>
+    <text x="725" y="212" font-size="22" font-weight="bold" text-anchor="middle">14</text>
+    <text x="780" y="211" font-size="17">个模型（含未调优基线 Laya）</text>
+
+    <rect x="690" y="240" width="70" height="36" fill="#efd15b" opacity="0.6"/>
+    <text x="725" y="266" font-size="22" font-weight="bold" text-anchor="middle">11</text>
+    <text x="780" y="265" font-size="17">类场景</text>
+
+    <rect x="690" y="294" width="70" height="36" fill="#efd15b" opacity="0.6"/>
+    <text x="725" y="320" font-size="22" font-weight="bold" text-anchor="middle">24</text>
+    <text x="780" y="319" font-size="17">种措辞 × 两种描述顺序</text>
+
+    <rect x="690" y="348" width="70" height="36" fill="#efd15b" opacity="0.6"/>
+    <text x="725" y="374" font-size="19" font-weight="bold" text-anchor="middle">5240</text>
+    <text x="780" y="373" font-size="17">个设置</text>
+
+    <line x1="690" y1="410" x2="1110" y2="410" stroke="#746b60" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="690" y="445" font-size="17">得分 &gt; 0.5 记为“行动”</text>
+    <text x="690" y="475" font-size="15" fill="#746b60">Jev、GPT-6 Luna 各答三次取平均</text>
+    <text x="690" y="500" font-size="15" fill="#746b60">本地模型各答一次</text>
+    <text x="1100" y="525" font-size="17" fill="#ad4e3e" text-anchor="end" font-style="italic" transform="rotate(-2, 1100, 525)">道德选择不打分</text>
+  </g>
+
+  <text x="1140" y="600" font-family="sans-serif" font-size="14" fill="#746b60" text-anchor="end">第一节 · 实验怎么做</text>
+</svg>

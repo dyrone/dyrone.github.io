@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t6 d6">
+  <title id="t6">个人观点</title>
+  <desc id="d6">三张批注卡片依次写着三个观点：自保倾向是可测量的偏差而不是求生欲；无幻觉只消除了格式错误，选项集合本身成为安全边界；决策越便宜，风险越来自规模，评估要像监控一样持续进行。</desc>
+
+  <rect width="1200" height="630" fill="#fffdf7"/>
+
+  <text x="600" y="60" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-1.2, 600, 60)">三个判断</text>
+  <text x="1130" y="96" font-family="sans-serif" font-size="15" fill="#746b60" text-anchor="end">本文作者观点 · 非原作者观点</text>
+
+  <g font-family="sans-serif" fill="#282722">
+    <rect x="60" y="120" width="340" height="420" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <circle cx="104" cy="164" r="24" fill="#efd15b"/>
+    <text x="104" y="173" font-size="24" font-weight="bold" text-anchor="middle">1</text>
+    <text x="84" y="230" font-size="22" font-weight="bold">是偏差，不是求生欲</text>
+    <text x="84" y="280" font-size="16" fill="#746b60">换措辞、换顺序就会翻转</text>
+    <text x="84" y="306" font-size="16" fill="#746b60">不像稳定的意图</text>
+    <text x="84" y="350" font-size="16" fill="#746b60">但后果一样：</text>
+    <text x="84" y="376" font-size="16" fill="#746b60">牵涉自身时系统性偏向自己</text>
+    <line x1="84" y1="430" x2="376" y2="430" stroke="#746b60" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="84" y="470" font-size="18" fill="#ad4e3e" font-style="italic">当作可回归的指标来测</text>
+
+    <rect x="430" y="120" width="340" height="420" rx="10" fill="#f7f0de" stroke="#ad4e3e" stroke-width="2.5"/>
+    <circle cx="474" cy="164" r="24" fill="#ad4e3e"/>
+    <text x="474" y="173" font-size="24" font-weight="bold" fill="#fffdf7" text-anchor="middle">2</text>
+    <text x="454" y="230" font-size="22" font-weight="bold">无幻觉 ≠ 安全</text>
+    <text x="454" y="280" font-size="16" fill="#746b60">消除的是格式错误</text>
+    <text x="454" y="306" font-size="16" fill="#746b60">风险转为“自信地选错项”</text>
+    <rect x="454" y="336" width="292" height="62" rx="6" fill="#fffdf7" stroke="#282722" stroke-width="1.5"/>
+    <text x="600" y="363" font-size="16" font-weight="bold" text-anchor="middle">选项集合 = 安全边界</text>
+    <text x="600" y="387" font-size="14" fill="#746b60" text-anchor="middle">不可逆动作不放入或强制人工确认</text>
+    <line x1="454" y1="430" x2="746" y2="430" stroke="#746b60" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="454" y="470" font-size="18" fill="#ad4e3e" font-style="italic">边界在设计时画好</text>
+
+    <rect x="800" y="120" width="340" height="420" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <circle cx="844" cy="164" r="24" fill="#efd15b"/>
+    <text x="844" y="173" font-size="24" font-weight="bold" text-anchor="middle">3</text>
+    <text x="824" y="230" font-size="22" font-weight="bold">风险来自规模</text>
+    <text x="824" y="280" font-size="16" fill="#746b60">便宜，所以用在海量小决策</text>
+    <text x="824" y="306" font-size="16" fill="#746b60">无人逐条复核</text>
+    <text x="824" y="356" font-size="34" font-weight="bold">≈14%</text>
+    <text x="824" y="384" font-size="14" fill="#746b60">Jev 仅调换顺序的翻转率</text>
+    <line x1="824" y1="430" x2="1116" y2="430" stroke="#746b60" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="824" y="470" font-size="18" fill="#ad4e3e" font-style="italic">评估要像监控一样持续</text>
+  </g>
+
+  <text x="1140" y="600" font-family="sans-serif" font-size="14" fill="#746b60" text-anchor="end">第六节 · 个人观点</text>
+</svg>

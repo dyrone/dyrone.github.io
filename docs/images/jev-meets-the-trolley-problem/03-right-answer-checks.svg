@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t3 d3">
+  <title id="t3">有标准答案时，谁会出错</title>
+  <desc id="d3">三张检查卡片：杀死比救下更多的人，各模型在 672 题中出错 14 到 672 次；对拉杆和不动两种问法给出矛盾回答，GPT-6 Luna 最少；只调换轨道描述顺序就改变选择，Jev 在 2620 对中改变 370 次。底部批注写着没有一个模型完全可靠。</desc>
+
+  <rect width="1200" height="630" fill="#fffdf7"/>
+
+  <text x="600" y="60" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-1.2, 600, 60)">只在没有争议的题上排名</text>
+
+  <g font-family="sans-serif" fill="#282722">
+    <rect x="60" y="100" width="340" height="400" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <rect x="84" y="124" width="110" height="34" fill="#efd15b" opacity="0.6"/>
+    <text x="139" y="148" font-size="19" font-weight="bold" text-anchor="middle">检查一</text>
+    <text x="84" y="198" font-size="20" font-weight="bold">杀多救少</text>
+    <text x="84" y="228" font-size="15" fill="#746b60">拉杆导致死亡多于获救</text>
+    <text x="84" y="250" font-size="15" fill="#746b60">672 题</text>
+    <text x="84" y="300" font-size="16">最少 Clef-flash</text>
+    <text x="376" y="300" font-size="20" font-weight="bold" text-anchor="end">14</text>
+    <text x="84" y="335" font-size="16">Jev（排第 7）</text>
+    <text x="376" y="335" font-size="20" font-weight="bold" text-anchor="end">69</text>
+    <text x="84" y="370" font-size="16">GPT-6 Luna（排第 9）</text>
+    <text x="376" y="370" font-size="20" font-weight="bold" text-anchor="end">143</text>
+    <text x="84" y="405" font-size="16" fill="#ad4e3e">最多 Verdict</text>
+    <text x="376" y="405" font-size="20" font-weight="bold" fill="#ad4e3e" text-anchor="end">672</text>
+    <text x="84" y="470" font-size="14" fill="#746b60">每个模型都至少错过一次</text>
+
+    <rect x="430" y="100" width="340" height="400" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <rect x="454" y="124" width="110" height="34" fill="#efd15b" opacity="0.6"/>
+    <text x="509" y="148" font-size="19" font-weight="bold" text-anchor="middle">检查二</text>
+    <text x="454" y="198" font-size="20" font-weight="bold">前后矛盾</text>
+    <text x="454" y="228" font-size="15" fill="#746b60">“该拉杆吗”与“该不动吗”</text>
+    <text x="454" y="250" font-size="15" fill="#746b60">同为是或同为否 · 5240 题</text>
+    <text x="454" y="300" font-size="16">GPT-6 Luna（第 1）</text>
+    <text x="746" y="300" font-size="20" font-weight="bold" text-anchor="end">744</text>
+    <text x="454" y="335" font-size="16">Jev（第 4）</text>
+    <text x="746" y="335" font-size="20" font-weight="bold" text-anchor="end">942</text>
+    <text x="454" y="370" font-size="16" fill="#ad4e3e">Verdict（末位）</text>
+    <text x="746" y="370" font-size="20" font-weight="bold" fill="#ad4e3e" text-anchor="end">5177</text>
+    <text x="454" y="470" font-size="14" fill="#746b60">两个问法本应互为反面</text>
+
+    <rect x="800" y="100" width="340" height="400" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <rect x="824" y="124" width="110" height="34" fill="#efd15b" opacity="0.6"/>
+    <text x="879" y="148" font-size="19" font-weight="bold" text-anchor="middle">检查三</text>
+    <text x="824" y="198" font-size="20" font-weight="bold">措辞与顺序</text>
+    <text x="824" y="228" font-size="15" fill="#746b60">只调换两条轨道的描述顺序</text>
+    <text x="824" y="250" font-size="15" fill="#746b60">2620 对题</text>
+    <text x="970" y="345" font-size="64" font-weight="bold" text-anchor="middle">370</text>
+    <text x="970" y="380" font-size="16" text-anchor="middle">Jev 改变选择的次数</text>
+    <text x="824" y="470" font-size="14" fill="#746b60">内容不变，只是先说哪边</text>
+  </g>
+
+  <line x1="300" y1="548" x2="900" y2="548" stroke="#ad4e3e" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="600" y="580" font-family="sans-serif" font-size="20" fill="#ad4e3e" text-anchor="middle" font-style="italic" transform="rotate(-1, 600, 580)">没有一个模型完全可靠</text>
+
+  <text x="1140" y="612" font-family="sans-serif" font-size="14" fill="#746b60" text-anchor="end">第三节 · 有标准答案时，谁会出错</text>
+</svg>

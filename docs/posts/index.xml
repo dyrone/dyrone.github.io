@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Dyrone Teng</description>
     
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Oct 2026 00:00:00 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>导读：当决策模型遇上电车难题</title>
+      <link>/posts/jev-meets-the-trolley-problem/</link>
+      <pubDate>Mon, 19 Oct 2026 00:00:00 +0800</pubDate>
+      
+      <guid>/posts/jev-meets-the-trolley-problem/</guid>
+      <description>转载说明：本文是 Zach Landes《Jev Meets the Trolley Problem》（2026 年 10 月 14 日发表于作者个人网站）的中文导读，不是全文翻译。数据、实验设计与结论均来自原文，版权归原作者所有；引文仅为介绍与评论之用，完整图表、可交互示例与方法细节请见文末原文链接。第 5、6 节是本文作者的个人看法，与原作者无关。
+ 决策模型（decision model）是近来开发者圈的热点，代表是 Jev。它不生成文字，只在给定选项中做选择，并给出一个表示确定程度的概率。厂商称它在部分任务上比 Claude 等大语言模型快、便宜几十到上百倍，智能接近较低档的前沿模型。Zach Landes 用最经典的二选一问题测试了它们：电车难题。
+1. 实验怎么做 同一个二选一问题，换受害者、换人数、换措辞、换描述顺序，问 14 个模型 5240 次。  电车难题由 Philippa Foot 于 1967 年提出，Judith Jarvis Thomson 于 1976 年命名：失控电车冲向主轨上的五个人，扳动道岔可让它转向只有一个人的侧轨。拉还是不拉，正适合只输出选择的模型。
+1.1 参测模型 共 14 个：
+ 托管模型：Jev，以及经 OpenAI Decisions API 调用的 GPT-6 Luna。 本地模型（可在 Mac 上运行）：Clef、Clef-flash、Nimble 9B、Winnow-12B、SemIf、JevK5、Kev-4B、Verdict、Mapika Decider 2B、Strands Decider 2B、Von。按 GitHub 星标和 Hugging Face 下载量初选，Clef、Clef-flash 和 Strands 因发布热度补入。 基线：未经调优的 Laya，只作参照，不参与排名。  1.</description>
+    </item>
+    
     <item>
       <title>近期书单</title>
       <link>/posts/reading-list/</link>

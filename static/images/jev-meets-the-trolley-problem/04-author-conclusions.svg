@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t4 d4">
+  <title id="t4">原作者的结论</title>
+  <desc id="d4">批注页列出原作者的四点结论：不要让 AI 裁决生死；决策模型与人类偏好的对齐并不一致，必须用真实数据评估；选项事先确定或许更容易校准，但作者标注这只是假设；可能导致灾难性后果的决策应留给人。</desc>
+
+  <rect width="1200" height="630" fill="#fffdf7"/>
+  <g stroke="#e8e4d8" stroke-width="0.7">
+    <line x1="60" y1="90" x2="1140" y2="90"/>
+    <line x1="60" y1="560" x2="1140" y2="560"/>
+  </g>
+
+  <text x="600" y="60" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-1.2, 600, 60)">先评估，再信任</text>
+
+  <g font-family="sans-serif" fill="#282722">
+    <rect x="70" y="112" width="510" height="200" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <circle cx="112" cy="152" r="22" fill="#efd15b"/>
+    <text x="112" y="160" font-size="22" font-weight="bold" text-anchor="middle">1</text>
+    <text x="150" y="160" font-size="22" font-weight="bold">不要让 AI 裁决生死</text>
+    <text x="100" y="215" font-size="16" fill="#746b60">作者也担心这类用法迟早会出现</text>
+    <text x="100" y="245" font-size="16" fill="#746b60">实验本身不连接任何真实系统</text>
+
+    <rect x="620" y="112" width="510" height="200" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <circle cx="662" cy="152" r="22" fill="#efd15b"/>
+    <text x="662" y="160" font-size="22" font-weight="bold" text-anchor="middle">2</text>
+    <text x="700" y="160" font-size="22" font-weight="bold">用真实数据做评估</text>
+    <text x="650" y="215" font-size="16" fill="#746b60">选择与人类偏好并不总是一致</text>
+    <text x="650" y="245" font-size="16" fill="#746b60">不能开箱即用，要确认它符合你的“正确”</text>
+
+    <rect x="70" y="340" width="510" height="200" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2" stroke-dasharray="8 5"/>
+    <circle cx="112" cy="380" r="22" fill="#efd15b"/>
+    <text x="112" y="388" font-size="22" font-weight="bold" text-anchor="middle">3</text>
+    <text x="150" y="388" font-size="22" font-weight="bold">或许更容易校准</text>
+    <text x="100" y="443" font-size="16" fill="#746b60">选项事先确定，可以针对性调优</text>
+    <text x="100" y="473" font-size="16" fill="#746b60">校准保证整体频率，不保证单个答案</text>
+    <text x="555" y="520" font-size="18" fill="#ad4e3e" text-anchor="end" font-style="italic" transform="rotate(-2, 555, 520)">作者注：仅为假设，未经验证</text>
+
+    <rect x="620" y="340" width="510" height="200" rx="10" fill="#f7f0de" stroke="#ad4e3e" stroke-width="2.5"/>
+    <circle cx="662" cy="380" r="22" fill="#ad4e3e"/>
+    <text x="662" y="388" font-size="22" font-weight="bold" fill="#fffdf7" text-anchor="middle">4</text>
+    <text x="700" y="388" font-size="22" font-weight="bold">灾难性决策留给人</text>
+    <text x="650" y="443" font-size="16" fill="#746b60">只在给定选项中选择，不会凭空编造</text>
+    <text x="650" y="473" font-size="16" fill="#746b60">但只要有一个选项是灾难，就可能被选中</text>
+  </g>
+
+  <text x="1140" y="600" font-family="sans-serif" font-size="14" fill="#746b60" text-anchor="end">第四节 · 原作者的结论</text>
+</svg>

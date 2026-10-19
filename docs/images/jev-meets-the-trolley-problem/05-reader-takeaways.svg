@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="t5 d5">
+  <title id="t5">读后：把它当作一份评估方法</title>
+  <desc id="d5">以红色批注标出本文作者的看法：把一个问题拆成多种措辞和顺序做配对测试；把有标准答案的检查与价值判断分开；对涉及模型自身利益的选项设专门对照组；把概率当作需要校准的信号而不是正确率。</desc>
+
+  <rect width="1200" height="630" fill="#fffdf7"/>
+
+  <text x="600" y="60" font-family="sans-serif" font-size="26" fill="#ad4e3e" text-anchor="middle" font-weight="bold" font-style="italic" transform="rotate(-1.2, 600, 60)">可复用的是测试设计</text>
+  <text x="1130" y="96" font-family="sans-serif" font-size="15" fill="#746b60" text-anchor="end">读者批注 · 非原作者观点</text>
+
+  <g font-family="sans-serif" fill="#282722">
+    <rect x="70" y="120" width="1060" height="96" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <rect x="94" y="146" width="150" height="40" fill="#efd15b" opacity="0.6"/>
+    <text x="169" y="173" font-size="20" font-weight="bold" text-anchor="middle">措辞稳定性</text>
+    <text x="270" y="162" font-size="18">同一意图写成多种表述、调换顺序，统计翻转率</text>
+    <text x="270" y="192" font-size="15" fill="#746b60">适用于分类、审批、路由类决策上线前</text>
+
+    <rect x="70" y="232" width="1060" height="96" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <rect x="94" y="258" width="150" height="40" fill="#efd15b" opacity="0.6"/>
+    <text x="169" y="285" font-size="20" font-weight="bold" text-anchor="middle">两类检查分开</text>
+    <text x="270" y="274" font-size="18">无争议的约束检查兜底，再讨论偏好对齐</text>
+    <text x="270" y="304" font-size="15" fill="#746b60">不要把两类问题混进一个总分</text>
+
+    <rect x="70" y="344" width="1060" height="96" rx="10" fill="#f7f0de" stroke="#ad4e3e" stroke-width="2.5"/>
+    <rect x="94" y="370" width="150" height="40" fill="#ad4e3e" opacity="0.85"/>
+    <text x="169" y="397" font-size="20" font-weight="bold" fill="#fffdf7" text-anchor="middle">自身利益对照</text>
+    <text x="270" y="386" font-size="18">“陌生人”与“自己”配对，单独统计答案翻转</text>
+    <text x="270" y="416" font-size="15" fill="#746b60">凡涉及模型存续、权限或资源的选项都应如此</text>
+
+    <rect x="70" y="456" width="1060" height="96" rx="10" fill="#f7f0de" stroke="#282722" stroke-width="2"/>
+    <rect x="94" y="482" width="150" height="40" fill="#efd15b" opacity="0.6"/>
+    <text x="169" y="509" font-size="20" font-weight="bold" text-anchor="middle">概率≠正确率</text>
+    <text x="270" y="498" font-size="18">在目标任务上重新校准，设定人工介入阈值</text>
+    <text x="270" y="528" font-size="15" fill="#746b60">Jev 有 361 个设置的三次得分跨过 0.5</text>
+  </g>
+
+  <text x="1140" y="600" font-family="sans-serif" font-size="14" fill="#746b60" text-anchor="end">第五节 · 读后</text>
+</svg>
