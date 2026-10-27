@@ -1,0 +1,20 @@
+<svg viewBox="0 0 1200 630" role="img" aria-labelledby="t d" xmlns="http://www.w3.org/2000/svg">
+  <title id="t">AI 在问题解决循环中的四种角色</title><desc id="d">人掌握目标、价值和责任，AI 作为地图绘制者、类比生成器、反方审稿人和实验助手接入。</desc>
+  <rect width="1200" height="630" fill="#FFFDF7"/><rect x="28" y="28" width="1144" height="574" rx="20" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+  <text x="70" y="90" font-family="sans-serif" font-size="38" font-weight="700" fill="#2F2B26">把 AI 当作思维角色，而不是最终裁判</text><path d="M68 112H745" stroke="#F2C94C" stroke-width="15"/>
+  <g transform="translate(475 190)" font-family="sans-serif" text-anchor="middle">
+    <circle cx="125" cy="145" r="120" fill="#2F2B26"/>
+    <circle cx="125" cy="100" r="32" fill="#F2C94C"/><path d="M70 188C80 135 170 135 180 188" fill="#F2C94C"/>
+    <text x="125" y="245" font-size="26" font-weight="700" fill="#FFFDF7">人保留三件事</text><text x="125" y="280" font-size="21" fill="#F2C94C">目标 · 价值 · 责任</text>
+  </g>
+  <g font-family="sans-serif" fill="#2F2B26">
+    <rect x="75" y="160" width="300" height="120" rx="18" fill="#FFFDF7" stroke="#746B60" stroke-width="3"/><text x="105" y="205" font-size="28" font-weight="700">地图绘制者</text><text x="105" y="244" font-size="22">补利益相关者与问题框架</text>
+    <rect x="75" y="350" width="300" height="120" rx="18" fill="#FFFDF7" stroke="#746B60" stroke-width="3"/><text x="105" y="395" font-size="28" font-weight="700">类比生成器</text><text x="105" y="434" font-size="22">从其他领域扩大解空间</text>
+    <rect x="825" y="160" width="300" height="120" rx="18" fill="#FFFDF7" stroke="#B5483F" stroke-width="3"/><text x="855" y="205" font-size="28" font-weight="700">反方审稿人</text><text x="855" y="244" font-size="22">找假设、反例与证据缺口</text>
+    <rect x="825" y="350" width="300" height="120" rx="18" fill="#FFFDF7" stroke="#B5483F" stroke-width="3"/><text x="855" y="395" font-size="28" font-weight="700">实验助手</text><text x="855" y="434" font-size="22">把方案变成可验证假设</text>
+  </g>
+  <g fill="none" stroke="#2F2B26" stroke-width="4"><path d="M375 220H480"/><path d="M375 410H480"/><path d="M720 220H825"/><path d="M720 410H825"/></g>
+  <rect x="356" y="520" width="488" height="52" rx="26" fill="#F2C94C"/>
+  <text x="600" y="555" text-anchor="middle" font-family="sans-serif" font-size="25" font-weight="700" fill="#2F2B26">候选由 AI 扩展，结论由证据裁决</text>
+  <text x="858" y="532" font-family="sans-serif" font-size="22" font-weight="700" fill="#B5483F" transform="rotate(-4 858 532)">第二个模型不等于第二份证据</text>
+</svg>

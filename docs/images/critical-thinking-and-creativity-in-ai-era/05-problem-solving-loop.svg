@@ -1,0 +1,17 @@
+<svg viewBox="0 0 1200 630" role="img" aria-labelledby="t d" xmlns="http://www.w3.org/2000/svg">
+  <title id="t">定义、发散、质疑、验证、更新循环</title><desc id="d">五个步骤构成循环，黄色表示创造力打开可能性，红色表示批判性思维校准方向，现实反馈推动更新。</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#FFFDF7"/><rect x="28" y="28" width="1144" height="574" rx="20" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+  <text x="70" y="90" font-family="sans-serif" font-size="38" font-weight="700" fill="#2F2B26">解决问题是一轮又一轮的校准</text><path d="M68 112H610" stroke="#F2C94C" stroke-width="15"/>
+  <g fill="none" stroke="#2F2B26" stroke-width="4" marker-end="url(#a)"><path d="M320 235C405 150 530 130 620 185"/><path d="M710 205C805 215 880 280 875 355"/><path d="M820 440C740 520 615 535 520 485"/><path d="M420 460C330 440 275 375 290 300"/></g>
+  <g font-family="sans-serif" text-anchor="middle" fill="#2F2B26">
+    <g><circle cx="275" cy="250" r="78" fill="#FFFDF7" stroke="#2F2B26" stroke-width="4"/><text x="275" y="242" font-size="32" font-weight="700">定义</text><text x="275" y="278" font-size="20">找对问题</text></g>
+    <g><circle cx="660" cy="190" r="78" fill="#F2C94C" stroke="#2F2B26" stroke-width="4"/><text x="660" y="182" font-size="32" font-weight="700">发散</text><text x="660" y="218" font-size="20">打开可能</text></g>
+    <g><circle cx="890" cy="390" r="78" fill="#FFFDF7" stroke="#B5483F" stroke-width="5"/><text x="890" y="382" font-size="32" font-weight="700">质疑</text><text x="890" y="418" font-size="20">寻找反证</text></g>
+    <g><circle cx="470" cy="475" r="78" fill="#FFFDF7" stroke="#B5483F" stroke-width="5"/><text x="470" y="467" font-size="32" font-weight="700">验证</text><text x="470" y="503" font-size="20">交给现实</text></g>
+    <g><circle cx="585" cy="330" r="92" fill="#2F2B26"/><text x="585" y="320" font-size="36" font-weight="700" fill="#FFFDF7">更新</text><text x="585" y="360" font-size="22" fill="#F2C94C">带着证据进入下一轮</text></g>
+  </g>
+  <path d="M350 515C270 530 195 505 145 455" fill="none" stroke="#B5483F" stroke-width="4"/>
+  <text x="85" y="430" font-family="sans-serif" font-size="23" font-weight="700" fill="#B5483F" transform="rotate(-5 85 430)">验证也可能让你</text><text x="85" y="460" font-family="sans-serif" font-size="23" font-weight="700" fill="#B5483F" transform="rotate(-5 85 460)">重新定义问题</text>
+  <text x="750" y="555" font-family="sans-serif" font-size="25" font-weight="700" fill="#B5483F" transform="rotate(-2 750 555)">创造力打开，批判性思维校准。</text>
+</svg>

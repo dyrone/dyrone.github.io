@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1200 630" role="img" aria-labelledby="t d" xmlns="http://www.w3.org/2000/svg">
+  <title id="t">侦察兵式批判性思维</title><desc id="d">侦察兵绘制事实、解释、预测和价值四层地图，并随新证据移动概率刻度。</desc>
+  <defs><marker id="r" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#B5483F"/></marker></defs>
+  <rect width="1200" height="630" fill="#FFFDF7"/><rect x="28" y="28" width="1144" height="574" rx="20" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+  <text x="70" y="90" font-family="sans-serif" font-size="38" font-weight="700" fill="#2F2B26">批判不是守住立场，而是看清地形</text><path d="M68 112H715" stroke="#F2C94C" stroke-width="15"/>
+  <path d="M72 160L555 135L620 520L105 548Z" fill="#FFFDF7" stroke="#2F2B26" stroke-width="3"/>
+  <path d="M110 210C195 170 250 260 320 215S445 190 560 245M130 400C210 340 270 435 350 380S490 350 580 420" fill="none" stroke="#746B60" stroke-width="4" stroke-dasharray="10 8"/>
+  <g font-family="sans-serif" font-size="25" font-weight="700" fill="#2F2B26">
+    <rect x="125" y="182" width="120" height="48" rx="24" fill="#F2C94C"/><text x="185" y="215" text-anchor="middle">事实</text>
+    <rect x="390" y="205" width="120" height="48" rx="24" fill="#FFFDF7" stroke="#B5483F" stroke-width="3"/><text x="450" y="238" text-anchor="middle">解释</text>
+    <rect x="180" y="355" width="120" height="48" rx="24" fill="#FFFDF7" stroke="#B5483F" stroke-width="3"/><text x="240" y="388" text-anchor="middle">预测</text>
+    <rect x="420" y="415" width="120" height="48" rx="24" fill="#F2C94C"/><text x="480" y="448" text-anchor="middle">价值</text>
+  </g>
+  <circle cx="340" cy="312" r="24" fill="#B5483F"/><path d="M340 336V400M307 375L340 343L373 375" fill="none" stroke="#2F2B26" stroke-width="6"/>
+  <text x="340" y="495" text-anchor="middle" font-family="sans-serif" font-size="23" font-weight="700" fill="#B5483F">先分层，再判断</text>
+  <g font-family="sans-serif" fill="#2F2B26">
+    <text x="700" y="175" font-size="29" font-weight="700">信心不是旗帜，是可移动的刻度</text>
+    <path d="M710 260H1090" stroke="#2F2B26" stroke-width="5"/>
+    <g font-size="21" fill="#746B60"><text x="700" y="300">0%</text><text x="875" y="300">50%</text><text x="1055" y="300">100%</text></g>
+    <circle cx="955" cy="260" r="17" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/><text x="930" y="230" font-size="22">65%</text>
+    <rect x="715" y="350" width="350" height="105" rx="14" fill="#FFFDF7" stroke="#746B60" stroke-width="2"/><text x="740" y="390" font-size="24">新证据出现后：</text><text x="740" y="427" font-size="25" font-weight="700">更新判断，而不是改写理由</text>
+    <path d="M955 323C930 340 900 340 872 320" fill="none" stroke="#B5483F" stroke-width="4" marker-end="url(#r)"/>
+  </g>
+  <text x="702" y="530" font-family="sans-serif" font-size="25" font-weight="700" fill="#B5483F" transform="rotate(-2 702 530)">目标：地图接近地形，不是我永远正确。</text>
+</svg>

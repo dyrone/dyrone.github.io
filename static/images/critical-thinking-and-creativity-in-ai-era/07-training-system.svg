@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1200 630" role="img" aria-labelledby="t d" xmlns="http://www.w3.org/2000/svg">
+  <title id="t">从个人练习到组织机制</title><desc id="d">学生、知识工作者和管理者通过不同训练路径进入完整问题解决循环，团队反馈室强调指出问题但不替负责人决策。</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#FFFDF7"/><rect x="28" y="28" width="1144" height="574" rx="20" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+  <text x="70" y="90" font-family="sans-serif" font-size="38" font-weight="700" fill="#2F2B26">能力靠完整循环训练，组织靠机制保护</text><path d="M68 112H745" stroke="#F2C94C" stroke-width="15"/>
+  <g font-family="sans-serif" fill="#2F2B26">
+    <rect x="70" y="165" width="300" height="105" rx="16" fill="#FFFDF7" stroke="#746B60" stroke-width="3"/><text x="98" y="207" font-size="28" font-weight="700">学生</text><text x="98" y="242" font-size="22">先独立作答，再用 AI 对照</text>
+    <rect x="70" y="295" width="300" height="105" rx="16" fill="#FFFDF7" stroke="#746B60" stroke-width="3"/><text x="98" y="337" font-size="28" font-weight="700">知识工作者</text><text x="98" y="372" font-size="22">记录假设、概率与反证条件</text>
+    <rect x="70" y="425" width="300" height="105" rx="16" fill="#FFFDF7" stroke="#746B60" stroke-width="3"/><text x="98" y="467" font-size="28" font-weight="700">管理者</text><text x="98" y="502" font-size="22">先独立判断，再平等评审</text>
+  </g>
+  <g fill="none" stroke="#2F2B26" stroke-width="4" marker-end="url(#a)"><path d="M370 218H480"/><path d="M370 348H480"/><path d="M370 478H480"/></g>
+  <circle cx="610" cy="348" r="126" fill="#F2C94C" stroke="#2F2B26" stroke-width="4"/>
+  <g font-family="sans-serif" text-anchor="middle" fill="#2F2B26"><text x="610" y="300" font-size="25" font-weight="700">定义 · 发散</text><text x="610" y="345" font-size="25" font-weight="700">质疑 · 验证</text><text x="610" y="390" font-size="25" font-weight="700">更新 · 再来一轮</text></g>
+  <path d="M736 348H825" stroke="#2F2B26" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="835" y="180" width="290" height="335" rx="22" fill="#FFFDF7" stroke="#B5483F" stroke-width="4"/>
+  <text x="980" y="230" text-anchor="middle" font-family="sans-serif" font-size="30" font-weight="700" fill="#2F2B26">团队反馈室</text>
+  <g font-family="sans-serif" font-size="23" fill="#2F2B26"><circle cx="888" cy="290" r="18" fill="#F2C94C"/><text x="925" y="298">指出作品的问题</text><circle cx="888" cy="355" r="18" fill="#F2C94C"/><text x="925" y="363">不给人格下判断</text><circle cx="888" cy="420" r="18" fill="#F2C94C"/><text x="925" y="428">不替负责人决定</text></g>
+  <path d="M875 465H1085" stroke="#746B60" stroke-width="3" stroke-dasharray="8 7"/>
+  <text x="980" y="495" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#B5483F">坦诚 ≠ 集体审批</text>
+  <text x="440" y="555" font-family="sans-serif" font-size="24" font-weight="700" fill="#B5483F" transform="rotate(-2 440 555)">保护未成熟想法，也让问题尽早暴露。</text>
+</svg>

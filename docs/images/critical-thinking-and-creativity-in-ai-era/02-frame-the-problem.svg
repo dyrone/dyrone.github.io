@@ -1,0 +1,20 @@
+<svg viewBox="0 0 1200 630" role="img" aria-labelledby="t d" xmlns="http://www.w3.org/2000/svg">
+  <title id="t">先找对问题，而不是急着找答案</title><desc id="d">一盏不亮的灯被分解为表面症状、问题所有者、真实目标和约束，说明问题框架决定答案空间。</desc>
+  <rect width="1200" height="630" fill="#FFFDF7"/><rect x="28" y="28" width="1144" height="574" rx="20" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+  <text x="70" y="92" font-family="sans-serif" font-size="38" font-weight="700" fill="#2F2B26">“灯不亮”只是症状，不一定是问题</text><path d="M70 112H660" stroke="#F2C94C" stroke-width="15"/>
+  <g transform="translate(110 155)" stroke="#2F2B26" stroke-width="5" fill="none">
+    <path d="M125 50C55 50 40 122 78 164C100 188 103 209 103 225H147C147 208 151 187 173 164C211 122 195 50 125 50Z" fill="#FFFDF7"/>
+    <path d="M103 229H147M107 246H143M116 263H134"/>
+    <path d="M125 10V-20M45 35L22 13M205 35L228 13M32 120H0M218 120H250" stroke="#746B60"/>
+    <path d="M87 122L112 100L137 130L162 105" stroke="#B5483F"/>
+  </g>
+  <text x="235" y="475" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#B5483F">表面：修好这盏灯？</text>
+  <path d="M365 310H430" stroke="#2F2B26" stroke-width="4"/>
+  <g font-family="sans-serif">
+    <rect x="445" y="145" width="620" height="78" rx="14" fill="#FFFDF7" stroke="#746B60" stroke-width="2"/><rect x="445" y="145" width="145" height="78" rx="14" fill="#F2C94C"/><text x="517" y="194" text-anchor="middle" font-size="26" font-weight="700" fill="#2F2B26">现实差距</text><text x="615" y="194" font-size="25" fill="#2F2B26">现在怎样？希望怎样？</text>
+    <rect x="445" y="243" width="620" height="78" rx="14" fill="#FFFDF7" stroke="#746B60" stroke-width="2"/><rect x="445" y="243" width="145" height="78" rx="14" fill="#F2C94C"/><text x="517" y="292" text-anchor="middle" font-size="26" font-weight="700" fill="#2F2B26">问题归属</text><text x="615" y="292" font-size="25" fill="#2F2B26">谁受影响？谁能改变？</text>
+    <rect x="445" y="341" width="620" height="78" rx="14" fill="#FFFDF7" stroke="#746B60" stroke-width="2"/><rect x="445" y="341" width="145" height="78" rx="14" fill="#F2C94C"/><text x="517" y="390" text-anchor="middle" font-size="26" font-weight="700" fill="#2F2B26">真实目标</text><text x="615" y="390" font-size="25" fill="#2F2B26">要灯亮，还是要看清路？</text>
+    <rect x="445" y="439" width="620" height="78" rx="14" fill="#FFFDF7" stroke="#746B60" stroke-width="2"/><rect x="445" y="439" width="145" height="78" rx="14" fill="#F2C94C"/><text x="517" y="488" text-anchor="middle" font-size="26" font-weight="700" fill="#2F2B26">真假约束</text><text x="615" y="488" font-size="25" fill="#2F2B26">必须修灯，还是可以开窗？</text>
+  </g>
+  <text x="760" y="560" font-family="sans-serif" font-size="25" font-weight="700" fill="#B5483F" transform="rotate(-2 760 560)">换一个框架，就会出现另一组答案。</text>
+</svg>
