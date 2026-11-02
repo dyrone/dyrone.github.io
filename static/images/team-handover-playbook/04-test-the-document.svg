@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="rehearsal-title rehearsal-desc" lang="zh-CN">
+  <title id="rehearsal-title">验证文档：安全试跑，再把反馈写回</title>
+  <desc id="rehearsal-desc">接手人根据含有成功标准与异常处理的文档，在模拟环境或只读方式下安全试跑，发现缺口后反馈并补写文档。不进行危险的生产操作。</desc>
+  <defs><marker id="rehearsal-arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L12 6 L0 12 Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.label{font-size:40px;font-weight:600}.link{fill:none;stroke:#2F2B26;stroke-width:3;marker-end:url(#rehearsal-arrow)}</style>
+  <g>
+    <text x="60" y="91" class="heading">让接手人试跑，检验文档</text>
+    <text x="60" y="140" class="note">能照着完成，才算交清；试跑只用安全方式</text>
+  </g>
+  <g>
+    <path d="M70 200 H297 L335 238 V468 H70 Z" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <path d="M297 200 V238 H335" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="202" y="285" text-anchor="middle" class="label">交接文档</text>
+    <path d="M99 310 H306" stroke="#2F2B26" stroke-width="2"/>
+    <text x="107" y="363" class="note">成功标准</text>
+    <text x="107" y="417" class="note">异常处理</text>
+  </g>
+  <g text-anchor="middle">
+    <path d="M448 200 H754 V431 L601 479 L448 431 Z" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="601" y="264" class="label">接手人试跑</text>
+    <text x="601" y="321" class="note">仅模拟或只读</text>
+    <path d="M515 351 L535 371 L575 329" fill="none" stroke="#2F2B26" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="601" y="420" class="note">对照成功标准</text>
+  </g>
+  <g text-anchor="middle">
+    <path d="M865 229 H1135 V418 H1010 L970 453 V418 H865 Z" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="1000" y="293" class="label">反馈缺口</text>
+    <text x="1000" y="354" class="note">哪里做不下去</text>
+    <text x="1000" y="397" class="note">哪里判断不清</text>
+  </g>
+  <g>
+    <path d="M341 327 H434" class="link"/>
+    <path d="M764 327 H851" class="link"/>
+    <path d="M1055 429 V519 H202 V484" class="link"/>
+    <rect x="425" y="493" width="345" height="54" rx="27" fill="#F7F0DE"/>
+    <text x="598" y="531" text-anchor="middle" font-size="36" font-weight="600">补写文档，再验证</text>
+    <text x="60" y="574" class="note" style="fill:#B5483F">不以危险的生产操作证明“交接完成”</text>
+  </g>
+</svg>

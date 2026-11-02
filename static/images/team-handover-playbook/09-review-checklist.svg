@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="gates-title gates-desc" lang="zh-CN">
+  <title id="gates-title">复核清单：四道交接关口</title>
+  <desc id="gates-desc">启动时问目标与时间，进行中问材料与接手人，空窗期问升级边界，收尾时问闭环与权限。四道关口按工作进程依次核对。</desc>
+  <defs><marker id="gates-arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L12 6 L0 12 Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.stage{font-size:44px;font-weight:600}.gate{fill:none;stroke:#2F2B26;stroke-width:4;stroke-linejoin:round}</style>
+  <g>
+    <text x="60" y="91" class="heading">用四道关口，复核交接</text>
+    <text x="60" y="140" class="note">不是勾完就算，而是每个阶段都有明确答案</text>
+    <text x="600" y="572" text-anchor="middle" font-size="36" font-weight="600">每过一关，都留下可核对的答案</text>
+  </g>
+  <g>
+    <path d="M60 388 H1140" stroke="#2F2B26" stroke-width="3"/>
+    <path d="M267 330 H345" stroke="#2F2B26" stroke-width="3" marker-end="url(#gates-arrow)"/>
+    <path d="M553 330 H633" stroke="#2F2B26" stroke-width="3" marker-end="url(#gates-arrow)"/>
+    <path d="M841 330 H919" stroke="#2F2B26" stroke-width="3" marker-end="url(#gates-arrow)"/>
+    <path d="M60 513 H1140" stroke="#2F2B26" stroke-width="2"/>
+  </g>
+  <g text-anchor="middle">
+    <path d="M80 388 V278 Q170 190 260 278 V388 M99 388 V290 Q170 223 241 290 V388" class="gate"/>
+    <circle cx="170" cy="316" r="56" fill="#F2C94C"/>
+    <text x="170" y="332" class="stage">启动</text>
+    <path d="M138 419 L151 432 L180 403" class="gate"/>
+    <text x="170" y="479" class="note">目标与时间？</text>
+  </g>
+  <g text-anchor="middle">
+    <path d="M366 388 V278 Q456 190 546 278 V388 M385 388 V290 Q456 223 527 290 V388" class="gate"/>
+    <circle cx="456" cy="316" r="56" fill="#F2C94C"/>
+    <text x="456" y="332" class="stage">进行</text>
+    <path d="M424 419 L437 432 L466 403" class="gate"/>
+    <text x="456" y="479" class="note">材料与接手人？</text>
+  </g>
+  <g text-anchor="middle">
+    <path d="M654 388 V278 Q744 190 834 278 V388 M673 388 V290 Q744 223 815 290 V388" class="gate"/>
+    <circle cx="744" cy="316" r="56" fill="#F2C94C"/>
+    <text x="744" y="332" class="stage">空窗</text>
+    <path d="M712 419 L725 432 L754 403" class="gate"/>
+    <text x="744" y="479" class="note">升级边界？</text>
+  </g>
+  <g text-anchor="middle">
+    <path d="M940 388 V278 Q1030 190 1120 278 V388 M959 388 V290 Q1030 223 1101 290 V388" class="gate"/>
+    <circle cx="1030" cy="316" r="56" fill="#F2C94C"/>
+    <text x="1030" y="332" class="stage">收尾</text>
+    <path d="M998 419 L1011 432 L1040 403" class="gate"/>
+    <text x="1030" y="479" class="note">闭环与权限？</text>
+  </g>
+</svg>

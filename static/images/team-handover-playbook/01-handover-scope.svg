@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="scope-title scope-desc" lang="zh-CN">
+  <title id="scope-title">交接范围：围绕连续性的六个组成部分</title>
+  <desc id="scope-desc">在办事项、周期事务、对外接口、权限账号、隐性约定和判断依据共同连接工作连续性，交接不仅是一份任务清单。</desc>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26} .heading{font-size:46px;font-weight:700}.note{font-size:32px}.label{font-size:40px;font-weight:600}.line{fill:none;stroke:#2F2B26;stroke-width:3;stroke-linecap:round}</style>
+  <g>
+    <text x="60" y="91" class="heading">交接的是工作连续性</text>
+    <text x="60" y="140" class="note">六类信息一起交，避免只交任务、不交背景</text>
+  </g>
+  <g class="line">
+    <path d="M490 233 L548 293 M710 233 L652 293 M340 365 H489 M711 365 H860 M490 497 L548 437 M710 497 L652 437"/>
+    <circle cx="600" cy="365" r="112" fill="#F2C94C"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="600" y="354" class="label">工作</text>
+    <text x="600" y="402" class="label">连续性</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="275" y="188" width="245" height="86" rx="43" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <rect x="680" y="188" width="245" height="86" rx="43" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <text x="397" y="246" class="label">在办事项</text>
+    <text x="802" y="246" class="label">周期事务</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="95" y="322" width="245" height="86" rx="43" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <rect x="860" y="322" width="245" height="86" rx="43" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <text x="217" y="380" class="label">对外接口</text>
+    <text x="982" y="380" class="label">权限账号</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="275" y="455" width="245" height="86" rx="43" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <rect x="680" y="455" width="245" height="86" rx="43" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <text x="397" y="513" class="label">隐性约定</text>
+    <text x="802" y="513" class="label">判断依据</text>
+  </g>
+</svg>

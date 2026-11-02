@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="pillars-title pillars-desc" lang="zh-CN">
+  <title id="pillars-title">主管的角色：协调三根责任支柱</title>
+  <desc id="pillars-desc">原负责人承担内容解释，接手人承担操作验证，主管承担节奏责任与升级。三根支柱共同支撑交接，主管协调节奏与边界而不替代解释和验证。</desc>
+  <defs><marker id="pillars-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.role{font-size:44px;font-weight:600}.duty{font-size:40px;font-weight:600}.stone{fill:none;stroke:#2F2B26;stroke-width:3}</style>
+  <g>
+    <text x="60" y="91" class="heading">主管协调，不包办交接</text>
+    <text x="60" y="140" class="note">解释、验证、节奏各有责任，三方共同支撑连续性</text>
+  </g>
+  <g>
+    <path d="M245 184 H955" fill="none" stroke="#2F2B26" stroke-width="3" marker-start="url(#pillars-arrow)" marker-end="url(#pillars-arrow)"/>
+    <circle cx="600" cy="184" r="10" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <path d="M245 184 V214 M600 194 V214 M955 184 V214" stroke="#2F2B26" stroke-width="3"/>
+  </g>
+  <g text-anchor="middle">
+    <rect x="105" y="220" width="280" height="74" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="245" y="271" class="role">原负责人</text>
+    <path d="M125 296 V513 H365 V296 M149 310 V330 M341 310 V330 M149 475 V493 M341 475 V493" class="stone"/>
+    <text x="245" y="369" class="duty">内容解释</text>
+    <text x="245" y="443" class="note">讲清背景与依据</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="460" y="220" width="280" height="74" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="600" y="271" class="role">接手人</text>
+    <path d="M480 296 V513 H720 V296 M504 310 V330 M696 310 V330 M504 475 V493 M696 475 V493" class="stone"/>
+    <text x="600" y="369" class="duty">操作验证</text>
+    <text x="600" y="443" class="note">安全试跑与反馈</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="815" y="220" width="280" height="74" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="955" y="271" class="role">主管</text>
+    <path d="M835 296 V513 H1075 V296 M859 310 V318 M1051 310 V318 M859 482 V493 M1051 482 V493" class="stone"/>
+    <text x="955" y="349" class="duty">节奏责任</text>
+    <text x="955" y="394" class="duty">与升级</text>
+    <text x="955" y="461" class="note">统筹节点与边界</text>
+  </g>
+  <g>
+    <rect x="60" y="521" width="1080" height="59" fill="#2F2B26"/>
+    <text x="600" y="562" text-anchor="middle" class="note" style="fill:#F7F0DE">三方协同：解释清楚、验证可用、节奏可控</text>
+  </g>
+</svg>

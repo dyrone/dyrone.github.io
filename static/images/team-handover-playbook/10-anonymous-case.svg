@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="case-title case-desc" lang="zh-CN">
+  <title id="case-title">匿名交接案例：三方泳道与休假前后协作</title>
+  <desc id="case-desc">泳道为原负责人、接手人和主管，阶段为休假前、休假期间和返回后。原负责人整理文档交给接手人阅读答疑；接手人在休假期间内部排查，主管判断是否升级，仅必要时原负责人支持。返回后共同核对结果、补写说明并确认闭环。</desc>
+  <defs>
+    <marker id="case-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#2F2B26"/></marker>
+    <marker id="case-boundary-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#B5483F"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.role{font-size:40px;font-weight:600}.action{font-size:40px;font-weight:600}.flow{fill:none;stroke:#2F2B26;stroke-width:3;marker-end:url(#case-arrow)}</style>
+  <g>
+    <text x="60" y="91" class="heading">一次休假，三方接力</text>
+    <text x="60" y="140" class="note">文档先交、接手人先查、主管定界、返回后核对</text>
+    <rect x="900" y="241" width="239" height="293" fill="#F2C94C"/>
+    <rect x="60" y="180" width="1080" height="355" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <path d="M60 240 H1140 M60 335 H1140 M60 430 H1140 M250 180 V535 M530 180 V535 M900 180 V535" stroke="#2F2B26" stroke-width="2"/>
+    <text x="60" y="574" class="note">先内部处理；必须升级时集中求助；返回后共同闭环</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="390" y="224" class="role">休假前</text>
+    <text x="715" y="224" class="role">休假期间</text>
+    <text x="1020" y="224" class="role">返回后</text>
+    <text x="155" y="303" class="role">原负责人</text>
+    <text x="155" y="398" class="role">接手人</text>
+    <text x="155" y="493" class="role">主管</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="390" y="300" class="action">整理文档</text>
+    <text x="390" y="395" class="action">阅读答疑</text>
+    <text x="390" y="490" class="action">定节奏</text>
+    <path d="M390 314 V357" class="flow"/>
+    <path d="M480 384 H627" class="flow"/>
+    <path d="M457 479 H627" class="flow"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="715" y="300" class="note">仅必要时支持</text>
+    <text x="715" y="395" class="action">内部排查</text>
+    <text x="715" y="490" class="action">判断升级</text>
+    <path d="M715 407 V452" class="flow"/>
+    <path d="M715 313 V357" class="flow"/>
+    <path d="M629 479 H577 V289 H606" fill="none" stroke="#B5483F" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#case-boundary-arrow)"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="1020" y="300" class="action">补写说明</text>
+    <text x="1020" y="395" class="action">结果核对</text>
+    <text x="1020" y="490" class="action">闭环确认</text>
+    <path d="M804 384 H932" class="flow"/>
+    <path d="M1020 357 V314" class="flow"/>
+    <path d="M1020 407 V452" class="flow"/>
+  </g>
+</svg>

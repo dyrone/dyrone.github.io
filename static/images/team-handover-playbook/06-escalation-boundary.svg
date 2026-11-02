@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="boundary-title boundary-desc" lang="zh-CN">
+  <title id="boundary-title">有边界地求助：先内部排查，再判断升级</title>
+  <desc id="boundary-desc">遇到卡点，先在内部查文档与讨论。能解决则记录；不能解决则判断是否紧急且必须由原负责人支持。是则集中求助，否则指定负责人继续排查。</desc>
+  <defs>
+    <marker id="boundary-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#2F2B26"/></marker>
+    <marker id="boundary-help-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#B5483F"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.node{font-size:40px;font-weight:600}.flow{fill:none;stroke:#2F2B26;stroke-width:3;marker-end:url(#boundary-arrow)}</style>
+  <g>
+    <text x="60" y="91" class="heading">有边界地求助</text>
+    <text x="60" y="140" class="note">先内部排查，只有紧急且必须时才找原负责人</text>
+  </g>
+  <g>
+    <path d="M190 245 H222" class="flow"/>
+    <path d="M510 245 H524" class="flow"/>
+    <path d="M776 245 H942" class="flow"/>
+    <path d="M650 301 V341" class="flow"/>
+    <path d="M840 418 H995 V499" class="flow"/>
+    <path d="M460 418 H240 V513" fill="none" stroke="#B5483F" stroke-width="3" marker-end="url(#boundary-help-arrow)"/>
+    <text x="846" y="224" class="note">是</text>
+    <text x="679" y="331" class="note">否</text>
+    <text x="333" y="399" class="note" style="fill:#B5483F">是</text>
+    <text x="907" y="398" class="note">否</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="60" y="205" width="130" height="80" rx="13" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="125" y="260" class="node">卡点</text>
+    <rect x="230" y="192" width="280" height="106" rx="13" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="370" y="239" class="node">内部查文档</text>
+    <text x="370" y="282" class="note">内部讨论</text>
+    <path d="M650 190 L775 245 L650 300 L525 245 Z" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="650" y="257" class="note" font-weight="600">能解决？</text>
+    <rect x="950" y="205" width="190" height="80" rx="13" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="1045" y="260" class="node">记录</text>
+  </g>
+  <g text-anchor="middle">
+    <path d="M650 343 L840 418 L650 493 L460 418 Z" fill="#F7F0DE" stroke="#B5483F" stroke-width="3"/>
+    <text x="650" y="400" class="note" font-weight="600">紧急且必须</text>
+    <text x="650" y="440" class="note" font-weight="600">原负责人支持？</text>
+  </g>
+  <g text-anchor="middle">
+    <rect x="60" y="520" width="360" height="57" rx="12" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="240" y="562" class="node">集中求助</text>
+    <rect x="850" y="505" width="290" height="72" rx="12" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="995" y="536" class="note" font-weight="600">指定负责人</text>
+    <text x="995" y="571" class="note">继续排查</text>
+  </g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="qa-title qa-desc" lang="zh-CN">
+  <title id="qa-title">答疑会议：会前读、会中定、会后写</title>
+  <desc id="qa-desc">会议前先阅读交接文档并带着问题来，会议中澄清疑问并为未决问题指定负责人，会议后把结论与责任写回文档。</desc>
+  <defs><marker id="qa-arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L12 6 L0 12 Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.phase{font-size:42px;font-weight:600}.ink{fill:none;stroke:#2F2B26;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}</style>
+  <g>
+    <text x="60" y="91" class="heading">答疑不是重讲，而是补齐</text>
+    <text x="60" y="140" class="note">把会议留给不清楚的地方，把结论留在文档里</text>
+  </g>
+  <g class="ink">
+    <path d="M373 315 H431" marker-end="url(#qa-arrow)"/>
+    <path d="M749 315 H807" marker-end="url(#qa-arrow)"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="225" y="214" class="phase">会前读文档</text>
+    <path d="M105 269 Q165 249 225 277 Q285 249 345 269 V367 Q285 347 225 375 Q165 347 105 367 Z M225 277 V375 M129 294 L200 306 M129 325 L200 337 M250 306 L321 294 M250 337 L321 325" class="ink"/>
+    <text x="225" y="428" class="note">先读交接材料</text>
+    <text x="225" y="471" class="note">带着疑问来</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="600" y="214" class="phase">会中定问题</text>
+    <path d="M480 258 H682 V337 H547 L513 365 V337 H480 Z" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="581" y="312" font-size="40" font-weight="700">疑问？</text>
+    <path d="M650 351 H714 V380 H650 M682 337 V365" class="ink"/>
+    <text x="600" y="428" class="note">澄清疑问</text>
+    <text x="600" y="471" class="note">未决问题定负责人</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="975" y="214" class="phase">会后写回去</text>
+    <path d="M876 253 H1044 V380 H876 Z M900 282 H1000 M900 315 H971 M900 348 H950" class="ink"/>
+    <path d="M990 353 L1055 288 L1076 309 L1011 374 L981 383 Z M1055 288 L1076 309" fill="#F2C94C" stroke="#2F2B26" stroke-width="3" stroke-linejoin="round"/>
+    <text x="975" y="428" class="note">补写结论与责任</text>
+    <text x="975" y="471" class="note">让后续有据可查</text>
+  </g>
+  <g>
+    <rect x="60" y="514" width="1080" height="66" rx="12" fill="#F2C94C"/>
+    <text x="600" y="558" text-anchor="middle" font-size="36" font-weight="600">读过再问，问清再写，避免重复答疑</text>
+  </g>
+</svg>

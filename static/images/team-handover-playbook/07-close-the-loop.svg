@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="closure-title closure-desc" lang="zh-CN">
+  <title id="closure-title">交接收尾：三类事项逐项闭环，权限单列核对</title>
+  <desc id="closure-desc">结束复盘分为已完成、已转交、待跟进三列，每列都核对责任角色与相应时间。权限迁移另列核对账号归属、授权范围与回收确认，所有状态均以中性色呈现。</desc>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.status{font-size:44px;font-weight:600}.result{font-size:36px;font-weight:600}.tie{fill:none;stroke:#2F2B26;stroke-width:3}</style>
+  <g>
+    <text x="60" y="91" class="heading">收尾时，逐项确认去向</text>
+    <text x="60" y="140" class="note">完成有确认，转交有承接，遗留有下一步</text>
+    <path d="M408 192 V465 M792 192 V465" stroke="#2F2B26" stroke-width="2"/>
+  </g>
+  <g>
+    <path d="M89 251 H333" stroke="#F2C94C" stroke-width="17"/>
+    <text x="95" y="239" class="status">已完成</text>
+    <text x="95" y="313" class="result">结果已确认</text>
+    <path d="M78 352 V421 M78 352 H91 M78 421 H91" class="tie"/>
+    <text x="95" y="369" class="note">确认人：原负责人</text>
+    <text x="95" y="421" class="note">完成时间：已记录</text>
+  </g>
+  <g>
+    <path d="M469 251 H713" stroke="#F2C94C" stroke-width="17"/>
+    <text x="475" y="239" class="status">已转交</text>
+    <text x="475" y="313" class="result">责任已接续</text>
+    <path d="M458 352 V421 M458 352 H471 M458 421 H471" class="tie"/>
+    <text x="475" y="369" class="note">接手人：接手角色</text>
+    <text x="475" y="421" class="note">接手时间：已记录</text>
+  </g>
+  <g>
+    <path d="M849 251 H1093" stroke="#F2C94C" stroke-width="17"/>
+    <text x="855" y="239" class="status">待跟进</text>
+    <text x="855" y="313" class="result">下一步已明确</text>
+    <path d="M838 352 V421 M838 352 H851 M838 421 H851" class="tie"/>
+    <text x="855" y="369" class="note">负责人：跟进角色</text>
+    <text x="855" y="421" class="note">跟进时限：已约定</text>
+  </g>
+  <g>
+    <rect x="60" y="505" width="1080" height="72" rx="12" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <rect x="60" y="505" width="300" height="72" rx="12" fill="#F2C94C" stroke="#2F2B26" stroke-width="3"/>
+    <text x="210" y="555" text-anchor="middle" font-size="40" font-weight="600">权限迁移</text>
+    <text x="397" y="554" class="note">单列核对：账号归属、授权范围、回收确认</text>
+  </g>
+</svg>

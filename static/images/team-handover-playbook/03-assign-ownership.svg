@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="ownership-title ownership-desc" lang="zh-CN">
+  <title id="ownership-title">逐项绑定：事项、状态、接手人与材料位置</title>
+  <desc id="ownership-desc">清单每一行都绑定事项、当前状态、接手人和材料位置。连接线突出接手人承担责任并能找到材料，从而防止事项悬空。</desc>
+  <defs><marker id="ownership-arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9 Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.cell{font-size:34px}.column{font-size:40px;font-weight:600}</style>
+  <g>
+    <text x="60" y="91" class="heading">每件事，都有明确接手人</text>
+    <text x="60" y="140" class="note">不是“大家知道”，而是逐项确认“谁来继续”</text>
+    <rect x="60" y="186" width="1080" height="336" rx="15" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <path d="M60 261 H1140 M60 348 H1140 M60 435 H1140" stroke="#2F2B26" stroke-width="2"/>
+    <rect x="588" y="190" width="226" height="328" fill="#F2C94C"/>
+  </g>
+  <g>
+    <text x="95" y="236" class="column">事项</text>
+    <text x="329" y="236" class="column">当前状态</text>
+    <text x="638" y="236" class="column">接手人</text>
+    <text x="884" y="236" class="column">材料位置</text>
+  </g>
+  <g class="cell">
+    <text x="95" y="317">运行检查</text><text x="345" y="317">处理中</text>
+    <text x="633" y="317">接手角色</text><text x="901" y="317">操作说明</text>
+    <path d="M466 305 H612" fill="none" stroke="#2F2B26" stroke-width="2.5" marker-end="url(#ownership-arrow)"/>
+    <path d="M781 305 H879" fill="none" stroke="#2F2B26" stroke-width="2.5" marker-end="url(#ownership-arrow)"/>
+  </g>
+  <g class="cell">
+    <text x="95" y="404">周期汇总</text><text x="345" y="404">待执行</text>
+    <text x="633" y="404">接手角色</text><text x="901" y="404">汇总路径</text>
+    <path d="M466 392 H612" fill="none" stroke="#2F2B26" stroke-width="2.5" marker-end="url(#ownership-arrow)"/>
+    <path d="M781 392 H879" fill="none" stroke="#2F2B26" stroke-width="2.5" marker-end="url(#ownership-arrow)"/>
+  </g>
+  <g class="cell">
+    <text x="95" y="491">接口沟通</text><text x="345" y="491">待确认</text>
+    <text x="633" y="491">接手角色</text><text x="901" y="491">联系说明</text>
+    <path d="M466 479 H612" fill="none" stroke="#2F2B26" stroke-width="2.5" marker-end="url(#ownership-arrow)"/>
+    <path d="M781 479 H879" fill="none" stroke="#2F2B26" stroke-width="2.5" marker-end="url(#ownership-arrow)"/>
+  </g>
+  <g>
+    <path d="M639 537 H767" stroke="#B5483F" stroke-width="3"/>
+    <text x="60" y="572" font-size="36" font-weight="600">逐项绑定责任，避免事项<tspan fill="#B5483F" style="fill:#B5483F">悬空</tspan></text>
+  </g>
+</svg>

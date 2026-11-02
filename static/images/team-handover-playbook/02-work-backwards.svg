@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="backwards-title backwards-desc" lang="zh-CN">
+  <title id="backwards-title">倒排交接：把准备放在空窗期之前</title>
+  <desc id="backwards-desc">休假前完成清单、文档和答疑，休假期间由接手人处理，返回后核对。最后工作日在核对之后，是交接收口的截止线。</desc>
+  <defs><marker id="backwards-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#2F2B26"/></marker></defs>
+  <rect width="1200" height="630" fill="#F7F0DE"/>
+  <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#2F2B26}.heading{font-size:46px;font-weight:700}.note{font-size:32px}.stage{font-size:44px;font-weight:600}</style>
+  <g>
+    <text x="60" y="91" class="heading">从最后工作日，倒排准备</text>
+    <text x="60" y="140" class="note">休假前准备，休假期间承接，返回后核对闭环</text>
+  </g>
+  <g>
+    <rect x="60" y="185" width="625" height="300" rx="22" fill="#F2C94C"/>
+    <path d="M135 286 V270 H590 V286" fill="none" stroke="#2F2B26" stroke-width="3"/>
+    <text x="362" y="244" text-anchor="middle" font-size="36" font-weight="600">休假前完成准备</text>
+    <path d="M85 348 H1120" fill="none" stroke="#2F2B26" stroke-width="4" marker-end="url(#backwards-arrow)"/>
+  </g>
+  <g text-anchor="middle">
+    <circle cx="135" cy="348" r="12" fill="#2F2B26"/>
+    <circle cx="360" cy="348" r="12" fill="#2F2B26"/>
+    <circle cx="585" cy="348" r="12" fill="#2F2B26"/>
+    <text x="135" y="426" class="stage">清单</text>
+    <text x="360" y="426" class="stage">文档</text>
+    <text x="585" y="426" class="stage">答疑</text>
+  </g>
+  <g>
+    <path d="M710 258 V485" stroke="#746B60" stroke-width="3" stroke-dasharray="9 8"/>
+    <text x="710" y="229" text-anchor="middle" font-size="34" font-weight="600">开始休假</text>
+  </g>
+  <g>
+    <path d="M1120 258 V485" stroke="#B5483F" stroke-width="3" stroke-dasharray="9 8"/>
+    <text x="1040" y="229" text-anchor="middle" font-size="34" font-weight="600" style="fill:#B5483F">最后工作日</text>
+  </g>
+  <g text-anchor="middle">
+    <circle cx="835" cy="348" r="12" fill="#F7F0DE" stroke="#2F2B26" stroke-width="3"/>
+    <circle cx="1065" cy="348" r="12" fill="#2F2B26"/>
+    <text x="835" y="426" class="stage">空窗期</text>
+    <text x="1065" y="426" class="stage">核对</text>
+  </g>
+  <g>
+    <path d="M60 529 H1140" stroke="#2F2B26" stroke-width="2"/>
+    <text x="60" y="574" class="note">准备前置：清单先定范围，文档写清做法，答疑补齐缺口</text>
+  </g>
+</svg>
